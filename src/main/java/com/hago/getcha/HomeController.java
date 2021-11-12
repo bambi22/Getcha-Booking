@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "restManagement/menuRegisterForm";
+		return "";
 
 	}
 	
@@ -60,5 +60,15 @@ public class HomeController {
 	@RequestMapping(value="/view")
 	public String view() {
 		return "viewForm";
+	}
+
+	@RequestMapping(value="restRegister")
+	public String restRegister() {
+		return "restManagement/restRegisterForm";
+	}
+	
+	@RequestMapping(value="menuRegister")
+	public String menuRegister() {
+		return "restManagement/menuRegisterForm";
 	}
 }

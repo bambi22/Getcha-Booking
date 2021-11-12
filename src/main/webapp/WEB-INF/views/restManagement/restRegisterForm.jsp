@@ -59,7 +59,7 @@ function addClosed(){
 	<hr>
 	<br>
 	<h3 style="text-align:middle">메뉴 등록</h3>
-	<form action="menuRegister" >
+	<form action="restRegisterProc" >
 		<table>
 			<tr>
 				<td> 식당 이름 </td>
