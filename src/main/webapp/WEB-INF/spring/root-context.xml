@@ -26,5 +26,7 @@
 	</bean>
 	
 	<!-- 마이바티스 xml파일과 dao빈 연결  -->
-	<mybatis-spring:scan base-package="com.hago.getcha.restManagement.dao"/>	
+	<mybatis-spring:scan base-package="com.hago.getcha.restManagement.dao"/>
+	<mybatis-spring:scan base-package="com.hago.getcha.BookingMember.dao"/>	
+	<mybatis-spring:scan base-package="com.hago.getcha.Member.dao"/>	
 </beans>
