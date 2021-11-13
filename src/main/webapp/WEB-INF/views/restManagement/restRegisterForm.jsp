@@ -11,6 +11,8 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- 카카오 주소 라이브러리 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ca9e6dca916cb522a752c40d791a9b9&libraries=services"></script>
+<script type="text/javascript" src="resources/js/restManagement/jquery.timepicker.min.js" ></script><!-- 타이머js -->
+<link type="text/css" rel="stylesheet" href="resources/css/restManagement/jquery.timepicker.css" media=""/><!-- 타이머css -->
 
 
 <script>
@@ -70,6 +72,22 @@ $(function(){
 		}
 	})
 });
+
+$(document).ready(function() {
+    // INPUT 박스에 들어간 ID값을 적어준다.
+    $("#START_TIME,#END_TIME").timepicker({
+        'minTime': '00:00am', // 조회하고자 할 시작 시간 ( 09시 부터 선택 가능하다. )
+        'maxTime': '24:00pm', // 조회하고자 할 종료 시간 ( 20시 까지 선택 가능하다. )
+        'timeFormat': 'H:i',
+        'step': 30 // 30분 단위로 지정. ( 10을 넣으면 10분 단위 )
+});
+
+$(window).scroll(function(){
+    $(".ui-timepicker-wrapper").hide();
+});
+
+});
+
 
 function addOpening(){
  	var day = document.getElementById("openingDay").value;
@@ -177,8 +195,9 @@ function submitBtn(){
 						<option value="day off">day off</option>				
 					</select>
 					<div id="hours" style="display:inline;">
-						<input type="text" name="start" id="start"> - 
-						<input type="text" name="end" id="end">
+						<input type="text" name="START_TIME" id="START_TIME" value="" maxlength="10"  class="setDatePicker">
+			            -
+			            <input type="text" name="END_TIME" id="END_TIME" value="" maxlength="10"  class="setDatePicker">
 					</div>
 					<input type="button" onclick="addOpening()" value="추가">
 				</td>
