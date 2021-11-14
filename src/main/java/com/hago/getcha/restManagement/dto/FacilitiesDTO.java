@@ -1,20 +1,22 @@
 package com.hago.getcha.restManagement.dto;
 
 public class FacilitiesDTO {
-	private String restNum;
-	private String facilities;
-	public String getRestNum() {
+	private int restNum;
+	private String facility;
+
+	
+	public int getRestNum() {
 		return restNum;
 	}
-	public void setRestNum(String restNum) {
+	public void setRestNum(int restNum) {
 		this.restNum = restNum;
 	}
-	public String getFacilities() {
-		return facilities;
+	public String getFacility() {
+		return facility;
 	}
-	public void setFacilities(String facilities) {
-		this.facilities = facilities;
+	public void setFacility(String facility) {
+		this.facility = facility;
 	}
-	
+
 	
 }

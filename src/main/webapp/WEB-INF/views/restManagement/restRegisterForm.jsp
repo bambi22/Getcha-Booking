@@ -25,7 +25,7 @@
 	
 	<h3>메뉴 등록</h3>
 	<form id="f" action="restRegisterProc" method="post">
-		<input type="hidden" value="35" name="restNum">
+		<input type="hidden" value="42" name="restNum">
 		<table>
 			<tr>
 				<td> 식당 이름 </td>
@@ -119,16 +119,16 @@
 			<tr>
 				<td> 부대시설 </td>
 				<td>
-					<input type="checkbox" name="facilities" value="parking">주차 가능
-					<input type="checkbox" name="facilities" value="valet">발렛 가능
-					<input type="checkbox" name="facilities" value="groupSeats">단체석
-					<input type="checkbox" name="facilities" value="babySeats">아기의자
-					<input type="checkbox" name="facilities" value="corkage">콜키지 가능
-					<input type="checkbox" name="facilities" value="privateRoom">개별 룸
-					<input type="checkbox" name="facilities" value="sommelier">전문 소믈리에
-					<input type="checkbox" name="facilities" value="spaceRental">대관 가능
-					<input type="checkbox" name="facilities" value="noKids">노키즈존
-					<input type="checkbox" name="facilities" value="lateNight">심야 영업
+					<input type="checkbox" name="facilities" value="주차 가능">주차 가능
+					<input type="checkbox" name="facilities" value="발렛 가능">발렛 가능
+					<input type="checkbox" name="facilities" value="단체석">단체석
+					<input type="checkbox" name="facilities" value="아기의자">아기의자
+					<input type="checkbox" name="facilities" value="콜키지 가능">콜키지 가능
+					<input type="checkbox" name="facilities" value="개별 룸">개별 룸
+					<input type="checkbox" name="facilities" value="전문 소믈리에">전문 소믈리에
+					<input type="checkbox" name="facilities" value="대관 가능">대관 가능
+					<input type="checkbox" name="facilities" value="노키즈존">노키즈존
+					<input type="checkbox" name="facilities" value="심야 영업">심야 영업
 				</td>
 			</tr>
 			<tr>

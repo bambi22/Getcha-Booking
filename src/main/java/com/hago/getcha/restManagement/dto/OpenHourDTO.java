@@ -1,15 +1,16 @@
 package com.hago.getcha.restManagement.dto;
 
-public class OpeningTimeDTO {
-	private String restNum;
+public class OpenHourDTO {
+	private int restNum;
 	private String weekSelection;
 	private String daySelection;
 	private String hours;
 	
-	public String getRestNum() {
+
+	public int getRestNum() {
 		return restNum;
 	}
-	public void setRestNum(String restNum) {
+	public void setRestNum(int restNum) {
 		this.restNum = restNum;
 	}
 	public String getWeekSelection() {
