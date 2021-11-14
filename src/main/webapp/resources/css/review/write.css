@@ -1,0 +1,52 @@
+@charset "UTF-8";
+	section {
+		height: 1000px;
+		overflow: hidden;
+	}
+	
+	#ReviewWritingPage_Container, #ReviewWritingPage_Sub {
+		height: 320px;
+		margin: 10px;
+	}
+	
+	.ReviewWritingPage_Row {
+		padding: 20px;
+	}
+	
+	.addImage {
+	    width: 130px;
+	    height: 130px;
+	    background-color: grey;
+	    border-radius: 20px 20px / 20px 20px;
+	    overflow: hidden;
+	    margin: 0px 10px 10px 0px;
+	}
+	
+	.rate_wrap {
+		height: 50px;
+		padding: 10px;
+		text-align: center;
+	}
+	
+     .upload_wrap {
+         height: 180px;
+         padding: 10px;
+      }
+      
+     .upload_wrap div {
+      	float: left;
+      }
+      
+     .button_wrap {
+     	padding: 10px;
+      	text-align: right;
+      }
+      
+     .picture{
+      	background-image: url("../img/plus.jpg");
+       	background-size: 100%
+      }
+      
+     .rateItem {
+		cursor: pointer;
+	}

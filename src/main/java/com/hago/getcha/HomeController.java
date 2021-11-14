@@ -62,4 +62,9 @@ public class HomeController {
 	public String menuRegister() {
 		return "restManagement/menuRegisterForm";
 	}
+	
+	@RequestMapping(value="/write")
+	public String write() {
+		return "review/writeForm";
+	}
 }
