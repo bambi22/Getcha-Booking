@@ -1,4 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:if test="${empty sessionScope.id }">
+	<script>
+		location.href="index?formpath=login"
+	</script>
+</c:if>
+<c:url var="root" value="/"/>
 <center>
 	<table>
 		<tr>
@@ -6,34 +13,40 @@
 			<h2>회원정보</h2>
 		</tr>
 		<tr>
-			<td style="width:100px; height:40px;"><b>이름</b></td>
-			<td style="width:250px; height:40px;"><b>테스트</b></td>
-		</tr>
-		<tr>
 			<td style="width:100px; height:40px;"><b>닉네임</b></td>
-			<td style="width:250px; height:40px;"><b>확인</b></td>
+			<td style="width:250px; height:40px;"><b>${memberView.nickname}</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>이메일</b></td>
-			<td style="width:250px; height:40px;"><b>test.com</b></td>
+			<td style="width:250px; height:40px;"><b>${memberView.email}</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>휴대폰 번호</b></td>
-			<td style="width:250px; height:40px;"><b>010-1234-5678</b></td>
+			<td style="width:250px; height:40px;"><b>${memberView.mobile}</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>생일</b></td>
-			<td style="width:250px; height:40px;"><b>1994.01.01</b></td>
+			<td style="width:250px; height:40px;"><b>${memberView.birth}</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>성별</b></td>
-			<td style="width:250px; height:40px;"><b>선택안함</b></td>
+			<c:choose>
+				<c:when test="${memberView.gender == 'm' }">
+					<td style="width:100px; height:40px;" align="center" valign="bottom">남</td>
+				</c:when>
+				<c:when test="${memberView.gender == 'w' }">
+					<td style="width:100px; height:40px;" align="center" valign="bottom">여</td>
+				</c:when>
+				<c:otherwise>
+					<td style="width:100px; height:40px;" align="center" valign="bottom">선택안함</td>
+				</c:otherwise>
+			</c:choose>
 		</tr>
 		<tr>
 			<td colspan=2 align="right">
-				<input type="button" style="width:60px;" value="수정" onclick=""/>
-				<input type="button" style="width:60px;" value="홈" onclick=""/>
-				<input type="button" style="width:60px;" value="탈퇴" onclick=""/>
+				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi.jsp'"/>
+				<input type="button" style="width:60px;" value="홈" onclick="location.href='main2.jsp'"/>
+				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm.jsp'"/>
 			</td>
 		</tr>
 	</table>

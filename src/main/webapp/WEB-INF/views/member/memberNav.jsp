@@ -48,7 +48,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="button" name="update" id="update" value="회원수정"/>
+							<input type="button" name="update" id="update" value="회원정보" onclick="location.href='memberView.jsp'" />
 						</td>
 					</tr>
 					<tr>
@@ -58,7 +58,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="button" name="interest" id="interest" value="예약내역"/>
+							<input type="button" name="interest" id="interest" value="관심식당" onclick="location.href='collectionForm.jsp'"/>
 						</td>
 					</tr>
 				</c:otherwise>
