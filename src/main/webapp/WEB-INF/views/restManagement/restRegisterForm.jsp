@@ -16,16 +16,45 @@
 <link type="text/css" rel="stylesheet" href="resources/css/restManagement/jquery.timepicker.css" media=""/><!-- 타이머css -->
 <!-- 이 페이지 자바스크립트 링크 -->
 <script type="text/javascript" src="resources/js/restManagement/restRegister.js" ></script>
+<style>
+#previewImgs{
+	width: 660px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
+}
+#previewImgs:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+}
+#previewImg{
+	width: 160px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted #00f;
+	
+}
+#previewImg:empty:before{
+	content : attr(data-placeholder);
+	color : #999;
+	font-size:.9em;
+} 
 
+#previewDiv{
+	display:inline-block;position:relative;
+	width:150px;height:120px;margin:5px;z-index:1; 
+}
+</style>
 </head>
 <body>
 	<c:import url="restTop.jsp"/>
 	<hr>
 	<br>
 	
-	<h3>메뉴 등록</h3>
-	<form id="f" action="restRegisterProc" method="post">
-		<input type="hidden" value="42" name="restNum">
+	<h3>식당 정보 등록</h3>
+	<form id="f" action="restRegisterProc" method="post" enctype="multipart/form-data">
+		<input type="hidden" value="8" name="restNum">
 		<table>
 			<tr>
 				<td> 식당 이름 </td>
@@ -133,14 +162,147 @@
 			</tr>
 			<tr>
 				<td> 식당 사진 (최대 6장) </td>
-				<td> <input type="file" name="representPhoto" style="width: 300px"></td>
+				<td> 
+					<div>
+						<div id="previewImgs" >
+							
+						</div>
+					</div>
+					<input multiple="multiple" type="file" id="restImage" name="restImage" style="width: 300px">
+				</td>
 			</tr>
 			<tr>
 				<td> 프로모션 </td>
-				<td> <input type="file" name="promotion" style="width: 300px"></td>
+				<td> 
+					<div>
+						<div id="previewImg">
+							<div id="previewDiv">
+								<img id="previewPromotion" style="width:100%;height:100%;"/>
+							</div>
+						</div>
+					</div>
+					<input type="file" id="promotion" name="promotion" style="width: 300px" accept="image/*">
+				</td>
 			</tr>
 		</table>
 		<input type="button" value="다음 : 메뉴등록" onclick="submitBtn()">
 	</form>
 </body>
+<script>
+
+$(document).on('input','#promotion', function () {
+	readURL(this);
+}); 
+function readURL(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function (e){
+			$('#previewPromotion').attr('src',e.target.result);
+		}
+		 reader.readAsDataURL(input.files[0]);
+	}
+}
+
+
+imageView = function imageView(previewImgs, restImage){
+
+	var preview = document.getElementById(previewImgs);
+	var restImage = document.getElementById(restImage);
+	var sel_files = [];
+	
+	// 이미지와 체크 박스를 감싸고 있는 div 속성
+	var div_style = 'display:inline-block;position:relative;'
+	              + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+	// 미리보기 이미지 속성
+	var img_style = 'width:100%;height:100%;z-index:none';
+	// 이미지안에 표시되는 체크박스의 속성
+	var chk_style = 'width:40px;height:25px;position:absolute;font-size:12px;'
+	              + 'right:0px;top:0px;background:none;color:#f00;border:none;';
+	
+	restImage.onchange = function(e){
+		if ($('#restImage')[0].files.length > 6) {
+		    alert('6개를 초과하였습니다.')
+			return;
+		}	
+	    var files = e.target.files;
+	    var fileArr = Array.prototype.slice.call(files)
+	    for(f of fileArr){
+	      imageLoader(f);
+	    }
+	}
+	
+	// 탐색기에서 드래그앤 드롭 사용
+    preview.addEventListener('dragenter', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }, false)
+    
+    preview.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      
+    }, false)
+  
+    preview.addEventListener('drop', function(e){
+      var files = {};
+      e.preventDefault();
+      e.stopPropagation();
+      var dt = e.dataTransfer;
+      files = dt.files;
+      for(f of files){
+        imageLoader(f);
+      }
+      
+    }, false)	
+    
+    
+    imageLoader = function(file){
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = function(ee){
+        let img = document.createElement('img')
+        img.setAttribute('style', img_style)
+        img.setAttribute('name', 'choice')
+        img.src = ee.target.result;
+        preview.appendChild(makeDiv(img, file));
+      }
+      
+      reader.readAsDataURL(file);
+    }
+	
+    
+    makeDiv = function(img, file){
+      var div = document.createElement('div')
+      div.setAttribute('style', div_style)
+      
+      var btn = document.createElement('input')
+      btn.setAttribute('type', 'button')
+      btn.setAttribute('value', '삭제')
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = function(ev){
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for(var i=0 ;i<sel_files.length; i++){
+          if(delFile== sel_files[i].name){
+            sel_files.splice(i, 1);      
+          }
+        }
+        
+        dt = new DataTransfer();
+        for(f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        preview.files = dt.files;
+        var p = ele.parentNode;
+        preview.removeChild(p)
+      }
+      div.appendChild(img)
+      div.appendChild(btn)
+      return div
+    }
+}('previewImgs', 'restImage') 
+
+</script>
 </html>
