@@ -4,8 +4,8 @@
 
 <mapper namespace="com.hago.getcha.restManagement.dao.IRestManagementDAO">
 	<insert id="restRegister" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
-		INSERT INTO restaurant(restnum, restname, restintro, zipcode, address, dong, type, capacity, registerDate) 
-		VALUES(#{restNum}, #{restName}, #{restIntro}, #{zipcode}, #{address}, #{dong}, #{type}, #{capacity}, sysdate)
+		INSERT INTO restaurant(restnum, restname, restintro, zipcode, address, dong, type, capacity, promotion, registerDate) 
+		VALUES(#{restNum}, #{restName}, #{restIntro}, #{zipcode}, #{address}, #{dong}, #{type}, #{capacity}, #{promotion}, sysdate)
 	</insert>
 	
 	<insert id="addFacilities" parameterType="com.hago.getcha.restManagement.dto.FacilitiesDTO">
@@ -14,5 +14,9 @@
  	
  	<insert id="addOpenHour" parameterType="com.hago.getcha.restManagement.dto.OpenHourDTO">
         INSERT INTO openhour VALUES (#{restNum}, #{weekSelection}, #{daySelection}, #{hours})
+ 	</insert>
+
+ 	<insert id="addRestImage" parameterType="com.hago.getcha.restManagement.dto.RestImageDTO">
+        INSERT INTO restimage VALUES (#{restNum}, #{restImage})
  	</insert>
 </mapper>

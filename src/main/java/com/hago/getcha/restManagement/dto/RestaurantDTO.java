@@ -13,6 +13,7 @@ public class RestaurantDTO {
 	private String promotion;
 	private String representImage;
 	private String registerDate;
+	
 	public int getRestNum() {
 		return restNum;
 	}
