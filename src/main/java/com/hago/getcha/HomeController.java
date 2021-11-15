@@ -1,7 +1,5 @@
 package com.hago.getcha;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -61,5 +59,10 @@ public class HomeController {
 	@RequestMapping(value="menuRegister")
 	public String menuRegister() {
 		return "restManagement/menuRegisterForm";
+	}
+	
+	@RequestMapping(value="/write")
+	public String write() {
+		return "review/writeForm";
 	}
 }
