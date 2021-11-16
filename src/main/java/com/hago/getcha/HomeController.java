@@ -60,6 +60,10 @@ public class HomeController {
 	public String menuRegister() {
 		return "restManagement/menuRegisterForm";
 	}
+	@RequestMapping(value="restInfo")
+	public String restInfo() {
+		return "restManagement/restInfo";
+	}
 	
 	@RequestMapping(value="/write")
 	public String write() {
