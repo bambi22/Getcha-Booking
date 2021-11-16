@@ -31,7 +31,7 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 		// 세션값 추가
-		session.setAttribute("restNum", 10);
+		session.setAttribute("restNum", 11);
 		
 		// 멀티파트으로 가져온 식당 정보를 테이블에 저장
 		RestaurantDTO restDto = new RestaurantDTO();

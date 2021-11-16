@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +29,6 @@ public class RestRegisterServiceTest {
 	private static final Logger logger = LoggerFactory.getLogger(RestManagementController.class);
 	
 	
-	
-
 	@Test
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 			String FILE_LOCATION_PROMOTION = "C:\\Java_folder\\spring_workspace\\getcha\\src\\main\\webapp\\resources\\img\\promotion";

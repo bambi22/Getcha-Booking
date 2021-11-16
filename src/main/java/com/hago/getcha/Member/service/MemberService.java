@@ -1,6 +1,5 @@
 package com.hago.getcha.Member.service;
 
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +43,7 @@ public class MemberService implements IMemberService{
 		return "가입완료";
 	}
 	
+	
 	public memberDTO pwCheck(memberDTO check) {
 		if(check.getPw().equals(check.getPwCheck())==false)
 			return null;
@@ -54,6 +54,7 @@ public class MemberService implements IMemberService{
 		return login;
 	}
 
+	
 	@Override
 	public boolean deleteProc(memberDTO check) {
 		String sessionEmail = (String)session.getAttribute("email");
@@ -67,6 +68,7 @@ public class MemberService implements IMemberService{
 		session.invalidate();
 		return true;
 	}
+	
 
 	@Override
 	public memberDTO memberViewProc(String email) {
@@ -76,6 +78,7 @@ public class MemberService implements IMemberService{
 		}
 		return null;
 	}
+	
 
 	@Override
 	public int memberModiProc(memberDTO member) {

@@ -45,11 +45,9 @@
 			<tr>
 				<td height=40>비밀번호 확인</td>
 				<td>
-					<input type=password name='pwChk' id='pwChk' placeholder='비밀번호 확인' onblur="pwchk()"/>
+					<input type=password name='pwChk' id='pwChk' placeholder='비밀번호 확인' onblur="pwchk()"/><br>
+					<input type="text" style="border-width:0px" size="20" name="chk" id="chk" value="비밀번호를 입력하세요." readonly="readonly">
 				</td>
-				<!-- <td>
-				<input type="text" style="border-width:0px" size="20" name="chk" id="chk" value="비밀번호를 입력하세요." readonly="readonly">
-				 -->
 			</tr>
 			<tr>
 				<td height=40>휴대폰 번호</td>
@@ -91,18 +89,18 @@
 		</table>
 	</form>
 </center>
-<!-- 
+ 
 <script>
 	function pwchk(){
-		var pw = document.form.pw.value;
-		var pwChk = document.form.pwChk.value;
+		var pw = document.getElementById("pw").value;
+		var pwChk = document.getElementById("pwChk").value;
 		if(pwChk.length == 0 || pwChk == null){
-			document.form.chk.value="비밀번호를 입력하세요.";
+			document.getElementById("chk").value="비밀번호를 입력하세요.";
 		}else if(pw !=pwChk){
-			document.form.chk.value="비밀번호가 일치하지않습니다.";
+			document.getElementById("chk").value="비밀번호가 일치하지않습니다.";
 		}else{
-			document.form.chk.value="비밀번호가 동일합니다.";
+			document.getElementById("chk").value="비밀번호가 동일합니다.";
 		}
 		return;
 	}
-</script> -->
+</script>

@@ -17,32 +17,26 @@
 	<br>
 	<h3>메뉴 등록</h3>
 	<form action="menuRegisterProc" id="f" method="post" enctype="multipart/form-data">
-		<table border="1" style="width:1000px; " id="registerTable">
-			<tr id="trMenu">
-				<td style="width:60px"><strong>메뉴1</strong></td>
-	            <td style="width:800px">
-	                <input type="text" id="category" name="category" placeholder="분류" style="width:100px">
-	                <input type="text" id="menuName" name="menuName" placeholder="메뉴명" style="width:100px">
-	                <input type="text" id="menuDescript" name="menuDescript" placeholder="메뉴 소개">
-	                <input type="number" id="unitPrice" name="unitPrice" placeholder="가격" style="width:100px">
-	                <input type="file" id="menuImage1" name="menuImage" style="display:none;" onchange="previewName(this)"> 
-	                <label for="menuImage1"><i class="fas fa-upload">Photo</i> </label>
-	                <span id="menuImage1name"></span>
-	                <button type="button" onclick="delFirst()">삭제</button>
-	            </td>
+		<table border="1" " id="registerTable">
+			<tr>
+				<th style="width:100px">분류</th><th style="width:100px">메뉴명</th><th style="width:200px">메뉴 소개</th><th style="width:100px">가격</th><th>메뉴 이미지</th><th></th>
 			</tr>
 		</table>
 		<br>
-		<button type="button" onclick="addMenu()">메뉴 추가</button>
-		<button type="button" onclick="showList()">메뉴 확인</button>
+		<div>
+			<input type="text" id="inCategory" placeholder="분류" style="width:95px">
+            <input type="text" id="inMenuName"  placeholder="메뉴명" style="width:95px">
+            <input type="text" id="inMenuDescript"  placeholder="메뉴 소개" style="width:190px">
+            <input type="number" id="inUnitPrice"  placeholder="가격" style="width:100px">
+            <input type="file" id="inMenuImage" name="menuImage" style="display:none;" onchange="previewName(this)"> 
+            <label for="inMenuImage"><i class="fas fa-upload">Photo</i></label>
+            <span id="menuImagename"></span>
+			<button type="button" onclick="addMenu()">추가</button>
+		</div>
 		<button type="button" name="registerMenu" onclick="submitMenu()">메뉴 등록하기</button>
 		<input type="button" value="메뉴 등록하지 않기" onclick="location.href='restInfo'">
 	</form>
 	<br><br>
 	<hr><br>
-	<div id="showList" style="display:none">
-		<h3>메뉴 목록</h3>
-		<table id="menuList" border="1px"></table>
-	</div>
 </body>
 </html>

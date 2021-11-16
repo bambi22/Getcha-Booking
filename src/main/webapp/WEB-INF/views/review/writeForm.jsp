@@ -99,15 +99,15 @@
 	        <div class="upload_wrap">
 	 		<!-- 이미지 띄울 공간 -->
 				 <div>
-			  		<div class="addImage" id="image-show"></div><br>
-			    	<input type="file" accept="image/*" name="fileUpload" onchange="loadFile(this)">
+			  		<div class="addImage" id="fileUpload1"></div><br>
+			    	<input type="file" accept="image/*" name="fileUpload1" onchange="loadFile(this)">
 		    	</div>
 			    <div>
-			  		<div class="addImage" id="image-show"></div><br>
+			  		<div class="addImage" id="fileUpload2"></div><br>
 			    	<input type="file" accept="image/*" name="fileUpload2" onchange="loadFile(this)">
 		    	</div>
 		    	<div>
-			  		<div class="addImage" id="image-show"></div><br>
+			  		<div class="addImage" id="fileUpload3"></div><br>
 			    	<input type="file" accept="image/*" name="fileUpload3" onchange="loadFile(this)">
 		    	</div>
 	    	</div>
@@ -119,4 +119,10 @@
 		</div>
 	</section>
 	</form>
+		<script>
+			function loadFile(obj){
+				var name = obj.getAttribute('name');
+				document.getElementById(name).innerHTML = "name속성명" + name; 
+			}
+		</script>
 </body>
