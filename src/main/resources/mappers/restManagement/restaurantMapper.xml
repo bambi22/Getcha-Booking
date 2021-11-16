@@ -19,4 +19,8 @@
  	<insert id="addRestImage" parameterType="com.hago.getcha.restManagement.dto.RestImageDTO">
         INSERT INTO restimage VALUES (#{restNum}, #{restImage})
  	</insert>
+ 	
+ 	<insert id="addMenu" parameterType="com.hago.getcha.restManagement.dto.MenuDTO">
+        INSERT INTO specialmenu VALUES (#{restNum}, #{category}, #{menuName}, #{unitPrice}, #{menuImage})
+ 	</insert>
 </mapper>

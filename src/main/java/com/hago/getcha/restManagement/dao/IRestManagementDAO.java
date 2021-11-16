@@ -3,6 +3,7 @@ package com.hago.getcha.restManagement.dao;
 import org.springframework.stereotype.Repository;
 
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
+import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
@@ -16,5 +17,7 @@ public interface IRestManagementDAO {
 	public void addOpenHour(OpenHourDTO openDto);
 
 	public void addRestImage(RestImageDTO imgDto);
+
+	public void addMenu(MenuDTO menuDto);
 
 }

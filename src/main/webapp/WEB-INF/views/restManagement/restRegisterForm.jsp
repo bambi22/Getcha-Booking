@@ -54,7 +54,6 @@
 	
 	<h3>식당 정보 등록</h3>
 	<form id="f" action="restRegisterProc" method="post" enctype="multipart/form-data">
-		<input type="hidden" value="8" name="restNum">
 		<table>
 			<tr>
 				<td> 식당 이름 </td>
