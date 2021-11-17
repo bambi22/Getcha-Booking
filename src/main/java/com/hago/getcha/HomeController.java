@@ -1,7 +1,5 @@
 package com.hago.getcha;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -18,14 +17,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/main2", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "main2";
-
+	}
+	
+	@RequestMapping(value="/")
+	public String index(Model model) {
+		model.addAttribute("formpath", "main2");
+		return "member/index";
+	}
+	@RequestMapping(value="/index")
+	public String index(Model model, @RequestParam String formpath) {
+		model.addAttribute("formpath", formpath);
+		return "member/index";
 	}
 	
 	@RequestMapping(value="/member")
@@ -48,6 +54,11 @@ public class HomeController {
 		return "member/memberNav";
 	}
 	
+	@RequestMapping(value="/memberDelete")
+	public String memberDelete() {
+		return "member/deleteForm";
+	}
+	
 	@RequestMapping(value="/view")
 	public String view() {
 		return "viewForm";
@@ -61,6 +72,10 @@ public class HomeController {
 	@RequestMapping(value="menuRegister")
 	public String menuRegister() {
 		return "restManagement/menuRegisterForm";
+	}
+	@RequestMapping(value="restInfo")
+	public String restInfo() {
+		return "restManagement/restInfo";
 	}
 	
 	@RequestMapping(value="/write")
