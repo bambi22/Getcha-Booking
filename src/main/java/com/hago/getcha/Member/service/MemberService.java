@@ -9,22 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hago.getcha.Login.dao.LoginDAO;
 import com.hago.getcha.Member.dao.IMemberDAO;
+
 import com.hago.getcha.Member.dto.memberDTO;
 
 @Service
 public class MemberService implements IMemberService{
 	@Autowired IMemberDAO dao;
+	@Autowired LoginDAO dao2;
 	@Autowired HttpSession session;
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
-	@Override
-	public String CheckEmail(String email) {
-		int count = dao.CheckEmail(email);
-		if(count == 0)
-			return "사용 가능한 아이디";
-		return "중복 아이디";
-	}
+	
+	
 
 	@Override
 	public String memberProc(memberDTO member) {
@@ -88,5 +86,31 @@ public class MemberService implements IMemberService{
 			return 1;
 		else
 			return 2;
+	}
+
+
+	@Override
+	public String CheckEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean loginCheck(memberDTO member, HttpSession session) {
+		boolean result = dao2.loginCheck(member);
+		if (result == true) {	//true 일경우 세션 등록
+			//세션 변수 등록
+			session.setAttribute("email",member.getEmail());
+		}
+		
+		return result;
+	}
+
+
+	@Override
+	public void logout(HttpSession session) {
+		dao2.logout(session);
+		
 	}
 }
