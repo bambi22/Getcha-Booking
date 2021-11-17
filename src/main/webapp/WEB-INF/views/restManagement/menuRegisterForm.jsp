@@ -34,8 +34,9 @@
 			<button type="button" onclick="addMenu()">추가</button>
 		</div>
 		<button type="button" onclick="submitMenu()">메뉴 등록하기</button>
-		 <input type="file" id="inWholeMenu" name="wholeMenu" style="display:none;"> 
-            <label for="inWholeMenu"><i class="fas fa-upload">메뉴판</i></label> 
+		 <input type="file" id="inWholeMenu" name="wholeMenu" style="display:none;" multiple> 
+            <label for="inWholeMenu"><i class="fas fa-upload">메뉴판</i></label><br>
+            
 		<input type="button" value="메뉴 등록하지 않기" onclick="location.href='restInfo'">
 	</form>
 	<br><br>

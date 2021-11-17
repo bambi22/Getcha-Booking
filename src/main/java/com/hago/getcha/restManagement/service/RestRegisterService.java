@@ -21,6 +21,7 @@ import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
+import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
 @Service
 public class RestRegisterService implements IRestRegisterService {
@@ -117,8 +118,6 @@ public class RestRegisterService implements IRestRegisterService {
 				i++;
 				rmDao.addRestImage(imgDto);
 			}
-		}else {
-			restDto.setPromotion("파일 없음");
 		}
 	}
 
@@ -159,25 +158,26 @@ public class RestRegisterService implements IRestRegisterService {
 		}
 	    
 	    
-	    MultipartFile file = req.getFile("wholeMenu");
-	    RestaurantDTO restDto = new RestaurantDTO();
-		if(file.getSize() != 0) {	
-			Calendar cal = Calendar.getInstance(); 	
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			String fileName = sdf.format(cal.getTime()) + file.getOriginalFilename();
-			
-			restDto.setRestNum((Integer)session.getAttribute("restNum"));
-			restDto.setPromotion(fileName);   
-			File save = new File(FILE_LOCATION_WHOLEMENU + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
-			try {
-				file.transferTo(save);				// 그 위치에 저장해줌
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 				
-		}else {
-			restDto.setWholeMenu("파일 없음");
+	    List<MultipartFile> files = req.getFiles("wholeMenu");
+		Calendar cal = Calendar.getInstance(); 	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		if(files != null) {
+			int j = 1;
+			for(MultipartFile f : files) {
+				WholeMenuDTO menuDto = new WholeMenuDTO();
+				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
+				String fileName = i+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
+				menuDto.setWholeMenu(fileName);   
+				File save = new File(FILE_LOCATION_WHOLEMENU + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
+				try {
+					f.transferTo(save);				// 그 위치에 저장해줌
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+				j++;
+				rmDao.addWholeMenu(menuDto);
+			}
 		}
-		rmDao.addWholeMenu(restDto);
 		
 	}
 }

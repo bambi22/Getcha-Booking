@@ -1,4 +1,4 @@
-package com.hago.getcha.review.servie;
+package com.hago.getcha.review.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

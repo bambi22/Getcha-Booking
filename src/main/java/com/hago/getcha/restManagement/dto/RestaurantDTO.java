@@ -13,7 +13,6 @@ public class RestaurantDTO {
 	private String promotion;
 	private String representImage;
 	private String registerDate;
-	private String wholeMenu;
 	
 	public int getRestNum() {
 		return restNum;
@@ -87,17 +86,7 @@ public class RestaurantDTO {
 	public void setRegisterDate(String registerDate) {
 		this.registerDate = registerDate;
 	}
-	public String getWholeMenu() {
-		return wholeMenu;
-	}
-	public void setWholeMenu(String wholeMenu) {
-		this.wholeMenu = wholeMenu;
-	}
-	
-	
-	
-	
-	
+
 	
 	
 }

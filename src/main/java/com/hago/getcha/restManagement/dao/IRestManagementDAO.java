@@ -7,6 +7,7 @@ import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
+import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
 @Repository
 public interface IRestManagementDAO {
@@ -20,6 +21,6 @@ public interface IRestManagementDAO {
 
 	public void addMenu(MenuDTO menuDto);
 
-	public void addWholeMenu(RestaurantDTO restDto);
+	public void addWholeMenu(WholeMenuDTO menuDto);
 
 }
