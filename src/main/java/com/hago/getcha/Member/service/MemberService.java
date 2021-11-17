@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hago.getcha.Login.dao.LoginDAO;
+import com.hago.getcha.Login.dao.ILoginDAO;
 import com.hago.getcha.Member.dao.IMemberDAO;
 
 import com.hago.getcha.Member.dto.memberDTO;
@@ -17,7 +17,7 @@ import com.hago.getcha.Member.dto.memberDTO;
 @Service
 public class MemberService implements IMemberService{
 	@Autowired IMemberDAO dao;
-	@Autowired LoginDAO dao2;
+	@Autowired ILoginDAO loginDao;
 	@Autowired HttpSession session;
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
@@ -98,19 +98,20 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public boolean loginCheck(memberDTO member, HttpSession session) {
-		boolean result = dao2.loginCheck(member);
-		if (result == true) {	//true 일경우 세션 등록
+		int result = loginDao.loginCheck(member);
+		if (result == 1) {	//true 일경우 세션 등록
 			//세션 변수 등록
-			session.setAttribute("email",member.getEmail());
+			session.setAttribute("email", member.getEmail());
+			return true;
 		}
+		return false;
 		
-		return result;
 	}
 
 
 	@Override
 	public void logout(HttpSession session) {
-		dao2.logout(session);
+		session.invalidate();
 		
 	}
 }

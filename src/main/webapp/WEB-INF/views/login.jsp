@@ -16,7 +16,7 @@
 		<c:choose>
 			<c:when test="${empty sessionScope.email}">
 			<!-- 로그인이 안되어 있으면 -->
-				<form id="loginFrm" name="loginFrm" action="loginCheck.do">
+				<form id="loginFrm" name="loginFrm" action="loginCheck">
 					<table>
 						<tr>
 							<td>아이디</td>
@@ -43,7 +43,7 @@
 			</c:when>
 			<c:otherwise>
 				<h3>${sessionScope.email}님 환영합니다.</h3>
-				<a href="logout.do">로그아웃</a>
+				<a href="logout">로그아웃</a>
 			</c:otherwise>
 		</c:choose>
 </body>

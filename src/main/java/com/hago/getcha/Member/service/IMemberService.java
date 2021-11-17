@@ -1,10 +1,7 @@
 package com.hago.getcha.Member.service;
 
-import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-
-import org.springframework.ui.Model;
 
 import com.hago.getcha.Member.dto.memberDTO;
 

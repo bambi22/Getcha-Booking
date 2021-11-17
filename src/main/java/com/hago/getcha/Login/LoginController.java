@@ -13,22 +13,16 @@ import com.hago.getcha.Member.dto.memberDTO;
 import com.hago.getcha.Member.service.MemberService;
 
 @Controller
-@SessionAttributes("login")
 public class LoginController {
 
 	@Autowired
 	private MemberService memberService;
 	
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
-	
 	//로그인 처리
 	@RequestMapping(value="/loginCheck")
-	public ModelAndView loginCheck(@ModelAttribute memberDTO vo,HttpSession session) {
+	public ModelAndView loginCheck(@ModelAttribute memberDTO member,HttpSession session) {
 		
-		boolean result = memberService.loginCheck(vo, session);
+		boolean result = memberService.loginCheck(member, session);
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("login");
@@ -43,7 +37,7 @@ public class LoginController {
 	}
 	
 	//로그아웃 처리
-	@RequestMapping("logout.do")
+	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		
 		memberService.logout(session);

@@ -82,4 +82,9 @@ public class HomeController {
 	public String write() {
 		return "review/writeForm";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
+	}
 }
