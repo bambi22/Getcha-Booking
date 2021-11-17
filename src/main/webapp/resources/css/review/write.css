@@ -4,8 +4,8 @@
 		overflow: hidden;
 	}
 	
-	#ReviewWritingPage_Container, #ReviewWritingPage_Sub {
-		height: 320px;
+	#ReviewWritingPage_Container{
+		height: 800px;
 		margin: 10px;
 	}
 	
@@ -13,23 +13,14 @@
 		padding: 20px;
 	}
 	
-	.addImage {
-	    width: 130px;
-	    height: 130px;
-	    background-color: grey;
-	    border-radius: 20px 20px / 20px 20px;
-	    overflow: hidden;
-	    margin: 0px 10px 10px 0px;
-	}
-	
 	.rate_wrap {
-		height: 50px;
+		height: 70px;
 		padding: 10px;
 		text-align: center;
 	}
 	
      .upload_wrap {
-         height: 180px;
+         height: 110px;
          padding: 10px;
       }
       
@@ -42,11 +33,41 @@
       	text-align: right;
       }
       
-     .picture{
-      	background-image: url("../img/plus.jpg");
-       	background-size: 100%
-      }
-      
-     .rateItem {
-		cursor: pointer;
+      .rating .rate_radio {
+	    position: relative;
+	    display: inline-block;
+	    z-index: 20;
+	    opacity: 0.001;
+	    width: 40px;
+	    height: 40px;
+	    background-color: #fff;
+	    cursor: pointer;
+	    vertical-align: top;
+	    display: none;
 	}
+	
+	.rating .rate_radio + label {
+	    position: relative;
+	    display: inline-block;
+	    margin-left: -4px;
+	    z-index: 10;
+	    width: 40px;
+	    height: 40px;
+	    background-image: url('../img/review/starrate.png');
+	    background-repeat: no-repeat;
+	    background-size: 40px 40px;
+	    cursor: pointer;
+	    background-color: #f0f0f0;
+	}
+	.rating .rate_radio:checked + label {
+	    background-color: #ff8;
+	}
+	
+	.img_regi { position:relative; display:inline-block; width:100px; height:100px; border:1px solid #d1d1d1; overflow:hidden; margin-right:6px; }
+	.img_regi .ph { position:absolute; top:0; left:-100%; right:-100%; bottom:0; text-align:center; overflow:hidden; z-index:1; }
+	.img_regi.on { border-color:transparent; }
+	.img_regi.on .ph { background:#fff; }
+	.img_regi .ph img { height:100%; visibility:hidden; }
+	.img_regi input[type="file"] { position:absolute; left:0; bottom:0; width:100%; height:100%; filter:alpha(opacity=0); opacity:0; cursor:pointer; z-index:5; }
+	.img_regi a { position:absolute; top:0; left:0; right:0; bottom:0; text-align:center; line-height:78px; font-size:12px; }
+	

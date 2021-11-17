@@ -25,8 +25,14 @@
 		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml"/>
 	</bean>
 	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="52428800" />
+		<property name="maxInMemorySize" value="10485760" />
+	</bean>
+	
 	<!-- 마이바티스 xml파일과 dao빈 연결  -->
 	<mybatis-spring:scan base-package="com.hago.getcha.restManagement.dao"/>
 	<mybatis-spring:scan base-package="com.hago.getcha.BookingMember.dao"/>	
-	<mybatis-spring:scan base-package="com.hago.getcha.Member.dao"/>	
+	<mybatis-spring:scan base-package="com.hago.getcha.Member.dao"/>
+	<mybatis-spring:scan base-package="com.hago.getcha.review.dao"/>	
 </beans>
