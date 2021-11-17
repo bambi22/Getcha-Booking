@@ -31,7 +31,7 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 		// 세션값 추가
-		session.setAttribute("restNum", 11);
+		session.setAttribute("restNum", 21);
 		
 		// 멀티파트으로 가져온 식당 정보를 테이블에 저장
 		RestaurantDTO restDto = new RestaurantDTO();
@@ -124,36 +124,60 @@ public class RestRegisterService implements IRestRegisterService {
 
 	
 	
-	public void menuRegisterProc(MultipartHttpServletRequest req) {
-		int restNum = (Integer)session.getAttribute("restNum");
-		logger.warn("식당 번호" + Integer.toString(restNum));
+	public void menuRegisterProc(MultipartHttpServletRequest req) {	
 		
-		String[] categoryStr = req.getParameterValues("category");
-		String[] menuNameStr = req.getParameterValues("menuName");
-		String[] menuDescriptStr = req.getParameterValues("menuDescript");
-		String[] unitPriceStr = req.getParameterValues("unitPrice");
-		List<MultipartFile> files = req.getFiles("menuImage");
-		for(int i=0; i < menuNameStr.length; i++) {
+	    String[] categoryStr = req.getParameterValues("category"); 
+	    String[] menuNameStr = req.getParameterValues("menuName"); 
+	    String[] menuDescriptStr = req.getParameterValues("menuDescript"); 
+	    String[] unitPriceStr = req.getParameterValues("unitPrice"); 
+	   // List<MultipartFile> files = req.getFiles("menuImage");
+		int i= 0;
+	    for(String menuName : menuNameStr) {
 			MenuDTO menuDto = new MenuDTO();
-			menuDto.setRestNum(restNum);
-			menuDto.setCategory(categoryStr[i]);
-			menuDto.setMenuName(menuNameStr[i]);
+			menuDto.setRestNum((Integer)session.getAttribute("restNum"));
+			menuDto.setCategory(categoryStr[i]);	
+			menuDto.setMenuName(menuName);
 			menuDto.setMenuDescript(menuDescriptStr[i]);
 			menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
-			if(files != null) {
-				String fileName = menuNameStr[i] + files.get(i).getOriginalFilename();
-				menuDto.setMenuImage(fileName);
-				File save = new File(FILE_LOCATION_MENU + "\\" + fileName);
-				try {
-					files.get(i).transferTo(save);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}else {
-				menuDto.setMenuImage("파일 없음");
-			}
+			menuDto.setMenuImage("파일 없음"); 
+			
+//			  if(files != null) { 
+//				  String fileName = menuName + files.get(i).getOriginalFilename(); 
+//				  menuDto.setMenuImage(fileName); 
+//				  File save  = new File(FILE_LOCATION_MENU + "\\" + fileName); 
+//				  try {
+//					  files.get(i).transferTo(save); 
+//				  } catch (Exception e) { 
+//					  e.printStackTrace(); 
+//				  }
+//			  }else { 
+//				  menuDto.setMenuImage("파일 없음"); 
+//		      }
+			 
 			rmDao.addMenu(menuDto);
+			i++;
 		}
+	    
+	    
+	    MultipartFile file = req.getFile("wholeMenu");
+	    RestaurantDTO restDto = new RestaurantDTO();
+		if(file.getSize() != 0) {	
+			Calendar cal = Calendar.getInstance(); 	
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			String fileName = sdf.format(cal.getTime()) + file.getOriginalFilename();
+			
+			restDto.setRestNum((Integer)session.getAttribute("restNum"));
+			restDto.setPromotion(fileName);   
+			File save = new File(FILE_LOCATION_WHOLEMENU + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
+			try {
+				file.transferTo(save);				// 그 위치에 저장해줌
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 				
+		}else {
+			restDto.setWholeMenu("파일 없음");
+		}
+		rmDao.addWholeMenu(restDto);
 		
 	}
 }

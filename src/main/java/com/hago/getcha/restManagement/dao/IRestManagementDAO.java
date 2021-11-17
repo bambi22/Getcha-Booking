@@ -20,4 +20,6 @@ public interface IRestManagementDAO {
 
 	public void addMenu(MenuDTO menuDto);
 
+	public void addWholeMenu(RestaurantDTO restDto);
+
 }
