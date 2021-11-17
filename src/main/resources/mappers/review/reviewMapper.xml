@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hago.getcha.review.dao.IReviewDAO">
+	<insert id="writeProc" parameterType="com.hago.getcha.review.dto.ReviewDTO">
+		<selectKey keyProperty="reviewNum" resultType="int" order="BEFORE">
+			SELECT nvl(max(reviewNum),0)+1 FROM rest_review
+		</selectKey>
+		INSERT INTO rest_review VALUES(#{reviewNum}, #{restNum}, #{email}, #{content}, #{writeDate}, #{point}, #{likes}, #{fileNames})
+	</insert>
+	
+	<update id="updateAvgPoint" parameterType="int">
+		UPDATE restaurant set avgpoint = #{avgPoint} WHERE restnum = #{restNum}
+	</update>
+	
+</mapper>
