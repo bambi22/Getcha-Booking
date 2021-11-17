@@ -89,7 +89,10 @@
 		</table>
 	</form>
 </center>
+<<<<<<< HEAD
+=======
  
+>>>>>>> origin/master
 <script>
 	function pwchk(){
 		var pw = document.getElementById("pw").value;

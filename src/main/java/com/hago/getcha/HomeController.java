@@ -69,7 +69,7 @@ public class HomeController {
 		return "restManagement/restRegisterForm";
 	}
 	
-	@RequestMapping(value="menuRegister")
+	@RequestMapping(value="s")
 	public String menuRegister() {
 		return "restManagement/menuRegisterForm";
 	}
