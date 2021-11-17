@@ -166,7 +166,7 @@ public class RestRegisterService implements IRestRegisterService {
 			for(MultipartFile f : files) {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
 				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
-				String fileName = i+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
+				String fileName = j+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
 				menuDto.setWholeMenu(fileName);   
 				File save = new File(FILE_LOCATION_WHOLEMENU + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
 				try {
