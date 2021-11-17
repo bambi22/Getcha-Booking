@@ -91,18 +91,17 @@
 		</table>
 	</form>
 </center>
-<!-- 
 <script>
 	function pwchk(){
-		var pw = document.form.pw.value;
-		var pwChk = document.form.pwChk.value;
+		var pw = document.getElementById("pw").value;
+		var pwChk = document.getElementById("pwChk").value;
 		if(pwChk.length == 0 || pwChk == null){
-			document.form.chk.value="비밀번호를 입력하세요.";
+			document.getElementById("chk").value="비밀번호를 입력하세요.";
 		}else if(pw !=pwChk){
-			document.form.chk.value="비밀번호가 일치하지않습니다.";
+			document.getElementById("chk").value="비밀번호가 일치하지않습니다.";
 		}else{
-			document.form.chk.value="비밀번호가 동일합니다.";
+			document.getElementById("chk").value="비밀번호가 동일합니다.";
 		}
 		return;
 	}
-</script> -->
+</script>
