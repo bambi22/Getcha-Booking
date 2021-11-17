@@ -32,7 +32,7 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 		// 세션값 추가
-		session.setAttribute("restNum", 21);
+		session.setAttribute("restNum", 31);
 		
 		// 멀티파트으로 가져온 식당 정보를 테이블에 저장
 		RestaurantDTO restDto = new RestaurantDTO();
@@ -108,6 +108,10 @@ public class RestRegisterService implements IRestRegisterService {
 				RestImageDTO imgDto = new RestImageDTO();
 				imgDto.setRestNum(restDto.getRestNum());
 				String fileName = i+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
+//				if(i==1) {
+//					restDto.setRepresentImage(fileName);
+//					rmDao.addRepresentImage(restDto);
+//				}
 				imgDto.setRestImage(fileName);   
 				File save = new File(FILE_LOCATION_RESTAURANT + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
 				try {

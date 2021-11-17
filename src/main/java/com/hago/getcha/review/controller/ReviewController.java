@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.hago.getcha.review.servie.ReviewService;
+import com.hago.getcha.review.service.ReviewService;
 
 @Controller
 public class ReviewController {
