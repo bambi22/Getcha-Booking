@@ -141,7 +141,6 @@ function submitBtn(){
 	    	var strResult = result[0].address_name;
 	    	var strArray = strResult.split(' ');
 	    	document.getElementById("dong").value = strArray[2];
-			console.log(strArray[2]);
 			document.getElementById("f").submit(); 
 	    }
 	};

@@ -4,7 +4,13 @@
 
 <!DOCTYPE html>
 <html>
-<script>
+<script type="text/javascript">
+$(document).ready(function(e){
+	$('#login').click(function() {
+		location.href="login";
+	});
+});
+}
 
 
 function openNav() {

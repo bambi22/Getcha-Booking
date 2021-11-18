@@ -11,6 +11,7 @@ public class MemberDTO {
 	private String birth1;
 	private String birth2;
 	private String birth3;
+	
 	public String getBirth1() {
 		return birth1;
 	}
