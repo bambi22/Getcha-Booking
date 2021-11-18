@@ -23,6 +23,6 @@ public interface IRestManagementDAO {
 
 	public void addWholeMenu(WholeMenuDTO menuDto);
 
-	public void addRepresentImage(RestaurantDTO restDto);
+	public void addRepresentImage(RestImageDTO imgDto);
 
 }
