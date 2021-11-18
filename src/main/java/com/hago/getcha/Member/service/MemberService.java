@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hago.getcha.Member.dao.IMemberDAO;
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 
 @Service
 public class MemberService implements IMemberService{
@@ -27,7 +27,7 @@ public class MemberService implements IMemberService{
 	}
 
 	@Override
-	public String memberProc(memberDTO member) {
+	public String memberProc(MemberDTO member) {
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
@@ -40,15 +40,20 @@ public class MemberService implements IMemberService{
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
+		session.setAttribute("email", member.getEmail());
+//		session.setAttribute("nickname", member.getNickname());
+//		session.setAttribute("mobile", member.getMobile());
+//		session.setAttribute("birth", member.getBirth());
+//		session.setAttribute("gender", member.getGender());
 		return "가입완료";
 	}
 	
 	
-	public memberDTO pwCheck(memberDTO check) {
+	public MemberDTO pwCheck(MemberDTO check) {
 		if(check.getPw().equals(check.getPwCheck())==false)
 			return null;
 		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-		memberDTO login = dao.userPassword(check.getEmail());
+		MemberDTO login = dao.userPassword(check.getEmail());
 		if(login == null || bpe.matches(check.getPw(), login.getPw()))
 			return null;
 		return login;
@@ -56,10 +61,10 @@ public class MemberService implements IMemberService{
 
 	
 	@Override
-	public boolean deleteProc(memberDTO check) {
+	public boolean deleteProc(MemberDTO check) {
 		String sessionEmail = (String)session.getAttribute("email");
 		check.setEmail(sessionEmail);
-		memberDTO login = pwCheck(check);
+		MemberDTO login = pwCheck(check);
 		if(login == null)
 			return false;
 		String modifyEmail = (String)session.getAttribute("modifyEmail");
@@ -71,8 +76,11 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public memberDTO memberViewProc(String email) {
-		memberDTO member = dao.memberViewProc(email);
+	public MemberDTO memberViewProc(String email) {
+		logger.warn(email);
+		MemberDTO member = dao.memberViewProc(email);
+		logger.warn("member:"+member.getEmail());
+		logger.warn("member nickname:" +member.getNickname());
 		if(member != null) {
 			return member;
 		}
@@ -81,7 +89,8 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public int memberModiProc(memberDTO member) {
+	public int memberModiProc(MemberDTO member) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		if(member.getEmail() == "")
 			return 0;
 		if(dao.memberModiProc(member) == 1)

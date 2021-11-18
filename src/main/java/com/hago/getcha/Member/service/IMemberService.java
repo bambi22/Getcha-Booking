@@ -1,17 +1,11 @@
 package com.hago.getcha.Member.service;
 
-import java.util.ArrayList;
-
-import javax.servlet.http.HttpSession;
-
-import org.springframework.ui.Model;
-
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 
 public interface IMemberService {
 	public String CheckEmail(String email);
-	public String memberProc(memberDTO member);
-	public boolean deleteProc(memberDTO check);
-	public memberDTO memberViewProc(String email);
-	public int memberModiProc(memberDTO member);
+	public String memberProc(MemberDTO member);
+	public boolean deleteProc(MemberDTO check);
+	public MemberDTO memberViewProc(String email);
+	public int memberModiProc(MemberDTO member);
 }

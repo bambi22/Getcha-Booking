@@ -1,6 +1,6 @@
 package com.hago.getcha.Member.dto;
 
-public class memberDTO {
+public class MemberDTO {
 	private String email;
 	private String nickname;
 	private String pw;

@@ -39,9 +39,9 @@ public class HomeController {
 		return "member/member";
 	}
 	
-	@RequestMapping(value="/memberView")
-	public String memberView() {
-		return "member/memberView";
+	@RequestMapping(value="/memberModi")
+	public String memberModi() {
+		return "member/memberModi";
 	}
 	
 	@RequestMapping(value="/calendar")
@@ -54,7 +54,7 @@ public class HomeController {
 		return "member/memberNav";
 	}
 	
-	@RequestMapping(value="/memberDelete")
+	@RequestMapping(value="/deleteForm")
 	public String memberDelete() {
 		return "member/deleteForm";
 	}
