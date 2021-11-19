@@ -35,7 +35,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/memberView")
 	public String memberViewProc(String email, Model model) {
-		email = "test@test.com";
+		email = "test21@hago.com";
 		session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
@@ -77,9 +77,14 @@ public class MemberController {
 	@RequestMapping(value = "memberDeleteProc")
 	public String memberDeleteProc(MemberDTO member) {
 		member.setEmail((String)session.getAttribute("email"));
-		boolean b = service.deleteProc(member);
+		boolean b = service.memberDeleteProc(member);
 		if(b == false)
 			return "forward:/index?formpath=deleteForm";
 		return "forward:memberViewProc";
+	}
+	
+	@RequestMapping(value="/calendar")
+	public String calendar() {
+		return "member/calendar";
 	}
 }

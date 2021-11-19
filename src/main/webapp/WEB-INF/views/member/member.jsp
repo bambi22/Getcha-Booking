@@ -84,8 +84,8 @@
 			</tr>
 			<tr>
 				<td align='center' height=40 colspan=4>
-					<input type = "button" value="회원가입" style="width:120px;" onclick="check()"/>
-					<!-- <input type=submit value='회원가입' style="width:120px;"/> -->
+					<!-- <input type = "button" value="회원가입" style="width:120px;" onclick="check()"/> -->
+					<input type=submit value='회원가입' style="width:120px;"/>
 					<input type=reset value='취소' style="width:120px;"/>
 			</tr>
 		</table>

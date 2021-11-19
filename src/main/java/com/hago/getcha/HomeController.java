@@ -38,12 +38,6 @@ public class HomeController {
 		return "member/member";
 	}
 	
-	
-	@RequestMapping(value="/calendar")
-	public String calendar() {
-		return "member/calendar";
-	}
-	
 	@RequestMapping(value="/memberNav")
 	public String memberNav() {
 		return "member/memberNav";
