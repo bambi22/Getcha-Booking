@@ -9,8 +9,15 @@
 		INSERT INTO rest_review VALUES(#{reviewNum}, #{restNum}, #{email}, #{content}, #{writeDate}, #{point}, #{likes}, #{fileNames})
 	</insert>
 	
-	<update id="updateAvgPoint" parameterType="int">
-		UPDATE restaurant set avgpoint = #{avgPoint} WHERE restnum = #{restNum}
-	</update>
+	<select id="reviewProc" parameterType="String" resultType="com.hago.getcha.review.dto.AllDTO">
+		SELECT rest_review.* , restaurant.restname 
+		FROM rest_review, restaurant 
+		WHERE rest_review.restnum = restaurant.restnum (+)
+		AND rest_review.email = #{email}
+	</select>
+	
+	<delete id="deleteProc">
+		DELETE FROM rest_review WHERE reviewnum = #{reviewNum} 
+	</delete>
 	
 </mapper>
