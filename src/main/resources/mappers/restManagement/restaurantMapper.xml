@@ -21,6 +21,14 @@
  	</insert>
  	
  	<insert id="addMenu" parameterType="com.hago.getcha.restManagement.dto.MenuDTO">
-        INSERT INTO specialmenu VALUES (#{restNum}, #{category}, #{menuName}, #{unitPrice}, #{menuImage})
+        INSERT INTO specialmenu VALUES (#{restNum}, #{category}, #{menuName}, #{menuDescript}, #{unitPrice}, #{menuImage})
  	</insert>
+ 	
+ 	<insert id="addWholeMenu" parameterType="com.hago.getcha.restManagement.dto.WholeMenuDTO">
+        INSERT INTO wholemenu(restnum, wholemenu) VALUES (#{restNum}, #{wholeMenu})
+ 	</insert>
+
+ 	<update id="addRepresentImage" parameterType="com.hago.getcha.restManagement.dto.RestImageDTO">
+        UPDATE restaurant SET representimage=#{restImage} WHERE restnum=#{restNum}
+ 	</update>
 </mapper>

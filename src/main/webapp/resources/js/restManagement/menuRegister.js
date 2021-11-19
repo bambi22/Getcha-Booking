@@ -1,6 +1,6 @@
 
+  
   	function addMenu(){
-		var tc = new Array();
 		var html = '';
 					
 		var category = $("#inCategory").val();
@@ -8,55 +8,50 @@
 		var descript = $("#inMenuDescript").val();
 		var price = $("#inUnitPrice").val();
 		
-		console.log("카테고리 : "+category);	
-			
-		html += '<tr>';
-		html += '<td name="category">'+category+'</td>';
-		html += '<td name="menuName">'+name+'</td>';
-		html += '<td name="menuDescript">'+descript+'</td>';
-		html += '<td name="unitPrice">'+price+'</td>';
-		html += '<td></td>';
-		html += '<td><button type="button" "name="delMenu" onclick="delMenu(this)">삭제</button></td>';
-		html += '</tr>';
+		if(name==""){
+			alert('메뉴명은 필수 입력 항목입니다.');
+			return;
+		}else if(price==""){
+			alert('가격은 필수 입력 항목입니다.');
+			return;
+		}
+		console.log("추가" + name);
+		
+		html = '<tr>'+
+		 '<td><input type="text" name="category" style="width:80" value="'+category+'"></td>'+
+		 '<td><input type="text" name="menuName" style="width:135px" value="'+name+'"></td>'+
+		 '<td><input type="text" name="menuDescript" style="width:180px" value="'+descript+'"></td>'+
+		 '<td><input type="text" name="unitPrice" style="width:90px" value="'+price+'"></td>'+
+		 '<td></td>'+
+		 '<td><button type="button" "name="delMenu" onclick="delMenu(this)">삭제</button></td>'+
+		 '</tr>';
 					
 		$("#registerTable").append(html);
-					
+
 		$("#inCategory").val('');
 		$("#inMenuName").val('');
 		$("#inMenuDescript").val('');
 		$("#inUnitPrice").val('');
 		$("#inMenuImage").val('');
+
 	}
+	
     //삭제 버튼
     function delMenu(del){
 		$(del).parent().parent().remove();
 	}
     
     function previewName(file){
-		var name = file.getAttribute('id');
+		var fileName = file.getAttribute('id');
 		for(f of file.files){
 			let reader = new FileReader();
-			document.getElementById(name+'name').innerHTML = f.name;
+			document.getElementById(fileName+'name').innerHTML = f.name;
 		}
 	}
 	
-
-    
-function submitMenu(){
-	
-	$('input[name="menuName"]').each(function(idx, item) {
-		if($(item).val()==""){
-			alert('메뉴명은 필수 입력항목입니다.');
-			return;
-		}else{
-			$('input[name="unitPrice"]').each(function(idx, item) {
-				if($(item).val()==""){
-					alert('가격은 필수 입력항목입니다.');
-					return;
-				}else{
-					$('#f').submit();								
-				}
-			});	
-		}
-	});					
+function submitMenu() {
+    $('form[name="f"]').attr('method', 'POST');
+    $('form[name="f"]').attr('enctype', 'multipart/form-data');
+    $('form[name="f"]').attr('action', 'menuRegisterProc');
+    $('form[name="f"]').submit();
 }

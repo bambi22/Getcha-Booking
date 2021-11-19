@@ -86,11 +86,7 @@ public class RestaurantDTO {
 	public void setRegisterDate(String registerDate) {
 		this.registerDate = registerDate;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 }
