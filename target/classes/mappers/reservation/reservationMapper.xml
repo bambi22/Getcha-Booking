@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hago.getcha.Reservation.dao.IReservationDAO">
+	<resultMap type="com.hago.getcha.Reservation.dto.ReservationDTO" id="getTime">
+		<!-- <result property="restNum" column="restNum"/> -->
+		<result property="weekselection" column="weekselection"/>
+		<result property="hours" column="hours"/>
+	</resultMap>
+	<select id="getTime" resultMap="getTime" parameterType="int">
+		SELECT * FROM openhour WHERE restNum=#{restNum}
+	</select>
+</mapper>

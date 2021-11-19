@@ -20,9 +20,6 @@ public class MemberService implements IMemberService{
 	@Autowired HttpSession session;
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
-	
-	
-
 	@Override
 	public String memberProc(MemberDTO member) {
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
@@ -38,22 +35,23 @@ public class MemberService implements IMemberService{
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
 		session.setAttribute("email", member.getEmail());
-//		session.setAttribute("nickname", member.getNickname());
-//		session.setAttribute("mobile", member.getMobile());
-//		session.setAttribute("birth", member.getBirth());
-//		session.setAttribute("gender", member.getGender());
 		return "가입완료";
 	}
 	
 	
 	public MemberDTO pwCheck(MemberDTO check) {
-		if(check.getPw().equals(check.getPwCheck())==false)
+		if(check.getPw().equals(check.getPwCheck()) == false) {
+			logger.warn("비밀번호 불일치" + check.getPw() + check.getPwCheck());
 			return null;
+		}
 		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-		MemberDTO login = dao.userPassword(check.getEmail());
-		if(login == null || bpe.matches(check.getPw(), login.getPw()))
+		MemberDTO member = dao.userPassword(check.getEmail());
+		logger.warn("dao확인" + member.getEmail() + member.getPw());
+		if(member == null || bpe.matches(check.getPw(), member.getPw()) == false) {
+			logger.warn("login null");
 			return null;
-		return login;
+		}
+		return member;
 	}
 
 	
@@ -61,6 +59,7 @@ public class MemberService implements IMemberService{
 	public boolean deleteProc(MemberDTO check) {
 		String sessionEmail = (String)session.getAttribute("email");
 		check.setEmail(sessionEmail);
+		logger.warn("sessionEmail:" + sessionEmail);
 		MemberDTO login = pwCheck(check);
 		if(login == null)
 			return false;
@@ -74,10 +73,7 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public MemberDTO memberViewProc(String email) {
-		logger.warn(email);
 		MemberDTO member = dao.memberViewProc(email);
-		logger.warn("member:"+member.getEmail());
-		logger.warn("member nickname:" +member.getNickname());
 		if(member != null) {
 			return member;
 		}
@@ -88,6 +84,8 @@ public class MemberService implements IMemberService{
 	@Override
 	public int memberModiProc(MemberDTO member) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securePw = encoder.encode(member.getPw());
+		member.setPw(securePw);
 		if(member.getEmail() == "")
 			return 0;
 		if(dao.memberModiProc(member) == 1)
@@ -99,8 +97,10 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public String CheckEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		int count = dao.CheckEmail(email);
+		if(count == 0)
+			return "사용가능한 이메일";
+		return "중복 이메일";
 	}
 
 

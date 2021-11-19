@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,27 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
+<script>
+function search(){
+	$.ajax({
+		url:"getTime",
+		type : "POST"
+		success : function(data){
+			var weekselection = data.weekselection;
+			var hours = data.hours;
+			var temp="";
+			for(var i=0; i<list.length; i++;){
+				temp+=list[i].weekselection+" "+ list[i].hours;
+			}
+				$('#result').text(temp);
+			},
+			error:function(){
+				alert("request error!");
+		}
+	});
+}
+
+</script>
 <body>
 <div class="container" style="width:1130px; position:relative; padding-top:60px; margin:auto;">
 	
@@ -44,7 +66,6 @@
 				</tr>
 			</thead>
 			<tbody id="tb_body">
-			
 			</tbody>
 		</table>
 	</div>
@@ -52,9 +73,15 @@
 	<table style="width:100%; height:70%; layout:fixed">
 		<tr><th>날짜</th></tr>
 		<tr>
-			<td><input type="text" id="input_date"/></td>
+			<td><input type="text" id="input_date" name="input_date"/></td>
+			<td colspan="2"><input type="button" value="조회" onclick="search();"></td>
 		</tr>
 		<tr><th>시간</th></tr>
+		<tr>
+			<td>
+				<input type="text" id="result" name="result"/>
+			</td>
+		</tr>
 		<tr>
 			<td>11:00</td><td>13:00</td><td>15:00</td><td>16:00</td>
 		</tr>
@@ -74,6 +101,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
+
 	function checkLeapYear(year){
 		if(year%400 == 0){
 			return true;
@@ -128,6 +156,8 @@
 	function setDate(day){
 		if(day<10) day="0" +day;
 		$("#input_date").val(current_year + "-" + current_month + "-" + day);
+		
+		
 	}
 	
 	function changeMonth(diff){
@@ -145,6 +175,7 @@
 		}
 		loadCalendar();
 	}
+
 	function loadCalendar(){
 		$("#year").val(current_year);
 		$("#month").val(current_month);
@@ -156,6 +187,8 @@
 	$("#month").val(current_month);
 	
 	changeYearMonth(current_year,current_month);
+	
+
 </script>
 </body>
 </html>

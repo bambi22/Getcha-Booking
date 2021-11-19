@@ -1,6 +1,5 @@
 package com.hago.getcha.Member;
 
-import java.io.Console;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +17,7 @@ import com.hago.getcha.Member.service.MemberService;
 @Controller
 public class MemberController {
 	@Autowired MemberService service;
+	@Autowired HttpSession session;
 	
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -34,20 +34,9 @@ public class MemberController {
 		return "forward:/index?formpath=member";
 	}
 	@RequestMapping(value = "/memberView")
-	public String memberViewProc(String email, Model model, HttpSession session) {
-		email = "test";
+	public String memberViewProc(String email, Model model) {
+		email = "test@test.com";
 		session.setAttribute("email", email);
-		String nickname="확인";
-		String mobile="010-1234-5678";
-		String birth="2002년1월1일";
-		String gender="w";
-		session.setAttribute("nickname", nickname);
-		session.setAttribute("mobile", mobile);
-		session.setAttribute("birth", birth);
-		session.setAttribute("gender", gender);
-//		email = "test1@test.com";
-//		model.addAttribute("memberView", service.memberViewProc(email));
-//		return "member/memberView";
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=member";
@@ -58,10 +47,19 @@ public class MemberController {
 		}
 		return "forward:index?formpath=main2";
 	}
+	
+	@RequestMapping(value="/memberModi")
+	public String memberModi() {
+		String sessionEmail = (String) session.getAttribute("email");
+		MemberDTO member = service.memberViewProc(sessionEmail);
+		session.setAttribute("nickname", member.getNickname());
+		session.setAttribute("birth", member.getBirth());
+		session.setAttribute("gender", member.getGender());
+		return "member/memberModi";
+	}
+	
 	@RequestMapping(value = "memberModiProc")
-	public String memberModiProc(MemberDTO member, HttpSession session, Model model) {
-
-		
+	public String memberModiProc(MemberDTO member, Model model) {
 		member.setEmail((String)session.getAttribute("email"));
 		int result = service.memberModiProc(member);
 		if(result == 0) {
@@ -78,6 +76,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "deleteProc")
 	public String deleteProc(MemberDTO member) {
+		member.setEmail((String)session.getAttribute("email"));
 		boolean b = service.deleteProc(member);
 		if(b == false)
 			return "forward:/index?formpath=deleteForm";

@@ -10,7 +10,7 @@
 	<!-- 히카리 커넥션풀 빈 등록 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1522:xe" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="oracle" />
 		<property name="password" value="oracle" />
 	</bean>	
@@ -24,6 +24,7 @@
 		<property name="dataSource" ref="ds"/>
 		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml"/>
 	</bean>
+	<bean id ="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="52428800" />
@@ -36,4 +37,5 @@
 	<mybatis-spring:scan base-package="com.hago.getcha.Member.dao"/>
 	<mybatis-spring:scan base-package="com.hago.getcha.Login.dao"/>
 	<mybatis-spring:scan base-package="com.hago.getcha.review.dao"/>	
+	<mybatis-spring:scan base-package="com.hago.getcha.Reservation.dao"/>
 </beans>
