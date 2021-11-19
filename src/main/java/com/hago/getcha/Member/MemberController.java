@@ -26,12 +26,14 @@ public class MemberController {
 		map.put("msg", result);
 		return map;
 	}
+	
 	@RequestMapping(value = "memberProc")
 	public String memberProc(memberDTO member, Model model) {
 		String msg = service.memberProc(member);
 		model.addAttribute("msg", msg);
 		return "forward:/index?formpath=member";
 	}
+	
 	@RequestMapping(value = "memberViewProc")
 	public String memberViewProc(String email, Model model, HttpSession session) {
 		String sessionEmail = (String)session.getAttribute("email");
@@ -44,6 +46,7 @@ public class MemberController {
 		}
 		return "forward:";
 	}
+	
 	@RequestMapping(value = "memberModiProc")
 	public String memberModiProc(memberDTO member, HttpSession session, Model model) {
 		member.setEmail((String)session.getAttribute("email"));

@@ -4,7 +4,7 @@ public class RestaurantDTO {
 	private int restNum;
 	private String restName;
 	private String restIntro;
-	private int avgPoint;
+	private double avgPoint;
 	private String zipcode;
 	private String address;
 	private String dong;
@@ -32,10 +32,10 @@ public class RestaurantDTO {
 	public void setRestIntro(String restIntro) {
 		this.restIntro = restIntro;
 	}
-	public int getAvgPoint() {
+	public double getAvgPoint() {
 		return avgPoint;
 	}
-	public void setAvgPoint(int avgPoint) {
+	public void setAvgPoint(double avgPoint) {
 		this.avgPoint = avgPoint;
 	}
 	public String getZipcode() {

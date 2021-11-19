@@ -12,8 +12,6 @@
 <script type="text/javascript" src="resources/js/restManagement/menuRegister.js" ></script>
 </head>
 <body>
-	<c:import url="restTop.jsp"/>
-	<hr>
 	<br>
 	<h3>메뉴 등록</h3>
 	<form name="f">

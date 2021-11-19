@@ -17,14 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hago.getcha.restManagement.RestManagementController;
-import com.hago.getcha.restManagement.dao.IRestManagementDAO;
+import com.hago.getcha.restManagement.dao.IRestRegistertDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
 public class RestRegisterServiceTest {
-	@Autowired IRestManagementDAO rmDao;
+	@Autowired IRestRegistertDAO rmDao;
 	@Autowired HttpSession session;
 	private static final Logger logger = LoggerFactory.getLogger(RestManagementController.class);
 	

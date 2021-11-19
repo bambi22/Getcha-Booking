@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-	<a href="restInfo">식당 정보 관리</a>
-	<a href="reserveManagement">예약 관리</a>
-	<a href="salesInfo">매출 확인</a>
+	<div id="restTop" style="float:right;">
+		<a href="salesInfo">매출 확인</a>
+		<a href="restInfo">레스토랑 정보</a>
+	</div>
 	
 	
