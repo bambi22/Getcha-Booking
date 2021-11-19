@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.hago.getcha.restManagement.dao.IRestManagementDAO">
+<mapper namespace="com.hago.getcha.restManagement.dao.IRestRegisterDAO">
 	<insert id="restRegister" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
 		INSERT INTO restaurant(restnum, restname, restintro, zipcode, address, dong, type, capacity, promotion, registerDate) 
 		VALUES(#{restNum}, #{restName}, #{restIntro}, #{zipcode}, #{address}, #{dong}, #{type}, #{capacity}, #{promotion}, sysdate)

@@ -16,7 +16,7 @@
 	<select id="userPassword" resultMap="check" parameterType="String">
 		SELECT email, pw FROM getchamember WHERE email=#{email}
 	</select>
-	<delete id="deleteProc" parameterType="String">
+	<delete id="memberDeleteProc" parameterType="String">
 		DELETE FROM getchamember WHERE email=#{email}
 	</delete>
 	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="member">

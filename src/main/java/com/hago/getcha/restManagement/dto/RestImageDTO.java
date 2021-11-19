@@ -4,7 +4,6 @@ public class RestImageDTO {
 	private int restNum;
 	private String restImage;
 	
-	
 	public int getRestNum() {
 		return restNum;
 	}
@@ -15,8 +14,8 @@ public class RestImageDTO {
 		return restImage;
 	}
 	public void setRestImage(String restImage) {
+	
 		this.restImage = restImage;
 	}
-	
 	
 }

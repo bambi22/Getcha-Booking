@@ -101,6 +101,16 @@ $(document).on("click","button[name=delMenu]",function(){
     
 });
 
+$(document).ready(function() { 
+	$("input:checkbox").on('click', function() { 
+		if ( $(this).prop('checked') ) { 
+			$(this).addClass("selected"); 
+		} else { 
+			$(this).removeClass("selected"); 
+		} 
+	});
+});
+
 function submitBtn(){
 	$('#warnRestName').html("");
 	$('#warnRestIntro').html("");

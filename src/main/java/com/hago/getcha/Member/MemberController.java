@@ -74,8 +74,8 @@ public class MemberController {
 			return "member/memberModi";
 		}
 	}
-	@RequestMapping(value = "deleteProc")
-	public String deleteProc(MemberDTO member) {
+	@RequestMapping(value = "memberDeleteProc")
+	public String memberDeleteProc(MemberDTO member) {
 		member.setEmail((String)session.getAttribute("email"));
 		boolean b = service.deleteProc(member);
 		if(b == false)

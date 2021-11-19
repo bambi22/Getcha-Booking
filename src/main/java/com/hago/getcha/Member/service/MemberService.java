@@ -56,7 +56,7 @@ public class MemberService implements IMemberService{
 
 	
 	@Override
-	public boolean deleteProc(MemberDTO check) {
+	public boolean memberDeleteProc(MemberDTO check) {
 		String sessionEmail = (String)session.getAttribute("email");
 		check.setEmail(sessionEmail);
 		logger.warn("sessionEmail:" + sessionEmail);
@@ -64,7 +64,7 @@ public class MemberService implements IMemberService{
 		if(login == null)
 			return false;
 		String modifyEmail = (String)session.getAttribute("modifyEmail");
-		dao.deleteProc(modifyEmail);
+		dao.memberDeleteProc(modifyEmail);
 		session.removeAttribute("modifyEmail");
 		session.invalidate();
 		return true;

@@ -6,7 +6,7 @@
 	</script>
 </c:if>
 <center>
-	<form action="deleteProc" method="post">
+	<form action="memberDeleteProc" method="post">
 		<table>
 			<tr>
 				<td height=40>비밀번호</td>

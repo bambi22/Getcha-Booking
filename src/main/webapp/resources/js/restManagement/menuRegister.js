@@ -36,18 +36,18 @@
 
 	}
 	
-    //삭제 버튼
-    function delMenu(del){
-		$(del).parent().parent().remove();
+//삭제 버튼
+function delMenu(del){
+	$(del).parent().parent().remove();
+}
+
+function previewName(file){
+	var fileName = file.getAttribute('id');
+	for(f of file.files){
+		let reader = new FileReader();
+		document.getElementById(fileName+'name').innerHTML = f.name;
 	}
-    
-    function previewName(file){
-		var fileName = file.getAttribute('id');
-		for(f of file.files){
-			let reader = new FileReader();
-			document.getElementById(fileName+'name').innerHTML = f.name;
-		}
-	}
+}
 	
 function submitMenu() {
     $('form[name="f"]').attr('method', 'POST');
