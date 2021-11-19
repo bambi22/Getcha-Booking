@@ -4,21 +4,22 @@
 	<select id="CheckEmail" resultType="int" parameterType="String">
 		SELECT count(*) FROM getchamember WHERE email=#{email}
 	</select>
-	<insert id="insertMember" parameterType="com.hago.getcha.Member.dto.memberDTO">
+	
+	<insert id="insertMember" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		INSERT INTO getchamember VALUES(#{email}, #{nickname},#{pw},#{mobile},#{birth},#{gender})
 	</insert>
 	
-	<resultMap type="com.hago.getcha.Member.dto.memberDTO" id="check">
+	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="check">
 		<result property="email" column="email"/>
 		<result property="pw" column="pw"/>
 	</resultMap>
 	<select id="userPassword" resultMap="check" parameterType="String">
 		SELECT email, pw FROM getchamember WHERE email=#{email}
 	</select>
-	<delete id="deleteProc" parameterType="String">
+	<delete id="memberDeleteProc" parameterType="String">
 		DELETE FROM getchamember WHERE email=#{email}
 	</delete>
-	<resultMap type="com.hago.getcha.Member.dto.memberDTO" id="member">
+	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="member">
 		<result property="email" column="email"/>
 		<result property="nickname" column="nickname"/>
 		<result property="pw" column="pw"/>
@@ -29,13 +30,13 @@
 	<select id="memberViewProc" resultMap="member" parameterType="String">
 		SELECT * FROM getchamember WHERE email=#{email}
 	</select>
-	<update id="memberModiProc" parameterType="com.hago.getcha.Member.dto.memberDTO">
+	<update id="memberModiProc" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		UPDATE getchamember
 		<set>
-			<if test="pw != ''">pw=#{pw}</if>
-			<if test="nickname != ''">nickname=#{nickname}</if>
-			<if test="mobile != ''">mobile=#{mobile}</if>
-			<if test="birth != ''">birth=#{birth}</if>
+			<if test="pw != ''">pw=#{pw},</if>
+			<if test="nickname != ''">nickname=#{nickname},</if>
+			<if test="mobile != ''">mobile=#{mobile},</if>
+			<if test="birth != ''">birth=#{birth},</if>
 			<if test="gender != ''">gender=#{gender}</if>
 		</set>
 		WHERE email=#{email}

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:if test="${empty sessionScope.id }">
+<c:if test="${empty sessionScope.email }">
 	<script>
-		location.href="index?formpath=login"
+		location.href="index?formpath=member"
 	</script>
 </c:if>
 <c:url var="root" value="/"/>
@@ -32,21 +32,21 @@
 			<td style="width:100px; height:40px;"><b>성별</b></td>
 			<c:choose>
 				<c:when test="${memberView.gender == 'm' }">
-					<td style="width:100px; height:40px;" align="center" valign="bottom">남</td>
+					<td style="width:100px; height:40px;" align="left" valign="bottom">남</td>
 				</c:when>
 				<c:when test="${memberView.gender == 'w' }">
-					<td style="width:100px; height:40px;" align="center" valign="bottom">여</td>
+					<td style="width:100px; height:40px;" align="left" valign="bottom">여</td>
 				</c:when>
 				<c:otherwise>
-					<td style="width:100px; height:40px;" align="center" valign="bottom">선택안함</td>
+					<td style="width:100px; height:40px;" align="left" valign="bottom">선택안함</td>
 				</c:otherwise>
 			</c:choose>
 		</tr>
 		<tr>
 			<td colspan=2 align="right">
-				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi.jsp'"/>
-				<input type="button" style="width:60px;" value="홈" onclick="location.href='main2.jsp'"/>
-				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm.jsp'"/>
+				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi'"/>
+				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main2'"/>
+				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm'"/>
 			</td>
 		</tr>
 	</table>

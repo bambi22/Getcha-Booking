@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!--<c:if test="${empty sessionScope.id }">
+<c:if test="${empty sessionScope.email }">
 	<script>
-		location.href=""
+		location.href="main2"
 	</script>
-</c:if>-->
+</c:if>
 <center>
-	<form action="deleteProc" method="post">
+	<form action="memberDeleteProc" method="post">
 		<table>
 			<tr>
 				<td height=40>비밀번호</td>
@@ -17,7 +17,7 @@
 			<tr>
 				<td height=40>비밀번호 확인</td>
 				<td>
-					<input type=text name='pwChk' id='pwChk' placeholder='비밀번호 확인'/>
+					<input type=text name='PwCheck' id='PwCheck' placeholder='비밀번호 확인'/>
 				</td>
 			</tr>
 			<tr>

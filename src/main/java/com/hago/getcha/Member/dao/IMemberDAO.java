@@ -2,21 +2,21 @@ package com.hago.getcha.Member.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 
 @Repository
 public interface IMemberDAO {
 
-	public void insertMember(memberDTO member);
+	public void insertMember(MemberDTO member);
 
 	public int CheckEmail(String email);
 
-	public memberDTO userPassword(String email);
+	public MemberDTO userPassword(String email);
 
-	public void deleteProc(String modifyEmail);
+	public void memberDeleteProc(String modifyEmail);
 
-	public memberDTO memberViewProc(String email);
+	public MemberDTO memberViewProc(String email);
 
-	public int memberModiProc(memberDTO member);
+	public int memberModiProc(MemberDTO member);
 
 }

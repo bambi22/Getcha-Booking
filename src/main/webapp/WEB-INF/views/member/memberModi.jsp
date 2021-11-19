@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:if test="${empty sessionScope.id }">
+<c:if test="${empty sessionScope.email }">
 	<script>
 		location.href='index?formpath=login'
 	</script>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td align='right' height=40>생일</td>
-				<td><input type=text name='birth' value='${sessionScope.birth }'/></td>
+				<td><input type=text name='birth' value='${sessionScope.birth }'disabled="disabled"/></td>
 				<td colspan="2"></td>
 			</tr>
 			<tr>
