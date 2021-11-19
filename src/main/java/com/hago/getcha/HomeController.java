@@ -59,9 +59,9 @@ public class HomeController {
 		return "member/deleteForm";
 	}
 	
-	@RequestMapping(value="/view")
+	@RequestMapping(value="/review")
 	public String view() {
-		return "viewForm";
+		return "review/reviewForm";
 	}
 
 	@RequestMapping(value="restRegister")

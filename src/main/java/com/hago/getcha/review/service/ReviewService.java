@@ -39,7 +39,7 @@ public class ReviewService {
 		int point = Integer.parseInt(points);
 		
 		ReviewDTO dto = new ReviewDTO();
-		dto.setEmail("test23@hago.com");
+		dto.setEmail("test21@hago.com");
 		dto.setContent(content);
 		dto.setRestNum(restNum);
 		dto.setPoint(point);
@@ -90,7 +90,7 @@ public class ReviewService {
 	
 	public void reviewProc(Model model) {
 		//String email = (String) session.getAttribute("email");
-		String email = "test23@hago.com";
+		String email = "test21@hago.com";
 		ArrayList<AllDTO> reviewList = dao.reviewProc(email);
 		model.addAttribute("reviewList", reviewList);
 	}
