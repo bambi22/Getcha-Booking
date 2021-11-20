@@ -3,6 +3,7 @@ package com.hago.getcha.restManagement.dto;
 public class WholeMenuDTO {
 	private int restNum;
 	private String wholeMenu;
+	
 	public int getRestNum() {
 		return restNum;
 	}

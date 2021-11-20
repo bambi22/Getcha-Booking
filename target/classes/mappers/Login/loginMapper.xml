@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hago.getcha.Login.dao.ILoginDAO">
 
-	<select id="loginCheck" resultType="java.lang.Integer" parameterType="com.hago.getcha.Member.dto.memberDTO">
+	<select id="loginCheck" resultType="java.lang.Integer" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 			SELECT count(*) FROM getchamember WHERE email = #{email} AND pw = #{pw}
 	</select> 
 </mapper>

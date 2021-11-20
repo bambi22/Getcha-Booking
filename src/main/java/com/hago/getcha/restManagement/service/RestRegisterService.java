@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.hago.getcha.restManagement.RestManagementController;
-import com.hago.getcha.restManagement.dao.IRestManagementDAO;
+import com.hago.getcha.restManagement.dao.IRestRegistertDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
@@ -25,9 +25,8 @@ import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
 @Service
 public class RestRegisterService implements IRestRegisterService {
-	@Autowired IRestManagementDAO rmDao;
+	@Autowired IRestRegistertDAO rrDao;
 	@Autowired HttpSession session;
-	private static final Logger logger = LoggerFactory.getLogger(RestManagementController.class);
 	
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
@@ -68,7 +67,7 @@ public class RestRegisterService implements IRestRegisterService {
 		}else {
 			restDto.setPromotion("파일 없음");
 		}
-		rmDao.restRegister(restDto);
+		rrDao.restRegister(restDto);
 		
 		
 		// 부대 시설 저장
@@ -77,7 +76,7 @@ public class RestRegisterService implements IRestRegisterService {
 				FacilitiesDTO facilDto = new FacilitiesDTO();
 				facilDto.setRestNum(restDto.getRestNum());
 				facilDto.setFacility(facility);
-			rmDao.addFacilities(facilDto);
+			rrDao.addFacilities(facilDto);
 			}			
 		}
 		
@@ -95,7 +94,7 @@ public class RestRegisterService implements IRestRegisterService {
 				openDto.setDaySelection(open[1]);
 				openDto.setHours(open[2]);				
 			}
-			rmDao.addOpenHour(openDto);
+			rrDao.addOpenHour(openDto);
 		}
 		
 		// 넘어온 식당 사진들 저장
@@ -115,9 +114,9 @@ public class RestRegisterService implements IRestRegisterService {
 				} catch (Exception e) {
 					e.printStackTrace();
 				} 
-				rmDao.addRestImage(imgDto);
+				rrDao.addRestImage(imgDto);
 				if(i==1) {
-					rmDao.addRepresentImage(imgDto);
+					rrDao.addRepresentImage(imgDto);
 				}
 				i++;
 			}
@@ -156,7 +155,7 @@ public class RestRegisterService implements IRestRegisterService {
 //				  menuDto.setMenuImage("파일 없음"); 
 //		      }
 			 
-			rmDao.addMenu(menuDto);
+			rrDao.addMenu(menuDto);
 			i++;
 		}
 	    
@@ -178,7 +177,7 @@ public class RestRegisterService implements IRestRegisterService {
 					e.printStackTrace();
 				} 
 				j++;
-				rmDao.addWholeMenu(menuDto);
+				rrDao.addWholeMenu(menuDto);
 			}
 		}
 		

@@ -1,6 +1,6 @@
 package com.hago.getcha.restManagement.dao;
 
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
 
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
@@ -9,20 +9,18 @@ import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
-@Repository
 public interface IRestManagementDAO {
-	public void restRegister(RestaurantDTO restDto);
 
-	public void addFacilities(FacilitiesDTO facilDto);
+	RestaurantDTO selectRestaurant(int restNum);
 
-	public void addOpenHour(OpenHourDTO openDto);
+	ArrayList<OpenHourDTO> selectOpenHour(int restNum);
 
-	public void addRestImage(RestImageDTO imgDto);
+	ArrayList<FacilitiesDTO> selectFacilities(int restNum);
 
-	public void addMenu(MenuDTO menuDto);
+	ArrayList<RestImageDTO> selectRestImage(int restNum);
 
-	public void addWholeMenu(WholeMenuDTO menuDto);
+	ArrayList<MenuDTO> selectMenu(int restNum);
 
-	public void addRepresentImage(RestImageDTO imgDto);
+	ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
 
 }

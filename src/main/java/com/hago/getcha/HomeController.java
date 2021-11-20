@@ -2,8 +2,9 @@ package com.hago.getcha;
 
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/main2", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -39,22 +38,12 @@ public class HomeController {
 		return "member/member";
 	}
 	
-	@RequestMapping(value="/memberView")
-	public String memberView() {
-		return "member/memberView";
-	}
-	
-	@RequestMapping(value="/calendar")
-	public String calendar() {
-		return "member/calendar";
-	}
-	
 	@RequestMapping(value="/memberNav")
 	public String memberNav() {
 		return "member/memberNav";
 	}
 	
-	@RequestMapping(value="/memberDelete")
+	@RequestMapping(value="/deleteForm")
 	public String memberDelete() {
 		return "member/deleteForm";
 	}
@@ -103,4 +92,6 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+	
+	
 }

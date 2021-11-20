@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Member.service.MemberService;
 
 @Controller
 public class MemberController {
 	@Autowired MemberService service;
+	@Autowired HttpSession session;
 	
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -27,25 +28,38 @@ public class MemberController {
 		return map;
 	}
 	@RequestMapping(value = "memberProc")
-	public String memberProc(memberDTO member, Model model) {
+	public String memberProc(MemberDTO member, Model model) {
 		String msg = service.memberProc(member);
 		model.addAttribute("msg", msg);
 		return "forward:/index?formpath=member";
 	}
-	@RequestMapping(value = "memberViewProc")
-	public String memberViewProc(String email, Model model, HttpSession session) {
+	@RequestMapping(value = "/memberView")
+	public String memberViewProc(String email, Model model) {
+		email = "test21@hago.com";
+		session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
-			return "forward:";
+			return "forward:index?formpath=member";
 		}
 		if(sessionEmail.equals(email)) {
 			model.addAttribute("memberView", service.memberViewProc(email));
-			return "forward:index?formpath=memberView";
+			return "member/memberView";
 		}
-		return "forward:";
+		return "forward:index?formpath=main2";
 	}
+	
+	@RequestMapping(value="/memberModi")
+	public String memberModi() {
+		String sessionEmail = (String) session.getAttribute("email");
+		MemberDTO member = service.memberViewProc(sessionEmail);
+		session.setAttribute("nickname", member.getNickname());
+		session.setAttribute("birth", member.getBirth());
+		session.setAttribute("gender", member.getGender());
+		return "member/memberModi";
+	}
+	
 	@RequestMapping(value = "memberModiProc")
-	public String memberModiProc(memberDTO member, HttpSession session, Model model) {
+	public String memberModiProc(MemberDTO member, Model model) {
 		member.setEmail((String)session.getAttribute("email"));
 		int result = service.memberModiProc(member);
 		if(result == 0) {
@@ -54,10 +68,23 @@ public class MemberController {
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
-			return "member/index";
+			return "main2";
 		}else {
 			model.addAttribute("msg", "수정실패.");
 			return "member/memberModi";
 		}
+	}
+	@RequestMapping(value = "memberDeleteProc")
+	public String memberDeleteProc(MemberDTO member) {
+		member.setEmail((String)session.getAttribute("email"));
+		boolean b = service.memberDeleteProc(member);
+		if(b == false)
+			return "forward:/index?formpath=deleteForm";
+		return "forward:memberViewProc";
+	}
+	
+	@RequestMapping(value="/calendar")
+	public String calendar() {
+		return "member/calendar";
 	}
 }

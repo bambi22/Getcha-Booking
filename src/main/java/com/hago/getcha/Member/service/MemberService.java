@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.hago.getcha.Login.dao.ILoginDAO;
 import com.hago.getcha.Member.dao.IMemberDAO;
-
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 
 @Service
 public class MemberService implements IMemberService{
@@ -21,11 +20,8 @@ public class MemberService implements IMemberService{
 	@Autowired HttpSession session;
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
-	
-	
-
 	@Override
-	public String memberProc(memberDTO member) {
+	public String memberProc(MemberDTO member) {
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
@@ -38,30 +34,37 @@ public class MemberService implements IMemberService{
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
+		session.setAttribute("email", member.getEmail());
 		return "가입완료";
 	}
 	
 	
-	public memberDTO pwCheck(memberDTO check) {
-		if(check.getPw().equals(check.getPwCheck())==false)
+	public MemberDTO pwCheck(MemberDTO check) {
+		if(check.getPw().equals(check.getPwCheck()) == false) {
+			logger.warn("비밀번호 불일치" + check.getPw() + check.getPwCheck());
 			return null;
+		}
 		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-		memberDTO login = dao.userPassword(check.getEmail());
-		if(login == null || bpe.matches(check.getPw(), login.getPw()))
+		MemberDTO member = dao.userPassword(check.getEmail());
+		logger.warn("dao확인" + member.getEmail() + member.getPw());
+		if(member == null || bpe.matches(check.getPw(), member.getPw()) == false) {
+			logger.warn("login null");
 			return null;
-		return login;
+		}
+		return member;
 	}
 
 	
 	@Override
-	public boolean deleteProc(memberDTO check) {
+	public boolean memberDeleteProc(MemberDTO check) {
 		String sessionEmail = (String)session.getAttribute("email");
 		check.setEmail(sessionEmail);
-		memberDTO login = pwCheck(check);
+		logger.warn("sessionEmail:" + sessionEmail);
+		MemberDTO login = pwCheck(check);
 		if(login == null)
 			return false;
 		String modifyEmail = (String)session.getAttribute("modifyEmail");
-		dao.deleteProc(modifyEmail);
+		dao.memberDeleteProc(modifyEmail);
 		session.removeAttribute("modifyEmail");
 		session.invalidate();
 		return true;
@@ -69,8 +72,8 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public memberDTO memberViewProc(String email) {
-		memberDTO member = dao.memberViewProc(email);
+	public MemberDTO memberViewProc(String email) {
+		MemberDTO member = dao.memberViewProc(email);
 		if(member != null) {
 			return member;
 		}
@@ -79,7 +82,10 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public int memberModiProc(memberDTO member) {
+	public int memberModiProc(MemberDTO member) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securePw = encoder.encode(member.getPw());
+		member.setPw(securePw);
 		if(member.getEmail() == "")
 			return 0;
 		if(dao.memberModiProc(member) == 1)
@@ -91,13 +97,15 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public String CheckEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		int count = dao.CheckEmail(email);
+		if(count == 0)
+			return "사용가능한 이메일";
+		return "중복 이메일";
 	}
 
 
 	@Override
-	public boolean loginCheck(memberDTO member, HttpSession session) {
+	public boolean loginCheck(MemberDTO member, HttpSession session) {
 		int result = loginDao.loginCheck(member);
 		if (result == 1) {	//true 일경우 세션 등록
 			//세션 변수 등록

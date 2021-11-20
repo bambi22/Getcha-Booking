@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hago.getcha.Member.dto.memberDTO;
+import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Member.service.MemberService;
 
 @Controller
@@ -20,7 +20,7 @@ public class LoginController {
 	
 	//로그인 처리
 	@RequestMapping(value="/loginCheck")
-	public ModelAndView loginCheck(@ModelAttribute memberDTO member,HttpSession session) {
+	public ModelAndView loginCheck(@ModelAttribute MemberDTO member,HttpSession session) {
 		
 		boolean result = memberService.loginCheck(member, session);
 		ModelAndView mav = new ModelAndView();
