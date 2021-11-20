@@ -83,6 +83,22 @@ public class HomeController {
 		return "review/writeForm";
 	}
 	
+	@RequestMapping(value="/review")
+	public String review() {
+		return "review/reviewForm";
+	}
+	
+	@RequestMapping(value = "/update")
+	public String update(@RequestParam int reviewNum, @RequestParam String restName,
+			@RequestParam String content, @RequestParam String fileNames, Model model) {
+		model.addAttribute("reviewNum", reviewNum);
+		model.addAttribute("restName", restName);
+		model.addAttribute("content", content);
+		model.addAttribute("fileNames", fileNames);
+		logger.warn("reviewNum: " + reviewNum);
+		return "review/updateForm";
+	}
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "login";

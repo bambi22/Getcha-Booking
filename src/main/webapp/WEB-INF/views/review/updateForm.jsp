@@ -5,23 +5,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
 
 <head>
-<title>리뷰 작성하기</title>
-<link href="<c:url value="/resources/css/write.css" />" rel="stylesheet" />
+<title>리뷰 수정</title>
+<link href="<c:url value="/resources/css/review/write.css" />" rel="stylesheet" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".img_file").change(function(){
+		$("#img_file1").change(function(){
 			readURL(this);
 		});
 		function readURL(input) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
 				reader.onload = function (e) {
-					var img = document.createElement('img');
-					img.src = e.target.result;
-					$(input).closest('div').appendChild(img);
-					$(input).closest('div').css('visibility', 'visible');
-					$(input).parent().parent().addClass('on');
+					$('#ph1').attr('src', e.target.result);
+					$('#ph1').css('visibility', 'visible');
+					$('#ph1').parent().parent().addClass('on');
 				}                    
 				reader.readAsDataURL(input.files[0]);
 			}
@@ -69,6 +67,30 @@
 				reader.readAsDataURL(input.files[0]);
 			}
 		}
+		
+		$('.delBtn').on('click',function(){
+			var target = $(this);
+			var n = $(this).attr('id');
+			var f = $(this).attr('data-fileName');
+			$.ajax({	
+		 	   url : "delFileProc", type: "POST",
+		 	   data : "reviewNum="+n + "&fileName="+f,
+		 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		 	   success : function(data) {
+				if(data.result == "success"){
+					console.log(data.result);
+					$(target).parent().find('img').attr('src', "resources/img/review/starrate.png");
+					$(target).attr('disabled', 'true');
+					}else{
+						alert("삭제 실패했습니다. 관리자에게 문의바랍니다.");
+						}
+				},
+		 	   error: function(e){
+		 		   alert("error: " + e);
+		 	   }
+			});
+			
+		});
 	});
 
 	$(function(){
@@ -91,11 +113,31 @@
 	
 	function bytesHandler(obj){
 	var text = $(obj).val();
-	$('p.bytes').text(getTextLength(text) + "/ 1000");
-	if (getTextLength(text) > 1000) {
-		alert("최대 1000bytes까지 입력 가능합니다.");
+	$('p.bytes').text(getTextLength(text) + "/ 500");
+	if (getTextLength(text) > 500) {
+		alert("최대 500bytes까지 입력 가능합니다.");
 		//$(obj).val(text.substring(0, 50));
 		}
+	}
+	
+	function preview(target) {
+		var files = target.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$(target).prev('img').attr('src', e.target.result);
+			$(target).prev('div').append(img);
+		}
+		reader.readAsDataURL(files);
+				}
+	
+	function submitCheck(){
+		var point = $('#point').val();
+		if(point == 0){
+			alert("별점을 선택해주세요.");
+			return;
+		}
+		document.getElementById("f").action = "updateProc";
+		document.getElementById("f").submit();
 	}
 	
 	//별점 마킹 모듈 프로토타입으로 생성
@@ -115,78 +157,98 @@
 	}
 	let rating = new Rating();//별점 인스턴스 생성
 	
-	
-	
-	function preview(target) {
-		var files = target.files[0];
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			var img = document.createElement('img');
-			img.src = e.target.result;
-			$(target).prev('div').append(img);
-		}
-		reader.readAsDataURL(files);
-				}
-	
-	
-	function setThumbnail(event) {
-		var reader = new FileReader();
-		var name = target.attr('name');
-		reader.onload = function(event){
-			$(name).attr("src", event.target.result);
-		}
-		
-		reader.readAsDataURL(event.target.files[0]);
-	}
+	document.addEventListener('DOMContentLoaded', function(){
+	    //별점선택 이벤트 리스너
+	    document.querySelector('.rating').addEventListener('click',function(e){
+	        let elem = e.target;
+	        if(elem.classList.contains('rate_radio')){
+	            rating.setRate(parseInt(elem.value));
+	        }
+	        $("#point").val(parseInt(elem.value));
+	    });
+	});
 </script>
 </head>
 <body>
 <section>
-<form action="writeProc" method="post" enctype="multipart/form-data">
+<form id="f" method="post" enctype="multipart/form-data">
 	<div id="ReviewWritingPage_Container">
 	    <div class="ReviewWritingPage_Row">
+	    <input type="hidden" name="reviewNum" value="${reviewNum }" />
+	    <input type="hidden" name="restNum" value="${rsestNum }" />
+	    <input type="hidden" name="restName" value="${restName }" />
+	    <input type="hidden" name="fileNames" value="${fileNames }" />
 	      <strong class="RestaurantName">${restName }</strong>
 	    </div>
 		<textarea name="content" id="content" rows="10" style="width:100%;">${content }</textarea>
-		<p class="bytes" align="right">0 / 1000</p>
+		<p class="bytes" align="right">0 / 500</p>
 		
-	
-      	<div class="upload_wrap">
-      	<c:choose>
-	       	<c:when test="${fileNames != '파일없음' }">
-		       	<c:forTokens var="fileName" items="${fileNames }" delims=",">
-			       	<div class="pre_img"><img src="${root }upload/${fileName }" /></div><br/>
-					<input type="file" accept="image/*" class="img_file" name="uploadFile1" onchange="preview(this);" />
-		       	</c:forTokens>
-	       	</c:when>
-			
+		<div class="rate_wrap">
+			<input type="hidden" name="point" id="point" value="0"/>
+            <div class="warning_msg">별점을 선택해 주세요.</div>
+            <div class="rating">
+                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+                <input type="checkbox" name="rating" id="rating1" value="1" class="rate_radio" title="1점" />
+                <label for="rating1"></label>
+                <input type="checkbox" name="rating" id="rating2" value="2" class="rate_radio" title="2점" />
+                <label for="rating2"></label>
+                <input type="checkbox" name="rating" id="rating3" value="3" class="rate_radio" title="3점" />
+                <label for="rating3"></label>
+                <input type="checkbox" name="rating" id="rating4" value="4" class="rate_radio" title="4점" />
+                <label for="rating4"></label>
+                <input type="checkbox" name="rating" id="rating5" value="5" class="rate_radio" title="5점" />
+                <label for="rating5"></label>
+            </div>
+       	 </div>
+		<div class="upload_wrap">
+		<c:choose>
+			<c:when test="${fileNames == '파일없음'}">
+			<!-- 이미지 등록 안한 경우 -->
+				<c:forEach var="count" begin="1" end="4" step="1">
+					<div class="img_regi">
+				   	 	<div class="ph"><img id="ph${count }" src="#" alt="" /></div>
+				   		<input type="file" accept="image/*" id="img_file${count }" name="uploadFile${count }" />
+			      		<a href="#self">+ 사진 등록</a>
+					</div>
+				</c:forEach>
+			</c:when>	
 			
 			<c:otherwise>
-			<div class="pre_div">
-			<div class="pre_img"></div>
-			<input type="file" name="image1" onchange="preview(this);" />
-			</div>
-			<div class="pre_div">
-			<div class="pre_img"></div>
-				<input type="file" name="image2" onchange="preview(this);" />
-			</div>
-			</c:otherwise>	
+				<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">
+				<c:if test="${st.last}">
+		      		<c:if test="${st.count ne 4}">
+		      			<c:forEach var="count" begin="${st.count+1 }" end="4" step="1">
+		      			<div class="img_regi">
+					   	 	<div class="ph"><img id="ph${count }" src="#" alt="" /></div>
+					   		<input type="file" accept="image/*" id="img_file${count }" name="uploadFile${count }" />
+				      		<a href="#self">+ 사진 등록</a>
+						</div>
+						</c:forEach>
+		      		</c:if>
+		      	</c:if>
+		      	</c:forTokens>
+			</c:otherwise>
 		</c:choose>
 		</div>
-	</div>
-
-	
-
-
-
-		</div>
-		<div class="button_wrap">
-			<button type="submit" style="width: 60px;">수정</button>
+       	
+       	<c:if test="${fileNames != '파일없음' }">
+			<label class="subtitle">등록한 리뷰 사진</label>
+			<label class="caution">(*사진 삭제 시, 수정 완료하지 않아도 삭제 됩니다)</label>
+			<div class="upload_wrap">
+		       	<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">
+			       	<div>
+				       	<div class="pre_img"><img id="ph${st.count }" src="${root }upload/${fileName }" /></div><br/>
+			      		<button type="button" id="${reviewNum }" data-fileName="${fileName }" class="delBtn" style="width: 60px; ">삭제</button>
+			      	</div>
+		       	</c:forTokens>
+	 		</div>
+       	</c:if>
+	 	<div class="button_wrap">
+			<button onclick="submitCheck()" style="width: 60px;">수정</button>
 			<input type="button" style="width: 60px;" value='취소' onclick="location.href='${root}reviewProc'"/>
 		</div>
-		
-	</div>
-</form>
+		</div>
+	</form>
 </section>
 </body>
 </html>
