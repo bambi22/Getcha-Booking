@@ -7,7 +7,7 @@ import com.hago.getcha.Member.dto.MemberDTO;
 public interface IMemberService {
 	public String CheckEmail(String email);
 	public String memberProc(MemberDTO member);
-	public boolean memberDeleteProc(MemberDTO check);
+	public int memberDeleteProc(MemberDTO check);
 	public MemberDTO memberViewProc(String email);
 	public int memberModiProc(MemberDTO member);
 	//로그인 체크

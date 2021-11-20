@@ -13,7 +13,7 @@ public interface IMemberDAO {
 
 	public MemberDTO userPassword(String email);
 
-	public void memberDeleteProc(String modifyEmail);
+	public int memberDeleteProc(MemberDTO check);
 
 	public MemberDTO memberViewProc(String email);
 

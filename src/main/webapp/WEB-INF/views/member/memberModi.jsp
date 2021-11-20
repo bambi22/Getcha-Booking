@@ -13,20 +13,20 @@
 		<table>
 			<tr>
 				<td align='right' height=40>이메일</td>
-				<td><input type=text name='email' value='${sessionScope.email }' disabled="disabled"/></td>
+				<td><input type=text name='email' id='email' value='${sessionScope.email }' disabled="disabled"/></td>
 				<td colspan="2"></td>
 			</tr>
 			<tr>
 				<td height=40>닉네임</td>
 				<td>
-					<input type='text' name='nickname' value='${sessionScope.nickname }'/>
+					<input type='text' name='nickname' id='nickname' value='${sessionScope.nickname }'/>
 				</td>
 			</tr>
 			<tr>
 				<td align='right' height=40>패스워드</td>
-				<td><input type=text name='pw' placeholder='pw 입력'/></td>
+				<td><input type=text name='pw' id='pw' placeholder='pw 입력'/></td>
 				<td align='right'>패스워드 확인</td>
-				<td><input type=text name='pwChk' placeholder='pw 입력'/></td>
+				<td><input type=text name='pwChk' id='pwChk' placeholder='pw 입력'/></td>
 			</tr>
 			<tr>
 				<td height=40>휴대폰 번호</td>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td align='right' height=40>생일</td>
-				<td><input type=text name='birth' value='${sessionScope.birth }'disabled="disabled"/></td>
+				<td><input type=text name='birth' id='birth' value='${sessionScope.birth }'disabled="disabled"/></td>
 				<td colspan="2"></td>
 			</tr>
 			<tr>
