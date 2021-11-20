@@ -1,70 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>로그인</title>
-	<script src="resources/jQuery/jquery-3.4.1.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/resources/css/member/login.css">
 </head>
 <body>
-	<h1>로그인 페이지</h1>
-	<hr />
-		<c:choose>
-			<c:when test="${empty sessionScope.email}">
-			<!-- 로그인이 안되어 있으면 -->
-				<form id="loginFrm" name="loginFrm" action="loginCheck">
-					<table>
-						<tr>
-							<td>아이디</td>
-							<td><input type="text" name="email" id="email" placeholder="10글자" maxlength="10"></td>
-						</tr>
-						<tr>
-							<td>패스워드</td>
-							<td><input type="password" name="pw" id="pw" maxlength="20"></td>
-						</tr>
-						<c:if test="${msg == '실패'}">
-							<tr>
-								<td colspan=2>
-									아이디 또는 패스워드가 틀렸습니다.
-								</td>
-							</tr>
-						</c:if>
-						<tr>
-							<td colspan=2>
-								<input type="button" id="login" value="로그인" />
-							</td>
-						</tr>
-					</table>
-				</form>
-			</c:when>
-			<c:otherwise>
-				<h3>${sessionScope.email}님 환영합니다.</h3>
-				<a href="logout">로그아웃</a>
-			</c:otherwise>
-		</c:choose>
-</body>
-<script type="text/javascript">
-	$(document).ready(function(e){
-		$('#login').click(function(){
 
-			// 입력 값 체크
-			if($.trim($('#email').val()) == ''){
-				alert("이메일을 입력해 주세요.");
-				$('#userId').focus();
-				return;
-			}else if($.trim($('#email').val()) == ''){
-				alert("패스워드를 입력해 주세요.");
-				$('#passwd').focus();
-				return;
-			}
-			
-			//전송
-			$('#loginFrm').submit();
-		});
+<div class="wrapper">
+	
+	<div class="wrap">
+		<form id="login_form" method="post">
+			<div class="logo_wrap">
+				<spanf>로그인</span>
+			</div>
+			<div class="login_wrap"> 
+				<div class="id_wrap">
+						<div class="id_input_box">
+						<input class="id_input" name="email">
+					</div>
+				</div>
+				<div class="pw_wrap">
+					<div class="pw_input_box">
+						<input type="password" class="pw_iput" name="pw">
+					</div>
+				</div>
+				
+				<c:if test = "${result == 0 }">
+					<div class = "login_warn"> Email 또는 비밀번호를 잘못 입력하셨습니다.</div>
+				</c:if>
+				
+				<div class="login_button_wrap">
+					<input type="button" class="login_button" value="로그인">
+				</div>			
+			</div>
+		</form>
+		
+	</div>
+
+</div>
+
+<script>
+	/* 로그인 버튼 클릭 메서드 */
+	$(".login_button").click(function(){
+		
+		/* 로그인 메서드 서버 요청 */
+		$("#login_form").attr("action","login");
+		$("#login_form").submit();
 		
 	});
 </script>
+
+</body>
+</html>

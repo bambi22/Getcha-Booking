@@ -18,5 +18,8 @@ public interface IMemberDAO {
 	public MemberDTO memberViewProc(String email);
 
 	public int memberModiProc(MemberDTO member);
+	
+	public MemberDTO memberLogin(MemberDTO member);
+
 
 }
