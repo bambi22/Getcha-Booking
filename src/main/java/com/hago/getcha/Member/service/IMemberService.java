@@ -10,8 +10,5 @@ public interface IMemberService {
 	public int memberDeleteProc(MemberDTO check);
 	public MemberDTO memberViewProc(String email);
 	public int memberModiProc(MemberDTO member);
-	//로그인 체크
-	public boolean loginCheck(MemberDTO member,HttpSession session);
-	//로그 아웃
-	public void logout(HttpSession session);
+	public MemberDTO memberLogin(MemberDTO member) throws Exception;
 }
