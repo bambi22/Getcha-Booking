@@ -4,7 +4,6 @@
 	<select id="CheckEmail" resultType="int" parameterType="String">
 		SELECT count(*) FROM getchamember WHERE email=#{email}
 	</select>
-	
 	<insert id="insertMember" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		INSERT INTO getchamember VALUES(#{email}, #{nickname},#{pw},#{mobile},#{birth},#{gender})
 	</insert>
@@ -33,12 +32,15 @@
 	<update id="memberModiProc" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		UPDATE getchamember
 		<set>
-			<if test="pw != ''">pw=#{pw},</if>
-			<if test="nickname != ''">nickname=#{nickname},</if>
-			<if test="mobile != ''">mobile=#{mobile},</if>
-			<if test="birth != ''">birth=#{birth},</if>
+			<if test="pw != ''">pw=#{pw}</if>
+			<if test="nickname != ''">nickname=#{nickname}</if>
+			<if test="mobile != ''">mobile=#{mobile}</if>
+			<if test="birth != ''">birth=#{birth}</if>
 			<if test="gender != ''">gender=#{gender}</if>
 		</set>
 		WHERE email=#{email}
 	</update>
+	<select id="memberLogin" resultType="com.hago.getcha.Member.dto.MemberDTO">
+			SELECT email,pw,nickname FROM getchamember WHERE email = #{email}	
+	</select> 
 </mapper>

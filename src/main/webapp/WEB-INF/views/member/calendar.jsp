@@ -11,22 +11,20 @@
 </head>
 <script>
 function search(){
+	var i = document.getElementById("input_date").value;
+	var e = {input_date:i}
 	$.ajax({
-		url:"getTime",
-		type : "POST"
-		success : function(data){
-			var weekselection = data.weekselection;
-			var hours = data.hours;
-			var temp="";
-			for(var i=0; i<list.length; i++;){
-				temp+=list[i].weekselection+" "+ list[i].hours;
-			}
-				$('#result').text(temp);
-			},
-			error:function(){
-				alert("request error!");
+		url :"SearchDay", type:"POST",
+		data:JSON.stringify(e),
+		contentType:"application/json; charset=utf-8",
+		dataType:'json',
+		success:function(result){
+			alert("전달완료")
+		},
+		error:function(){
+			alert("문제발생")
 		}
-	});
+	})
 }
 
 </script>
@@ -153,11 +151,10 @@ function search(){
 		h.push('</tr>');
 		$("#tb_body").html(h.join(""));
 	}
+	
 	function setDate(day){
 		if(day<10) day="0" +day;
 		$("#input_date").val(current_year + "-" + current_month + "-" + day);
-		
-		
 	}
 	
 	function changeMonth(diff){

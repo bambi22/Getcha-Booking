@@ -1,23 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
 <!DOCTYPE html>
 <html>
 <script type="text/javascript">
-$(document).ready(function(e){
-	$('#login').click(function() {
-		location.href="login";
-	});
-});
-}
-
 
 function openNav() {
     document.getElementById("mySidenav").style.width = "300px";
     timerId = setInterval(changeColor, 1000);
 }
-
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
@@ -25,7 +18,6 @@ function closeNav() {
 
 
 <style>
-
 body {
     font-family: "Lato", sans-serif;
 }
@@ -60,7 +52,6 @@ body {
     padding-top: 60px;
    
 }
-
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -69,11 +60,9 @@ body {
     display: block;
     transition: 0.3s;
 }
-
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
 .sidenav .closebtn {
     position: absolute;
     top: 0;
@@ -81,14 +70,10 @@ body {
     font-size: 36px;
     margin-left: 50px;
 }
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
-
-
 .box{
 	margin:0 auto;
   	width: 180px;
@@ -131,7 +116,6 @@ border-bottom: solid 1px black;
 	margin-top:50px;
 	 text-align:center;
     }
-
 	.menu{
 	margin-top:50px;
 	}
@@ -153,8 +137,18 @@ border-bottom: solid 1px black;
  <div class="header">
  		<h1>LOGO</h1>
       <ul>
-         <li>로그인</li>
-         <li>회원가입</li>
+        <!-- 로그인 하지 않은 상태 -->
+                <c:if test = "${member == null }">
+                  <div class="login_area"><a href="${root}index?formpath=login">로그인</a></div>
+                    <span><a href="${root}index?formpath=member">회원가입</a></span>                
+                </c:if>  
+                <!-- 로그인한 상태 -->
+                <c:if test="${ member != null }">
+            		<div class="login_success_area">
+                        <span>회원 : ${member.nickname}님</span>
+                        <a href="logout">로그아웃</a>
+                        </div>
+                </c:if>
       </ul>
       <p class="title"></p>
   </div>
@@ -173,7 +167,6 @@ border-bottom: solid 1px black;
 	<div>
 	<p class="pro2" style="text-align:center;"><img src="http://www.travelnbike.com/news/photo/201810/67003_113045_4950.jpg" style="border:2 solid black"  width="900" height="280"></p>
 	</div>
-
 	<div class="search">
 	<input type="search" class="search-txt" style="width:800px; height:50px;" name="" placeholder="메뉴 검색">
 	</div>
@@ -227,4 +220,20 @@ border-bottom: solid 1px black;
 	</div>
 	
 </body>
+<script>
+	
+	$("#gnb_logout_button").click(function(){
+		//alert("버튼 작동");
+		$.ajax({
+			type:"POST",
+			url:"/member/logout.do",
+			success:function(data){
+				alert("로그아웃 성공");
+				document.location.reload();	 
+			} 
+		}); // ajax 
+	});
+	
+</script>
+             
 </html>

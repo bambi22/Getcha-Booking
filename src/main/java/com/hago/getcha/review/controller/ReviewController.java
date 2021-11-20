@@ -35,9 +35,26 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "updateProc")
-	public String updateProc(Model model) {
-		
-		return "forward:update";
+	public String updateProc(MultipartHttpServletRequest req) {
+		service.updateProc(req);
+		return "forward:review";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "delFileProc")
+	public Map<String, String> delFileProc(HttpServletRequest req) {
+		String reviewNum = req.getParameter("reviewNum");
+		String delFile = req.getParameter("fileName");
+		logger.warn("리뷰 no: " + reviewNum);
+		logger.warn("삭제할 파일: " + delFile);
+		int result = service.delFileProc(reviewNum, delFile, req);
+		logger.warn("결과값: " + result);
+		Map<String, String> data = new HashMap<>();
+		if(result == 1) 
+			data.put("result", "success");
+		else
+			data.put("result", "fail");
+		return data;
 	}
 	
 	@ResponseBody
@@ -46,6 +63,7 @@ public class ReviewController {
 		String delNum = req.getParameter("reviewNum");
 		String fileNames = req.getParameter("fileNames");
 		logger.warn("삭제할 no: " + delNum);
+		logger.warn("삭제할 파일: " + fileNames);
 		int deletedRow = service.deleteProc(delNum, fileNames, req);
 		Map<String, String> result = new HashMap<>();
 		if(deletedRow > 0) 
