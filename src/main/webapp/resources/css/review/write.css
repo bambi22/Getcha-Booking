@@ -4,7 +4,7 @@
 		overflow: hidden;
 	}
 	
-	#ReviewWritingPage_Container{
+	#ReviewWritingPage_Container {
 		height: 800px;
 		margin: 10px;
 	}
@@ -21,7 +21,7 @@
 	
      .upload_wrap {
          height: 110px;
-         padding: 10px;
+         padding: 15px;
       }
       
      .upload_wrap div {
@@ -33,7 +33,15 @@
       	text-align: right;
       }
       
-      .rating .rate_radio {
+	.subtitle {font-size: 12px; padding: 7px;}
+	
+	.caution {font-size: 11px; padding: 5px; color: #8C8C8C}
+	
+    .rateItem {
+		cursor: pointer;
+	}
+	
+	.rating .rate_radio {
 	    position: relative;
 	    display: inline-block;
 	    z-index: 20;
@@ -59,6 +67,7 @@
 	    cursor: pointer;
 	    background-color: #f0f0f0;
 	}
+	
 	.rating .rate_radio:checked + label {
 	    background-color: #ff8;
 	}
@@ -70,4 +79,7 @@
 	.img_regi .ph img { height:100%; visibility:hidden; }
 	.img_regi input[type="file"] { position:absolute; left:0; bottom:0; width:100%; height:100%; filter:alpha(opacity=0); opacity:0; cursor:pointer; z-index:5; }
 	.img_regi a { position:absolute; top:0; left:0; right:0; bottom:0; text-align:center; line-height:78px; font-size:12px; }
+	
+	.pre_img { height: 100px; width: 100px; overflow: hidden; margin-right: 6px;}
+	.pre_img img {height: 100%; width: 100%;}
 	

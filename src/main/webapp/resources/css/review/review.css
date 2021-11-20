@@ -1,0 +1,58 @@
+@charset "UTF-8";
+	section {
+		width: 1200px;
+		margin: auto;
+	}
+	
+	#ReviewPage_Container {
+		margin: 10px;
+	}
+	
+	.Review_Row{
+		height: 320px;
+		margin: 5px ,0px;
+	}
+	
+	.title {
+		font-weight: bold, 700;
+		padding: 15px;
+	}
+	
+	.rating{
+		float: right;
+		position: relative;
+		font-size: 18px;
+	    -webkit-text-fill-color: #ff8;
+	}
+	
+	.image_wrap{
+		height: 120px;
+	}
+	
+	.image_wrap div{
+		float: left;
+	}
+	
+	.review_image{
+		height: 120px;
+		width: 120px;
+		overflow: hidden;
+		margin: 0px 10px 10px 0px;
+	}
+      
+    .date {
+    	color: #CACACA;
+    	text-align: right;
+    } 
+      
+    .button_wrap {
+     	padding: 5px;
+      	text-align: right;
+    }
+      
+     
+      
+     
+
+	
+	
