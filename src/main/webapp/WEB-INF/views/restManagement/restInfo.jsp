@@ -11,6 +11,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/js/restManagement/restRegister.js" ></script>
+<script type="text/javascript" src="resources/js/restManagement/restInfo.js" ></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
 <script>
 
@@ -337,7 +338,7 @@ function deleteRow(del){
 				<tr><th>${menuList[i].category }</th></tr>
 			</c:if>	
 				<tr>
-					<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td><td>${menuList[i].unitPrice }</td>
+					<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td><td>${menuList[i].priceStr }</td>
 				</tr>
 		</c:forEach>
 	</table>
@@ -350,24 +351,26 @@ function deleteRow(del){
 					<th style="width:100px">분류</th><th style="width:150px">메뉴명</th><th style="width:200px">메뉴 소개</th><th style="width:100px">가격</th><th>메뉴 이미지</th><th></th>
 				</tr>
 			 	<c:forEach var="i" begin="0" end="${fn:length(menuList) }">
-					<tr>
-						<c:if test="${menuList[i].category == null }">
-							<td><input type="text" name="category" style="width:80" placeholder="분류"></td>
-						</c:if>	
-						<c:if test="${menuList[i].category != null }">
-							<td><input type="text" name="category" style="width:80" value="${menuList[i].category }"></td>
-						</c:if>
-						<td><input type="text" name="menuName" style="width:135px" value="${menuList[i].menuName }"></td>
-						<c:if test="${menuList[i].menuDescript == null }">
-							<td><input type="text" name="menuDescript" style="width:80" placeholder="메뉴 소개"></td>
-						</c:if>	
-						<c:if test="${menuList[i].menuDescript != null }">
-							<td><input type="text" name="menuDescript" style="width:80" value="${menuList[i].menuDescript }"></td>
-						</c:if>
-						<td><input type="number" name="unitPrice" style="width:90px" value="${menuList[i].unitPrice }"></td>
-						<td></td>
-						<td><button type="button" name="delMenu" onclick="deleteRow(this)">삭제</button></td>
-					</tr>
+					<c:if test="${menuList[i].menuName != null }">
+						<tr>
+							<c:if test="${menuList[i].category == null }">
+								<td><input type="text" name="category" style="width:80" placeholder="분류"></td>
+							</c:if>	
+							<c:if test="${menuList[i].category != null }">
+								<td><input type="text" name="category" style="width:80" value="${menuList[i].category }"></td>
+							</c:if>
+							<td><input type="text" name="menuName" style="width:135px" value="${menuList[i].menuName }"></td>
+							<c:if test="${menuList[i].menuDescript == null }">
+								<td><input type="text" name="menuDescript" style="width:190" placeholder="메뉴 소개"></td>
+							</c:if>	
+							<c:if test="${menuList[i].menuDescript != null }">
+								<td><input type="text" name="menuDescript" style="width:80" value="${menuList[i].menuDescript }"></td>
+							</c:if>
+							<td><input type="number" name="unitPrice" style="width:90px" value="${menuList[i].unitPrice }"></td>
+							<td></td>
+							<td><button type="button" name="delMenu" onclick="deleteRow(this)">삭제</button></td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</table>
 			<button type="button" id="addRow" onclick="addModifyRow()">행 추가</button>
@@ -390,36 +393,6 @@ function deleteRow(del){
 	</div>
 </body>
 <script>
-function addModifyRow(){
-	// table element 찾기
-  const table = document.getElementById('modifyTable');
-  
-  // 새 행(Row) 추가
-  const newRow = table.insertRow();
-  
-  // 새 행(Row)에 Cell 추가
-  const newCell1 = newRow.insertCell(0);
-  const newCell2 = newRow.insertCell(1);
-  const newCell3 = newRow.insertCell(2);
-  const newCell4 = newRow.insertCell(3);
-  const newCell5 = newRow.insertCell(4);
-  const newCell6 = newRow.insertCell(5);
-  
-  // Cell에 텍스트 추가
-  newCell1.innerHTML = '<input type="text" name="category" style="width:80" placeholder="분류">';
-  newCell2.innerHTML = '<input type="text" name="menuName" style="width:135px" placeholder="메뉴명">';
-  newCell3.innerHTML = '<input type="text" id="inMenuDescript"  placeholder="메뉴 소개" style="width:190px">';
-  newCell4.innerHTML = '<input type="number" id="inUnitPrice" placeholder="가격" style="width:100px">';
-  newCell5.innerHTML = '<input type="file" id="inMenuImage" name="menuImage" style="display:none;" onchange="previewName(this)"><label for="inMenuImage"><i class="fas fa-upload">Photo</i></label><span id="menuImagename"></span>';
-  newCell6.innerHTML = "<button type='button' name='delMenu' onclick='deleteRow(this)'>삭제</button>";
-}
 
-function previewName(file){
-	var fileName = file.getAttribute('id');
-	for(f of file.files){
-		let reader = new FileReader();
-		document.getElementById(fileName+'name').innerHTML = f.name;
-	}
-}
 </script>
 </html>

@@ -1,6 +1,7 @@
 package com.hago.getcha.restManagement.service;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -25,7 +26,7 @@ public class RestManagementService implements IRestManagementService {
 	@Override
 	public void restInfo(Model model) {
 		//int restNum = (Integer)session.getAttribute("restNum");
-		int restNum = 21;
+		int restNum = 33;
 		// 식당 정보 가져오기
 		RestaurantDTO rest = rmDao.selectRestaurant(restNum);
 		// 영업시간 가져오기
@@ -44,6 +45,10 @@ public class RestManagementService implements IRestManagementService {
 		model.addAttribute("facilityList", facilityList);
 		model.addAttribute("restImgList", restImgList);
 		model.addAttribute("menuList", menuList);
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		for(MenuDTO menu : menuList) {
+			menu.setPriceStr(formatter.format(menu.getUnitPrice())+" 원");
+		}
 		model.addAttribute("wholeMenuList", wholeMenuList);
 		
 	}

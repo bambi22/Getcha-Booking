@@ -164,7 +164,146 @@ function submitBtn(){
 
 
 
+$(document).on('input','#promotion', function () {
+	readURL(this);
+}); 
+function readURL(input){
+	if(input.files && input.files[0]){
+		var reader = new FileReader();
+		reader.onload = function (e){
+			$('#previewPromotion').attr('src',e.target.result);
+			$('#previewPromotion').attr('width', 150);
+		}
+		 reader.readAsDataURL(input.files[0]);
+	}
+}
 
+
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+      				$($.parseHTML('<img>')).attr('src', event.target.result)
+      				.attr('height', 200)
+      				.attr('weight', 100)      				
+      				.appendTo(placeToInsertImagePreview);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+
+    $('#restImage').on('change', function() {
+        imagesPreview(this, 'div.previewImgs');
+    });
+});
+
+
+
+/* 
+imageView = function imageView(previewImgs, restImage){
+
+	var preview = document.getElementById(previewImgs);
+	var restImage = document.getElementById(restImage);
+	var sel_files = [];
+	
+	// 이미지와 체크 박스를 감싸고 있는 div 속성
+	var div_style = 'display:inline-block;position:relative;'
+	              + 'width:150px;height:120px;margin:5px;border:1px solid #00f;z-index:1';
+	// 미리보기 이미지 속성
+	var img_style = 'width:100%;height:100%;z-index:none';
+	// 이미지안에 표시되는 체크박스의 속성
+	var chk_style = 'width:40px;height:25px;position:absolute;font-size:12px;'
+	              + 'right:0px;top:0px;background:none;color:#f00;border:none;';
+	
+	restImage.onchange = function(e){
+		if ($('#restImage')[0].files.length > 6) {
+		    alert('6개를 초과하였습니다.')
+			return;
+		}	
+	    var files = e.target.files;
+	    var fileArr = Array.prototype.slice.call(files)
+	    for(f of fileArr){
+	      imageLoader(f);
+	    }
+	}
+	
+	// 탐색기에서 드래그앤 드롭 사용
+    preview.addEventListener('dragenter', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+    }, false)
+    
+    preview.addEventListener('dragover', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      
+    }, false)
+  
+    preview.addEventListener('drop', function(e){
+      var files = {};
+      e.preventDefault();
+      e.stopPropagation();
+      var dt = e.dataTransfer;
+      files = dt.files;
+      for(f of files){
+        imageLoader(f);
+      }
+      
+    }, false)	
+    
+    
+    imageLoader = function(file){
+      sel_files.push(file);
+      var reader = new FileReader();
+      reader.onload = function(ee){
+        let img = document.createElement('img')
+        img.setAttribute('style', img_style)
+        img.setAttribute('name', 'choice')
+        img.src = ee.target.result;
+        preview.appendChild(makeDiv(img, file));
+      }
+      
+      reader.readAsDataURL(file);
+    }
+	
+    
+    makeDiv = function(img, file){
+      var div = document.createElement('div')
+      div.setAttribute('style', div_style)
+      
+      var btn = document.createElement('input')
+      btn.setAttribute('type', 'button')
+      btn.setAttribute('value', '삭제')
+      btn.setAttribute('delFile', file.name);
+      btn.setAttribute('style', chk_style);
+      btn.onclick = function(ev){
+        var ele = ev.srcElement;
+        var delFile = ele.getAttribute('delFile');
+        for(var i=0 ;i<sel_files.length; i++){
+          if(delFile== sel_files[i].name){
+            sel_files.splice(i, 1);      
+          }
+        }
+        
+        dt = new DataTransfer();
+        for(f in sel_files) {
+          var file = sel_files[f];
+          dt.items.add(file);
+        }
+        preview.files = dt.files;
+        var p = ele.parentNode;
+        preview.removeChild(p)
+      }
+      div.appendChild(img)
+      div.appendChild(btn)
+      return div
+    }
+}('previewImgs', 'restImage')  */
 
 
 

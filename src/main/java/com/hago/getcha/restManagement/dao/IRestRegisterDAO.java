@@ -10,8 +10,8 @@ import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
 @Repository
-public interface IRestRegistertDAO {
-	public void restRegister(RestaurantDTO restDto);
+public interface IRestRegisterDAO {
+	public void addRestaurant(RestaurantDTO restDto);
 
 	public void addFacilities(FacilitiesDTO facilDto);
 
