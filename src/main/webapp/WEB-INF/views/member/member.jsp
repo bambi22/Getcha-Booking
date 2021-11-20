@@ -46,7 +46,7 @@
 			<tr>
 				<td height=40>비밀번호 확인</td>
 				<td>
-					<input type=password name='pwChk' id='pwChk' placeholder='비밀번호 확인' onblur="pwchk()"/><br>
+					<input type=password name='pwCheck' id='pwCheck' placeholder='비밀번호 확인' onblur="pwchk()"/><br>
 					<input type="text" style="border-width:0px" size="20" name="chk" id="chk" value="비밀번호를 입력하세요." readonly="readonly">
 				</td>
 			</tr>

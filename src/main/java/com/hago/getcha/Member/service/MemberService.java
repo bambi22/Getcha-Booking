@@ -24,8 +24,12 @@ public class MemberService implements IMemberService{
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
-		if(member.getPw().equals(member.getPwCheck())==false)
+		if(member.getPw().equals(member.getPwCheck())==false) {
+			logger.warn("pw: " + member.getPw());
+			logger.warn("pwCheck:"+ member.getPwCheck());
 			return "비밀번호가 일치하지 않습니다.";
+		}
+			
 		if(member.getEmail() == "" || member.getPw() == "")
 			return "필수 정보입니다.";
 		if(dao.CheckEmail(member.getEmail()) > 0)
