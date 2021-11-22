@@ -1,6 +1,8 @@
 
-var i=1;
+var i=50;
+
 function addModifyRow(){
+	
 	// table element 찾기
   const table = document.getElementById('registerTable');
   
@@ -31,6 +33,7 @@ function deleteRow(del){
 	$(del).parent().parent().remove();
 }
 
+// 메뉴 이미지 이미보기
 function previewImg(input){
 	if(input.files && input.files[0]){
 		var imgName = input.getAttribute('id');
@@ -43,10 +46,13 @@ function previewImg(input){
 	}
 }
 
+// 메뉴판 미리보기
 $(function() {
     // Multiple images preview in browser
+  
     var imagesPreview = function(input, placeToInsertImagePreview) {
         if (input.files) {
+			$(placeToInsertImagePreview).empty();
             var filesAmount = input.files.length;
             for (i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
@@ -61,11 +67,12 @@ $(function() {
     };
 
     $('#inWholeMenu').on('change', function() {
+	  	
         imagesPreview(this, 'div.wholeMenuPreview');
     });
 });
 
-	
+// 메뉴 입력했을 때
 function inputMenu() {
 	var menuNameArr = document.getElementsByName('menuName');
 	var unitPrice = document.getElementsByName('unitPrice');
@@ -84,6 +91,7 @@ function inputMenu() {
     $('form[name="f"]').submit();
 }
 
+// 메뉴 입력하지 않았을 때
 function noMenu() {
 	document.getElementById('inputOrNot').value = "no";
     $('form[name="f"]').submit();

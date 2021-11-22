@@ -26,20 +26,35 @@ public class RestRegisterService implements IRestRegisterService {
 	@Autowired IRestRegisterDAO rrDao;
 	@Autowired HttpSession session;
 	
+	public String saveFile(int restNum, MultipartFile file, String location) {
+		Calendar cal = Calendar.getInstance(); 	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String fileName = restNum+ "-"+sdf.format(cal.getTime()) + "-" + file.getOriginalFilename();
+		File save = new File(location + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
+		try {
+			file.transferTo(save);				// 그 위치에 저장해줌
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 	
+		return fileName;
+	}
+	
+	
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 		// 세션값 추가
 		session.setAttribute("restNum", 33);
+		int restNum = (Integer)session.getAttribute("restNum");
 		
 		// 멀티파트으로 가져온 식당 정보를 테이블에 저장
 		RestaurantDTO restDto = new RestaurantDTO();
-		restDto.setRestNum((Integer)session.getAttribute("restNum"));
+		restDto.setRestNum(restNum);
 		restDto.setRestName(req.getParameter("restName"));
 		restDto.setRestIntro(req.getParameter("restIntro"));
 		restDto.setZipcode(req.getParameter("zipcode"));
 		
 		String[] addrStr = req.getParameterValues("address");
-		restDto.setAddress(addrStr[0] + addrStr[1]);
+		restDto.setAddress(addrStr[0] + " ," + addrStr[1]);
 		restDto.setDong(req.getParameter("dong"));
 		
 		String[] typeStr = req.getParameterValues("type");
@@ -51,17 +66,9 @@ public class RestRegisterService implements IRestRegisterService {
 		
 		// 프로모션 파일 가져와서 저장
 		MultipartFile file = req.getFile("promotion");
-		if(file.getSize() != 0) {	
-			Calendar cal = Calendar.getInstance(); 	
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-			String fileName = sdf.format(cal.getTime()) + file.getOriginalFilename();
+		if(file.getSize() != 0) {		
+			String fileName = saveFile(restNum, file, FILE_LOCATION_PROMOTION);
 			restDto.setPromotion(fileName);   
-			File save = new File(FILE_LOCATION_PROMOTION + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
-			try {
-				file.transferTo(save);				// 그 위치에 저장해줌
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 				
 		}else {
 			restDto.setPromotion("파일 없음");
 		}
@@ -97,23 +104,19 @@ public class RestRegisterService implements IRestRegisterService {
 		
 		// 넘어온 식당 사진들 저장
 		List<MultipartFile> files = req.getFiles("restImage");
-		Calendar cal = Calendar.getInstance(); 	
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		if(files != null) {
 			int i = 1;
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
-				imgDto.setRestNum(restDto.getRestNum());
-				String fileName = i+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
-				imgDto.setRestImage(fileName);   
-				File save = new File(FILE_LOCATION_RESTAURANT + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
-				try {
-					f.transferTo(save);				// 그 위치에 저장해줌
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
+				if(f.getSize() != 0) {		
+					String fileName = saveFile(restNum, f, FILE_LOCATION_RESTAURANT);
+					imgDto.setRestNum(restNum);
+					imgDto.setRestImage(fileName);   
+				}else {
+					imgDto.setRestImage("파일 없음");
+				}
 				rrDao.addRestImage(imgDto);
-				if(i==1) {
+				if(f.getSize() != 0 && i==1) {
 					rrDao.addRepresentImage(imgDto);
 				}
 				i++;
@@ -125,6 +128,7 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	public void menuRegisterProc(MultipartHttpServletRequest req) {	
 		String inputOrNot = req.getParameter("inputOrNot");
+		int restNum = (Integer)session.getAttribute("restNum");
 		if(inputOrNot.equals("yes")) {
 			String[] categoryStr = req.getParameterValues("category"); 
 			String[] menuNameStr = req.getParameterValues("menuName"); 
@@ -140,46 +144,31 @@ public class RestRegisterService implements IRestRegisterService {
 				menuDto.setMenuName(menuName);
 				menuDto.setMenuDescript(menuDescriptStr[i]);
 				menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
-				menuDto.setMenuImage("파일 없음"); 
+			    if(!files.get(i).isEmpty()) { 
+				    String fileName = saveFile(restNum, files.get(i), FILE_LOCATION_MENU);
+				    menuDto.setMenuImage(fileName); 
+			    }else { 
+				    menuDto.setMenuImage("파일 없음"); 
+		        }
 				
-			  if(files != null) { 
-				  String fileName = menuName + files.get(i).getOriginalFilename(); 
-				  menuDto.setMenuImage(fileName); 
-				  File save  = new File(FILE_LOCATION_MENU + "\\" + fileName); 
-				  try {
-					  files.get(i).transferTo(save); 
-				  } catch (Exception e) { 
-					  e.printStackTrace(); 
-				  }
-			  }else { 
-				  menuDto.setMenuImage("파일 없음"); 
-		      }
-				
-				rrDao.addMenu(menuDto);
+			    rrDao.addMenu(menuDto);
 				
 				i++;
 			}
-		
 		}
 	    
 	    
 	    List<MultipartFile> files = req.getFiles("wholeMenu");
-		Calendar cal = Calendar.getInstance(); 	
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		if(files != null) {
-			int j = 1;
 			for(MultipartFile f : files) {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
-				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
-				String fileName = j+ "-" + sdf.format(cal.getTime()) + f.getOriginalFilename();
-				menuDto.setWholeMenu(fileName);   
-				File save = new File(FILE_LOCATION_WHOLEMENU + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
-				try {
-					f.transferTo(save);				// 그 위치에 저장해줌
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
-				j++;
+				menuDto.setRestNum(restNum);
+				if(!f.isEmpty()) { 
+				    String fileName = saveFile(restNum, f, FILE_LOCATION_WHOLEMENU);
+				    menuDto.setWholeMenu(fileName);   
+				}else {
+					menuDto.setWholeMenu("파일 없음");   
+				}
 				rrDao.addWholeMenu(menuDto);
 			}
 		}

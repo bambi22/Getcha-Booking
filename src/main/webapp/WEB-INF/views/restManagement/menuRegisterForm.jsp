@@ -13,11 +13,11 @@
 	<br>
 	<h3>메뉴 등록</h3>
 	<br>
-		<input type="file" id="inWholeMenu" name="wholeMenu" style="display:none;" multiple onchange="previewMulti(this)"> 
-        <label for="inWholeMenu">메뉴판 사진 업로드 <img name="inWholeMenu" src="resources/img/icon/upload.png" width="20"></label>
-		<div class="wholeMenuPreview">
-				
-		</div>
+	<input type="file" id="inWholeMenu" name="wholeMenu" style="display:none;" multiple> 
+       <label for="inWholeMenu">메뉴판 사진 업로드 <img src="resources/img/icon/upload.png" width="20"></label>
+	<div class="wholeMenuPreview">
+			
+	</div>
 	<br>
 	<br>
 	<form name="f" method="post" enctype="multipart/form-data" action="menuRegisterProc">

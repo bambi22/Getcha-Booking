@@ -32,7 +32,7 @@ function findCor(){
 	geocoder.addressSearch(addr, callback); 
 } 
 
-
+// 식당 종류 직접 입력 선택시 입력 공간 뜨게 하기
 $(function(){
 	$('#typeDirect').hide();
 	$('#type').change(function(){
@@ -44,6 +44,7 @@ $(function(){
 	})
 });
 
+// 휴무를 선택할 경우 시간이 뜨지 않게 함
 $(function(){
 	$('#openingSel').change(function(){
 		if($('#openingSel').val() == "휴무"){
@@ -71,7 +72,7 @@ $(document).ready(function() {
 
 });
 
-
+// 영업시간 추가
 function addOpening(){
  	var day = document.getElementById("openingDay").value;
 	var st = document.getElementById("start").value;
@@ -79,6 +80,9 @@ function addOpening(){
 	var sel = document.getElementById("openingSel").value; 
 	var op = document.getElementById("openHour").innerHTML;
 	var openStr;
+	if(start == "" || end == ""){
+		return;
+	}
 	if(sel == "휴무"){
 		openStr = "<div><input type='text' name='openHour' style='border:none;' value='"+ day + " " + sel + "'> <button name='delMenu'>삭제</button></div>"; 
 	}else{
@@ -95,11 +99,13 @@ function addOpening(){
 	}
 
 }
+// 영업시간 삭제
 $(document).on("click","button[name=delMenu]",function(){
     var trHtml = $(this).parent();
     trHtml.remove(); //tr 테그 삭제
     
 });
+
 
 $(document).ready(function() { 
 	$("input:checkbox").on('click', function() { 
@@ -163,7 +169,7 @@ function submitBtn(){
 }
 
 
-
+// 프로모션 이미지 미리보기
 $(document).on('input','#promotion', function () {
 	readURL(this);
 }); 
@@ -172,17 +178,18 @@ function readURL(input){
 		var reader = new FileReader();
 		reader.onload = function (e){
 			$('#previewPromotion').attr('src',e.target.result);
-			$('#previewPromotion').attr('width', 150);
+			$('#previewPromotion').attr('width', 100);
 		}
 		 reader.readAsDataURL(input.files[0]);
 	}
 }
 
-
+// 레스토랑 사진 미리보기
 $(function() {
     // Multiple images preview in browser
     var imagesPreview = function(input, placeToInsertImagePreview) {
         if (input.files) {
+			$(placeToInsertImagePreview).empty();
             var filesAmount = input.files.length;
             for (i = 0; i < filesAmount; i++) {
                 var reader = new FileReader();
