@@ -6,7 +6,7 @@
 </style>
 <table width="1340">
 	<tr>
-		<td align="center" colspan=5><h1><a href="${root}index?formpath=main2">Getcha</a></h1></td>
+		<td align="center" colspan=5><h1><a href="${root}index?formpath=main">Getcha</a></h1></td>
 	</tr>
 	<tr>
 		<td align="center" colspan=5><hr/></td>
