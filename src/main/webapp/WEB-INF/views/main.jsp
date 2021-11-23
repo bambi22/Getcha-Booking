@@ -30,6 +30,81 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <body>
+<<<<<<< HEAD
+<div class="frame">
+ <div class="header">
+ 		<h1>LOGO</h1>
+      <ul>
+         <li>로그인</li>
+         <li>회원가입</li>
+      </ul>
+      <p class="title"></p>
+  </div>
+  
+<div class="container">
+	<div class="nav">
+		<div id="mySidenav" class="sidenav">
+		
+ 			 <a style="href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		</div>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+ </div>
+ 
+	<div class="content">
+	<a href="restViewProc?restNum=21">식당21번 정보 보기</a>
+	<div>
+	<p class="pro2" style="text-align:center;"><img src="http://www.travelnbike.com/news/photo/201810/67003_113045_4950.jpg" style="border:2 solid black"  width="900" height="280"></p>
+	</div>
+
+	<div class="search">
+	<input type="search" class="search-txt" style="width:800px; height:50px;" name="" placeholder="메뉴 검색">
+	</div>
+	
+	<div class="menu" style="text-align: center;">
+	<img src="https://image.toast.com/aaaaaqx/md/_0010_sushi_omakase.jpg" class="box" style="border:3 solid black">
+	<img src="https://image.toast.com/aaaaaqx/md/_0006_korean_food.jpg" class="box" style="border:3 solid black">
+	<img src="https://image.toast.com/aaaaaqx/md/_0007_steak.jpg" class="box" style="border:3 solid black">
+	<img src="https://image.toast.com/aaaaaqx/md/_0008_beef.jpg" class="box" style="border:3 solid black">
+	</div>
+	
+	<p class="pro2" style="text-align:center;"><img src="http://www.travelnbike.com/news/photo/201810/67003_113045_4950.jpg" style="border:2 solid black"  width="900" height="280"></p>
+	
+	<div class="best-menu" style="text-align: center;">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	</div>
+		
+		
+	<div class="guide" style="text-align: center;">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	</div>
+	
+	<div class="new-restaurent" style="text-align: center;">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	</div>
+	
+	<div class="Dining Magazine" style="text-align: center;">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	<img src="#" class="box" style="border:3 solid black">
+	</div>
+	
+	
+	</div>
+	
+	
+	<div class="footer">
+    <p class="copyright">&copy;copy</p>
+=======
     <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -132,6 +207,7 @@ https://templatemo.com/tm-559-zay-shop
                 </div>
             </form>
         </div>
+>>>>>>> 36b4fb72f7f2da4ba6bfb612a52a009fd89f56ed
     </div>
 
 

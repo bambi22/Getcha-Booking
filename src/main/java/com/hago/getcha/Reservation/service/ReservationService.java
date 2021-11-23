@@ -193,8 +193,6 @@ public class ReservationService {
 		List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
 		ReservationDTO get = new ReservationDTO();
 		List<String>resTCheck = new ArrayList<String>();
-		ArrayList<String>equalHour = new ArrayList<String>();
-		ArrayList<String>difHour = new ArrayList<String>();
 		
 		List<String> timePart = partTime(restNum, date);
 		ReservationDTO info = getInfo(restNum);
@@ -253,48 +251,7 @@ public class ReservationService {
 			timeCapa.put("capa", stCapa);
 			dataList.add(timeCapa);
 		}
-		/*for(int i=0; i<timePart.size(); i++) {
-			String parTime = timePart.get(i);
-			for(int j=0; j<resTCheck.size(); j++) {
-				if(parTime.equals(resTCheck.get(j))) {
-					logger.warn("가능시간과 예약시간이 일치" + resTCheck.get(j));
-					ReservationDTO check = new ReservationDTO();
-					for(int k=0; k<resList.size();k++) {
-						check = resList.get(k);
-						String corTime = check.getHours();
-						hour.add(corTime);
-					}
-					for(int z=0; z<hour.size();z++) {
-						if(hour.get(z).equals(resTCheck.get(j))) {
-							int resCap = check.getCapacity();
-							capaTotal = capaTotal-resCap;
-							logger.warn("예약인원:"+resCap+"가능인원:"+capacity+"남은인원:"+capaTotal);
-						}
-					}
-						timeCapa = new HashMap<String, String>();
-						String canCap = Integer.toString(capaTotal);
-						logger.warn("저장:" + canCap);
-						timeCapa.put("time", resTCheck.get(i));
-						timeCapa.put("capa", canCap);
-						logger.warn("timeCapa저장");
-						dataList.add(timeCapa);
-				}else {
-					logger.warn("가능시간과 예약시간이 일치하지 않을때"+timePart.get(i));
-					ArrayList<String>time = new ArrayList<String>();
-					time.add(timePart.get(i));
-					for(int z=0; z<time.size(); z++) {
-						timeCapa = new HashMap<String, String>();
-						String capa = Integer.toString(capacity);
-						logger.warn("인원:"+capa);
-						logger.warn("time:"+time.get(z));
-						timeCapa.put("time", time.get(z));
-						timeCapa.put("capa", capa);
-						dataList.add(timeCapa);
-					}
-				}
-			}
-		}
-		return dataList;*/
+		
 		return dataList;
 	}
 	
@@ -314,13 +271,14 @@ public class ReservationService {
 		String stday = dto.getResDay().replaceAll("[^0-9]", "");
 		logger.warn(stday);
 		int day = Integer.parseInt(stday);
-		String num = Integer.toString(day)+Integer.toString(Time)+Integer.toString(random);
-		int resNum = Integer.parseInt(num);
-		logger.warn("예약번호:"+num);
+		String resNum = stday + ti + ran;
+		logger.warn("예약번호:"+resNum);
+		//int num = Integer.parseInt(resNum);
+		
 		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
-		dto.setResNum(resNum);
+		dto.setResNum(2011011234);
 		dto.setStatus("예약확인");
 		if(dto.getEmail()==""||dto.getEmail()==null)
 			return 0;
