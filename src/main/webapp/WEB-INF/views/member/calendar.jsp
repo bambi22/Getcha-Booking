@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,21 +11,56 @@
 </head>
 <script>
 function search(){
-	var i = document.getElementById("input_date").value;
-	var e = {input_date:i}
+	var i = document.getElementById("resDay").value;
+	var e = {resDay:i}
+	var time_data;
 	$.ajax({
 		url :"SearchDay", type:"POST",
+		//async:false;
 		data:JSON.stringify(e),
 		contentType:"application/json; charset=utf-8",
 		dataType:'json',
-		success:function(result){
-			alert("전달완료")
+		success:function(data){
+			console.log(data);
+			var str="<tr>";
+			var list = data.datas;
+			$(list).each(function(ind,obj){
+				console.log(obj["time"]);
+				console.log(obj["capa"]);
+				str+="<td onclick='setTime(obj['time']);' style='cursor:pointer;'>"+obj["time"]+"</td>";
+			});
+			str+="</tr>"
+				$("#showTime").html(str);
+			$("#showTime td").click(function(){
+				
+				var str=""
+				var ctr=""
+				var td=$(this);
+				console.log("선택된 데이터:"+td.text());
+				$("#hours").val(td.text());
+				str = td.text();
+				$("#hours").html(str)
+				$(list).each(function(ind,obj){
+					if(obj["time"]==str){
+						console.log(obj["time"]);
+						var ctr=obj["capa"];
+						var capanum = parseInt(ctr);
+						console.log("capanum:"+capanum);
+						for(var i=1; i<=capanum; i++){
+							$("select[name='capacity']").append('<option value="'+i+'">'+i+'</option>');
+						}
+						
+					}
+				});
+			});
 		},
 		error:function(){
 			alert("문제발생")
 		}
-	})
+	});
 }
+
+
 
 </script>
 <body>
@@ -67,25 +102,28 @@ function search(){
 			</tbody>
 		</table>
 	</div>
+	<form action="reservationProc" method="post">
 	<div id = "reservation" style="width:40%; float:right;" >
-	<table style="width:100%; height:70%; layout:fixed">
+	<table style="width:100%; height:70%; layout:fixed" class="checkTab">
 		<tr><th>날짜</th></tr>
 		<tr>
-			<td><input type="text" id="input_date" name="input_date"/></td>
+			<td><input type="text" id="resDay" name="resDay"/></td>
 			<td colspan="2"><input type="button" value="조회" onclick="search();"></td>
 		</tr>
 		<tr><th>시간</th></tr>
+		<tr id=showTime>
+		</tr>
 		<tr>
 			<td>
-				<input type="text" id="result" name="result"/>
+			<input type="text" id="hours" name="hours"/>
 			</td>
 		</tr>
-		<tr>
-			<td>11:00</td><td>13:00</td><td>15:00</td><td>16:00</td>
-		</tr>
 		<tr><th>인원</th>
-		<tr>
-			<td>1명</td><td>2명</td><td>3명</td><td>4명</td><td>5명</td><td>6명</td>
+		<tr id="showData">
+			<td>
+				<select name="capacity">
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -95,6 +133,7 @@ function search(){
 		</tr>
 	</table>
 </div>
+</form>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -154,7 +193,7 @@ function search(){
 	
 	function setDate(day){
 		if(day<10) day="0" +day;
-		$("#input_date").val(current_year + "-" + current_month + "-" + day);
+		$("#resDay").val(current_year + "-" + current_month + "-" + day);
 	}
 	
 	function changeMonth(diff){

@@ -2,20 +2,64 @@ package com.hago.getcha.Reservation.dto;
 
 public class ReservationDTO {
 	private int restNum;
-	private String weekselection;
+	private String restName;
+	private int resNum;
+	private int orderNum;
+	private String email;
+	private String nickname;
+	private String resDay;
+	private String week;
 	private String hours;
-	private String capacity;
+	private int capacity;
+	private String status;
+	
+	public int getOrderNum() {
+		return orderNum;
+	}
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
+	}
 	public int getRestNum() {
 		return restNum;
 	}
 	public void setRestNum(int restNum) {
 		this.restNum = restNum;
 	}
-	public String getWeekselection() {
-		return weekselection;
+	public String getRestName() {
+		return restName;
 	}
-	public void setWeekselection(String weekselection) {
-		this.weekselection = weekselection;
+	public void setRestName(String restName) {
+		this.restName = restName;
+	}
+	public int getResNum() {
+		return resNum;
+	}
+	public void setResNum(int resNum) {
+		this.resNum = resNum;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getResDay() {
+		return resDay;
+	}
+	public void setResDay(String resDay) {
+		this.resDay = resDay;
+	}
+	public String getWeek() {
+		return week;
+	}
+	public void setWeek(String week) {
+		this.week = week;
 	}
 	public String getHours() {
 		return hours;
@@ -23,10 +67,16 @@ public class ReservationDTO {
 	public void setHours(String hours) {
 		this.hours = hours;
 	}
-	public String getCapacity() {
+	public int getCapacity() {
 		return capacity;
 	}
-	public void setCapacity(String capacity) {
+	public void setCapacity(int capacity) {
 		this.capacity = capacity;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

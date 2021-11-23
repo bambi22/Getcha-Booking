@@ -3,10 +3,34 @@
 <mapper namespace="com.hago.getcha.Reservation.dao.IReservationDAO">
 	<resultMap type="com.hago.getcha.Reservation.dto.ReservationDTO" id="getTime">
 		<!-- <result property="restNum" column="restNum"/> -->
-		<result property="weekselection" column="weekselection"/>
+		<result property="week" column="weekselection"/>
 		<result property="hours" column="hours"/>
 	</resultMap>
 	<select id="getTime" resultMap="getTime" parameterType="int">
 		SELECT * FROM openhour WHERE restNum=#{restNum}
 	</select>
+	
+	<resultMap type="com.hago.getcha.Reservation.dto.ReservationDTO" id="getInfo">
+		<result property="restName" column="restName"/>
+		<result property="capacity" column="capacity"/>
+	</resultMap>
+	<select id="getInfo" resultMap="getInfo" parameterType="int">
+		SELECT * FROM Restaurant WHERE restNum=#{restNum}
+	</select>
+	
+	<resultMap type="com.hago.getcha.Reservation.dto.ReservationDTO" id="getresList">
+		<result property="resNum" column="resNum"/>
+		<result property="email" column="email"/>
+		<result property="resDay" column="resDay"/>
+		<result property="hours" column="hours"/>
+		<result property="capacity" column="capacity"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	<select id="getresList" resultMap="getresList" parameterType="int">
+		SELECT * FROM getchares WHERE restNum=#{restNum}
+	</select>
+	
+	<insert id="reservationProc" parameterType="com.hago.getcha.Reservation.dto.ReservationDTO">
+		INSERT INTO getchares VALUES(#{restNum},#{resNum},#{orderNum},#{email},#{restName},#{resDay},#{hours},#{capacity},#{status})
+	</insert>
 </mapper>
