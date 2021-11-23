@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.common.config.PageConfig;
-import com.hago.getcha.restManagement.dao.IRestManagementDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
