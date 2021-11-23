@@ -30,13 +30,12 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <body>
-<<<<<<< HEAD
 <div class="frame">
  <div class="header">
  		<h1>LOGO</h1>
       <ul>
-         <li>·Î±×ÀÎ</li>
-         <li>È¸¿ø°¡ÀÔ</li>
+         <li>ï¿½Î±ï¿½ï¿½ï¿½</li>
+         <li>È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</li>
       </ul>
       <p class="title"></p>
   </div>
@@ -51,13 +50,13 @@ https://templatemo.com/tm-559-zay-shop
  </div>
  
 	<div class="content">
-	<a href="restViewProc?restNum=21">½Ä´ç21¹ø Á¤º¸ º¸±â</a>
+	<a href="restViewProc?restNum=21">ï¿½Ä´ï¿½21ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</a>
 	<div>
 	<p class="pro2" style="text-align:center;"><img src="http://www.travelnbike.com/news/photo/201810/67003_113045_4950.jpg" style="border:2 solid black"  width="900" height="280"></p>
 	</div>
 
 	<div class="search">
-	<input type="search" class="search-txt" style="width:800px; height:50px;" name="" placeholder="¸Þ´º °Ë»ö">
+	<input type="search" class="search-txt" style="width:800px; height:50px;" name="" placeholder="ï¿½Þ´ï¿½ ï¿½Ë»ï¿½">
 	</div>
 	
 	<div class="menu" style="text-align: center;">

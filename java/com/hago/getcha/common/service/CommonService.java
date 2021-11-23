@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.common.config.PageConfig;
+import com.hago.getcha.restManagement.dao.IRestInfoDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
@@ -20,7 +21,7 @@ import com.hago.getcha.review.dto.ReviewsDTO;
 
 @Service
 public class CommonService {
-	@Autowired IRestManagementDAO rmDao;
+	@Autowired IRestInfoDAO rmDao;
 	@Autowired IReviewDAO rDao;
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
