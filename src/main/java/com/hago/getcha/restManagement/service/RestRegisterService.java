@@ -10,9 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.hago.getcha.restManagement.dao.IRestInfoDAO;
 import com.hago.getcha.restManagement.dao.IRestRegisterDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
@@ -24,6 +26,7 @@ import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 @Service
 public class RestRegisterService implements IRestRegisterService {
 	@Autowired IRestRegisterDAO rrDao;
+	@Autowired IRestInfoDAO infoDao;
 	@Autowired HttpSession session;
 	
 	public String saveFile(int restNum, MultipartFile file, String location) {
@@ -42,8 +45,6 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
-		// 세션값 추가
-		session.setAttribute("restNum", 33);
 		int restNum = (Integer)session.getAttribute("restNum");
 		
 		// 멀티파트으로 가져온 식당 정보를 테이블에 저장
@@ -173,5 +174,19 @@ public class RestRegisterService implements IRestRegisterService {
 			}
 		}
 		
+	}
+
+
+
+	public int restMainProc(Model model) {
+		int restNum = (Integer)session.getAttribute("restNum");
+		RestaurantDTO restDto = infoDao.selectRestaurant(restNum);
+		if(restDto != null) {
+			model.addAttribute("restDto", restDto);
+			return 1;
+		}else {
+			model.addAttribute("msg", "식당 정보를 먼저 등록하세요.");
+			return 0;			
+		}
 	}
 }

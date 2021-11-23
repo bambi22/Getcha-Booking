@@ -20,6 +20,7 @@
 
 </head>
 <body>
+<c:if test="${!empty msg }"><script>alert(${msg});</script></c:if>
 	<h3>식당 정보 등록</h3>
 	<form id="f" action="restRegisterProc" method="post" enctype="multipart/form-data">
 		<table>

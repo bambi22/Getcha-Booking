@@ -38,7 +38,6 @@ public class RestManagementService implements IRestManagementService {
 	
 	@Override
 	public void restInfo(Model model) {
-		session.setAttribute("restNum", 33);
 		int restNum = (Integer)session.getAttribute("restNum");
 		// 식당 정보 가져오기
 		RestaurantDTO rest = infoDao.selectRestaurant(restNum);

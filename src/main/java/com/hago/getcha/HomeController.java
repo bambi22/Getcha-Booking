@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class HomeController {
 
@@ -50,6 +48,11 @@ public class HomeController {
 		return "member/deleteForm";
 	}
 	
+	@RequestMapping(value="restMain")
+	public String restMain() {
+		return "restManagement/restMain";
+	}
+	
 	@RequestMapping(value="restRegister")
 	public String restRegister() {
 		return "restManagement/restRegisterForm";
@@ -73,6 +76,7 @@ public class HomeController {
 	public String review() {
 		return "review/reviewForm";
 	}
+	
 	Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@RequestMapping(value = "/update")
 	public String update(@RequestParam int reviewNum, @RequestParam String restName,
@@ -89,5 +93,31 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+
+	@RequestMapping("/adminLogin")
+	public String adminLogin() {
+		return "admin/adminLoginForm";
+	}
+
+	@RequestMapping("/managerList")
+	public String managerList() {
+		return "admin/managerList";
+	}
+	
+	@RequestMapping("/managerRegister")
+	public String managerRegister() {
+		return "admin/managerRegisterForm";
+	}
+	
+	@RequestMapping("/bookingManagement")
+	public String bookingManagement() {
+		return "restManagement/bookingManagement";
+	}
+	@RequestMapping("/guideBookList")
+	public String guideBookList() {
+		return "admin/guideBookList";
+	}
+	
+	
 
 }

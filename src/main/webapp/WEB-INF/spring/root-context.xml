@@ -37,4 +37,5 @@
 	<mybatis-spring:scan base-package="com.hago.getcha.Member.dao"/>
 	<mybatis-spring:scan base-package="com.hago.getcha.review.dao"/>	
 	<mybatis-spring:scan base-package="com.hago.getcha.Reservation.dao"/>
+	<mybatis-spring:scan base-package="com.hago.getcha.admin.dao"/>
 </beans>
