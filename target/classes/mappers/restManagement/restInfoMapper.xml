@@ -19,6 +19,7 @@
 	<select id="selectRestaurant"  resultMap="restaurant" parameterType="java.lang.Integer">
 		select * from restaurant where restnum=#{restNum}
 	</select>
+
 	
 	<resultMap type="com.hago.getcha.restManagement.dto.OpenHourDTO" id="openHour">
 		<result property="restNum" column="restNum"/>

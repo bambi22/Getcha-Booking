@@ -1,6 +1,8 @@
 package com.hago.getcha.restManagement.dto;
 
-public class RestaurantDTO {
+import com.hago.getcha.admin.dto.ManagerDTO;
+
+public class RestaurantDTO extends ManagerDTO{
 	private int restNum;
 	private String restName;
 	private String restIntro;

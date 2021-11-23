@@ -17,6 +17,16 @@ public class RestManagementController {
 	@Autowired RestManagementService rmService;
 	
 	
+	@RequestMapping(value="restMainProc")
+	public String restMainProc(Model model) {
+		int result = rrService.restMainProc(model);
+		if(result == 1) {
+			return "forward:restMain";
+		}else {
+			return "forward:restRegister";			
+		}
+	}
+
 	@RequestMapping(value="restRegisterProc")
 	public String restRegisterProc(MultipartHttpServletRequest req, String[] facilities, String[] openHour) {
 		rrService.restRegisterProc(facilities, openHour, req);
@@ -26,7 +36,7 @@ public class RestManagementController {
 	@RequestMapping(value="menuRegisterProc")
 	public String menuRegisterProc(MultipartHttpServletRequest req) {
 		rrService.menuRegisterProc(req);
-		return "forward:restInfo";
+		return "forward:restMainProc";
 	}
 	
 	@RequestMapping(value="restInfoProc")
@@ -75,6 +85,12 @@ public class RestManagementController {
 		rmService.deleteWholeMenuProc();
 		rmService.restInfo(model);
 		return "forward:restInfo";
+	}
+
+	@RequestMapping(value="bookingManagementProc")
+	public String bookingManagementProc(Model model) {
+		
+		return "forward:bookingManagement";
 	}
 	
 	

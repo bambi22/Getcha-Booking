@@ -21,13 +21,17 @@
 <!-- 카카오 주소 라이브러리 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ca9e6dca916cb522a752c40d791a9b9&libraries=services"></script>
 
-
 </head>
-<body>
-	<c:import url="restTop.jsp"/>
+<body style="display:flex;">
+	<c:import url="restNav.jsp"/>
+	<script>
+		//내비에 선택된 탭 색깔 변경
+		document.getElementById('restInfoTab').className = 'nav-link active';
+	</script>
 	<br>
 	<hr>
 	<br><br>
+<div>
 	<!-- 식당 사진 보여주기 -->
 	<div>
 		<c:forEach var="image" items="${restImgList}">
@@ -426,6 +430,7 @@
 			<br>
 		</form>
 	</div>
+</div>
 </body>
 <script>
 //메뉴 이미지 이미보기
