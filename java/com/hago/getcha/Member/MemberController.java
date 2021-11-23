@@ -61,7 +61,7 @@ public class MemberController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	 return "redirect:/main2";
+    	 return "redirect:/main";
     }
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -126,7 +126,7 @@ public class MemberController {
 			return "member/deleteForm";
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
-			return "main2";
+			return "main";
 		}else {
 			model.addAttribute("msg", "삭제 실패하였습니다.");
 			return "member/deleteForm";

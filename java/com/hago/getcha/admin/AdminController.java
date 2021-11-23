@@ -1,7 +1,7 @@
 package com.hago.getcha.admin;
 
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class AdminController {
 	@RequestMapping(value="adminLogoutProc")
 	public String adminLogoutProc(Model model) {
 		adminService.adminLogoutProc(model);
-		return "forward:index?formpath=main2";
+		return "forward:index?formpath=main";
 	}
 
 	@RequestMapping(value="managerListProc")
