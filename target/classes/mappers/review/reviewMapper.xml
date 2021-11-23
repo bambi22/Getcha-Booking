@@ -9,12 +9,48 @@
 		INSERT INTO rest_review VALUES(#{reviewNum}, #{restNum}, #{email}, #{content}, #{writeDate}, #{point}, #{likes}, #{fileNames})
 	</insert>
 	
+	<update id="updateAvgPoint">
+		UPDATE restaurant SET avgpoint = #{avgPoint} WHERE restnum = #{restNum}
+	</update>
+	
 	<select id="reviewProc" parameterType="String" resultType="com.hago.getcha.review.dto.AllDTO">
 		SELECT rest_review.* , restaurant.restname 
 		FROM rest_review, restaurant 
 		WHERE rest_review.restnum = restaurant.restnum (+)
 		AND rest_review.email = #{email}
 	</select>
+	
+	<select id="selectAll" parameterType="int" resultType="com.hago.getcha.review.dto.ReviewsDTO">
+		SELECT B.* FROM (
+			SELECT rownum rn, A.* FROM(
+				SELECT rest_review.* , getchamember.nickname 
+				FROM rest_review, getchamember
+				WHERE rest_review.email = getchamember.email (+)
+				AND rest_review.restnum = #{restNum}
+				ORDER BY reviewnum DESC
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e} 
+	</select>
+	
+	<select id="selectOne" resultType="com.hago.getcha.review.dto.ReviewDTO">
+		SELECT * FROM rest_review WHERE reviewnum = #{reviewNum}
+	</select>
+	
+	<select id="selectFile" resultType="String">
+		SELECT filenames FROM rest_review WHERE reviewnum = #{reviewNum}
+	</select>
+	
+	<select id="reviewCount" resultType="int">
+		SELECT count(*) FROM rest_review WHERE restnum = #{restNum}
+	</select>
+	
+	<update id="updateFile" parameterType="com.hago.getcha.review.dto.FileDTO">
+		UPDATE rest_review SET filenames = #{fileNames} WHERE reviewnum = #{reviewNum}
+	</update>
+	
+	<update id="updateProc" parameterType="com.hago.getcha.review.dto.ReviewDTO">
+		UPDATE rest_review SET content = #{content}, point = #{point}, filenames = #{fileNames} WHERE reviewnum = #{reviewNum} 
+	</update>
 	
 	<delete id="deleteProc">
 		DELETE FROM rest_review WHERE reviewnum = #{reviewNum} 

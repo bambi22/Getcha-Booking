@@ -22,6 +22,11 @@ public class HomeController {
 		return "main2";
 	}
 	
+	@RequestMapping(value="/restView")
+	public String restView() {
+		return "restView";
+	}
+	
 	@RequestMapping(value="/")
 	public String index(Model model) {
 		model.addAttribute("formpath", "main2");
@@ -85,7 +90,6 @@ public class HomeController {
 		model.addAttribute("restName", restName);
 		model.addAttribute("content", content);
 		model.addAttribute("fileNames", fileNames);
-		logger.warn("reviewNum: " + reviewNum);
 		return "review/updateForm";
 	}
 	

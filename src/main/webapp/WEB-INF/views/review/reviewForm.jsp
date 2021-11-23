@@ -3,6 +3,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="<c:url value="/resources/css/review/review.css" />" rel="stylesheet" />
 <c:url var="root" value="/" />
+<title>My Review</title>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.delBtn').on('click',function(){
@@ -44,7 +45,7 @@
 			<div class="Review_Row">
 				<div class="title"><a href="#">${list.restName }</a>
 					<c:forEach begin="1" end="${list.point }" step="1">
-						<label class="rating">★</label>
+						<img src="resources/img/icon/star.png">
 					</c:forEach>
 				</div>
 				<div><pre>${list.content }</pre></div>
