@@ -50,11 +50,6 @@ public class HomeController {
 		return "member/deleteForm";
 	}
 	
-	@RequestMapping(value="/view")
-	public String view() {
-		return "viewForm";
-	}
-
 	@RequestMapping(value="restRegister")
 	public String restRegister() {
 		return "restManagement/restRegisterForm";
@@ -94,6 +89,5 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
-	
-	
+
 }

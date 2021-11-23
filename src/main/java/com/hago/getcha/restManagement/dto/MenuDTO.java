@@ -7,6 +7,7 @@ public class MenuDTO {
 	private String menuDescript;
 	private int unitPrice;
 	private String menuImage;
+	private String priceStr;
 	
 	
 	public int getRestNum() {
@@ -45,6 +46,12 @@ public class MenuDTO {
 	}
 	public void setMenuImage(String menuImage) {
 		this.menuImage = menuImage;
+	}
+	public String getPriceStr() {
+		return priceStr;
+	}
+	public void setPriceStr(String priceStr) {
+		this.priceStr = priceStr;
 	}
 	
 	

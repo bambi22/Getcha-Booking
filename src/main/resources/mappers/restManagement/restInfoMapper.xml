@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.hago.getcha.restManagement.dao.IRestManagementDAO">
+<mapper namespace="com.hago.getcha.restManagement.dao.IRestInfoDAO">
 	<resultMap type="com.hago.getcha.restManagement.dto.RestaurantDTO" id="restaurant">
 		<result property="restNum" column="restNum"/>
 		<result property="restName" column="restName"/>
@@ -55,7 +55,7 @@
 		<result property="menuImage" column="menuImage"/>
 	</resultMap>
 	<select id="selectMenu"  resultMap="menu" parameterType="java.lang.Integer">
-		select * from specialMenu where restnum=#{restNum} 
+		select * from specialMenu where restnum=#{restNum} order by category
 	</select>
 	
 	<resultMap type="com.hago.getcha.restManagement.dto.WholeMenuDTO" id="wholeMenu">

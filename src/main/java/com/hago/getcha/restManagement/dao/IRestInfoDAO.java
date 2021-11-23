@@ -9,18 +9,18 @@ import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
-public interface IRestManagementDAO {
+public interface IRestInfoDAO {
 
-	RestaurantDTO selectRestaurant(int restNum);
+	public RestaurantDTO selectRestaurant(int restNum);
 
-	ArrayList<OpenHourDTO> selectOpenHour(int restNum);
+	public ArrayList<OpenHourDTO> selectOpenHour(int restNum);
 
-	ArrayList<FacilitiesDTO> selectFacilities(int restNum);
+	public ArrayList<FacilitiesDTO> selectFacilities(int restNum);
 
-	ArrayList<RestImageDTO> selectRestImage(int restNum);
+	public ArrayList<RestImageDTO> selectRestImage(int restNum);
 
-	ArrayList<MenuDTO> selectMenu(int restNum);
+	public ArrayList<MenuDTO> selectMenu(int restNum);
 
-	ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
+	public ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
 
 }
