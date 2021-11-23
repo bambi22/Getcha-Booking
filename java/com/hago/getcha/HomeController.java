@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "/main")
+	public String home() {
 		return "main";
 	}
 	
@@ -32,6 +32,7 @@ public class HomeController {
 		model.addAttribute("formpath", "main");
 		return "common/index";
 	}
+	
 	@RequestMapping(value="/index")
 	public String index(Model model, @RequestParam String formpath) {
 		model.addAttribute("formpath", formpath);
@@ -112,9 +113,16 @@ public class HomeController {
 	public String bookingManagement() {
 		return "restManagement/bookingManagement";
 	}
+	
 	@RequestMapping("/guideBookList")
 	public String guideBookList() {
 		return "admin/guideBookList";
+	}
+	
+	
+	@RequestMapping("/restList")
+	public String restList() {
+		return "restaurant/restList";
 	}
 	
 	
