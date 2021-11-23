@@ -1,6 +1,8 @@
 package com.hago.getcha.restManagement.dto;
 
-public class RestaurantDTO {
+import com.hago.getcha.admin.dto.ManagerDTO;
+
+public class RestaurantDTO extends ManagerDTO{
 	private int restNum;
 	private String restName;
 	private String restIntro;
@@ -14,17 +16,17 @@ public class RestaurantDTO {
 	private String representImage;
 	private String registerDate;
 	
-	public int getRestNum() {
-		return restNum;
-	}
-	public void setRestNum(int restNum) {
-		this.restNum = restNum;
-	}
 	public String getRestName() {
 		return restName;
 	}
 	public void setRestName(String restName) {
 		this.restName = restName;
+	}
+	public int getRestNum() {
+		return restNum;
+	}
+	public void setRestNum(int restNum) {
+		this.restNum = restNum;
 	}
 	public String getRestIntro() {
 		return restIntro;

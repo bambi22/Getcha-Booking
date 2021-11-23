@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hago.getcha.Login.dao.ILoginDAO;
+
 import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 
 @Service
 public class MemberService implements IMemberService{
 	@Autowired IMemberDAO dao;
-	@Autowired ILoginDAO loginDao;
 	@Autowired HttpSession session;
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
@@ -25,6 +24,12 @@ public class MemberService implements IMemberService{
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
+		if(member.getPw().equals(member.getPwCheck())==false) {
+			logger.warn("pw: " + member.getPw());
+			logger.warn("pwCheck:"+ member.getPwCheck());
+			return "비밀번호가 일치하지 않습니다.";
+		}
+			
 		if(member.getEmail() == "" || member.getPw() == "")
 			return "필수 정보입니다.";
 		if(dao.CheckEmail(member.getEmail()) > 0)
@@ -37,37 +42,33 @@ public class MemberService implements IMemberService{
 		session.setAttribute("email", member.getEmail());
 		return "가입완료";
 	}
-	
-	
-	public MemberDTO pwCheck(MemberDTO check) {
-		if(check.getPw().equals(check.getPwCheck()) == false) {
-			logger.warn("비밀번호 불일치" + check.getPw() + check.getPwCheck());
-			return null;
-		}
-		BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
-		MemberDTO member = dao.userPassword(check.getEmail());
-		logger.warn("dao확인" + member.getEmail() + member.getPw());
-		if(member == null || bpe.matches(check.getPw(), member.getPw()) == false) {
-			logger.warn("login null");
-			return null;
-		}
-		return member;
-	}
 
+	public int pwCheck(MemberDTO member) {
+		logger.warn("service pwCheck");
+		logger.warn("이메일 : " + member.getEmail());
+		if(member.getPw().equals(member.getPwCheck()) == false) {
+			logger.warn("pw 불일치" + member.getPw() + member.getPwCheck());
+			return 0;
+		}
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		MemberDTO check = dao.userPassword(member.getEmail());
+		logger.warn("service pwCheck2");
+		if(check != null && encoder.matches(member.getPw(), check.getPw())) {
+			if(dao.memberDeleteProc(check) == 1) {
+				session.invalidate();
+				return 1;
+			}
+		}
+		return 2;
+	}
 	
 	@Override
-	public boolean memberDeleteProc(MemberDTO check) {
-		String sessionEmail = (String)session.getAttribute("email");
-		check.setEmail(sessionEmail);
-		logger.warn("sessionEmail:" + sessionEmail);
-		MemberDTO login = pwCheck(check);
-		if(login == null)
-			return false;
-		String modifyEmail = (String)session.getAttribute("modifyEmail");
-		dao.memberDeleteProc(modifyEmail);
-		session.removeAttribute("modifyEmail");
-		session.invalidate();
-		return true;
+	public int memberDeleteProc(MemberDTO member) {
+		logger.warn("service");
+		int result = pwCheck(member);
+		String r = String.valueOf(result);
+		logger.warn("result : " + r);
+		return result;
 	}
 	
 
@@ -75,6 +76,9 @@ public class MemberService implements IMemberService{
 	public MemberDTO memberViewProc(String email) {
 		MemberDTO member = dao.memberViewProc(email);
 		if(member != null) {
+			session.setAttribute("nickname", member.getNickname());
+			session.setAttribute("birth", member.getBirth());
+			session.setAttribute("gender", member.getGender());
 			return member;
 		}
 		return null;
@@ -85,8 +89,10 @@ public class MemberService implements IMemberService{
 	public int memberModiProc(MemberDTO member) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
+		logger.warn("pw: " + member.getPw());
+		logger.warn("birth : " + member.getBirth());
 		member.setPw(securePw);
-		if(member.getEmail() == "")
+		if(member.getEmail() == "" || member.getPw()==""||member.getEmail()==null||member.getPw()==null)
 			return 0;
 		if(dao.memberModiProc(member) == 1)
 			return 1;
@@ -105,21 +111,8 @@ public class MemberService implements IMemberService{
 
 
 	@Override
-	public boolean loginCheck(MemberDTO member, HttpSession session) {
-		int result = loginDao.loginCheck(member);
-		if (result == 1) {	//true 일경우 세션 등록
-			//세션 변수 등록
-			session.setAttribute("email", member.getEmail());
-			return true;
-		}
-		return false;
-		
-	}
-
-
-	@Override
-	public void logout(HttpSession session) {
-		session.invalidate();
-		
+	public MemberDTO memberLogin(MemberDTO member) throws Exception {
+		  return dao.memberLogin(member);
+	
 	}
 }

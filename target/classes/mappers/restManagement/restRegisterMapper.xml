@@ -3,10 +3,11 @@
 
 
 <mapper namespace="com.hago.getcha.restManagement.dao.IRestRegisterDAO">
-	<insert id="restRegister" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
-		INSERT INTO restaurant(restnum, restname, restintro, zipcode, address, dong, type, capacity, promotion, registerDate) 
-		VALUES(#{restNum}, #{restName}, #{restIntro}, #{zipcode}, #{address}, #{dong}, #{type}, #{capacity}, #{promotion}, sysdate)
-	</insert>
+	<update id="addRestaurant" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
+		UPDATE restaurant SET restname=#{restName}, restintro=#{restIntro}, zipcode=#{zipcode}, 
+		address=#{address}, dong=#{dong}, type=#{type}, capacity=#{capacity}, promotion=#{promotion}, registerDate=sysdate 
+		WHERE restnum=#{restNum}
+	</update>
 	
 	<insert id="addFacilities" parameterType="com.hago.getcha.restManagement.dto.FacilitiesDTO">
         INSERT INTO facilities VALUES (#{restNum}, #{facility})

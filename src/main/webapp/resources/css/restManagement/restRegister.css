@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.previewImgs{
+	width: 660px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted black;
+}
+.previewImgs:empty:before{
+	content : attr(data-placeholder);
+	color : black;
+	font-size:.9em;
+}
+#previewImg{
+	width: 160px;
+	min-height:150px;
+	padding:10px;
+	border:1px dotted black;
+	
+}
+#previewImg:empty:before{
+	content : attr(data-placeholder);
+	color : black;
+	font-size:.9em;
+} 
+
+.selected{border: 1px solid blue;}

@@ -1,57 +1,98 @@
 
-  
-  	function addMenu(){
-		var html = '';
-					
-		var category = $("#inCategory").val();
-		var name = $("#inMenuName").val();
-		var descript = $("#inMenuDescript").val();
-		var price = $("#inUnitPrice").val();
-		
-		if(name==""){
-			alert('메뉴명은 필수 입력 항목입니다.');
-			return;
-		}else if(price==""){
-			alert('가격은 필수 입력 항목입니다.');
-			return;
-		}
-		console.log("추가" + name);
-		
-		html = '<tr>'+
-		 '<td><input type="text" name="category" style="width:80" value="'+category+'"></td>'+
-		 '<td><input type="text" name="menuName" style="width:135px" value="'+name+'"></td>'+
-		 '<td><input type="text" name="menuDescript" style="width:180px" value="'+descript+'"></td>'+
-		 '<td><input type="text" name="unitPrice" style="width:90px" value="'+price+'"></td>'+
-		 '<td></td>'+
-		 '<td><button type="button" "name="delMenu" onclick="delMenu(this)">삭제</button></td>'+
-		 '</tr>';
-					
-		$("#registerTable").append(html);
+var i=50;
 
-		$("#inCategory").val('');
-		$("#inMenuName").val('');
-		$("#inMenuDescript").val('');
-		$("#inUnitPrice").val('');
-		$("#inMenuImage").val('');
-
-	}
+function addModifyRow(){
 	
-//삭제 버튼
-function delMenu(del){
+	// table element 찾기
+  const table = document.getElementById('registerTable');
+  
+  // 새 행(Row) 추가
+  const newRow = table.insertRow();
+  
+  // 새 행(Row)에 Cell 추가
+  const newCell1 = newRow.insertCell(0);
+  const newCell2 = newRow.insertCell(1);
+  const newCell3 = newRow.insertCell(2);
+  const newCell4 = newRow.insertCell(3);
+  const newCell5 = newRow.insertCell(4);
+  const newCell6 = newRow.insertCell(5);
+  
+  // Cell에 텍스트 추가
+  newCell1.innerHTML = '<input type="text" id="category'+i+'" name="category" style="width:80" placeholder="분류">';
+  newCell2.innerHTML = '<input type="text" id="menuName'+i+'" name="menuName" style="width:135px" placeholder="메뉴명">';
+  newCell3.innerHTML = '<input type="text" id="menuDescript'+i+'" name="menuDescript"  placeholder="메뉴 소개" style="width:190px">';
+  newCell4.innerHTML = '<input type="number" id="unitPrice'+i+'" name="unitPrice" placeholder="가격" style="width:100px">';
+  newCell5.innerHTML = '<input type="file" id="menuImage'+i+'" name="menuImage" style="display:none;" onchange="previewImg(this)">'+
+  						'<label for="menuImage'+i+'"><img name="menuImage'+i+'" src="resources/img/icon/upload.png" width="20"></label>';
+  newCell6.innerHTML = "<button type='button' name='delMenu' onclick='deleteRow(this)'>삭제</button>";
+
+  i++;
+}
+
+function deleteRow(del){
 	$(del).parent().parent().remove();
 }
 
-function previewName(file){
-	var fileName = file.getAttribute('id');
-	for(f of file.files){
-		let reader = new FileReader();
-		document.getElementById(fileName+'name').innerHTML = f.name;
+// 메뉴 이미지 이미보기
+function previewImg(input){
+	if(input.files && input.files[0]){
+		var imgName = input.getAttribute('id');
+		var reader = new FileReader();
+		reader.onload = function (e){
+			$('img[name='+imgName+']').attr('src',e.target.result);
+			$('img[name='+imgName+']').attr('width',100);
+		}
+		reader.readAsDataURL(input.files[0]);
 	}
 }
+
+// 메뉴판 미리보기
+$(function() {
+    // Multiple images preview in browser
+  
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+        if (input.files) {
+			$(placeToInsertImagePreview).empty();
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+      				$($.parseHTML('<img>')).attr('src', event.target.result)
+      				.attr('width', 200)
+      				.appendTo(placeToInsertImagePreview);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+
+    $('#inWholeMenu').on('change', function() {
+	  	
+        imagesPreview(this, 'div.wholeMenuPreview');
+    });
+});
+
+// 메뉴 입력했을 때
+function inputMenu() {
+	var menuNameArr = document.getElementsByName('menuName');
+	var unitPrice = document.getElementsByName('unitPrice');
 	
-function submitMenu() {
-    $('form[name="f"]').attr('method', 'POST');
-    $('form[name="f"]').attr('enctype', 'multipart/form-data');
-    $('form[name="f"]').attr('action', 'menuRegisterProc');
+	var count = menuNameArr.length;
+	for(var i=0; i<count; i++){
+		if(menuNameArr[i].value == ""){
+			alert('메뉴명은 필수 입력 항목입니다.');
+			return;
+		}else if(unitPrice[i].value == ""){
+			alert('가격은 필수 입력 항목입니다.');
+			return;
+		}
+	}
+    document.getElementById('inputOrNot').value = "yes";
+    $('form[name="f"]').submit();
+}
+
+// 메뉴 입력하지 않았을 때
+function noMenu() {
+	document.getElementById('inputOrNot').value = "no";
     $('form[name="f"]').submit();
 }

@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,15 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 public class HomeController {
 
 	@RequestMapping(value = "/main2", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "main2";
+	}
+	
+	@RequestMapping(value="/restView")
+	public String restView() {
+		return "restView";
 	}
 	
 	@RequestMapping(value="/")
@@ -48,11 +53,11 @@ public class HomeController {
 		return "member/deleteForm";
 	}
 	
-	@RequestMapping(value="/view")
-	public String view() {
-		return "viewForm";
+	@RequestMapping(value="restMain")
+	public String restMain() {
+		return "restManagement/restMain";
 	}
-
+	
 	@RequestMapping(value="restRegister")
 	public String restRegister() {
 		return "restManagement/restRegisterForm";
@@ -77,6 +82,7 @@ public class HomeController {
 		return "review/reviewForm";
 	}
 	
+	Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@RequestMapping(value = "/update")
 	public String update(@RequestParam int reviewNum, @RequestParam String restName,
 			@RequestParam String content, @RequestParam String fileNames, Model model) {
@@ -91,6 +97,31 @@ public class HomeController {
 	public String login() {
 		return "login";
 	}
+
+	@RequestMapping("/adminLogin")
+	public String adminLogin() {
+		return "admin/adminLoginForm";
+	}
+
+	@RequestMapping("/managerList")
+	public String managerList() {
+		return "admin/managerList";
+	}
+	
+	@RequestMapping("/managerRegister")
+	public String managerRegister() {
+		return "admin/managerRegisterForm";
+	}
+	
+	@RequestMapping("/bookingManagement")
+	public String bookingManagement() {
+		return "restManagement/bookingManagement";
+	}
+	@RequestMapping("/guideBookList")
+	public String guideBookList() {
+		return "admin/guideBookList";
+	}
 	
 	
+
 }
