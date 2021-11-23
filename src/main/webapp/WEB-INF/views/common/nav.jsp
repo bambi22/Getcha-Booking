@@ -37,7 +37,7 @@
 				<c:when test="${empty sessionScope.id }">
 					<tr>
 						<td colspan="2">
-							<input type="button" name="login" id="login" value="로그인 후 이용해주세요."/>
+							<input type="button" name="login" id="login" value="로그인 후 이용해주세요." onclick="location.href='index?formpath=login'"/>
 						</td>
 					</tr>
 				</c:when>

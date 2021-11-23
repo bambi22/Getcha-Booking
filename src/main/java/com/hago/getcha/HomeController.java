@@ -17,30 +17,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 
-	@RequestMapping(value = "/main2", method = RequestMethod.GET)
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "main2";
+		return "main";
 	}
 	
 	@RequestMapping(value="/")
 	public String index(Model model) {
-		model.addAttribute("formpath", "main2");
-		return "member/index";
+		model.addAttribute("formpath", "main");
+		return "common/index";
 	}
 	@RequestMapping(value="/index")
 	public String index(Model model, @RequestParam String formpath) {
 		model.addAttribute("formpath", formpath);
-		return "member/index";
+		return "common/index";
 	}
 	
 	@RequestMapping(value="/member")
 	public String member() {
 		return "member/member";
-	}
-	
-	@RequestMapping(value="/memberNav")
-	public String memberNav() {
-		return "member/memberNav";
 	}
 	
 	@RequestMapping(value="/deleteForm")
@@ -91,7 +86,7 @@ public class HomeController {
 	
 	@RequestMapping("/login")
 	public String login() {
-		return "login";
+		return "member/login";
 	}
 
 	@RequestMapping("/adminLogin")

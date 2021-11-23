@@ -314,8 +314,8 @@ public class ReservationService {
 		String stday = dto.getResDay().replaceAll("[^0-9]", "");
 		logger.warn(stday);
 		int day = Integer.parseInt(stday);
-		int resNum = day+Time+random;
-		String num = Integer.toString(resNum);
+		String num = Integer.toString(day)+Integer.toString(Time)+Integer.toString(random);
+		int resNum = Integer.parseInt(num);
 		logger.warn("예약번호:"+num);
 		
 		dto.setOrderNum(00);
