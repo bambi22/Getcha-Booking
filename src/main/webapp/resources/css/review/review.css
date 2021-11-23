@@ -18,11 +18,11 @@
 		padding: 15px;
 	}
 	
-	.rating{
+	.title img{
 		float: right;
 		position: relative;
-		font-size: 18px;
-	    -webkit-text-fill-color: #ff8;
+		width: 20px;
+		padding: 3px;
 	}
 	
 	.image_wrap{
@@ -43,6 +43,7 @@
     .date {
     	color: #CACACA;
     	text-align: right;
+    	padding: 5px;
     } 
       
     .button_wrap {

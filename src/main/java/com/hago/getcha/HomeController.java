@@ -84,7 +84,6 @@ public class HomeController {
 		model.addAttribute("restName", restName);
 		model.addAttribute("content", content);
 		model.addAttribute("fileNames", fileNames);
-		logger.warn("reviewNum: " + reviewNum);
 		return "review/updateForm";
 	}
 	

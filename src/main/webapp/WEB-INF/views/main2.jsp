@@ -169,7 +169,7 @@ border-bottom: solid 1px black;
  </div>
  
 	<div class="content">
-	
+	<a href="restViewProc?restNum=21">식당21번 정보 보기</a>
 	<div>
 	<p class="pro2" style="text-align:center;"><img src="http://www.travelnbike.com/news/photo/201810/67003_113045_4950.jpg" style="border:2 solid black"  width="900" height="280"></p>
 	</div>
