@@ -40,7 +40,6 @@ function search(){
 				$("#hours").val(td.text());
 				str = td.text();
 				$("#hours").html(str)
-				$('#capacity').children('option').remove()
 				$(list).each(function(ind,obj){
 					if(obj["time"]==str){
 						console.log(obj["time"]);
