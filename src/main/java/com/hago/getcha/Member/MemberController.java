@@ -90,7 +90,7 @@ public class MemberController {
 		}
 		if(sessionEmail.equals(email)) {
 			model.addAttribute("memberView", service.memberViewProc(email));
-			return "member/memberView";
+			return "forward:index?formpath=memberView";
 		}
 		return "forward:index?formpath=main";
 	}
@@ -110,7 +110,7 @@ public class MemberController {
 		
 		if(result == 0) {
 			model.addAttribute("msg", "필수 정보입니다.");
-			return "member/memberModi";
+			return "forward:index?formpath=memberModi";
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
@@ -122,17 +122,19 @@ public class MemberController {
 	}
 	@RequestMapping(value = "memberDeleteProc")
 	public String memberDeleteProc(MemberDTO member, Model model) {
-		member.setEmail((String)session.getAttribute("email"));
+		String email = "1";
+		session.setAttribute("email", email);
 		int result = service.memberDeleteProc(member);
 		if(result == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			return "member/deleteForm";
+			model.addAttribute("url","/deleteForm");
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
-			return "main";
+			model.addAttribute("url","/main");
 		}else {
 			model.addAttribute("msg", "삭제 실패하였습니다.");
-			return "member/deleteForm";
+			model.addAttribute("url","/deleteForm");
 		}
+		return "redirect";
 	}
 }
