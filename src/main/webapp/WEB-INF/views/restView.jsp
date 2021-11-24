@@ -6,13 +6,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<c:url var="root" value="/" />
 <title>식당 정보 보기</title>
 <style type="text/css">
-	#container {width:900px; margin:auto;}
+	header, #container {width:900px; margin:auto;}
+	.restTitle {display: flex; height:50px;}
+	#restName {margin-top:4px; padding:2px;}
+	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
+	#collect_btn:active {margin-left: 5px; margin-top: 5px; box-shadow:none;}
+	#collect_btn img {width: 30px;}
+	.cntReview img {width: 20px;} 
+	.cntCollection img {width: 20px;} 
+	.status_branch span {margin-right: 5px;}
 	#reviewList {border-top: 2px solid; border-bottom: 2px solid; cellpadding: 2;}
 	ul {list-style-type:none;}
 	ul li{float:left; margin-right:2px;}
-	 .date {color: #CACACA; text-align: right; padding: 5px;} 
+	.date {color: #CACACA; text-align: right; padding: 5px;} 
 </style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -47,33 +56,70 @@
 		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${rest.restName}</div>'
 		        });
 		        infowindow.open(map, marker);
-
 		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		        map.setCenter(coords);
 		    } 
-		});    
+		});  
+		
+		$('#collect_btn').on('click',function(){
+			var target = $(this);
+			var num = $(this).attr('data-num');
+			$.ajax({	
+		 	   url : "collectProc", type: "POST",
+		 	   data : "reviewNum="+num,
+		 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		 	   success : function(data) {
+				if(data.result == "success"){
+					$(target).children().attr('src', "resources/img/icon/full_ht.png");
+					$(target).children().attr('alt', "저장된 상태")
+					$(target).attr('disabled', 'true');
+					}else{
+						alert("저장한 식당입니다.");
+						}
+				},
+		 	   error: function(e){
+		 		   alert("error: " + e);
+		 	   }
+			});
+		});
 	}
 </script>
 </head>
 <body>
-	<div>
+	<header>
+	<div class="restMainImg_wrap">
 		<c:forEach var="image" items="${restImgList}">
 			<img src="resources/img/restaurant/${image.restImage }" width="200">
 		</c:forEach>
 	</div>
 	<br><br>
-	<div id="container">
-		<div>
-		<h3 id="restName">${rest.restName }</h3>
-		<p>${rest.restIntro }</p>
-		<span>${rest.type }·${rest.dong }</span>
-		<br>
-		<img src="resources/img/icon/star.png" width="20"><label>${rest.avgPoint }</label>
-		</div>
+		<div class="restTitle">
+			<h2 id="restName">${rest.restName }</h2>
+			<!-- <c:if test="${not empty sessionScope.id}"> -->
+	            <button id="collect_btn" data-num="${restNum }">
+		            <c:if test="${collection == 0}">
+		            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지">
+		            </c:if>
+		            <c:if test="${collection == 1}">
+		            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지">
+		            </c:if>
+	            </button>
+	        <!-- </c:if> -->
+      	</div>
+			 <div class="status_branch">
+                <span class="cntReview"><img src="resources/img/icon/ic_review.png"> ${cntReview }</span>
+                <span class="cntCollection"><img src="resources/img/icon/full_ht.png"> ${cntCollection }</span>
+	        </div> 
+			<p>${rest.restIntro }</p>
+			<span>${rest.type }·${rest.dong }</span>
+			<br>
+			<img src="resources/img/icon/star.png" width="20"><label> ${rest.avgPoint }</label>
 		<br>
 		<hr align="left" width="500px">
 		<br>
+	</header>
 	
+	<div id="container">
 		<table style="cellpadding:2;">
 			<tr>
 			<td> 주소 </td>
