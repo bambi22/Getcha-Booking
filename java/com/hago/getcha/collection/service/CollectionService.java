@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.collection.dao.ICollectionDAO;
 import com.hago.getcha.collection.dto.AllCollectDTO;
 import com.hago.getcha.collection.dto.CollectDTO;
 
+@Service
 public class CollectionService {
 	@Autowired ICollectionDAO cDao;
 	@Autowired CollectDTO cDto;
@@ -34,7 +36,7 @@ public class CollectionService {
 	public void myCollectProc(Model model) {
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
-		ArrayList<AllCollectDTO> collectionList = cDao.myCollectProc(email);
-		model.addAttribute("collectionList", collectionList);
+		//ArrayList<AllCollectDTO> collectionList = cDao.myCollectProc(email);
+		//model.addAttribute("collectionList", collectionList);
 	}
 }
