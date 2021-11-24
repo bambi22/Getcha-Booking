@@ -26,4 +26,12 @@ public class CommonController {
 		return "forward:restView";
 	}
 	
+	@RequestMapping(value = "restTypeListProc")
+	public String restTypeListProc(@RequestParam String mode, @RequestParam String type, Model model) {
+			service.restTypeListProc(mode, type, model);
+		return "forward:index?formpath=restList";
+	}
+	
+	
+	
 }

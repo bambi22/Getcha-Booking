@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 
 import com.hago.getcha.admin.dao.IAdminManagementDAO;
 import com.hago.getcha.admin.dto.ManagerDTO;
-import com.hago.getcha.config.PageConfig;
+import com.hago.getcha.config.PageCon;
 import com.hago.getcha.restManagement.dao.IRestInfoDAO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
@@ -23,7 +23,7 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	@Autowired IAdminManagementDAO adminDao;
 	@Autowired IRestInfoDAO infoDao;
 	@Autowired HttpSession session;
-	@Autowired PageConfig page;
+	@Autowired PageCon page;
 	@Value("#{prop['adminId']}")	private String adminId;
 	@Value("#{prop['adminPw']}")	private String adminPw;
 	
