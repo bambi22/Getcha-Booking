@@ -27,39 +27,39 @@ import com.hago.getcha.review.dto.ReviewsDTO;
 public class CommonService {
 	@Autowired IRestInfoDAO infoDao;
 	@Autowired IReviewDAO rDao;
-	@Autowired HttpSession session;
-	@Autowired PageCon page;
 	@Autowired IMemberDAO mDao;
 	@Autowired ICollectionDAO cDao;
-	private CollectDTO cDto = new CollectDTO();
+	@Autowired CollectDTO cDto;
+	@Autowired HttpSession session;
+	@Autowired PageCon page;
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
 		int restNum = Integer.parseInt(restNo);
-		// 식당 정보 가져오기
+		// ?�당 ?�보 가?�오�??
 		RestaurantDTO rest = infoDao.selectRestaurant(restNum);
-		// 영업시간 가져오기
+		// ?�업?�간 가?�오�??
 		ArrayList<OpenHourDTO> openList = infoDao.selectOpenHour(restNum);
-		// 부대시설 가져오기
+		// 부?�??�설 가?�오�??
 		ArrayList<FacilitiesDTO> facilityList = infoDao.selectFacilities(restNum);  
-		// 식당 사진 가져오기
+		// ?�당 ?�진 가?�오�??
 		ArrayList<RestImageDTO> restImgList = infoDao.selectRestImage(restNum);
-		// 메뉴 가져오기
+		// 메뉴 가?�오�??
 		ArrayList<MenuDTO> menuList = infoDao.selectMenu(restNum);
-		// 메뉴판 가져오기
+		// 메뉴?? 가?�오�??
 		//ArrayList<WholeMenuDTO> wholeMenuList = rmDao.selectWholeMenu(restNum);
 		
 		int totalCount = rDao.reviewCount(restNum);
-		int pageBlock = 3; //한 화면에 보여줄 데이터 수
-		int end = currentPage * pageBlock; //페이지별 게시글 끝 번호
-		int begin = end+1 - pageBlock; //페이지별 게시글 시작 번호
-		// 리뷰 가져오기
+		int pageBlock = 3; //?? ?�면?? 보여�?? ?�이?? ??
+		int end = currentPage * pageBlock; //?�이지�?? 게시글 ?? 번호
+		int begin = end+1 - pageBlock; //?�이지�?? 게시글 ?�작 번호
+		// 리뷰 가?�오�??
 		ArrayList<ReviewsDTO> reviewList = rDao.selectAll(begin, end, restNum);
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
 		cDto.setEmail(email);
 		cDto.setRestNum(restNum);
 		int cntCollection = cDao.collCount(restNum);
-		int collection = cDao.collChck(cDto); // 1이면 이미 저장함, 0이면 저장x
+		int collection = cDao.collChck(cDto); // 1?�면 ?��? ?�??�함, 0?�면 ?�??�x
 		
 		model.addAttribute("rest", rest);
 		model.addAttribute("openList", openList);
@@ -76,8 +76,27 @@ public class CommonService {
 		String url = req.getContextPath()+"/restViewProc?restNum="+restNum+"&";
 		url+="currentPage=";
 		model.addAttribute("page", PageConfig.getNavi(currentPage, pageBlock, totalCount, url));
+		System.out.println(totalCount);
+	
 	}
+	
+	public int colletProc(String restNo) {
+		//String email = (String) session.getAttribute("email");
+		String email = "test21@hago.com";
+		int restNum = Integer.parseInt(restNo);
+		cDto.setEmail(email);
+		cDto.setRestNum(restNum);
+		int check = cDao.collChck(cDto);
+		int result;
+		if(check == 0) { // 중복?? ?�는 경우 db ?�??
+			result = cDao.collectProc(cDto);
+		}
+		else result = 0; // ?�?? ?�패
+		return result;
+	}
+	
 
+	
 	public void restTypeListProc(String mode, String type, Model model) {
 		ArrayList<RestaurantDTO> restList = null;
 		if(mode.equals("type")) {
@@ -99,22 +118,5 @@ public class CommonService {
 		}
 		model.addAttribute("restList", restList);
 		
-	}
-
-
-	
-	public int colletProc(String restNo) {
-		//String email = (String) session.getAttribute("email");
-		String email = "test21@hago.com";
-		int restNum = Integer.parseInt(restNo);
-		cDto.setEmail(email);
-		cDto.setRestNum(restNum);
-		int check = cDao.collChck(cDto);
-		int result;
-		if(check == 0) { // 중복이 없는 경우 db 저장
-			result = cDao.collectProc(cDto);
-		}
-		else result = 0; // 저장 실패
-		return result;
 	}
 }
