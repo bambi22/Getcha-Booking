@@ -30,7 +30,6 @@ public class CommonService {
 	@Autowired IMemberDAO mDao;
 	@Autowired ICollectionDAO cDao;
 	private CollectDTO cDto = new CollectDTO();
-	private HttpSession session;
 	@Autowired HttpSession session;
 	@Autowired PageCon page;
 	
