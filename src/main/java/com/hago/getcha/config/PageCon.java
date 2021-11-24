@@ -3,7 +3,7 @@ package com.hago.getcha.config;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PageConfig {
+public class PageCon {
 	private int pageNumber;
 	private int record;
 	private int scroll;
@@ -11,7 +11,7 @@ public class PageConfig {
 	private int start;
 	private int end;
 	
-	public PageConfig() {
+	public PageCon() {
 		setScroll();
 	}
 	

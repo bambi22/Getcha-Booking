@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hago.getcha.collection.service.CollectionService;
+
 @RestController
 public class CollectionController {
 	final static Logger logger = LoggerFactory.getLogger(CollectionController.class);

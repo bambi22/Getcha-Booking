@@ -4,7 +4,7 @@
 <style>
 	a:link{color:black; text-decoration:none;}
 </style>
-<table width="1340">
+<table>
 	<tr>
 		<td align="center" colspan=5><h1><a href="${root}index?formpath=main">Getcha</a></h1></td>
 	</tr>
