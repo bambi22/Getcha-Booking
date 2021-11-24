@@ -12,4 +12,11 @@
 	<select id="collCount" resultType="int">
 		SELECT count(*) FROM collection WHERE restNum = #{restNum}
 	</select>
+	
+	<select id="myCollectProc" resultType="com.hago.getcha.collection.dto.AllCollectDTO">
+		SELECT collection.* , restaurant.restname, restaurant.avgpoing, restaurant.type, restaurant.dong, restaurant.representimage 
+		FROM collection, restaurant 
+		WHERE collection.restnum = restaurant.restnum (+)
+		AND collection.email = #{email}
+	</select>
 </mapper>

@@ -1,8 +1,5 @@
 package com.hago.getcha.common.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.hago.getcha.common.service.CommonService;
 
 @Controller
@@ -30,6 +25,9 @@ public class CommonController {
 		service.restViewProc(restNum, currentPage, model, req);	
 		return "forward:restView";
 	}
+	
+}
+}
 	
 	@ResponseBody
 	@RequestMapping(value = "collectProc")
@@ -51,6 +49,20 @@ public class CommonController {
 	public String restTypeListProc(@RequestParam String mode, @RequestParam String type, Model model) {
 			service.restTypeListProc(mode, type, model);
 		return "forward:index?formpath=restList";
+	}
+
+	
+	@ResponseBody
+	@RequestMapping(value = "collectProc")
+	public Map<String, String> collectProc(HttpServletRequest req) {
+		String reviewNum = req.getParameter("reviewNum");
+		int result = service.colletProc(reviewNum);
+		Map<String, String> data = new HashMap<>();
+		if(result == 1) 
+			data.put("result", "success");
+		else
+			data.put("result", "fail");
+		return data;
 	}
 	
 }

@@ -29,37 +29,37 @@ public class CommonService {
 	@Autowired IReviewDAO rDao;
 	@Autowired IMemberDAO mDao;
 	@Autowired ICollectionDAO cDao;
-	private CollectDTO cDto = new CollectDTO();
+	@Autowired CollectDTO cDto;
 	@Autowired HttpSession session;
 	@Autowired PageCon page;
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
 		int restNum = Integer.parseInt(restNo);
-		// ?�당 ?�보 가?�오�?
+		// ?�당 ?�보 가?�오�??
 		RestaurantDTO rest = infoDao.selectRestaurant(restNum);
-		// ?�업?�간 가?�오�?
+		// ?�업?�간 가?�오�??
 		ArrayList<OpenHourDTO> openList = infoDao.selectOpenHour(restNum);
-		// 부?�?�설 가?�오�?
+		// 부?�??�설 가?�오�??
 		ArrayList<FacilitiesDTO> facilityList = infoDao.selectFacilities(restNum);  
-		// ?�당 ?�진 가?�오�?
+		// ?�당 ?�진 가?�오�??
 		ArrayList<RestImageDTO> restImgList = infoDao.selectRestImage(restNum);
-		// 메뉴 가?�오�?
+		// 메뉴 가?�오�??
 		ArrayList<MenuDTO> menuList = infoDao.selectMenu(restNum);
-		// 메뉴?? 가?�오�?
+		// 메뉴?? 가?�오�??
 		//ArrayList<WholeMenuDTO> wholeMenuList = rmDao.selectWholeMenu(restNum);
 		
 		int totalCount = rDao.reviewCount(restNum);
-		int pageBlock = 3; //?? ?�면?? 보여�? ?�이?? ??
-		int end = currentPage * pageBlock; //?�이지�? 게시글 ?? 번호
-		int begin = end+1 - pageBlock; //?�이지�? 게시글 ?�작 번호
-		// 리뷰 가?�오�?
+		int pageBlock = 3; //?? ?�면?? 보여�?? ?�이?? ??
+		int end = currentPage * pageBlock; //?�이지�?? 게시글 ?? 번호
+		int begin = end+1 - pageBlock; //?�이지�?? 게시글 ?�작 번호
+		// 리뷰 가?�오�??
 		ArrayList<ReviewsDTO> reviewList = rDao.selectAll(begin, end, restNum);
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
 		cDto.setEmail(email);
 		cDto.setRestNum(restNum);
 		int cntCollection = cDao.collCount(restNum);
-		int collection = cDao.collChck(cDto); // 1?�면 ?��? ?�?�함, 0?�면 ?�?�x
+		int collection = cDao.collChck(cDto); // 1?�면 ?��? ?�??�함, 0?�면 ?�??�x
 		
 		model.addAttribute("rest", rest);
 		model.addAttribute("openList", openList);
@@ -80,6 +80,21 @@ public class CommonService {
 	
 	}
 	
+	public int colletProc(String restNo) {
+		//String email = (String) session.getAttribute("email");
+		String email = "test21@hago.com";
+		int restNum = Integer.parseInt(restNo);
+		cDto.setEmail(email);
+		cDto.setRestNum(restNum);
+		int check = cDao.collChck(cDto);
+		int result;
+		if(check == 0) { // 중복?? ?�는 경우 db ?�??
+			result = cDao.collectProc(cDto);
+		}
+		else result = 0; // ?�?? ?�패
+		return result;
+	}
+	
 
 
 	
@@ -91,10 +106,10 @@ public class CommonService {
 		cDto.setRestNum(restNum);
 		int check = cDao.collChck(cDto);
 		int result;
-		if(check == 0) { // 중복?? ?�는 경우 db ?�??
+		if(check == 0) { // 중복?? ?�는 경우 db ?�???
 			result = cDao.collectProc(cDto);
 		}
-		else result = 0; // ?�?? ?�패
+		else result = 0; // ?�??? ?�패
 		return result;
 	}
 	
