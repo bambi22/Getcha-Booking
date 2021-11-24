@@ -28,7 +28,7 @@ public class CommonService {
 	@Autowired IReviewDAO rDao;
 	@Autowired IMemberDAO mDao;
 	@Autowired ICollectionDAO cDao;
-	private CollectDTO cDto = new CollectDTO();
+	@Autowired CollectDTO cDto;
 	private HttpSession session;
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
@@ -74,20 +74,5 @@ public class CommonService {
 		String url = req.getContextPath()+"/restViewProc?restNum="+restNum+"&";
 		url+="currentPage=";
 		model.addAttribute("page", PageConfig.getNavi(currentPage, pageBlock, totalCount, url));
-	}
-	
-	public int colletProc(String restNo) {
-		//String email = (String) session.getAttribute("email");
-		String email = "test21@hago.com";
-		int restNum = Integer.parseInt(restNo);
-		cDto.setEmail(email);
-		cDto.setRestNum(restNum);
-		int check = cDao.collChck(cDto);
-		int result;
-		if(check == 0) { // 중복이 없는 경우 db 저장
-			result = cDao.collectProc(cDto);
-		}
-		else result = 0; // 저장 실패
-		return result;
 	}
 }
