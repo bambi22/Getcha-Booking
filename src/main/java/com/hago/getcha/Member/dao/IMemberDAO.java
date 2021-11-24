@@ -21,5 +21,9 @@ public interface IMemberDAO {
 	
 	public MemberDTO memberLogin(MemberDTO member);
 
+	public int collectProc(String email, int restNum);
+
+	public int collChck(String email, int restNum);
+
 
 }
