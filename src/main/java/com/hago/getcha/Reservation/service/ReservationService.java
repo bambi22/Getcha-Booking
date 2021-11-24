@@ -252,49 +252,7 @@ public class ReservationService {
 		
 		logger.warn("=========================");
 		//예약 시간의 예약인원
-		for(int i=0; i<checklist.size();) {
-			logger.warn("확인");
-			ReservationDTO check = new ReservationDTO();	//예약 리스트에서 날짜가 일치하는 것만
-			check= checklist.get(i);
-			logger.warn("시간:"+check.getHours());
-			if(inlist.size()<1) {
-				logger.warn("inlist 없을 때 추가");
-				inlist.add(check);
-				return inlist;
-			}else {
-				for(int j=0; j<inlist.size(); j++) {
-					ReservationDTO indto = new ReservationDTO();
-					indto=inlist.get(j);
-					if(indto.getResNum()!=check.getResNum()) {
-						logger.warn("in 예약번호:"+ indto.getResNum());
-						logger.warn("check 예약번호:"+check.getResNum());
-						if(indto.getHours().equals(check.getHours())) {
-							inlist.remove(j);
-							logger.warn("inlist 삭제");
-							checklist.remove(i);
-							logger.warn("indto와 check 비교/시간이 같을때");
-							logger.warn("in 시간:"+ indto.getHours());
-							logger.warn("check 시간:"+check.getHours());
-							int cap = capacity-check.getCapacity();
-							String time = check.getHours();
-							logger.warn("inlist 입력:"+ time +" / "+ cap);
-							indto.setCapacity(cap);
-							indto.setHours(time);
-							inlist.add(indto);
-						}else {
-							logger.warn("indto와 check 비교/시간이 다를때");
-							if(indto.getResNum()!=check.getResNum()) {
-								inlist.add(check);
-								logger.warn("inlist입력");
-								checklist.remove(i);
-							}
-						}
-					}else {
-						logger.warn("indto, check 예약번호같을때");
-					}
-				}
-			}
-		}
+		
 		
 		for(int i=0; i<inlist.size(); i++) {
 			ReservationDTO in = new ReservationDTO();
