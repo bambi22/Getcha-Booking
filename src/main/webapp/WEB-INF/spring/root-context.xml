@@ -10,7 +10,7 @@
 	<!-- 히카리 커넥션풀 빈 등록 -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1522:xe" />
 		<property name="username" value="oracle" />
 		<property name="password" value="oracle" />
 	</bean>	
@@ -38,4 +38,5 @@
 	<mybatis-spring:scan base-package="com.hago.getcha.review.dao"/>	
 	<mybatis-spring:scan base-package="com.hago.getcha.Reservation.dao"/>
 	<mybatis-spring:scan base-package="com.hago.getcha.admin.dao"/>
+	<mybatis-spring:scan base-package="com.hago.getcha.collection.dao"/>
 </beans>

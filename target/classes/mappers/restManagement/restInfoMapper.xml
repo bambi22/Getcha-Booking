@@ -20,6 +20,21 @@
 		select * from restaurant where restnum=#{restNum}
 	</select>
 
+	<select id="restTypeList"  resultMap="restaurant" parameterType="String">
+		select * from restaurant where type=#{type} order by avgpoint desc
+	</select>
+
+	<select id="restTypeEtcList"  resultMap="restaurant" parameterType="String">
+		select * from restaurant where type!='한식' AND type!='프랑스음식'AND type!='이탈리아음식' AND type!='일식' order by avgpoint desc
+	</select>
+	
+	<select id="restLocationList"  resultMap="restaurant" parameterType="String">
+		select * from restaurant where dong=#{type} order by avgpoint desc 
+	</select>
+	
+	<select id="restLocationEtcList"  resultMap="restaurant" parameterType="String">
+		select * from restaurant where dong!='신사동' AND dong!='한남동'AND dong!='여의도동' AND dong!='청담동' order by avgpoint desc 
+	</select>
 	
 	<resultMap type="com.hago.getcha.restManagement.dto.OpenHourDTO" id="openHour">
 		<result property="restNum" column="restNum"/>
@@ -67,7 +82,7 @@
 		select * from wholemenu where restnum=#{restNum}
 	</select>
 	
-	
+
 	
 	
 </mapper>
