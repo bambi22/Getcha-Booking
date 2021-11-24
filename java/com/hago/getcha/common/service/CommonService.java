@@ -19,7 +19,6 @@ import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
-import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 import com.hago.getcha.review.dao.IReviewDAO;
 import com.hago.getcha.review.dto.ReviewsDTO;
 

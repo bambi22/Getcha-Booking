@@ -3,6 +3,7 @@
 <html>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <body>
+<%@ include file="nav.jsp" %>
 <div align="center">
 	<table style="width:800px;">
 		<tr>

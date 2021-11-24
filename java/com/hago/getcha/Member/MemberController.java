@@ -44,11 +44,12 @@ public class MemberController {
 			if(true == pwEncoder.matches(rawPw, encodePw)) {		
 				
 				lvo.setPw("");				
-				session.setAttribute("member", lvo); 	
-				return "redirect:/main2";					
+				session.setAttribute("email", lvo.getEmail()); 	
+				session.setAttribute("nickName", lvo.getNickname()); 	
+				return "forward:index?formpath=main";					
 			} else {
-							rttr.addFlashAttribute("result", 0);			
-				return "redirect:/login";					
+				rttr.addFlashAttribute("result", 0);			
+				return "forward:/login";					
 			}			
 		} else {			
 			rttr.addFlashAttribute("result", 0);			
@@ -61,7 +62,7 @@ public class MemberController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	 return "redirect:/main2";
+    	 return "redirect:/main";
     }
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -89,7 +90,7 @@ public class MemberController {
 			model.addAttribute("memberView", service.memberViewProc(email));
 			return "member/memberView";
 		}
-		return "forward:index?formpath=main2";
+		return "forward:index?formpath=main";
 	}
 	
 	@RequestMapping(value="/memberModi", method = {RequestMethod.POST, RequestMethod.GET})
@@ -111,7 +112,7 @@ public class MemberController {
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
-			return "forward:index?formpath=main2";
+			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "수정실패.");
 			return "forward:index?formpath=/memberModi";
@@ -126,7 +127,7 @@ public class MemberController {
 			return "member/deleteForm";
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
-			return "main2";
+			return "main";
 		}else {
 			model.addAttribute("msg", "삭제 실패하였습니다.");
 			return "member/deleteForm";
