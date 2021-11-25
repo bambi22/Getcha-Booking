@@ -10,7 +10,7 @@
   crossorigin="anonymous"></script>
 <!------ Include the above in your HEAD tag ---------->
 <script>
-$(function() {
+
     $('#login-form-link').click(function(e) {
     	$("#login-form").delay(100).fadeIn(100);
  		$("#register-form").fadeOut(100);
@@ -18,13 +18,7 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
-	$('#register-form-link').click(function(e) {
-		$("#register-form").delay(100).fadeIn(100);
- 		$("#login-form").fadeOut(100);
-		$('#login-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
+	
 
 });
 </script>
@@ -61,8 +55,8 @@ body {
 
 body{
   width: 100%;
-  background: -webkit-linear-gradient(left, #ffcdca, #ffe7ca, #fff8dc, #eaffd5);
-  background: linear-gradient(to right, #ffcdca, #ffe7ca, #fff8dc, #eaffd5);
+   background: -webkit-linear-gradient(left,#B0B1B2,#747678,#1D1E1E, #B0B1B2);
+  background: linear-gradient(to right,#B0B1B2, #747678,#1D1E1E,#B0B1B2);
   background-size: 600% 100%;
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
