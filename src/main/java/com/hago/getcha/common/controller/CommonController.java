@@ -33,6 +33,12 @@ public class CommonController {
 		service.restTypeListProc(mode, type, model);
 		return "forward:index?formpath=restList";
 	}
+	
+	@RequestMapping(value = "searchProc")
+	public String searchProc(Model model, HttpServletRequest req) {
+		service.searchProc(model, req);
+		return "forward:index?formpath=restList";
+	}
 }
 	
 

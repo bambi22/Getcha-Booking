@@ -19,6 +19,7 @@ import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 import com.hago.getcha.review.dao.IReviewDAO;
@@ -112,5 +113,12 @@ public class CommonService {
 		}
 		model.addAttribute("restList", restList);
 		
+	}
+
+	public void searchProc(Model model, HttpServletRequest req) {
+		String keyword = req.getParameter("keyword");
+		if(keyword == null) return;
+		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
+		model.addAttribute("restList", restList);
 	}
 }

@@ -8,6 +8,7 @@ import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
@@ -34,5 +35,5 @@ public interface IRestInfoDAO {
 
 	public ArrayList<RestaurantDTO> restLocationEtcList();
 
-
+	public ArrayList<RestSumDTO> searchProc(String keyword);
 }
