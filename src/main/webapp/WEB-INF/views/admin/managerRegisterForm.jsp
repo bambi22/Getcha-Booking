@@ -81,7 +81,6 @@ function managerRegister(){
 	<script>alert(${msg});</script>
 </c:if>
 
-<c:import url="adminNav.jsp"/>
 <script>
 	// 내비에 선택된 탭 색깔 변경 
 	document.getElementById('managerRegisterTab').className = 'nav-link active';

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.admin.dao.IAdminManagementDAO;
+import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.config.PageCon;
 import com.hago.getcha.restManagement.dao.IRestInfoDAO;
@@ -95,6 +96,21 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		}
 		
 	}
+	
+	@Override
+	public HashMap<String, String> findRestaurant(HashMap<String, String> map) {
+		RestaurantDTO restDto = infoDao.selectRestaurant(Integer.parseInt(map.get("keyword")));
+		if(restDto != null) {
+			map.put("resultNum", Integer.toString(restDto.getRestNum()));
+			map.put("resultName", restDto.getRestName());
+			map.put("resultAddr", restDto.getAddress());
+			return map;
+		}else {
+			map.put("resultNum", "none");
+			return map;
+		}
+	}
+	
 
 	public int managerRegisterProc(Model model, ManagerDTO managerDto, String pwOk, String[] phoneStr1, String[] phoneStr2) {
 		
@@ -120,7 +136,7 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 			managerDto.setRestPw(securePw);
 			adminDao.addManager(managerDto);
 			adminDao.addRestNum(managerDto.getRestId());
-			model.addAttribute("msg", "식당 관리자가 성공적으로 추가 되었습니다.");
+			session.setAttribute("msg", "식당 관리자가 등록되었습니다.");
 			return 1;
 		}
 		
@@ -133,10 +149,23 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		adminDao.deleteRestaurant(num);
 	}
 
+	@Override
 	public void guideBookListProc(Model model) {
-		// TODO Auto-generated method stub
+		ArrayList<AdditionDTO> guideList = adminDao.guideBookList();
+		for(AdditionDTO guide : guideList) {
+			RestaurantDTO rest = infoDao.selectRestaurant(guide.getRestNum());
+			guide.setRestName(rest.getRestName());
+			guide.setDong(rest.getDong());
+			guide.setAvgPoint(rest.getAvgPoint());
+		}
+		int size = guideList.size();
+		model.addAttribute("guideList", guideList);
+		model.addAttribute("max", guideList.get(0).getGuideBook());
+		model.addAttribute("min", guideList.get(size-1).getGuideBook());
 		
 	}
+
+	
 
 	
 	

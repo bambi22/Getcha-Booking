@@ -46,12 +46,4 @@
 	<select id="memberLogin" resultType="com.hago.getcha.Member.dto.MemberDTO">
 			SELECT email,pw,nickname FROM getchamember WHERE email = #{email}	
 	</select>
-	
-	<insert id="collectProc">
-		INSERT INTO collection VALUES(#{email}, #{restNum})
-	</insert>
-	
-	<select id="collChck" resultType="int">
-		SELECT count(*) FROM collection WHERE email = #{email} AND restNum = #{restNum}
-	</select>
 </mapper>

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:url var="root" value="/" />
 <style>
 	/* #wrap{width:100%; height:100px; background:white;} */
 	#sidebar{background:black; width:250px; height:100%; top:0; 
-		left:0px; position:fixed; font-size:14px; z-index:1}
+		left:0px; position:fixed; font-size:14px; z-index:1;}
 	#sidebar>button{background:#333; position:absolute; top:150px; left:250px; width:60px; height:52px; border:none; color:#FCF3E4;}
 
 
@@ -58,7 +58,13 @@
   float: right;
   padding-right: 8px;
 }
-
+#mySearch {
+  width: 100%;
+  height:40px;
+  font-size: 14px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
 
 </style>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -68,7 +74,16 @@
 <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
 <script>
-	$(function(){
+	function submitCheck(){
+		var keyword = $('#keywordInput').val();
+		if(keyword == null || keyword == ""){
+			return;
+			}
+		document.getElementById("f").action = "searchProc";
+		document.getElementById("f").submit();
+		}
+	
+	$('document').ready(function(){
 		var duration = 250;
 		var $side=$('#sidebar');
 		var $sidebt = $('#openBtn').on('click',function(){
@@ -82,16 +97,20 @@
 			};
 		});
 	});
-	
-	
 </script>
 <aside id="sidebar">
 		<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width:250px;height:100%;background-color:black;">
-	    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+	    <a href="${root }" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 	      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
 	      <img class="fs-4" src="resources/img/logo/logo.png" width="120">
 	    </a>
 	    <hr>
+	    <section id="search_container">
+			<form id="f" method="get">	
+   				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력"/>
+    			<button id="searchBtn" onclick="submitCheck()">검색</button>
+			</form>
+		</section>
 	    <ul class="nav nav-pills flex-column mb-auto">
 	      <li class="nav-item">
 	      	<button class="dropdown-btn">종류별 추천 리스트 
@@ -122,10 +141,10 @@
 		    	<i class="fa fa-caret-down"></i>
 		  	</button>
 		  	<div class="dropdown-container">
-		    	<a href="#">3만 원 이하</a>
-		    	<a href="#">3만 원 - 5만 원</a>
-		    	<a href="#">5만 원- 10만 원</a>
-		    	<a href="#">10만 원 이상</a>
+		    	<a href="restPriceListProc?arrange=under3">3만 원 이하</a>
+		    	<a href="restPriceListProc?arrange=under5">3만 원 - 5만 원</a>
+		    	<a href="restPriceListProc?arrange=under10">5만 원- 10만 원</a>
+		    	<a href="restPriceListProc?arrange=upper10">10만 원 이상</a>
 		  	</div>
 	      </li>
 	      <li>

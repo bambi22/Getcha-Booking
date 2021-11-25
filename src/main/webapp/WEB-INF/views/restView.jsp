@@ -2,27 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!DOCTYPE html>
-<html>
+<link href="<c:url value="/resources/css/common/restview.css" />" rel="stylesheet" />
 <head>
 <meta charset="UTF-8">
 <c:url var="root" value="/" />
 <title>식당 정보 보기</title>
-<style type="text/css">
-	header, #container {width:900px; margin:auto;}
-	.restTitle {display: flex; height:50px;}
-	#restName {margin-top:4px; padding:2px;}
-	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
-	#collect_btn:active {margin-left: 5px; margin-top: 5px; box-shadow:none;}
-	#collect_btn img {width: 30px;}
-	.cntReview img {width: 20px;} 
-	.cntCollection img {width: 20px;} 
-	.status_branch span {margin-right: 5px;}
-	#reviewList {border-top: 2px solid; border-bottom: 2px solid; cellpadding: 2;}
-	ul {list-style-type:none;}
-	ul li{float:left; margin-right:2px;}
-	.date {color: #CACACA; text-align: right; padding: 5px;} 
-</style>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
@@ -71,8 +55,7 @@
 		 	   success : function(data) {
 				if(data.result == "success"){
 					$(target).children().attr('src', "resources/img/icon/full_ht.png");
-					$(target).children().attr('alt', "저장된 상태")
-					$(target).attr('disabled', 'true');
+					$(target).children().attr('alt', "저장된 상태");
 					}else{
 						alert("저장한 식당입니다.");
 						}
@@ -95,7 +78,6 @@
 	<br><br>
 		<div class="restTitle">
 			<h2 id="restName">${rest.restName }</h2>
-			<!-- <c:if test="${not empty sessionScope.id}"> -->
 	            <button id="collect_btn" data-num="${restNum }">
 		            <c:if test="${collection == 0}">
 		            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지">
@@ -104,6 +86,7 @@
 		            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지">
 		            </c:if>
 	            </button>
+	        <!-- <c:if test="${not empty sessionScope.id}"> -->
 	        <!-- </c:if> -->
       	</div>
 			 <div class="status_branch">
@@ -115,12 +98,12 @@
 			<br>
 			<img src="resources/img/icon/star.png" width="20"><label> ${rest.avgPoint }</label>
 		<br>
-		<hr align="left" width="500px">
+		<hr align="left" width="700px">
 		<br>
 	</header>
 	
 	<div id="container">
-		<table style="cellpadding:2;">
+		<table id="rest_detail">
 			<tr>
 			<td> 주소 </td>
 			<td><p id="addr">${rest.address }</p></td>
@@ -147,7 +130,7 @@
 			</tr>
 			<tr>
 				<td> 부대시설 </td>
-				<td>
+				<td class="facil_wrap">
 					<c:forEach var="facil" items="${facilityList}">
 						<c:if test="${facil.facility == '주차 가능' }">
 							<div style="display:inline; float:left;">
@@ -206,17 +189,17 @@
 		<br>
 				
 		<br>
-		<hr align="left" width="500px">
+		<hr align="left" width="700px">
 		<br>
 		
 		<c:if test="${rest.promotion != '파일 없음' }">
 		<h4>진행 중인 프로모션</h4>
 			<p><img src="resources/img/promotion/${rest.promotion }" width="200"></p>
-			<br><hr align="left" width="500px"><br>
+			<br><hr align="left" width="700px"><br>
 		</c:if>
 		<h3>메뉴</h3>
 		<div>
-		<c:if test="${rest.promotion != '파일 없음' }">
+		<c:if test="${wholeMenuList != null }">
 			<c:forEach var="menu" items="${wholeMenuList}">
 				<img src="resources/img/wholeMenu/${menu.wholeMenu }" width="200">
 			</c:forEach>
@@ -237,9 +220,10 @@
 		
 		<h3>후기</h3>
 		<table id="reviewList">
+		<caption class="cap">최신순</caption>
 		<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
 		<tr>
-			<td rowspan="3"><img class="profile_img" src="#" />${rew.nickName}</td>
+			<td rowspan="3" class="profile_space"><img class="profile_img" src="#" />${rew.nickName}</td>
 			<td>
 			<c:forEach begin="1" end="${rew.point }" step="1">
 				<img src="resources/img/icon/star.png" style="width:18px;">
@@ -255,7 +239,7 @@
 			<ul>
 				<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
 				<li>
-					<div class="review_image" style="height:100px; width:100px; overflow:hidden;">
+					<div class="review_image">
 						<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
 					</div>
 				</li>
@@ -264,9 +248,9 @@
 			</c:if>
 			</td>
 		</tr>
-		<tr><td colspan="2"><p class="date">${rew.writeDate }</p></td></tr>
+		<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
 		<c:choose>
-			<c:when test="${vs.count != vs.end }"><tr><td colspan="2"><hr align="left" width="600px"></td></tr></c:when>
+			<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="700px"></td></tr></c:when>
 			<c:otherwise><tr><td></td></tr></c:otherwise>
 		</c:choose>
 		</c:forEach>
@@ -277,4 +261,3 @@
 	</div>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd93e659890d767f6ef2a30852c7410c&libraries=services"></script>
-</html>

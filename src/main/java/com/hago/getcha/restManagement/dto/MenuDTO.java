@@ -1,6 +1,6 @@
 package com.hago.getcha.restManagement.dto;
 
-public class MenuDTO {
+public class MenuDTO extends RestaurantDTO{
 	private int restNum;
 	private String category;
 	private String menuName;

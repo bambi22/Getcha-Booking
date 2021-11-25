@@ -37,13 +37,14 @@
 
 	<div id="ReviewPage_Container">
 	<c:forEach var="list" items="${reviewList }">
-		<form method="post">
+		<form action="updateProc" method="post">
 		<input type="hidden" name="reviewNum" value="${list.reviewNum }" />
+		<input type="hidden" name="restNum" value="${list.restNum }" />
 		<input type="hidden" name="restName" value="${list.restName }" />
 		<input type="hidden" name="content" value="${list.content }" />
 		<input type="hidden" id="fileNames" name="fileNames" value="${list.fileNames }" />
 			<div class="Review_Row">
-				<div class="title"><a href="#">${list.restName }</a>
+				<div class="title"><a href="restViewProc?restNum=${list.restNum }">${list.restName }</a>
 					<c:forEach begin="1" end="${list.point }" step="1">
 						<img src="resources/img/icon/star.png">
 					</c:forEach>
@@ -62,7 +63,7 @@
 					<p class="date">${list.writeDate }</p>
 				</div>
 				<div class="button_wrap">
-					<button formaction="${root }update" style="width: 100px">수정</button>
+					<input type="submit" value="수정" style="width: 100px" />
 					<input type="button" id="${list.reviewNum }" data-fileName="${list.fileNames }" class="delBtn" value="삭제" style="width: 100px; "/>
 				</div><hr>
 			</div>

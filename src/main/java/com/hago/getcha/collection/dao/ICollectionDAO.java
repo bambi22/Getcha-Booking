@@ -13,4 +13,5 @@ public interface ICollectionDAO {
 	public int collectProc(CollectDTO cDto);
 	public int collCount(int restNum);
 	public ArrayList<AllCollectDTO> myCollectProc(String email);
+	public int delCollect(CollectDTO cDto);
 }

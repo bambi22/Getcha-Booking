@@ -60,6 +60,8 @@
 		DELETE FROM specialmenu WHERE restnum=#{restNum}
 	</delete>
 
-
-
+	<!-- 평균 별점 수정 -->
+	<update id="updateAvgPoint">
+		UPDATE restaurant SET avgpoint = #{avgPoint} WHERE restnum= #{restNum} 
+	</update>
 </mapper>

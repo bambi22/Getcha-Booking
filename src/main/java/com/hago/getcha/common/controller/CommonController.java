@@ -1,8 +1,5 @@
 package com.hago.getcha.common.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -25,9 +22,9 @@ public class CommonController {
 	public String restViewProc(@RequestParam String restNum, Model model, HttpServletRequest req, 
 			@RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
 		if(restNum == null || restNum =="")
-			return "forward:index?formpath=main2";
+			return "forward:index?formpath=main";
 		service.restViewProc(restNum, currentPage, model, req);	
-		return "forward:restView";
+		return "forward:index?formpath=restView";
 	}
 		
 	
@@ -36,6 +33,19 @@ public class CommonController {
 		service.restTypeListProc(mode, type, model);
 		return "forward:index?formpath=restList";
 	}
+	
+	@RequestMapping(value = "restPriceListProc")
+	public String restPriceListProc(@RequestParam String arrange, Model model) {
+		service.restPriceListProc(arrange, model);
+		return "forward:index?formpath=restList";
+	}
+	
+	@RequestMapping(value = "searchProc")
+	public String searchProc(Model model, HttpServletRequest req) {
+		service.searchProc(model, req);
+		return "forward:index?formpath=restList";
+	}
+	
 }
 	
 

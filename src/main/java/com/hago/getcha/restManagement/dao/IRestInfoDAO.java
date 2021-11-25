@@ -8,6 +8,7 @@ import com.hago.getcha.restManagement.dto.FacilitiesDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 
@@ -26,13 +27,7 @@ public interface IRestInfoDAO {
 
 	public ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
 
-	public ArrayList<RestaurantDTO> restTypeList(String type);
-
-	public ArrayList<RestaurantDTO> restTypeEtcList();
-
-	public ArrayList<RestaurantDTO> restLocationList(String type);
-
-	public ArrayList<RestaurantDTO> restLocationEtcList();
 
 
+	public ArrayList<RestSumDTO> searchProc(String keyword);
 }

@@ -78,15 +78,14 @@
 		 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		 	   success : function(data) {
 				if(data.result == "success"){
-					console.log(data.result);
 					$(target).parent().find('img').attr('src', "resources/img/review/starrate.png");
 					$(target).attr('disabled', 'true');
 					}else{
 						alert("삭제 실패했습니다. 관리자에게 문의바랍니다.");
 						}
 				},
-		 	   error: function(e){
-		 		   alert("error: " + e);
+		 	   error: function(){
+		 		   alert("error");
 		 	   }
 			});
 			
@@ -136,7 +135,7 @@
 			alert("별점을 선택해주세요.");
 			return;
 		}
-		document.getElementById("f").action = "updateProc";
+		document.getElementById("f").action = "modifyProc";
 		document.getElementById("f").submit();
 	}
 	
@@ -175,7 +174,7 @@
 	<div id="ReviewWritingPage_Container">
 	    <div class="ReviewWritingPage_Row">
 	    <input type="hidden" name="reviewNum" value="${reviewNum }" />
-	    <input type="hidden" name="restNum" value="${rsestNum }" />
+	    <input type="hidden" name="restNum" value="${restNum }" />
 	    <input type="hidden" name="restName" value="${restName }" />
 	    <input type="hidden" name="fileNames" value="${fileNames }" />
 	      <strong class="RestaurantName">${restName }</strong>
