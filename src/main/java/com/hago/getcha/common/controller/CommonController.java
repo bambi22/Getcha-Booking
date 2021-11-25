@@ -1,8 +1,5 @@
 package com.hago.getcha.common.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -36,6 +33,15 @@ public class CommonController {
 		service.restTypeListProc(mode, type, model);
 		return "forward:index?formpath=restList";
 	}
+	
+	@RequestMapping(value = "restPriceListProc")
+	public String restPriceListProc(@RequestParam String arrange, Model model) {
+		service.restPriceListProc(arrange, model);
+		return "forward:index?formpath=restList";
+	}
+	
+	
+	
 }
 	
 

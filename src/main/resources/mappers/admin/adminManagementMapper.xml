@@ -59,4 +59,12 @@
 		delete from restaurant where restnum=#{restNum}
 	</delete>
 
+	<resultMap type="com.hago.getcha.admin.dto.AdditionDTO" id="addition">
+		<result property="restNum" column="restNum"/>
+		<result property="magazine" column="magazine"/>
+		<result property="guideBook" column="guidebook"/>
+	</resultMap>
+	<select id="guideBookList" resultMap="addition">
+		select * from additionInfo where guidebook is not null order by guidebook desc
+	</select>
 </mapper>

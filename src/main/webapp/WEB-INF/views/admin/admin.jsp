@@ -3,17 +3,17 @@
 <html>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <body>
-<c:import url="nav.jsp" />
+<c:import url="adminNav.jsp" />
 <div align="center" >
-	<table style="width:800px;">
+	<table style="width:100%;">
 		<tr>
-			<td style="height:100px;"><%@ include file="top.jsp" %></td>
+			<td style="height:100px;"><%@ include file="../common/top.jsp" %></td>
 		</tr>
 		<tr>
-			<td style="height:400px;"><c:import url="/${formpath }" /> </td>
+			<td style="padding: 40px; padding-left:300px"><c:import url="/${formpath }" /> </td>
 		</tr>
 		<tr>
-			<td style="height:50px;"><%@ include file="footer.jspf" %></td>
+			<td style="height:50px;"><%@ include file="../common/footer.jspf" %></td>
 		</tr>
 	</table>
 	</div>

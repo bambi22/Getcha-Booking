@@ -166,16 +166,16 @@ https://templatemo.com/tm-559-zay-shop
                     </div>
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                          <!-- 로그인 하지 않은 상태 -->
-                <c:if test = "${member == null }">
+                <c:if test = "${sessionScope.nickName == null }">
                   <div class="login_area"><a href="${root}index?formpath=login">로그인</a></div>
                     <span><a href="${root}index?formpath=member">회원가입</a></span>                
                 </c:if>  
                     </a>
                     <a class="nav-icon position-relative text-decoration-none" href="#">
                           <!-- 로그인한 상태 -->
-                <c:if test="${ member != null }">
+                <c:if test="${ sessionScope.nickName != null }">
             		<div class="login_success_area">
-                        <span>회원 : ${member.nickname}님</span>
+                        <span>회원 : ${sessionScope.nickName}님</span>
                         <a href="logout">로그아웃</a>
                         </div>
                 </c:if>

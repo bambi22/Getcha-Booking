@@ -21,4 +21,6 @@ public interface IAdminManagementService {
 	public void deleteManagerProc(String restNum);
 	
 	public void guideBookListProc(Model model);
+	
+	public HashMap<String, String> findRestaurant(HashMap<String, String> map);
 }

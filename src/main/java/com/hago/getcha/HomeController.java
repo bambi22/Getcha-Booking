@@ -39,6 +39,12 @@ public class HomeController {
 		return "common/index";
 	}
 	
+	@RequestMapping(value="/admin")
+	public String admin(Model model, @RequestParam String formpath) {
+		model.addAttribute("formpath", formpath);
+		return "admin/admin";
+	}
+	
 	@RequestMapping(value="/member")
 	public String member() {
 		return "member/member";

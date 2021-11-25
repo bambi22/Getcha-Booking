@@ -1,5 +1,6 @@
 package com.hago.getcha.common.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.collection.dto.CollectDTO;
 import com.hago.getcha.collection.dao.ICollectionDAO;
 import com.hago.getcha.common.config.PageConfig;
+import com.hago.getcha.common.dao.IRestListDAO;
 import com.hago.getcha.config.PageCon;
 import com.hago.getcha.restManagement.dao.IRestInfoDAO;
 import com.hago.getcha.restManagement.dto.FacilitiesDTO;
@@ -32,6 +34,7 @@ public class CommonService {
 	@Autowired CollectDTO cDto;
 	@Autowired HttpSession session;
 	@Autowired PageCon page;
+	@Autowired IRestListDAO listDao;
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
 		int restNum = Integer.parseInt(restNo);
@@ -101,22 +104,57 @@ public class CommonService {
 		ArrayList<RestaurantDTO> restList = null;
 		if(mode.equals("type")) {
 			if(type.equals("etc")) {
-				restList = infoDao.restTypeEtcList();
+				restList = listDao.restTypeEtcList();
 			}else {
-				restList= infoDao.restTypeList(type);						
+				restList= listDao.restTypeList(type);						
 			}
 		}
 		if(mode.equals("location")) {
 			if(type.equals("etc")) {
-				restList = infoDao.restLocationEtcList();
+				restList = listDao.restLocationEtcList();
 				for(RestaurantDTO rest : restList) {
 					System.out.println(rest.getRestName());
 				}
 			}else {
-				restList= infoDao.restLocationList(type);						
+				restList= listDao.restLocationList(type);						
 			}
 		}
 		model.addAttribute("restList", restList);
 		
+	}
+
+	public void restPriceListProc(String arrange, Model model) {
+		ArrayList<MenuDTO> restList = null;
+		
+		if(arrange.equals("under3")) {
+			restList = listDao.selectPriceList(0, 30000);
+			inputCommonInfo(restList);
+		}
+		if(arrange.equals("under5")) {
+			restList = listDao.selectPriceList(30000, 50000);
+			inputCommonInfo(restList);
+		}
+		if(arrange.equals("under10")) {
+			restList = listDao.selectPriceList(50000, 100000);
+			inputCommonInfo(restList);
+		}
+		if(arrange.equals("upper10")) {
+			restList = listDao.selectPriceList(100000, 100000);
+			inputCommonInfo(restList);
+		}		
+		model.addAttribute("restList", restList);
+		
+	}
+	
+	public void inputCommonInfo(ArrayList<MenuDTO> restList) {
+		for(MenuDTO menu : restList) {
+			RestaurantDTO rest = infoDao.selectRestaurant(menu.getRestNum());
+			menu.setRestName(rest.getRestName());
+			menu.setRestIntro(rest.getRestIntro());
+			menu.setDong(rest.getDong());
+			menu.setAvgPoint(rest.getAvgPoint());
+			menu.setType(rest.getType());
+			menu.setRepresentImage(rest.getRepresentImage());
+		}
 	}
 }

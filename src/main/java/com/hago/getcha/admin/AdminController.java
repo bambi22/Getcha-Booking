@@ -23,7 +23,7 @@ public class AdminController {
 	public String adminLoginProc(String adminId, String adminPw, Model model) {
 		int result = adminService.adminLoginProc(model, adminId, adminPw);
 		if(result == 0 || result == 1) {
-			return "forward:adminLogin";
+			return "forward:admin?formpath=adminLogin";
 		}else if(result == 3){
 			return "forward:restMainProc";
 		}else {
@@ -40,7 +40,7 @@ public class AdminController {
 	@RequestMapping(value="managerListProc")
 	public String managerListProc(Model model, String pageNumber) {
 		adminService.managerListProc(model, pageNumber);
-		return "forward:managerList";
+		return "forward:admin?formpath=managerList";
 	}
 		
 	@RequestMapping(value = "isExistId", produces = "application/json;charset=utf-8")
@@ -49,11 +49,17 @@ public class AdminController {
 		return adminService.isExistId(map);
 	}
 	
+	@RequestMapping(value = "findRestaurant", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public HashMap<String, String> findRestaurant(@RequestBody HashMap<String, String> map) {
+		return adminService.findRestaurant(map);
+	}
+	
 	@RequestMapping(value="managerRegisterProc")
 	public String managerRegisterProc(Model model, ManagerDTO managerDto, String pwOk, String[] phoneStr1, String[] phoneStr2) {
 		int result = adminService.managerRegisterProc(model, managerDto, pwOk, phoneStr1, phoneStr2);
 		if(result == 0) {
-			return "forward:managerRegister";			
+			return "forward:admin?formpath=managerRegister";			
 		}else {
 			return "forward:managerListProc";			
 		}
@@ -67,7 +73,9 @@ public class AdminController {
 	@RequestMapping(value="guideBookListProc")
 	public String guideBookListProc(Model model) {
 		adminService.guideBookListProc(model);
-		return "forward:guideBookList";
+		return "forward:admin?formpath=guideBookList";
 	}
+	
+	
 	
 }
