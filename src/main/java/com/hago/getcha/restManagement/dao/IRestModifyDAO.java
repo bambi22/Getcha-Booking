@@ -1,6 +1,7 @@
 package com.hago.getcha.restManagement.dao;
 
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
@@ -24,5 +25,5 @@ public interface IRestModifyDAO {
 
 	public void deleteMenu(int restNum);
 
-
+	public void updateAvgPoint(@Param("avgPoint")String avgPoint,@Param("restNum")int restNum);
 }

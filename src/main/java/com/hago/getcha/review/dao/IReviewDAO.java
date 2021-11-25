@@ -18,9 +18,9 @@ public interface IReviewDAO {
 	public ArrayList<ReviewsDTO> selectAll(@Param("b")int begin, @Param("e")int end, @Param("restNum")int restNum);
 	public ReviewDTO selectOne(int revieNum);
 	public int deleteProc(int reviewNum);
-	public void updateAvgPoint(int avgPoint);
 	public String selectFile(int reviewNum);
 	public void updateProc(ReviewDTO origin);
 	public void updateFile(FileDTO fDto);
 	public int reviewCount(int restNum);
+	public int[] selectPoints(int restNum);
 }

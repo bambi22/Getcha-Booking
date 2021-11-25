@@ -78,14 +78,8 @@ public class HomeController {
 		return "review/reviewForm";
 	}
 	
-	Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@RequestMapping(value = "/update")
-	public String update(@RequestParam int reviewNum, @RequestParam String restName,
-			@RequestParam String content, @RequestParam String fileNames, Model model) {
-		model.addAttribute("reviewNum", reviewNum);
-		model.addAttribute("restName", restName);
-		model.addAttribute("content", content);
-		model.addAttribute("fileNames", fileNames);
+	@RequestMapping("/update")
+	public String update() {
 		return "review/updateForm";
 	}
 	
@@ -119,12 +113,14 @@ public class HomeController {
 		return "admin/guideBookList";
 	}
 	
-	
 	@RequestMapping("/restList")
 	public String restList() {
 		return "restaurant/restList";
 	}
 	
-	
+	@RequestMapping(value = "/myCollection")
+	public String myCollection() {
+		return "mypage/collectionForm";
+	}
 
 }

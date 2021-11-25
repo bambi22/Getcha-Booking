@@ -19,6 +19,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.hago.getcha.restManagement.dao.IRestModifyDAO;
+import com.hago.getcha.review.config.AvgPointCon;
 import com.hago.getcha.review.controller.ReviewController;
 import com.hago.getcha.review.dao.IReviewDAO;
 import com.hago.getcha.review.dto.AllDTO;
@@ -28,10 +30,10 @@ import com.hago.getcha.review.dto.ReviewDTO;
 @Service
 public class ReviewService {
 	final static Logger logger = LoggerFactory.getLogger(ReviewService.class);
-	@Autowired
-	HttpSession session;
-	@Autowired
-	IReviewDAO dao;
+	@Autowired HttpSession session;
+	@Autowired IReviewDAO dao;
+	@Autowired IRestModifyDAO rmDao;
+	
 	static String FILE_LOCATION = "/upload/";
 	private String deleteFile = "";
 	SimpleDateFormat sdf;
@@ -39,9 +41,9 @@ public class ReviewService {
 	public void writeProc(MultipartHttpServletRequest req) {
 		// String email = (String) session.getAttribute("email");
 		String content = req.getParameter("content");
-		String restaurantNum = req.getParameter("restNum");
+		String restNo = req.getParameter("restNum");
 		String points = req.getParameter("point");
-		int restNum = Integer.parseInt(restaurantNum);
+		int restNum = Integer.parseInt(restNo);
 		int point = Integer.parseInt(points);
 
 		ReviewDTO dto = new ReviewDTO();
@@ -93,6 +95,11 @@ public class ReviewService {
 			dto.setFileNames("파일없음");
 		}
 		dao.writeProc(dto);
+		
+		int[] pointList = dao.selectPoints(restNum);
+		String avgPoint = AvgPointCon.getAvgPoint(pointList);
+		logger.warn("평점: " + avgPoint);
+		rmDao.updateAvgPoint(avgPoint, restNum);
 	}
 
 	public void reviewProc(Model model) {
@@ -102,19 +109,26 @@ public class ReviewService {
 		model.addAttribute("reviewList", reviewList);
 	}
 
-	public void updateProc(MultipartHttpServletRequest req) {
-		String rNum = req.getParameter("reviewNum");
+	public void modifyProc(MultipartHttpServletRequest req) {
+		String rewNo = req.getParameter("reviewNum");
+		String restNo = req.getParameter("restNum");
 		String content = req.getParameter("content");
 		String points = req.getParameter("point");
-		int reviewNum = Integer.parseInt(rNum);
+		int reviewNum = Integer.parseInt(rewNo);
+		int restNum = Integer.parseInt(restNo);
 		int point = Integer.parseInt(points);
-		logger.warn("수정할 넘버: " + reviewNum);
+		
 		
 		ReviewDTO origin = dao.selectOne(reviewNum);
 		if(content !="" && content.equals(origin.getContent()) == false)
 			origin.setContent(content);
-		if(point != origin.getPoint())
+		if(point != origin.getPoint()) {
+			int[] pointList = dao.selectPoints(restNum);
+			String avgPoint = AvgPointCon.getAvgPoint(pointList);
+			logger.warn("평점: " + avgPoint);
+			rmDao.updateAvgPoint(avgPoint, restNum);
 			origin.setPoint(point);
+		}
 		
 		StringBuilder builder = new StringBuilder();
 		if(!origin.getFileNames().equals("파일없음")) {
@@ -152,7 +166,7 @@ public class ReviewService {
 			builder.delete(builder.length()-1, builder.length());
 			origin.setFileNames(builder.toString());
 		}
-		logger.warn("수정 시 최종 파일이름: " + origin.getFileNames());
+
 		dao.updateProc(origin);
 	}
 

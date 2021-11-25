@@ -36,7 +36,16 @@ public class CollectionService {
 	public void myCollectProc(Model model) {
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
-		//ArrayList<AllCollectDTO> collectionList = cDao.myCollectProc(email);
-		//model.addAttribute("collectionList", collectionList);
+		ArrayList<AllCollectDTO> collectionList = cDao.myCollectProc(email);
+		model.addAttribute("collectionList", collectionList);
+	}
+
+	public int delCollect(String restNo) {
+		//String email = (String) session.getAttribute("email");
+		String email = "test21@hago.com";
+		int restNum = Integer.parseInt(restNo);
+		cDto.setEmail(email);
+		cDto.setRestNum(restNum);
+		return cDao.delCollect(cDto);
 	}
 }

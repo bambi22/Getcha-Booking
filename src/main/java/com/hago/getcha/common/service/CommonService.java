@@ -20,6 +20,7 @@ import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.OpenHourDTO;
 import com.hago.getcha.restManagement.dto.RestImageDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
+import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 import com.hago.getcha.review.dao.IReviewDAO;
 import com.hago.getcha.review.dto.ReviewsDTO;
 
@@ -35,38 +36,33 @@ public class CommonService {
 	
 	public void restViewProc(String restNo, int currentPage, Model model, HttpServletRequest req) {
 		int restNum = Integer.parseInt(restNo);
-		// ?�당 ?�보 가?�오�??
+
 		RestaurantDTO rest = infoDao.selectRestaurant(restNum);
-		// ?�업?�간 가?�오�??
 		ArrayList<OpenHourDTO> openList = infoDao.selectOpenHour(restNum);
-		// 부?�??�설 가?�오�??
 		ArrayList<FacilitiesDTO> facilityList = infoDao.selectFacilities(restNum);  
-		// ?�당 ?�진 가?�오�??
 		ArrayList<RestImageDTO> restImgList = infoDao.selectRestImage(restNum);
-		// 메뉴 가?�오�??
 		ArrayList<MenuDTO> menuList = infoDao.selectMenu(restNum);
-		// 메뉴?? 가?�오�??
-		//ArrayList<WholeMenuDTO> wholeMenuList = rmDao.selectWholeMenu(restNum);
+		ArrayList<WholeMenuDTO> wholeMenuList = infoDao.selectWholeMenu(restNum);
 		
 		int totalCount = rDao.reviewCount(restNum);
-		int pageBlock = 3; //?? ?�면?? 보여�?? ?�이?? ??
-		int end = currentPage * pageBlock; //?�이지�?? 게시글 ?? 번호
-		int begin = end+1 - pageBlock; //?�이지�?? 게시글 ?�작 번호
-		// 리뷰 가?�오�??
+		int pageBlock = 3; //페이지당 표시 수
+		int end = currentPage * pageBlock; //페이지당 끝번호
+		int begin = end+1 - pageBlock; //페이지당 시작 번호
+	
 		ArrayList<ReviewsDTO> reviewList = rDao.selectAll(begin, end, restNum);
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
 		cDto.setEmail(email);
 		cDto.setRestNum(restNum);
-		int cntCollection = cDao.collCount(restNum);
-		int collection = cDao.collChck(cDto); // 1?�면 ?��? ?�??�함, 0?�면 ?�??�x
+		int cntCollection = cDao.collCount(restNum); //관심 식당으로 저장된 총 수
+		int collection = cDao.collChck(cDto); // 1 -> 저장된 식당, 0 -> 저장x
 		
 		model.addAttribute("rest", rest);
 		model.addAttribute("openList", openList);
 		model.addAttribute("facilityList", facilityList);
 		model.addAttribute("restImgList", restImgList);
 		model.addAttribute("menuList", menuList);
-		//model.addAttribute("wholeMenuList", wholeMenuList);
+		model.addAttribute("wholeMenuList", wholeMenuList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("cntReview", totalCount);
 		model.addAttribute("restNum", restNum);
@@ -76,8 +72,6 @@ public class CommonService {
 		String url = req.getContextPath()+"/restViewProc?restNum="+restNum+"&";
 		url+="currentPage=";
 		model.addAttribute("page", PageConfig.getNavi(currentPage, pageBlock, totalCount, url));
-		System.out.println(totalCount);
-	
 	}
 	
 	public int colletProc(String restNo) {
@@ -88,10 +82,10 @@ public class CommonService {
 		cDto.setRestNum(restNum);
 		int check = cDao.collChck(cDto);
 		int result;
-		if(check == 0) { // 중복?? ?�는 경우 db ?�??
-			result = cDao.collectProc(cDto);
+		if(check == 0) { //중복 아닌 상태로 저장 진행
+			result = cDao.collectProc(cDto); //저장 성공 시 1 반환
 		}
-		else result = 0; // ?�?? ?�패
+		else result = 0; // 저장된 상태면 0 반환
 		return result;
 	}
 	
