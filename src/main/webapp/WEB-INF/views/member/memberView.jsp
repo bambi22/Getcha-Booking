@@ -2,7 +2,8 @@
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${empty sessionScope.email }">
 	<script>
-		location.href="index?formpath=member"
+		alert("로그인 후 이용해주세요.");
+		location.href="index?formpath=login";
 	</script>
 </c:if>
 <c:url var="root" value="/"/>

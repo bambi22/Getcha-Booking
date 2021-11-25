@@ -40,14 +40,16 @@ function search(){
 				$("#hours").val(td.text());
 				str = td.text();
 				$("#hours").html(str)
-				$('#capacity').children('option').remove()
+				
 				$(list).each(function(ind,obj){
 					if(obj["time"]==str){
 						console.log(obj["time"]);
 						var ctr=obj["capa"];
 						var capanum = parseInt(ctr);
 						console.log("capanum:"+capanum);
+						$("select[name='capacity'] option").remove();
 						for(var i=1; i<=capanum; i++){
+							
 							$("select[name='capacity']").append('<option value="'+i+'">'+i+'</option>');
 						}
 						

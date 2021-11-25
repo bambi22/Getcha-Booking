@@ -10,4 +10,5 @@ public interface IReservationDAO {
 	public ReservationDTO getInfo(int restNum);
 	public ArrayList<ReservationDTO> getresList(int restNum);
 	public int reservationProc(ReservationDTO dto);
+	public ArrayList<ReservationDTO> reservationView(String email);
 }

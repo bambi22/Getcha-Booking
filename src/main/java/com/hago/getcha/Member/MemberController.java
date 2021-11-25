@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Member.service.MemberService;
 
 @Controller
 public class MemberController {
+	@Autowired IMemberDAO dao;
 	@Autowired MemberService service;
 	@Autowired HttpSession session;
 	@Autowired
@@ -44,7 +48,9 @@ public class MemberController {
 			if(true == pwEncoder.matches(rawPw, encodePw)) {		
 				
 				lvo.setPw("");				
-				session.setAttribute("email", lvo.getEmail()); 	
+				session.setAttribute("member", lvo); 			
+				
+				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 	
 				return "forward:index?formpath=main";					
 			} else {
@@ -78,13 +84,13 @@ public class MemberController {
 		model.addAttribute("msg", msg);
 		return "forward:/index?formpath=member";
 	}
-	@RequestMapping(value = "memberView")
-	public String memberViewProc(Model model) {
-		String email = "1";
+	@RequestMapping(value = "/memberView")
+	public String memberViewProc(String email, Model model) {
+		email = "test1@test.com";
 		session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
-			return "forward:index?formpath=memberView";
+			return "forward:index?formpath=login";
 		}
 		if(sessionEmail.equals(email)) {
 			model.addAttribute("memberView", service.memberViewProc(email));
@@ -95,42 +101,56 @@ public class MemberController {
 	
 	@RequestMapping(value="/memberModi", method = {RequestMethod.POST, RequestMethod.GET})
 	public String memberModi() {
+		String email = "test1@test.com";
+		session.setAttribute("email", email);
+		//String email = (String)session.getAttribute("email");
+		MemberDTO member= service.memberViewProc(email);
+		session.setAttribute("nickname", member.getNickname());
+		session.setAttribute("birth", member.getBirth());
+		session.setAttribute("gender", member.getGender());
 		return "member/memberModi";
 	}
 	
+	final static Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@RequestMapping(value = "memberModiProc", method = {RequestMethod.POST, RequestMethod.GET})
-	public String memberModiProc(MemberDTO member, Model model) {
+	public String memberModiProc(MemberDTO member, Model model, HttpSession session) {
 		member.setEmail((String)session.getAttribute("email"));
 		member.setBirth((String)session.getAttribute("birth"));
-		member.setNickname((String)session.getAttribute("nickname"));
 		member.setGender((String)session.getAttribute("gender"));
 		int result = service.memberModiProc(member);
 		
 		if(result == 0) {
 			model.addAttribute("msg", "필수 정보입니다.");
-			return "member/memberModi";
+			//model.addAttribute("url","/memberModi");
+			return "forward:index?formpath=memberModi";
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
+			//model.addAttribute("url","/main");
 			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "수정실패.");
+			//model.addAttribute("url","/memberModi");
 			return "forward:index?formpath=/memberModi";
 		}
 	}
 	@RequestMapping(value = "memberDeleteProc")
 	public String memberDeleteProc(MemberDTO member, Model model) {
-		member.setEmail((String)session.getAttribute("email"));
+		String email = (String) session.getAttribute("email");
+		member.setEmail(email);
 		int result = service.memberDeleteProc(member);
 		if(result == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			return "member/deleteForm";
+			//model.addAttribute("url","/");
+			return "forward:index?formpath=deleteForm";
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
-			return "main";
+			//model.addAttribute("url","/");
+			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "삭제 실패하였습니다.");
-			return "member/deleteForm";
+			//model.addAttribute("url","/");
+			return "forward:index?formpath=deleteForm";
 		}
 	}
 }
