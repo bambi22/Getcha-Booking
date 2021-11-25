@@ -9,7 +9,6 @@
 	}
 	
 	.Review_Row{
-		height: 320px;
 		margin: 5px ,0px;
 	}
 	
@@ -38,6 +37,7 @@
 		width: 120px;
 		overflow: hidden;
 		margin: 0px 10px 10px 0px;
+		border-radius : 20px;
 	}
       
     .date {
@@ -50,7 +50,9 @@
      	padding: 5px;
       	text-align: right;
     }
-      
+    
+    a { color: #000; text-decoration: none; font-weight:bold;}
+    a:hover {text-decoration: underline;} 
      
       
      

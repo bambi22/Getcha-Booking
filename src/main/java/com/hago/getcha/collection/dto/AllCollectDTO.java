@@ -6,7 +6,7 @@ public class AllCollectDTO {
 	private double avgPoint;
 	private String type;
 	private String dong;
-	private String fileName;
+	private String representImage;
 	public int getRestNum() {
 		return restNum;
 	}
@@ -25,11 +25,11 @@ public class AllCollectDTO {
 	public void setAvgPoint(double avgPoint) {
 		this.avgPoint = avgPoint;
 	}
-	public String getFileName() {
-		return fileName;
+	public String getRepresentImage() {
+		return representImage;
 	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setRepresentimage(String representImage) {
+		this.representImage = representImage;
 	}
 	public String getType() {
 		return type;

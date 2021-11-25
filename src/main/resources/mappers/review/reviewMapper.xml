@@ -56,4 +56,7 @@
 		DELETE FROM rest_review WHERE reviewnum = #{reviewNum} 
 	</delete>
 	
+	<select id="selectPoints" resultType="int">
+		SELECT point FROM rest_review WHERE restnum = #{restNum}
+	</select>
 </mapper>

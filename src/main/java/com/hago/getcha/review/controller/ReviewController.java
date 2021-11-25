@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,7 +26,7 @@ public class ReviewController {
 	@RequestMapping(value = "writeProc")
 	public String writeProc(MultipartHttpServletRequest req) {
 		service.writeProc(req);
-		return "forward:write";
+		return "forward:review";
 	}
 	
 	@RequestMapping(value = "reviewProc")
@@ -35,8 +36,19 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "updateProc")
-	public String updateProc(MultipartHttpServletRequest req) {
-		service.updateProc(req);
+	public String updateProc(@RequestParam int reviewNum, @RequestParam String restName, @RequestParam int restNum,
+			@RequestParam String content, @RequestParam String fileNames, Model model) {
+		model.addAttribute("reviewNum", reviewNum);
+		model.addAttribute("restNum", restNum);
+		model.addAttribute("restName", restName);
+		model.addAttribute("content", content);
+		model.addAttribute("fileNames", fileNames);
+		return "forward:update";
+	}
+	
+	@RequestMapping(value = "modifyProc")
+	public String modifyProc(MultipartHttpServletRequest req) {
+		service.modifyProc(req);
 		return "forward:review";
 	}
 	
@@ -45,10 +57,7 @@ public class ReviewController {
 	public Map<String, String> delFileProc(HttpServletRequest req) {
 		String reviewNum = req.getParameter("reviewNum");
 		String delFile = req.getParameter("fileName");
-		logger.warn("리뷰 no: " + reviewNum);
-		logger.warn("삭제할 파일: " + delFile);
 		int result = service.delFileProc(reviewNum, delFile, req);
-		logger.warn("결과값: " + result);
 		Map<String, String> data = new HashMap<>();
 		if(result == 1) 
 			data.put("result", "success");
@@ -62,8 +71,6 @@ public class ReviewController {
 	public Map<String, String> deleteProc(HttpServletRequest req) {
 		String delNum = req.getParameter("reviewNum");
 		String fileNames = req.getParameter("fileNames");
-		logger.warn("삭제할 no: " + delNum);
-		logger.warn("삭제할 파일: " + fileNames);
 		int deletedRow = service.deleteProc(delNum, fileNames, req);
 		Map<String, String> result = new HashMap<>();
 		if(deletedRow > 0) 

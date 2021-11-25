@@ -4,16 +4,16 @@
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <body>
 <c:import url="nav.jsp" />
-<div align="center" >
-	<table style="width:800px;">
+<div align="center">
+	<table style="width:100%;">
 		<tr>
-			<td style="height:100px;"><%@ include file="top.jsp" %></td>
+			<td><!--  <%@ include file="top.jsp" %>--></td>
 		</tr>
 		<tr>
 			<td style="height:400px;"><c:import url="/${formpath }" /> </td>
 		</tr>
 		<tr>
-			<td style="height:50px;"><%@ include file="footer.jspf" %></td>
+			<td style="height:50px;"><%@ include file="footer.jsp" %></td>
 		</tr>
 	</table>
 	</div>

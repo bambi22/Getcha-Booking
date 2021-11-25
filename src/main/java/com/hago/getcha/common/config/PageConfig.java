@@ -7,16 +7,16 @@ public class PageConfig {
 			blockCnt++;
 		String result="";
 		if(currentPage != 1)
-			result +="<a href='"+url+(currentPage-1)+"'><</a>";
+			result +="<a href='"+url+(currentPage-1)+"'><&nbsp;</a>";
 		
 		for(int i = 1; i <= blockCnt; i++) {
 		if(currentPage == i) result += "<b>";
-		result += " <a href='"+url+i+"'> "+ i +"</a>";
+		result += " <a href='"+url+i+"'>"+ i +"</a>";
 		if(currentPage == i) result += "</b>";
 		}
 
 		if(currentPage!=blockCnt)
-			result += "<a href='"+url+(currentPage+1)+"'>></a>";
+			result += "<a href='"+url+(currentPage+1)+"'>&nbsp;></a>";
 		return result;
 	}
 }
