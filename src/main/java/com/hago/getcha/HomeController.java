@@ -1,7 +1,5 @@
 package com.hago.getcha;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -125,6 +123,10 @@ public class HomeController {
 	@RequestMapping(value = "/myCollection")
 	public String myCollection() {
 		return "mypage/collectionForm";
+	}
+	@RequestMapping(value = "/deleteReservation")
+	public String deleteReservation() {
+		return "reservation/deleteReservation";
 	}
 
 }

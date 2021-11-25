@@ -39,12 +39,22 @@
 	
 	<resultMap type="com.hago.getcha.Reservation.dto.ReservationDTO" id="resView">
 		<result property="resNum" column="resNum"/>
-		<result property="nickname" column="nickname"/>
 		<result property="restName" column="restName"/>
 		<result property="resDay" column="resDay"/>
 		<result property="status" column="status"/>
 	</resultMap>
-	<select id="reservationView" resultMap="resView" parameterType="int">
+	<select id="reservationView" resultMap="resView" parameterType="String">
 		SELECT * FROM getchares WHERE email=#{email}
+	</select>
+	
+	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="userinfo">
+		<result property="email" column="email"/>
+		<result property="pw" column="pw"/>
+		<result property="nickname" column="nickname"/>
+		<result property="birth" column="birth"/>
+		<result property="gender" column="gender"/>
+	</resultMap>
+	<select id="userinfo" resultMap="userinfo" parameterType="String">
+		SELECT * FROM getchamember WHERE email=#{email}
 	</select>
 </mapper>

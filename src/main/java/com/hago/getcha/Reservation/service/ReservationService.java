@@ -229,11 +229,15 @@ public class ReservationService {
 							timePart.remove(resTime);
 						}
 				}else {
-					timeCapa = new HashMap<String, String>();
-					String capa=Integer.toString(capacity);
-					timeCapa.put("time", timePart.get(i));
-					timeCapa.put("capa", capa);
-					dataList.add(timeCapa);
+					
+					for(int j=0; j<timePart.size(); j++) {
+						timeCapa = new HashMap<String, String>();
+						String capa=Integer.toString(capacity);
+						logger.warn("check필요:"+timePart.get(j)+"/"+capa);
+						timeCapa.put("time", timePart.get(j));
+						timeCapa.put("capa", capa);
+						dataList.add(timeCapa);
+					}	
 					return dataList;
 				}
 			}

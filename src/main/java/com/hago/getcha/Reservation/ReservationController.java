@@ -36,7 +36,7 @@ public class ReservationController {
 		model.addAttribute("weekList", weekList);
 		model.addAttribute("restList", resList);
 		model.addAttribute("info", info);
-		return "member/calendar";
+		return "reservation/calendar";
 	}
 	
 	@RequestMapping(value = "SearchDay", produces = "application/json;charset=utf-8")
@@ -78,9 +78,16 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservationView")
 	public String reservationViewProc(Model model, String email) {
-		email = (String)session.getAttribute("email");
+		email = "1";
+		session.setAttribute("email", email);
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
-		model.addAttribute("reservationView",reservationView);
-		return "reservation/reservationView";
+		if(reservationView==null) {
+			return "reservation/calendar";
+		}else {
+			model.addAttribute("reservationView",reservationView);
+			return "reservation/reservationView";
+		}
 	}
+	
+	//@RequestMapping(value = DeleteProc)
 }

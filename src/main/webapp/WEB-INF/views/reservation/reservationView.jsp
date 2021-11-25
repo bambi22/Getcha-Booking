@@ -15,6 +15,11 @@
 			</td>
 		</tr>
 		<c:forEach var = "reservationView" items="${reservationView }">
+		<form action = DeleteProc method ="post">
+		<tr>
+			<td style="width:100px; height:40px;"><b>예약번호</b></td>
+			<td style="width:250px; height:40px;"><b>${reservationView.resNum}</b></td>
+		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>닉네임</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.nickname}</b></td>
@@ -30,9 +35,10 @@
 		<tr>
 			<td style="width:100px; height:40px;"><b>상태</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.status}</b>
-			<input type="button" style="width:60px;" value="삭제" onclick="location.href=''"/>
+			<input type="submit" style="width:60px;" value="예약취소"/>
 			</td>
 		</tr>
+		</form>
 		</c:forEach>
 	</table>
 </center>
