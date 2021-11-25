@@ -90,7 +90,7 @@
 				WHERE restaurant.restnum = specialMenu.restnum (+)
 				ORDER BY avgpoint DESC
      			 )A
-   		 WHERE menuname LIKE '%'||#{keyword}||'%' OR dong LIKE '%'||#{keyword}||'%' OR address LIKE '%'||#{keyword}||'%'
+   		 WHERE restName LIKE '%'||#{keyword}||'%' OR menuname LIKE '%'||#{keyword}||'%' OR dong LIKE '%'||#{keyword}||'%' OR address LIKE '%'||#{keyword}||'%'
     	)B 
   		GROUP BY restnum, restname, avgpoint, type, dong, restintro, representimage
 	</select>

@@ -112,10 +112,6 @@
 			</form>
 		</section>
 	    <ul class="nav nav-pills flex-column mb-auto">
-	     <li class="nav-item">
-		    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="검색 키워드 입력..." title="지역/식당명/메뉴명 키워드를 입력해주세요.">
-	     	<p/>
-	     </li>
 	      <li class="nav-item">
 	      	<button class="dropdown-btn">종류별 추천 리스트 
 		    	<i class="fa fa-caret-down"></i>

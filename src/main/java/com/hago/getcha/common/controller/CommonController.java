@@ -22,9 +22,9 @@ public class CommonController {
 	public String restViewProc(@RequestParam String restNum, Model model, HttpServletRequest req, 
 			@RequestParam(value="currentPage", required=false, defaultValue="1")int currentPage) {
 		if(restNum == null || restNum =="")
-			return "forward:index?formpath=main2";
+			return "forward:index?formpath=main";
 		service.restViewProc(restNum, currentPage, model, req);	
-		return "forward:restView";
+		return "forward:index?formpath=restView";
 	}
 		
 	
@@ -40,7 +40,11 @@ public class CommonController {
 		return "forward:index?formpath=restList";
 	}
 	
-	
+	@RequestMapping(value = "searchProc")
+	public String searchProc(Model model, HttpServletRequest req) {
+		service.searchProc(model, req);
+		return "forward:index?formpath=restList";
+	}
 	
 }
 	

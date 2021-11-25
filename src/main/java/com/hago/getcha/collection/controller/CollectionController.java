@@ -38,7 +38,7 @@ public class CollectionController {
 	@RequestMapping(value = "myCollectProc")
 	public String myCollectProc(Model model) {
 		service.myCollectProc(model);
-		return "forward:myCollection";
+		return "forward:index?formpath=myCollection";
 	}
 	
 	@ResponseBody
@@ -47,7 +47,6 @@ public class CollectionController {
 		String restNo = map.get("restNum");
 		logger.warn("취소할 식당 번호: " + restNo);
 		int result = service.delCollect(restNo);
-		logger.warn("결과값: " + result);
 		if(result == 1)
 			map.put("result", "success");
 		else 
