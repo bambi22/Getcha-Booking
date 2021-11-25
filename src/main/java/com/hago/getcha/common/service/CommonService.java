@@ -1,6 +1,7 @@
 package com.hago.getcha.common.service;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.Member.dao.IMemberDAO;
+import com.hago.getcha.admin.dao.IAdminManagementDAO;
+import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.collection.dto.CollectDTO;
 import com.hago.getcha.collection.dao.ICollectionDAO;
 import com.hago.getcha.common.config.PageConfig;
@@ -150,5 +153,22 @@ public class CommonService {
 			menu.setType(rest.getType());
 			menu.setRepresentImage(rest.getRepresentImage());
 		}
+	}
+
+	public void guideBookShowListProc(Model model) {
+		LocalDate now = LocalDate.now();
+		String guideBook = Integer.toString(now.getYear());
+		ArrayList<AdditionDTO> guideList = listDao.guideBookShowList(guideBook);
+		for(AdditionDTO guide : guideList) {
+			RestaurantDTO rest = infoDao.selectRestaurant(guide.getRestNum());
+			guide.setRestName(rest.getRestName());
+			guide.setRestIntro(rest.getRestIntro());
+			guide.setDong(rest.getDong());
+			guide.setAvgPoint(rest.getAvgPoint());
+			guide.setType(rest.getType());
+			guide.setRepresentImage(rest.getRepresentImage());
+		}
+		model.addAttribute("restList", guideList);
+		
 	}
 }

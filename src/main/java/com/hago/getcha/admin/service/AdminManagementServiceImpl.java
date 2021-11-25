@@ -1,6 +1,7 @@
 package com.hago.getcha.admin.service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -103,6 +104,8 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		if(restDto != null) {
 			map.put("resultNum", Integer.toString(restDto.getRestNum()));
 			map.put("resultName", restDto.getRestName());
+			map.put("resultType", restDto.getType());
+			map.put("resultDong", restDto.getDong());
 			map.put("resultAddr", restDto.getAddress());
 			return map;
 		}else {
@@ -162,6 +165,25 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		model.addAttribute("guideList", guideList);
 		model.addAttribute("max", guideList.get(0).getGuideBook());
 		model.addAttribute("min", guideList.get(size-1).getGuideBook());
+		
+	}
+
+	public String addGuideBookProc(int restNum) {
+		AdditionDTO addition = adminDao.selectRestNum(restNum);
+		LocalDate now = LocalDate.now();
+		String guideBook = Integer.toString(now.getYear());
+		if(addition != null) {
+			if(addition.getGuideBook()==null) {
+				
+				adminDao.updateGuide(restNum, guideBook);
+				return "추가되었습니다.";
+			}else {
+				return "이미 추가된 식당입니다.";
+			}
+		}else {
+			adminDao.addGuide(restNum, guideBook);
+			return "추가되었습니다.";
+		}
 		
 	}
 

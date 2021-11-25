@@ -23,13 +23,11 @@
 
 </head>
 <body style="display:flex;">
-	<c:import url="restNav.jsp"/>
 	<script>
 		//내비에 선택된 탭 색깔 변경
 		document.getElementById('restInfoTab').className = 'nav-link active';
 	</script>
-	<br>
-	<hr>
+
 	<br><br>
 <div>
 	<!-- 식당 사진 보여주기 -->
@@ -48,10 +46,10 @@
 	<br>
 	<c:forEach var="cnt" begin="1" end="5">
 		<c:choose>
-			<c:when test="${rest.avgPoint < cnt && rest.avgPoint > (cnt-1) }">
+			<c:when test="${rest.ratePoint < cnt && rest.ratePoint > (cnt-1) }">
 				<img src="resources/img/icon/rating.png" width="20">
 			</c:when>
-			<c:when test="${rest.avgPoint <= (cnt-1) }">
+			<c:when test="${rest.ratePoint <= (cnt-1) }">
 				<img src="resources/img/icon/emptystar.png" width="20" height="20">
 			</c:when>
 			<c:otherwise>
@@ -59,7 +57,7 @@
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<p>평점 : ${rest.avgPoint }</p>
+	<p>평점 : ${rest.ratePoint }</p>
 	
 	</div>
 	<br>

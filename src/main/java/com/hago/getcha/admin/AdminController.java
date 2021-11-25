@@ -71,9 +71,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="guideBookListProc")
-	public String guideBookListProc(Model model) {
+	public String guideBookListProc(Model model, String msg) {
 		adminService.guideBookListProc(model);
+		model.addAttribute("msg", msg);
 		return "forward:admin?formpath=guideBookList";
+	}
+	
+	@RequestMapping(value="addGuideBookProc")
+	public String addGuideBookProc(String restNum) {
+		String msg = adminService.addGuideBookProc(Integer.parseInt(restNum));
+		return "forward:guideBookListProc?msg="+msg;
 	}
 	
 	

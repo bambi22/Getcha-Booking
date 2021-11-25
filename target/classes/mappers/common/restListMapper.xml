@@ -51,4 +51,13 @@
 		</if>
 	</select>
 	
+	<resultMap type="com.hago.getcha.admin.dto.AdditionDTO" id="guide">
+		<result property="restNum" column="restNum"/>
+		<result property="magazine" column="magazine"/>
+		<result property="guideBook" column="guidebook"/>
+	</resultMap>
+	<select id="guideBookShowList" resultMap="guide" parameterType="String">
+		select * from additionInfo where guidebook=#{guideBook}
+	</select>
+	
 </mapper>

@@ -45,10 +45,10 @@
                   <button type="button" class="btn btn-sm btn-outline-secondary">상세보기</button>
                 </div>
                 <small class="text-muted">
-	                <c:if test="${rest.avgPoint == 0  }">
+	                <c:if test="${rest.avgPoint == '0'  }">
 	                	<img  src="resources/img/icon/emptystar.png" width="10px">
 	                </c:if>
-	                <c:if test="${rest.avgPoint != 0  }">
+	                <c:if test="${rest.avgPoint != '0'  }">
 	                	<img  src="resources/img/icon/star.png" width="10px">
 	                </c:if>
 	                ${rest.avgPoint }

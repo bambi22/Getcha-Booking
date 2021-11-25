@@ -78,7 +78,7 @@ function managerRegister(){
 </c:if> 
 
 <c:if test="${!empty msg }">
-	<script>alert(${msg});</script>
+	<script>alert("${msg}");</script>
 </c:if>
 
 <script>

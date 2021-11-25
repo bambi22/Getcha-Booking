@@ -139,7 +139,7 @@
 		  	</div>
 	      </li>
 	      <li>
-	         <button class="dropdown-btn">2021 가이드북 선정</button>
+	         <button class="dropdown-btn" onclick="location.href='guideBookShowListProc'">2021 가이드북 선정</button>
 	      </li>
 	      <li>
 	        <button class="dropdown-btn">리뷰수순 리스트</button>

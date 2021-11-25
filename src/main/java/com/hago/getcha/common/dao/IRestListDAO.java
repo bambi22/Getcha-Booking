@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
+import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
@@ -20,4 +21,6 @@ public interface IRestListDAO {
 	public ArrayList<RestaurantDTO> restLocationEtcList();
 
 	public ArrayList<MenuDTO> selectPriceList(int start, int end);
+
+	public ArrayList<AdditionDTO> guideBookShowList(String guideBook);
 }
