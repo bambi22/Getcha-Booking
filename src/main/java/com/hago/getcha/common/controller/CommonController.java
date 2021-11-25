@@ -34,11 +34,14 @@ public class CommonController {
 		return "forward:index?formpath=restList";
 	}
 	
-	@RequestMapping(value = "searchProc")
-	public String searchProc(Model model, HttpServletRequest req) {
-		service.searchProc(model, req);
+	@RequestMapping(value = "restPriceListProc")
+	public String restPriceListProc(@RequestParam String arrange, Model model) {
+		service.restPriceListProc(arrange, model);
 		return "forward:index?formpath=restList";
 	}
+	
+	
+	
 }
 	
 

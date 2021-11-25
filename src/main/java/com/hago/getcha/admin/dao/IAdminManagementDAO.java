@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Repository;
 
+import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
@@ -22,6 +23,8 @@ public interface IAdminManagementDAO {
 	public void deleteManager(int restNum);
 
 	public void deleteRestaurant(int restNum);
+
+	public ArrayList<AdditionDTO> guideBookList();
 
 	
 

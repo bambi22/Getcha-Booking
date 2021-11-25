@@ -4,7 +4,7 @@
 <style>
 	/* #wrap{width:100%; height:100px; background:white;} */
 	#sidebar{background:black; width:250px; height:100%; top:0; 
-		left:0px; position:fixed; font-size:14px; z-index:1}
+		left:0px; position:fixed; font-size:14px; z-index:1;}
 	#sidebar>button{background:#333; position:absolute; top:150px; left:250px; width:60px; height:52px; border:none; color:#FCF3E4;}
 
 
@@ -58,7 +58,13 @@
   float: right;
   padding-right: 8px;
 }
-
+#mySearch {
+  width: 100%;
+  height:40px;
+  font-size: 14px;
+  padding: 11px;
+  border: 1px solid #ddd;
+}
 
 </style>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -106,6 +112,10 @@
 			</form>
 		</section>
 	    <ul class="nav nav-pills flex-column mb-auto">
+	     <li class="nav-item">
+		    <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="검색 키워드 입력..." title="지역/식당명/메뉴명 키워드를 입력해주세요.">
+	     	<p/>
+	     </li>
 	      <li class="nav-item">
 	      	<button class="dropdown-btn">종류별 추천 리스트 
 		    	<i class="fa fa-caret-down"></i>
@@ -135,10 +145,10 @@
 		    	<i class="fa fa-caret-down"></i>
 		  	</button>
 		  	<div class="dropdown-container">
-		    	<a href="#">3만 원 이하</a>
-		    	<a href="#">3만 원 - 5만 원</a>
-		    	<a href="#">5만 원- 10만 원</a>
-		    	<a href="#">10만 원 이상</a>
+		    	<a href="restPriceListProc?arrange=under3">3만 원 이하</a>
+		    	<a href="restPriceListProc?arrange=under5">3만 원 - 5만 원</a>
+		    	<a href="restPriceListProc?arrange=under10">5만 원- 10만 원</a>
+		    	<a href="restPriceListProc?arrange=upper10">10만 원 이상</a>
 		  	</div>
 	      </li>
 	      <li>

@@ -17,11 +17,9 @@
 
 
 <center>
-<c:if test="${!empty msg }">
-	<script>alert(${msg});</script>
+<c:if test="${!empty sessionScope.msg }">
+	<script>alert(${sessionScope.msg});</script>
 </c:if>
-
-<c:import url="adminNav.jsp"/>
 <script>
 	//내비에 선택된 탭 색깔 변경
 	document.getElementById('managerListTab').className = 'nav-link active';
@@ -88,4 +86,5 @@
 	</c:otherwise>
 </c:choose>
 
+<c:import url="../common/footer.jspf"/>
 </center>

@@ -27,13 +27,7 @@ public interface IRestInfoDAO {
 
 	public ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
 
-	public ArrayList<RestaurantDTO> restTypeList(String type);
 
-	public ArrayList<RestaurantDTO> restTypeEtcList();
-
-	public ArrayList<RestaurantDTO> restLocationList(String type);
-
-	public ArrayList<RestaurantDTO> restLocationEtcList();
 
 	public ArrayList<RestSumDTO> searchProc(String keyword);
 }

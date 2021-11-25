@@ -4,7 +4,7 @@
 
 <mapper namespace="com.hago.getcha.restManagement.dao.IRestRegisterDAO">
 	<update id="addRestaurant" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
-		UPDATE restaurant SET restname=#{restName}, restintro=#{restIntro}, zipcode=#{zipcode}, 
+		UPDATE restaurant SET restname=#{restName}, restintro=#{restIntro}, avgpoint='0', zipcode=#{zipcode}, 
 		address=#{address}, dong=#{dong}, type=#{type}, capacity=#{capacity}, promotion=#{promotion}, registerDate=sysdate 
 		WHERE restnum=#{restNum}
 	</update>
