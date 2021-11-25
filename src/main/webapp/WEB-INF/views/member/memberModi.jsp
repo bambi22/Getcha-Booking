@@ -5,9 +5,12 @@
 		location.href='index?formpath=login'
 	</script>
 </c:if>
-<c:if test="${not empty msg }">
-	<script>alert('{$msg}')</script>
-</c:if>
+<script>
+	var message="${msg}";
+	//var url = "${url}";
+	alert(message);
+	//document.location.href=url;
+</script>
 <center>
 	<form action=memberModiProc method="post">
 		<table>
@@ -62,7 +65,7 @@
 			<tr>
 				<td align='center' height=40 colspan=4>
 				<input type=submit value='수정' style="width:120px;"/>
-				<input type=reset value='취소' style="width:120px;"/>
+				<input type="button" style="width:120px;" value="취소" onclick="location.href='${root}index?formpath=memberView'"/>
 				</td>
 			</tr>
 		</table>

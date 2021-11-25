@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
@@ -191,7 +193,7 @@ public class ReservationService {
 		List<String>resTCheck = new ArrayList<String>();
 		List<String>resPCheck = new ArrayList<String>();
 		ArrayList<ReservationDTO> checkList = new ArrayList<ReservationDTO>();
-		ArrayList<ReservationDTO> inlist = new ArrayList<ReservationDTO>();
+		
 		
 		List<String> timePart = partTime(restNum, date);
 		ReservationDTO info = getInfo(restNum);
@@ -206,8 +208,8 @@ public class ReservationService {
 				timeCapa.put("time", timePart.get(i));
 				timeCapa.put("capa", capa);
 				dataList.add(timeCapa);
-				return dataList;
 			}
+			return dataList;
 		}else {
 			for(int i=0; i<resList.size(); i++) {
 				logger.warn("예약내역있음-예약된 시간 조회");
@@ -252,13 +254,88 @@ public class ReservationService {
 		
 		logger.warn("=========================");
 		//예약 시간의 예약인원
-		
-		
-		for(int i=0; i<inlist.size(); i++) {
-			ReservationDTO in = new ReservationDTO();
-			in = inlist.get(i);
-			logger.warn("inlist확인 : " + in.getHours()+" / " + in.getCapacity());
+		for(int i=0; i<resList.size(); i++) {
+			ReservationDTO dto = resList.get(i);
+			if(date.equals(dto.getResDay())) {
+				checkList.add(dto);
+			}
 		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		for(int a=0; a<checkList.size(); a++) {
+			logger.warn("checkList");
+			ReservationDTO check = new ReservationDTO();
+			check = checkList.get(a);
+			logger.warn("시간:"+check.getHours());
+			if(map.isEmpty()) {
+				int capa = capacity-check.getCapacity();
+				logger.warn("map 없음");
+				logger.warn("map put" + "key" + check.getHours() + "value"+capa);
+				map.put(check.getHours(), capa);
+				checkList.remove(a);
+			}
+		}
+		ArrayList<ReservationDTO>list = new ArrayList<ReservationDTO>();
+		for(int m=0; m<checkList.size(); m++) {
+			logger.warn("checkList2");
+			ReservationDTO check = new ReservationDTO();
+			check = checkList.get(m);
+			logger.warn("시간2:"+check.getHours());
+			Iterator<String>keys = map.keySet().iterator();
+			while(keys.hasNext()){
+				String key = keys.next();
+				if(key.equals(check.getHours())) {
+					logger.warn("map:"+map.get(key) + " / " + check.getCapacity());;
+					ReservationDTO dto = new ReservationDTO();
+					dto.setHours(key);
+					dto.setCapacity(check.getCapacity());
+					logger.warn("일치비교시간:"+dto.getHours());
+					logger.warn("인원:"+dto.getCapacity());
+					list.add(dto);
+				}else {
+					//map.put(check.getHours(), check.getCapacity());
+					ReservationDTO dto = new ReservationDTO();
+					String time = check.getHours();
+					int cap = check.getCapacity();
+					logger.warn("일치 시간 없음:"+time);
+					logger.warn("인원:"+cap);
+					dto.setHours(check.getHours());
+					dto.setCapacity(check.getCapacity());
+					logger.warn("확인:"+dto.getHours()+" / " + dto.getCapacity());
+					list.add(dto);
+				}
+			}
+		}
+		String k =Integer.toString(list.size());
+		logger.warn("k:"+k);
+		
+		logger.warn("=================================");
+		for(int j=0; j<list.size(); j++) {
+			ReservationDTO dto = new ReservationDTO();
+			dto = list.get(j);
+			String time = dto.getHours();
+			logger.warn("list확인:"+ time + " / " + dto.getCapacity());
+			if(map.get(time)!=null){
+				int cap = map.get(time)-dto.getCapacity();
+				logger.warn("cap:"+cap);
+				map.put(time, cap);
+			}else {
+				int cap = capacity - dto.getCapacity();
+				logger.warn("2.cap:"+cap);
+				map.put(time, cap);
+			}
+		}
+		
+		logger.warn("===================================");
+		for(String key : map.keySet()) {
+			logger.warn("key:"+key+"/value:"+map.get(key));
+			timeCapa = new HashMap<String, String>();
+			timeCapa.put("time", key);
+			logger.warn("key"+key+"capa"+Integer.toString(map.get(key)));
+			timeCapa.put("capa", Integer.toString(map.get(key)));
+			dataList.add(timeCapa);
+		}
+		
+		
 		
 		logger.warn("=========================");
 		//예약가능 시간과 일치하는 예약시간 없을때
@@ -275,66 +352,6 @@ public class ReservationService {
 		return dataList;
 	}
 	
-	public ArrayList<ReservationDTO> checkCapa(String date, int restNum) {
-		ArrayList<ReservationDTO> checklist = new ArrayList<ReservationDTO>();
-		ArrayList<ReservationDTO> inlist = new ArrayList<ReservationDTO>();
-		
-		ArrayList<ReservationDTO> resList = resList(restNum);
-		ReservationDTO info = getInfo(restNum);
-		int capacity = info.getCapacity();
-		
-		for(int i=0; i<resList.size(); i++) {
-			ReservationDTO dto = resList.get(i);
-			if(date.equals(dto.getResDay())) {
-				checklist.add(dto);
-			}
-		}
-		
-		for(int i=0; i<checklist.size();) {
-			logger.warn("확인");
-			ReservationDTO check = new ReservationDTO();	//예약 리스트에서 날짜가 일치하는 것만
-			check= checklist.get(i);
-			logger.warn("시간:"+check.getHours());
-			if(inlist.size()<1) {
-				logger.warn("inlist 없을 때 추가");
-				inlist.add(check);
-				return inlist;
-			}else {
-				for(int j=0; j<inlist.size(); j++) {
-					ReservationDTO indto = new ReservationDTO();
-					indto=inlist.get(j);
-					if(indto.getResNum()!=check.getResNum()) {
-						logger.warn("in 예약번호:"+ indto.getResNum());
-						logger.warn("check 예약번호:"+check.getResNum());
-						if(indto.getHours().equals(check.getHours())) {
-							inlist.remove(j);
-							logger.warn("inlist 삭제");
-							checklist.remove(i);
-							logger.warn("indto와 check 비교/시간이 같을때");
-							logger.warn("in 시간:"+ indto.getHours());
-							logger.warn("check 시간:"+check.getHours());
-							int cap = capacity-check.getCapacity();
-							String time = check.getHours();
-							logger.warn("inlist 입력:"+ time +" / "+ cap);
-							indto.setCapacity(cap);
-							indto.setHours(time);
-							inlist.add(indto);
-						}else {
-							logger.warn("indto와 check 비교/시간이 다를때");
-							if(indto.getResNum()!=check.getResNum()) {
-								inlist.add(check);
-								logger.warn("inlist입력");
-								checklist.remove(i);
-							}
-						}
-					}else {
-						logger.warn("indto, check 예약번호같을때");
-					}
-				}
-			}
-		}
-		return resList;
-	}
 	
 	//선택된 날짜, 시간, 인원 예약하기
 	public int reservationProc(ReservationDTO dto) {
@@ -343,23 +360,8 @@ public class ReservationService {
 		String restName = info.getRestName();
 		logger.warn("식당이름: "+ restName);
 		
-		int random=(int)Math.random()*1000;
-		String ran = Integer.toString(random);
-		logger.warn("ran:"+ran);
-		int Time = Integer.parseInt(dto.getHours().substring(0, 2));
-		String ti = Integer.toString(Time);
-		logger.warn("time:"+ti);
-		String stday = dto.getResDay().replaceAll("[^0-9]", "");
-		logger.warn(stday);
-		int day = Integer.parseInt(stday);
-		String resNum = stday + ti + ran;
-		logger.warn("예약번호:"+resNum);
-		//int num = Integer.parseInt(resNum);
-		
-		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
-		dto.setResNum(2011011235);
 		dto.setStatus("예약확인");
 		if(dto.getEmail()==""||dto.getEmail()==null)
 			return 0;
@@ -367,5 +369,8 @@ public class ReservationService {
 			return 1;
 		else
 			return 2;
+	}
+	public ArrayList<ReservationDTO> reservationView(String email) {
+		return dao.reservationView(email);
 	}
 }

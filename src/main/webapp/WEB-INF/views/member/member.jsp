@@ -311,8 +311,8 @@ label {
                   
                   </div>
                   <div class="form-group">
-                    <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호" onblur="pweffec()">
-                  	<input type="text" style="border-width:0px" size="50" name="pwef" id="pwef" value="비밀번호는 8자리 이상의 영어+숫자조합이어야 합니다." readonly="readonly">
+                    <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호" onblur="pwchk()">
+                  	<input type="text" style="border-width:0px" size="50" name="pwchk" id="pwchk" value="비밀번호는 8자리 이상의 영어+숫자조합이어야 합니다." readonly="readonly">
                   </div>
                   <div class="form-group">
                     <input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">                  
@@ -388,25 +388,7 @@ label {
 </script>
 </body>
 <script>
-	function check(){
-		var reg=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-		var pw = document.getElementById("pw").value;
-		if(false == reg.test(password)){
-			alert('비밀번호는 8자이상이어야 하며, 숫자/대문자/소문자를 포함해야 합니다.')
-		}
-		document.getElementById('f').submit();
-	}
-	function pweffec(){
-		var pw = document.getElementById("pw").value;
-		var pwJ = /^[A-Za-z0-9]$/;
-		if(pw.length < 8 ){
-			document.getElementById("pwef").value="8자리 이상이어야 합니다.";
-		}else if(pwJ.test(pw)) == false){
-			document.getElementById("pwef").value="영어+숫자조합이어야 합니다.";
-		}else{
-			document.getElementById("pwef").value="";
-		}
-	}
+	
 
 	function pwchk(){
 		var pw = document.getElementById("pw").value;

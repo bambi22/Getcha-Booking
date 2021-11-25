@@ -55,9 +55,19 @@ public class MemberService implements IMemberService{
 		logger.warn("service pwCheck2");
 		if(check != null && encoder.matches(member.getPw(), check.getPw())) {
 			if(dao.memberDeleteProc(check) == 1) {
+				logger.warn("dao:"+Integer.toString(dao.memberDeleteProc(check)));
 				session.invalidate();
 				return 1;
 			}
+		}
+		if(check == null) 
+			logger.warn("check=null");
+		if(encoder.matches(member.getPw(), check.getPw())==false)
+			logger.warn("match false");
+		//if(dao.memberChilDelete(check) != 1)
+			//logger.warn("memberChilDelete!=1");
+		if(dao.memberDeleteProc(check)!=1) {
+			logger.warn("memberDeleteProc!=1");
 		}
 		return 2;
 	}
@@ -91,6 +101,9 @@ public class MemberService implements IMemberService{
 		String securePw = encoder.encode(member.getPw());
 		logger.warn("pw: " + member.getPw());
 		logger.warn("birth : " + member.getBirth());
+		logger.warn("gender:" + member.getGender());
+		logger.warn("nickname:"+member.getNickname());
+		logger.warn("email:"+member.getEmail());
 		member.setPw(securePw);
 		if(member.getEmail() == "" || member.getPw()==""||member.getEmail()==null||member.getPw()==null)
 			return 0;
@@ -99,6 +112,8 @@ public class MemberService implements IMemberService{
 		else
 			return 2;
 	}
+	
+	
 
 
 	@Override

@@ -2,7 +2,8 @@
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${empty sessionScope.email }">
 	<script>
-		location.href="index?formpath=member"
+		alert("로그인 후 이용해주세요.");
+		location.href="index?formpath=login";
 	</script>
 </c:if>
 <c:url var="root" value="/"/>
@@ -45,7 +46,7 @@
 		<tr>
 			<td colspan=2 align="right">
 				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi'"/>
-				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main2'"/>
+				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main'"/>
 				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm'"/>
 			</td>
 		</tr>

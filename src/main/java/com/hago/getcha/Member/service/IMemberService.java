@@ -1,7 +1,5 @@
 package com.hago.getcha.Member.service;
 
-import javax.servlet.http.HttpSession;
-
 import com.hago.getcha.Member.dto.MemberDTO;
 
 public interface IMemberService {

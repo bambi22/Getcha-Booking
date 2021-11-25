@@ -69,10 +69,18 @@ public class ReservationController {
 			return "login";
 		}else if(result == 1) {
 			model.addAttribute("msg","예약되었습니다.");
-			return "forward:index?formpath=main2";
+			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=/calendar";
 		}
+	}
+	
+	@RequestMapping(value = "/reservationView")
+	public String reservationViewProc(Model model, String email) {
+		email = (String)session.getAttribute("email");
+		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
+		model.addAttribute("reservationView",reservationView);
+		return "reservation/reservationView";
 	}
 }
