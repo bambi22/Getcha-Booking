@@ -26,13 +26,13 @@ public class ReviewController {
 	@RequestMapping(value = "writeProc")
 	public String writeProc(MultipartHttpServletRequest req) {
 		service.writeProc(req);
-		return "forward:review";
+		return "forward:index?formpath=review";
 	}
 	
 	@RequestMapping(value = "reviewProc")
 	public String reviewProc(Model model) {
 		service.reviewProc(model);
-		return "forward:review";
+		return "forward:index?formpath=review";
 	}
 	
 	@RequestMapping(value = "updateProc")
@@ -43,13 +43,13 @@ public class ReviewController {
 		model.addAttribute("restName", restName);
 		model.addAttribute("content", content);
 		model.addAttribute("fileNames", fileNames);
-		return "forward:update";
+		return "forward:index?formpath=update";
 	}
 	
 	@RequestMapping(value = "modifyProc")
 	public String modifyProc(MultipartHttpServletRequest req) {
 		service.modifyProc(req);
-		return "forward:review";
+		return "forward:index?formpath=review";
 	}
 	
 	@ResponseBody

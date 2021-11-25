@@ -14,6 +14,8 @@ public interface IMemberDAO {
 	public MemberDTO userPassword(String email);
 
 	public int memberDeleteProc(MemberDTO check);
+	
+	//public int memberChilDelete(MemberDTO check);
 
 	public MemberDTO memberViewProc(String email);
 

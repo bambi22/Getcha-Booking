@@ -36,7 +36,7 @@ public class ReservationController {
 		model.addAttribute("weekList", weekList);
 		model.addAttribute("restList", resList);
 		model.addAttribute("info", info);
-		return "member/calendar";
+		return "reservation/calendar";
 	}
 	
 	@RequestMapping(value = "SearchDay", produces = "application/json;charset=utf-8")
@@ -69,10 +69,25 @@ public class ReservationController {
 			return "login";
 		}else if(result == 1) {
 			model.addAttribute("msg","예약되었습니다.");
-			return "forward:index?formpath=main2";
+			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=/calendar";
 		}
 	}
+	
+	@RequestMapping(value = "/reservationView")
+	public String reservationViewProc(Model model, String email) {
+		email = "1";
+		session.setAttribute("email", email);
+		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
+		if(reservationView==null) {
+			return "reservation/calendar";
+		}else {
+			model.addAttribute("reservationView",reservationView);
+			return "reservation/reservationView";
+		}
+	}
+	
+	//@RequestMapping(value = DeleteProc)
 }

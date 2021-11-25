@@ -220,6 +220,7 @@
 		
 		<h3>후기</h3>
 		<table id="reviewList">
+		<caption class="cap">최신순</caption>
 		<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
 		<tr>
 			<td rowspan="3" class="profile_space"><img class="profile_img" src="#" />${rew.nickName}</td>

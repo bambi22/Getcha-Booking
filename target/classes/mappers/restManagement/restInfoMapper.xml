@@ -82,7 +82,17 @@
 		select * from wholemenu where restnum=#{restNum}
 	</select>
 	
-
-	
+	<select id="searchProc"  resultType="com.hago.getcha.restManagement.dto.RestSumDTO">
+		SELECT restnum, restname, avgpoint, type, dong, restintro, representimage FROM(
+    		SELECT A.* FROM(
+				SELECT restaurant.* , specialmenu.menuname
+				FROM restaurant, specialMenu
+				WHERE restaurant.restnum = specialMenu.restnum (+)
+				ORDER BY avgpoint DESC
+     			 )A
+   		 WHERE restName LIKE '%'||#{keyword}||'%' OR menuname LIKE '%'||#{keyword}||'%' OR dong LIKE '%'||#{keyword}||'%' OR address LIKE '%'||#{keyword}||'%'
+    	)B 
+  		GROUP BY restnum, restname, avgpoint, type, dong, restintro, representimage
+	</select>
 	
 </mapper>

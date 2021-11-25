@@ -1,5 +1,5 @@
 @charset "UTF-8";
-	header, #container {width:900px; margin:auto;}
+	header, #container {width:1000px; margin:auto;}
 	.restTitle {display: flex; height:50px;}
 	#restName {margin-top:4px; padding:2px;}
 	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
@@ -12,8 +12,8 @@
 	.facil_wrap div {margin-right: 5px;}
 	facil_wrap div {text-align:center;}
 	#reviewList {border-top: 2px solid; border-bottom: 2px solid; border-spacing: 5px;}
+	.cap {caption-side: top; text-align: right; font-size: 13px;}
 	.profile_space {width:80px;}
-	.profile_img {}
 	.review_image {height:100px; width:100px; overflow:hidden; border-radius : 20px;}
 	ul {list-style-type:none;}
 	ul li{float:left; margin-right:5px;}
