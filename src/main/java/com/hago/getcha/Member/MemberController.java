@@ -78,13 +78,13 @@ public class MemberController {
 		model.addAttribute("msg", msg);
 		return "forward:/index?formpath=member";
 	}
-	@RequestMapping(value = "/memberView")
-	public String memberViewProc(String email, Model model) {
-		email = "1";
+	@RequestMapping(value = "memberView")
+	public String memberViewProc(Model model) {
+		String email = "1";
 		session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
-			return "forward:index?formpath=member";
+			return "forward:index?formpath=memberView";
 		}
 		if(sessionEmail.equals(email)) {
 			model.addAttribute("memberView", service.memberViewProc(email));

@@ -22,11 +22,6 @@ public class HomeController {
 		return "main";
 	}
 	
-	@RequestMapping(value="/restView")
-	public String restView() {
-		return "restView";
-	}
-	
 	@RequestMapping(value="/")
 	public String index(Model model) {
 		model.addAttribute("formpath", "main");
@@ -37,6 +32,11 @@ public class HomeController {
 	public String index(Model model, @RequestParam String formpath) {
 		model.addAttribute("formpath", formpath);
 		return "common/index";
+	}
+	
+	@RequestMapping(value="/restView")
+	public String restView() {
+		return "common/restView";
 	}
 	
 	@RequestMapping(value="/admin")

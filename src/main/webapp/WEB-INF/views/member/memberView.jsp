@@ -45,7 +45,7 @@
 		<tr>
 			<td colspan=2 align="right">
 				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi'"/>
-				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main2'"/>
+				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main'"/>
 				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm'"/>
 			</td>
 		</tr>
