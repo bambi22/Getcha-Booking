@@ -13,7 +13,7 @@
 			<td style="padding: 40px; padding-left:300px"><c:import url="/${formpath }" /> </td>
 		</tr>
 		<tr>
-			<td style="height:50px;"><%@ include file="../common/footer.jspf" %></td>
+			<td style="height:50px;"><%@ include file="../common/footer.jsp" %></td>
 		</tr>
 	</table>
 	</div>
