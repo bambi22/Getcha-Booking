@@ -41,7 +41,7 @@ function loginSubmit(){
 		                  <div class="form-group">
 		                    <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호">
 		                  </div>
-		                 	<c:if test = "${result == 0 }">
+		                 	<c:if test = "${!empty result}">
 								<div class = "login_warn"> Email 또는 비밀번호를 잘못 입력하셨습니다.</div>
 							</c:if>
 		                  <div class="col-xs-6 form-group pull-left checkbox">
