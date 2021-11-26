@@ -6,12 +6,8 @@
 		<selectKey keyProperty="reviewNum" resultType="int" order="BEFORE">
 			SELECT nvl(max(reviewNum),0)+1 FROM rest_review
 		</selectKey>
-		INSERT INTO rest_review VALUES(#{reviewNum}, #{restNum}, #{email}, #{content}, #{writeDate}, #{point}, #{likes}, #{fileNames})
+		INSERT INTO rest_review VALUES(#{reviewNum}, #{restNum}, #{email}, #{content}, #{writeDate}, #{point}, #{fileNames})
 	</insert>
-	
-	<update id="updateAvgPoint">
-		UPDATE restaurant SET avgpoint = #{avgPoint} WHERE restnum = #{restNum}
-	</update>
 	
 	<select id="reviewProc" parameterType="String" resultType="com.hago.getcha.review.dto.AllDTO">
 		SELECT rest_review.* , restaurant.restname 

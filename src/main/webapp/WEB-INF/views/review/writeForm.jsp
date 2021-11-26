@@ -2,7 +2,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
-
+<c:if test="${empty sessionScope.email }">
+	 <script>location.href='index?formpath=login';</script>
+</c:if>
 <head>
 <title>리뷰 작성하기</title>
 <link href="<c:url value="/resources/css/review/write.css" />" rel="stylesheet" />
