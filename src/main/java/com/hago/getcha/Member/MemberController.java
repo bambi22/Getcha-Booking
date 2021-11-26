@@ -68,7 +68,7 @@ public class MemberController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	 return "redirect:/main";
+    	 return "redirect:index?formpath=main";
     }
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -86,28 +86,23 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/memberView")
 	public String memberViewProc(String email, Model model) {
-		email = "test1@test.com";
+		email = "test3";
 		session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=login";
 		}
 		if(sessionEmail.equals(email)) {
-			model.addAttribute("memberView", service.memberViewProc(email));
+			service.memberViewProc(email,model);
 			return "member/memberView";
 		}
 		return "forward:index?formpath=main";
 	}
 	
 	@RequestMapping(value="/memberModi", method = {RequestMethod.POST, RequestMethod.GET})
-	public String memberModi() {
-		String email = "test1@test.com";
+	public String memberModi(String email, Model model) {
 		session.setAttribute("email", email);
-		//String email = (String)session.getAttribute("email");
-		MemberDTO member= service.memberViewProc(email);
-		session.setAttribute("nickname", member.getNickname());
-		session.setAttribute("birth", member.getBirth());
-		session.setAttribute("gender", member.getGender());
+		service.memberViewProc(email,model);
 		return "member/memberModi";
 	}
 	
@@ -115,8 +110,11 @@ public class MemberController {
 	@RequestMapping(value = "memberModiProc", method = {RequestMethod.POST, RequestMethod.GET})
 	public String memberModiProc(MemberDTO member, Model model, HttpSession session) {
 		member.setEmail((String)session.getAttribute("email"));
-		member.setBirth((String)session.getAttribute("birth"));
-		member.setGender((String)session.getAttribute("gender"));
+		MemberDTO memberView = dao.memberViewProc(member.getEmail());
+		String birth = memberView.getBirth();
+		String gender=memberView.getGender();
+		member.setBirth(birth);
+		member.setGender(gender);
 		int result = service.memberModiProc(member);
 		
 		if(result == 0) {
@@ -152,5 +150,29 @@ public class MemberController {
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=deleteForm";
 		}
+	}
+	
+	@RequestMapping(value = "sendAuth")
+	public Map<String, String> sendAuth(@RequestBody Map<String, String>map){
+		logger.warn(map.get("email"));
+		Boolean check = (Boolean)session.getAttribute("authState");
+		if(check != null && check ==true) {
+			map.put("msg", "인증 완료");
+			return map;
+		}
+		service.sendAuth((String)map.get("email"));
+		map.put("msg", "이메일을 확인하세요.");
+		return map;
+	}
+	
+	@RequestMapping(value = "authConfirm")
+	public Map<String, String> authConfirm(@RequestBody Map<String, String>map){
+		Boolean check = (Boolean)session.getAttribute("authState");
+		if(check != null&& check == true) {
+			map.put("msg", "인증 완료");
+			return map;
+		}
+		map.put("msg", service.authConfirm(map.get("c")));
+		return map;
 	}
 }

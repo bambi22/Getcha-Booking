@@ -55,6 +55,14 @@
 		<result property="gender" column="gender"/>
 	</resultMap>
 	<select id="userinfo" resultMap="userinfo" parameterType="String">
-		SELECT * FROM getchamember WHERE email=#{email}
+		SELECT nickname FROM getchamember WHERE email=#{email}
 	</select>
+	
+	<select id="deleteView" resultType="com.hago.getcha.Reservation.dto.ReservationDTO">
+		SELECT * FROM getchares WHERE resNum=#{resNum}
+	</select>
+	
+	<delete id="resDeleteProc" parameterType="int">
+		DELETE FROM getchares where resNum=#{resNum}
+	</delete>
 </mapper>

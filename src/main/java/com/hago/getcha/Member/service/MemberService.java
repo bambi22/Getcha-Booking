@@ -1,6 +1,8 @@
 package com.hago.getcha.Member.service;
 
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.ui.Model;
 
 import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
@@ -83,20 +85,17 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public MemberDTO memberViewProc(String email) {
-		MemberDTO member = dao.memberViewProc(email);
-		if(member != null) {
-			session.setAttribute("nickname", member.getNickname());
-			session.setAttribute("birth", member.getBirth());
-			session.setAttribute("gender", member.getGender());
-			return member;
+	public void memberViewProc(String email, Model model) {
+		MemberDTO memberView = dao.memberViewProc(email);
+		if(memberView != null) {
+			model.addAttribute("memberView",memberView);
 		}
-		return null;
 	}
 	
 
 	@Override
 	public int memberModiProc(MemberDTO member) {
+		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		logger.warn("pw: " + member.getPw());
@@ -112,9 +111,6 @@ public class MemberService implements IMemberService{
 		else
 			return 2;
 	}
-	
-	
-
 
 	@Override
 	public String CheckEmail(String email) {
@@ -129,5 +125,33 @@ public class MemberService implements IMemberService{
 	public MemberDTO memberLogin(MemberDTO member) throws Exception {
 		  return dao.memberLogin(member);
 	
+	}
+	@Autowired MailService mailService;
+	@Override
+	public void sendAuth(String email) {
+		String authNum = (String)session.getAttribute("authNum");
+		if(authNum == null) {
+			Random r = new Random();
+			String randNum = String.format("%06d", r.nextInt(1000000));
+			session.setAttribute("authNum", randNum);
+			session.setMaxInactiveInterval(10);
+			mailService.sendMail(email, "[인증번호]", randNum);
+			logger.warn(randNum);
+		}else
+			logger.warn("인증번호 생성되어 있음");
+	}
+
+	@Override
+	public String authConfirm(String inputAuthNum) {
+		String sessionAuthNum = (String)session.getAttribute("authNum");
+		if(sessionAuthNum == null) 
+			return "인증번호를 생성하세요.";
+		if(inputAuthNum == "")
+			return "인증번호를 입력하세요.";
+		if(inputAuthNum.equals(sessionAuthNum)) {
+			session.setAttribute("authState", true);
+			return "인증완료";
+		}
+		return "인증실패";
 	}
 }

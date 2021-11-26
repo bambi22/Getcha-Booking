@@ -11,4 +11,7 @@ public interface IReservationDAO {
 	public ArrayList<ReservationDTO> getresList(int restNum);
 	public int reservationProc(ReservationDTO dto);
 	public ArrayList<ReservationDTO> reservationView(String email);
+	public int resDeleteProc(int resNum);
+	public String userinfo(String email);
+	public ReservationDTO deleteView(int restNum);
 }

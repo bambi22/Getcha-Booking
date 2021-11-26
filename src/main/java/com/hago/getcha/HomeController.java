@@ -53,12 +53,8 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/deleteForm")
-	public String memberDelete() {
+	public String deleteForm() {
 		return "member/deleteForm";
-	}
-	@RequestMapping(value = "/modifyCheck")
-	public String modifyCheck() {
-		return "member/modifyCheckForm";
 	}
 	
 	@RequestMapping(value="restMain")
@@ -134,10 +130,6 @@ public class HomeController {
 	@RequestMapping(value = "/myCollection")
 	public String myCollection() {
 		return "mypage/collectionForm";
-	}
-	@RequestMapping(value = "/deleteReservation")
-	public String deleteReservation() {
-		return "reservation/deleteReservation";
 	}
 
 }

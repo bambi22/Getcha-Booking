@@ -86,5 +86,4 @@
 	</c:otherwise>
 </c:choose>
 
-<c:import url="../common/footer.jspf"/>
 </center>

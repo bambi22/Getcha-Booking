@@ -29,6 +29,6 @@
 		update getchares set status='상태완료' where resnum=#{resNum}
 	</update>
 	<delete id="reserveCancel" parameterType="java.lang.Integer">
-		delete from getchares where resnum=#{resNum}
+		update getchares set status='예약취소' where resnum=#{resNum}
 	</delete>
 </mapper>

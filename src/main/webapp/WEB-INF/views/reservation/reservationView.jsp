@@ -7,7 +7,20 @@
 	</script>
 </c:if>
 <c:url var="root" value="/"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$("document").ready(function(){
+		$('.deleteBtn').css("cursor", "pointer").click(function(){
+			let no = $(this).attr("id");
+			$("#resNum").val(no);
+			$("#f").attr("action", "${root}resDelete");
+			$("#f").submit();
+		})
+	})
+</script>
 <center>
+<form id="f" method="get">
+	<input type="hidden" id="resNum" name="resNum"/>
 	<table>
 		<tr>
 			<td colspan=2>
@@ -15,14 +28,13 @@
 			</td>
 		</tr>
 		<c:forEach var = "reservationView" items="${reservationView }">
-		<form action = DeleteProc method ="post">
 		<tr>
 			<td style="width:100px; height:40px;"><b>예약번호</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.resNum}</b></td>
 		</tr>
 		<tr>
-			<td style="width:100px; height:40px;"><b>닉네임</b></td>
-			<td style="width:250px; height:40px;"><b>${reservationView.nickname}</b></td>
+			<td style="width:100px; height:40px;"><b>이메일</b></td>
+			<td style="width:250px; height:40px;"><b>${reservationView.email}</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>식당이름</b></td>
@@ -30,15 +42,16 @@
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>예약시간</b></td>
-			<td style="width:250px; height:40px;"><b>${reservationView.resDay}${reservationView.hours }</b></td>
+			<td style="width:250px; height:40px;"><b>${reservationView.resDay}	${reservationView.hours }</b></td>
 		</tr>
 		<tr>
 			<td style="width:100px; height:40px;"><b>상태</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.status}</b>
-			<input type="submit" style="width:60px;" value="예약취소"/>
+			<input type="button" style="width:80px;" value="예약취소" class="deleteBtn" id="${reservationView.resNum}"/>
+			<hr>
 			</td>
 		</tr>
-		</form>
 		</c:forEach>
 	</table>
+	</form>
 </center>
