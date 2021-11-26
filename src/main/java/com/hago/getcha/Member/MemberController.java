@@ -88,6 +88,7 @@ public class MemberController {
 	public String memberViewProc(String email, Model model) {
 		//email = "test1@test.com";
 		//session.setAttribute("email", email);
+		email = (String) session.getAttribute("email");
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=login";

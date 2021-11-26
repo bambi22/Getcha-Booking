@@ -372,7 +372,7 @@ label {
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입">
+                        <!-- <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입"> -->
                           <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소">
                       </div>
                     </div>
@@ -389,7 +389,7 @@ label {
               <a href="${root}index?formpath=login" class="active" id="login-form-link"><div class="login">로그인</div></a>
             </div>
             <div class="col-xs-6 tabs">
-              <a id="register-form-link"><div class="register">회원가입</div></a>
+              <a id="register-form-link"><div class="register"><input type="submit" name="register-submit" id="register-submit" value="회원가입"></div></a>
            
             </div>
           </div>
