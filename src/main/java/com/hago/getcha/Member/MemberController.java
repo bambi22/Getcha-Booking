@@ -31,35 +31,28 @@ public class MemberController {
 	
 	
 
-	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String loginPOST(HttpServletRequest request, MemberDTO member, RedirectAttributes rttr) throws Exception{
-		
-		HttpSession session = request.getSession();
+	@RequestMapping(value="loginProc", method=RequestMethod.POST)
+	public String loginProc(Model model, MemberDTO member){
+
 		String rawPw = "";
 		String encodePw = "";
-	
 		MemberDTO lvo = service.memberLogin(member);	
-		
 		if(lvo != null) {			
-			
 			rawPw = member.getPw();		
 			encodePw = lvo.getPw();		
 			
 			if(true == pwEncoder.matches(rawPw, encodePw)) {		
-				
-				lvo.setPw("");				
-				session.setAttribute("member", lvo); 			
-				
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 	
+				model.addAttribute("result", "로그인 성공");
 				return "forward:index?formpath=main";					
 			} else {
-				rttr.addFlashAttribute("result", 0);			
-				return "forward:/login";					
+				model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+				return "forward:index?formpath=login";					
 			}			
-		} else {			
-			rttr.addFlashAttribute("result", 0);			
-			return "redirect:/login";
+		} else {				
+			model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+			return "forward:index?formpath=login";
 		}
 	}
 	

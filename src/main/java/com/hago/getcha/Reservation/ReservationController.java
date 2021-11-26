@@ -75,20 +75,20 @@ public class ReservationController {
 			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "예약 실패");
-			return "forward:index?formpath=/calendar";
+			return "forward:index?formpath=calendar";
 		}
 	}
 	
-	@RequestMapping(value = "/reservationView")
+	@RequestMapping(value = "/reservationViewProc")
 	public String reservationViewProc(Model model, String email) {
-		email = "1";
+		email = "test20@hago.com";
 		session.setAttribute("email", email);
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		if(reservationView==null) {
-			return "reservation/calendar";
+			return "forward:index?formpath=calendar";
 		}else {
 			model.addAttribute("reservationView",reservationView);
-			return "reservation/reservationView";
+			return "forward:index?formpath=reservationView";
 		}
 	}
 	

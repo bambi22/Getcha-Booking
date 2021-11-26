@@ -1,18 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
-
-<c:if test="${empty sessionScope.adminId }">
-	<script>
-		alert('최고 관리자 로그인이 필요합니다.');
-		location.href='adminLogin';
-	</script>
-</c:if> 
-
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
+	<c:if test="${empty sessionScope.adminId }">
+		<script>
+			alert('최고 관리자 로그인이 필요합니다.');
+			location.href='adminLogin';
+		</script>
+	</c:if> 
 </head>
 
 

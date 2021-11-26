@@ -50,13 +50,14 @@ $('#sidebar').find('span').text('OPEN');
 			    		</p>
 		        </div>
 		        <div class="reg">
-		        	      	<c:if test = "${sessionScope.email == null }">
+		        	      <c:if test = "${sessionScope.email == null }">
                  <p class="mb-0"><a href="${root}index?formpath=login" class="mr-2">로그인</a> 
                  <a href="${root}index?formpath=member">회원가입</a></p>
                   </c:if>  
                     <c:if test="${ sessionScope.email != null }">
-                    <p class="mb-0"><a class="mr-2" >회원 : ${sessionScope.email}님</a>
-                    <a href="logout">로그아웃</a></p>
+                   <%--  <p class="mb-0"><a class="mr-2" >회원 : ${sessionScope.email}님</a> --%>
+                    <img src="resources/img/icon/profileIcon.png" style="width:40px">
+                    <span ><a href="logout" style="color:white">로그아웃</a></span>
                     </c:if>
 		        </div>
 					</div>
@@ -65,7 +66,7 @@ $('#sidebar').find('span').text('OPEN');
 		</div>
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
+	    <div class="container" style="z-index:6">
 	      <a class="navbar-brand" href="">GETCHA</a>
 	      
 
@@ -110,7 +111,6 @@ $('#sidebar').find('span').text('OPEN');
         </div>
       </div>
     </div>
-<!-- 
     <section class="ftco-intro">
     	<div class="container">
     		<div class="row no-gutters">
@@ -617,7 +617,6 @@ $('#sidebar').find('span').text('OPEN');
       </div>
       
     </footer>
-  -->  
   
 
   <!-- loader -->

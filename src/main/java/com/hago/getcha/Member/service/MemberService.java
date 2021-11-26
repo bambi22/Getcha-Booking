@@ -122,7 +122,7 @@ public class MemberService implements IMemberService{
 
 
 	@Override
-	public MemberDTO memberLogin(MemberDTO member) throws Exception {
+	public MemberDTO memberLogin(MemberDTO member){
 		  return dao.memberLogin(member);
 	
 	}

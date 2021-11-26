@@ -33,6 +33,10 @@ public class HomeController {
 	public String restView() {
 		return "common/restView";
 	}
+	@RequestMapping(value="/reservationView")
+	public String reservationView() {
+		return "reservation/reservationView";
+	}
 	
 	@RequestMapping(value="/admin")
 	public String admin(Model model, @RequestParam String formpath) {
