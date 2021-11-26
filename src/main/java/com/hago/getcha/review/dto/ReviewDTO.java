@@ -7,7 +7,6 @@ public class ReviewDTO {
 	private String content;
 	private String writeDate;
 	private int point;
-	private int likes;
 	private String fileNames;
 	
 	public int getReviewNum() {
@@ -45,12 +44,6 @@ public class ReviewDTO {
 	}
 	public void setPoint(int point) {
 		this.point = point;
-	}
-	public int getLikes() {
-		return likes;
-	}
-	public void setLikes(int like) {
-		this.likes = like;
 	}
 	public String getFileNames() {
 		return fileNames;

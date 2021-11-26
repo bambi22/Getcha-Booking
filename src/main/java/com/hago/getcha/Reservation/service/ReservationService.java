@@ -377,4 +377,16 @@ public class ReservationService {
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		return dao.reservationView(email);
 	}
+	
+	public void resDelete(String resNum, Model model) {
+		int no = Integer.parseInt(resNum);
+		ReservationDTO res = dao.deleteView(no);
+		model.addAttribute("res", res);
+	}
+	
+	public int resDeleteProc(int resNum) {
+		logger.warn("resNum:"+resNum);
+		int result = dao.resDeleteProc(resNum);
+		return result;
+	}
 }

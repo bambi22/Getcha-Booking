@@ -33,6 +33,9 @@ public class ReservationController {
 		ArrayList<String> weekList = service.allList(restNum);
 		ReservationDTO info = service.getInfo(restNum);
 		ArrayList<ReservationDTO> resList = service.resList(restNum);
+		if(weekList.isEmpty()||resList.isEmpty()||info==null) {
+			return "reservation/calendar";
+		}
 		model.addAttribute("weekList", weekList);
 		model.addAttribute("restList", resList);
 		model.addAttribute("info", info);
@@ -89,5 +92,29 @@ public class ReservationController {
 		}
 	}
 	
-	//@RequestMapping(value = DeleteProc)
+	@RequestMapping(value="resDelete")
+	public String deleteReservation(String resNum, Model model) {
+		session.setAttribute("resNum", resNum);
+		service.resDelete(resNum, model);
+		return "reservation/deleteReservation";
+	}
+	
+	@RequestMapping(value = "/deleteReservation")
+	public String deleteReservation(int resNum, HttpSession session) {
+		resNum = (int) session.getAttribute("resNum");
+		return "Reservation/deleteReservation";
+	}
+	
+	@RequestMapping(value = "/DeleteProc")
+	public String resDeleteProc(int resNum, Model model, HttpSession session) {
+		logger.warn("resNum:"+resNum);
+		int result = service.resDeleteProc(resNum);
+		if(result == 1) {
+			model.addAttribute("msg", "삭제되었습니다.");
+			return "forward:index?formpath=main";
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "forward:index?formpath=deleteReservation";
+		}
+	}
 }

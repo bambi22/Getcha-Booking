@@ -7,7 +7,28 @@
 	</script>
 </c:if>
 <c:url var="root" value="/"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$("document").ready(function(){
+		$('.deleteBtn').css("cursor", "pointer").click(function(){
+			let email = $(this).attr("id");
+			$("#email").val(email);
+			$("#f").attr("action", "${root}deleteForm");
+			$("#f").submit();
+		})
+	})
+	$("document").ready(function(){
+		$('.modifyBtn').css("cursor", "pointer").click(function(){
+			let email = $(this).attr("id");
+			$("#email").val(email);
+			$("#f").attr("action", "${root}memberModi");
+			$("#f").submit();
+		})
+	})
+</script>
 <center>
+<form id="f" method="get">
+	<input type="hidden" id="email" name="email">
 	<table>
 		<tr>
 			<td colspan=2 >
@@ -45,10 +66,11 @@
 		</tr>
 		<tr>
 			<td colspan=2 align="right">
-				<input type="button" style="width:60px;" value="수정" onclick="location.href='memberModi'"/>
+				<input type="button" style="width:60px;" value="수정" class="modifyBtn" id="${memberView.email}"/>
 				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main'"/>
-				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='deleteForm'"/>
+				<input type="button" style="width:60px;" value="탈퇴" class="deleteBtn" id="${memberView.email}"/>
 			</td>
 		</tr>
 	</table>
+</form>
 </center>
