@@ -46,10 +46,7 @@ public class ReservationController {
 	@ResponseBody
 	public Map<String, Object> SearchDay(@RequestBody Map<String, String>map) throws Exception{
 		logger.warn("controller");
-		int restNum = 15;
 		session.setAttribute("restNum", restNum);
-		String email = "1";
-		session.setAttribute("email", email);
 		String date = (String)map.get("resDay");
 		List<Map<String, String>> dataList = service.checkAjax(date, restNum);
 		Map<String, Object>data2 = new HashMap<String, Object>();
@@ -81,8 +78,6 @@ public class ReservationController {
 	
 	@RequestMapping(value = "/reservationView")
 	public String reservationViewProc(Model model, String email) {
-		email = "1";
-		session.setAttribute("email", email);
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		if(reservationView==null) {
 			return "reservation/calendar";
