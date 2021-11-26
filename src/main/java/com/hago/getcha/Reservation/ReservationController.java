@@ -30,6 +30,7 @@ public class ReservationController {
 	@RequestMapping(value="/calendar")
 	public String calendar(Model model) {
 		int restNum = 15;
+		session.setAttribute("restNum", restNum);
 		ArrayList<String> weekList = service.allList(restNum);
 		ReservationDTO info = service.getInfo(restNum);
 		ArrayList<ReservationDTO> resList = service.resList(restNum);
@@ -46,10 +47,7 @@ public class ReservationController {
 	@ResponseBody
 	public Map<String, Object> SearchDay(@RequestBody Map<String, String>map) throws Exception{
 		logger.warn("controller");
-		int restNum = 15;
-		session.setAttribute("restNum", restNum);
-		String email = "1";
-		session.setAttribute("email", email);
+		int restNum = (int) session.getAttribute("restNum");
 		String date = (String)map.get("resDay");
 		List<Map<String, String>> dataList = service.checkAjax(date, restNum);
 		Map<String, Object>data2 = new HashMap<String, Object>();
@@ -68,27 +66,25 @@ public class ReservationController {
 		logger.warn("restNum:"+ dto.getRestNum());
 		int result = service.reservationProc(dto);
 		if(result == 0) {
-			model.addAttribute("msg","로그인해주세요");
+			model.addAttribute("msg","로그인해주세요.");
 			return "login";
 		}else if(result == 1) {
 			model.addAttribute("msg","예약되었습니다.");
 			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "예약 실패");
-			return "forward:index?formpath=/calendar";
+			return "forward:index?formpath=calendar";
 		}
 	}
 	
-	@RequestMapping(value = "/reservationView")
+	@RequestMapping(value = "/reservationViewProc")
 	public String reservationViewProc(Model model, String email) {
-		email = "1";
-		session.setAttribute("email", email);
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		if(reservationView==null) {
-			return "reservation/calendar";
+			return "forward:index?formpath=calendar";
 		}else {
 			model.addAttribute("reservationView",reservationView);
-			return "reservation/reservationView";
+			return "forward:index?formpath=reservationView";
 		}
 	}
 	

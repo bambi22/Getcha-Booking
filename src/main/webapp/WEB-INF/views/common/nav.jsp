@@ -74,15 +74,6 @@
 <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
 <script>
-	function submitCheck(){
-		var keyword = $('#keywordInput').val();
-		if(keyword == null || keyword == ""){
-			return;
-			}
-		document.getElementById("f").action = "searchProc";
-		document.getElementById("f").submit();
-		}
-	
 	$('document').ready(function(){
 		var duration = 250;
 		var $side=$('#sidebar');
@@ -107,8 +98,7 @@
 	    <hr>
 	    <section id="search_container">
 			<form id="f" method="get">	
-   				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력"/>
-    			<button id="searchBtn" onclick="submitCheck()">검색</button>
+   				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력" style="width:210px"/>
 			</form>
 		</section>
 	    <ul class="nav nav-pills flex-column mb-auto">

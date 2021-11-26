@@ -27,7 +27,5 @@ public interface IRestInfoDAO {
 
 	public ArrayList<WholeMenuDTO> selectWholeMenu(int restNum);
 
-
-
 	public ArrayList<RestSumDTO> searchProc(String keyword);
 }

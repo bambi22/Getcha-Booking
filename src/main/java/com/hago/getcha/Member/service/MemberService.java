@@ -122,7 +122,7 @@ public class MemberService implements IMemberService{
 
 
 	@Override
-	public MemberDTO memberLogin(MemberDTO member) throws Exception {
+	public MemberDTO memberLogin(MemberDTO member){
 		  return dao.memberLogin(member);
 	
 	}
@@ -135,7 +135,7 @@ public class MemberService implements IMemberService{
 			String randNum = String.format("%06d", r.nextInt(1000000));
 			session.setAttribute("authNum", randNum);
 			session.setMaxInactiveInterval(10);
-			mailService.sendMail(email, "[인증번호]", randNum);
+			mailService.sendMail(email, "Getcha Table 이메일 인증 번호", randNum);
 			logger.warn(randNum);
 		}else
 			logger.warn("인증번호 생성되어 있음");
