@@ -16,9 +16,6 @@ public class MailConfig {
 		prop.put("mail.smtp.tls.starttls.enable", "true");
 		prop.put("mail.transport.protocol", "smtp");
 		prop.put("mail.smtp.auth", "true");
-		
-		
-		
 		//prop.setProperty("mail.smtp.tls.starttls.enable", "true");
 		//prop.setProperty("mail.smtp.auth", "true");
 		//prop.setProperty("mail.transport.protocol", "smtp");
@@ -28,14 +25,9 @@ public class MailConfig {
 		
 		jms.setHost("smtp.gmail.com");
 		jms.setPort(587);
-		jms.setUsername("");
-		jms.setPassword("");
+		jms.setUsername("alba576801@gamin.com");
+		jms.setPassword("Alba-!5768");
 		jms.setDefaultEncoding("utf-8");
-		
-		
-		
-		
-		
 
 		return jms;
 	}

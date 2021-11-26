@@ -37,17 +37,17 @@
 			contentType: "application/json; charset=utf-8",
 			dataType:"json",
 			success: function(result){
-				$('msg').text(result.msg);
+				$('#msg').text(result.msg);
 			},
 			error:function(){
-				$('msg').text('error');
+				$('#msg').text('error');
 			}
 		})
 	}
 	function sendAuthConfirm(){
 		var i = document.getElementById("inputAuthNum").value;
 		if(i == ""){
-			$('msg').text('인증번호를 입력하세요.');
+			$('#msg').text('인증번호를 입력하세요.');
 			return;
 		}
 		var s = {inputAuthNum:i};
@@ -57,10 +57,10 @@
 			contentType: "application/json; charset=utf-8",
 			dataType:"json",
 			success: function(result){
-				$('msg').text(result.msg);
+				$('#msg').text(result.msg);
 			},
 			error:function(){
-				$('msg').text('error');
+				$('#msg').text('error');
 			}
 		})
 	}
