@@ -24,19 +24,43 @@
 </script>
 <html>
 <script>
-	function ajaxCheckEmail(){
-		var i = document.getElementById("email").value;
-		var e = {email:i}
+	function sendAuthNum(){
+		var e = document.getElementById("email").value;
+		if(e == ""){
+			$('msg').text('이메일을 입력하세요.');
+			return;
+		}
+		var s = {email:e};
 		$.ajax({
-			url:"CheckEmail", type:"POST",
-			data:JSON.stringify(e),
-			contentType:"application/json; charset=utf-8",
-			dataType:'json',
-			success:function(result){
-				$('#msg').text(result.msg)
+			url: "sendAuth", type:"POST",
+			data: JSON.stringify(s),
+			contentType: "application/json; charset=utf-8",
+			dataType:"json",
+			success: function(result){
+				$('msg').text(result.msg);
 			},
 			error:function(){
-				alert("문제발생")
+				$('msg').text('error');
+			}
+		})
+	}
+	function sendAuthConfirm(){
+		var i = document.getElementById("inputAuthNum").value;
+		if(i == ""){
+			$('msg').text('인증번호를 입력하세요.');
+			return;
+		}
+		var s = {inputAuthNum:i};
+		$.ajax({
+			url: "sendAuth", type:"POST",
+			data: JSON.stringify(info),
+			contentType: "application/json; charset=utf-8",
+			dataType:"json",
+			success: function(result){
+				$('msg').text(result.msg);
+			},
+			error:function(){
+				$('msg').text('error');
 			}
 		})
 	}
@@ -304,7 +328,11 @@ label {
                 <h2>REGISTER</h2>
                   <div class="form-group">
                     <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="이메일" value="">
-                    <input type="button" value="Email 중복 확인" onclick="ajaxCheckEmail();">
+                    <input type="button" value="Email 인증하기" onclick="sendAuthNum();">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" placeholder="이메일인증 번호" value="">
+                    <input type="button" value="Email 인증확인" onclick="sendAuthConfirm();">
                   </div>
                   <div class="form-group">
                     <input type="text" name="nickname" id="nickname" tabindex="1" class="form-control" placeholder="닉네임 입력" value="">

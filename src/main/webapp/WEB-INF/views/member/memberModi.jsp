@@ -15,14 +15,18 @@
 	<form action=memberModiProc method="post">
 		<table>
 			<tr>
+				<td colspan=2 >
+				<h2>회원수정</h2>
+			</tr>
+			<tr>
 				<td align='right' height=40>이메일</td>
-				<td><input type=text name='email' id='email' value='${sessionScope.email }' disabled="disabled"/></td>
+				<td><input type=text name='email' id='email' value='${memberView.email }' disabled="disabled"/></td>
 				<td colspan="2"></td>
 			</tr>
 			<tr>
 				<td height=40>닉네임</td>
 				<td>
-					<input type='text' name='nickname' id='nickname' value='${sessionScope.nickname }'/>
+					<input type='text' name='nickname' id='nickname' value='${memberView.nickname }'/>
 				</td>
 			</tr>
 			<tr>
@@ -39,23 +43,23 @@
 			</tr>
 			<tr>
 				<td align='right' height=40>생일</td>
-				<td><input type=text name='birth' id='birth' value='${sessionScope.birth }'disabled="disabled"/></td>
+				<td><input type=text name='birth' id='birth' value='${memberView.birth }'disabled="disabled"/></td>
 				<td colspan="2"></td>
 			</tr>
 			<tr>
 				<td align='right' width=120>성별</td>
 				<td colspan="3">
-				<c:if test="${sessionScope.gender == 'n' }">
+				<c:if test="${memberView.gender == 'n' }">
 					<input type=radio name='gender' value='n' checked="checked"/>선택안함
 					<input type=radio name='gender' value='m' disabled="disabled"/>남자
 					<input type=radio name='gender' value='w' disabled="disabled"/>여자
 				</c:if>
-				<c:if test="${sessionScope.gender == 'm' }">
+				<c:if test="${memberView.gender == 'm' }">
 					<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
 					<input type=radio name='gender' value='m' checked="checked"/>남자
 					<input type=radio name='gender' value='w' disabled="disabled"/>여자
 				</c:if>
-				<c:if test="${sessionScope.gender == 'w' }">
+				<c:if test="${memberView.gender == 'w' }">
 					<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
 					<input type=radio name='gender' value='m' disabled="disabled"/>남자
 					<input type=radio name='gender' value='w' checked="checked"/>여자
@@ -65,7 +69,7 @@
 			<tr>
 				<td align='center' height=40 colspan=4>
 				<input type=submit value='수정' style="width:120px;"/>
-				<input type="button" style="width:120px;" value="취소" onclick="location.href='${root}index?formpath=memberView'"/>
+				<input type="button" style="width:120px;" value="취소" onclick="location.href='memberView'"/>
 				</td>
 			</tr>
 		</table>
