@@ -16,12 +16,13 @@
 		<c:choose>
 			<c:when test="${empty sessionScope.id }">
 				<td><a href="${root}index?formpath=login">로그인</a></td>
+				<td><a href="${root}index?formpath=member">회원가입</a></td>
 			</c:when>
 			<c:otherwise>
-				<td><a href="${root}logout">로그아웃</a></td>
+				<td><img src="resources/img/icon/profileIcon.png" style="width:20px"></td>
+				<%-- <td><a href="${root}logout">로그아웃</a></td> --%>
 			</c:otherwise>
 		</c:choose>
-		<td><a href="${root}index?formpath=member">회원가입</a></td>
 		<td width=50></td>
 	</tr>
 	

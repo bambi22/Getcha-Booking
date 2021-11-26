@@ -2,7 +2,7 @@
 
 <center>
 <hr/>
-<h5>
+<h5 style="background-color:black; color:white;">
 Copyright ⓒ HAGO Lab. All rights reserved.
 </h5>
 </center>

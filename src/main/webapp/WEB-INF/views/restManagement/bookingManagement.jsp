@@ -59,7 +59,7 @@
 					    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
 					    	</button>
 					  		<div id="myDropdown${j }" class="dropdown-content">
-					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }">상태 완료</a>
+					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
 						  	</div>
 					 	</c:if> 
 					 </div>
@@ -83,7 +83,7 @@
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
 							    		<a href="javascript:">회원 정보</a>
-							    		<a href="reserveConfirmProc?resNum=${reserveList[j].resNum }">예약 확인</a>
+							    		<a href="reserveConfirmProc?resNum=${reserveList[j].resNum }&searchDate=${date}">예약 확인</a>
 								  	</div>
 							 	</c:if> 
 							  	
@@ -93,9 +93,9 @@
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
 							    		<a href="javascript:">회원 정보</a>
-							    		<a href="customerSeatedProc?resNum=${reserveList[j].resNum }">착석</a>
-							    		<a href="reserveCancelProc?resNum=${reserveList[j].resNum }">예약 취소</a>
-							    		<a href="noShowProc?resNum=${reserveList[j].resNum }">노쇼</a>
+							    		<a href="customerSeatedProc?resNum=${reserveList[j].resNum }&searchDate=${date}">착석</a>
+							    		<a href="reserveCancelProc?resNum=${reserveList[j].resNum }&searchDate=${date}">예약 취소</a>
+							    		<a href="noShowProc?resNum=${reserveList[j].resNum }&searchDate=${date}">노쇼</a>
 								  	</div>
 							  	</c:if>
 								<c:if test="${reserveList[j].status == '노쇼' }">
@@ -108,7 +108,7 @@
 							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
-							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }">상태 완료</a>
+							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
 								  	</div>
 					 			</c:if> 
 							</div>

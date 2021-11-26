@@ -7,13 +7,13 @@
 <div align="center">
 	<table style="width:100%;">
 		<tr>
-			<td><!--  <%@ include file="top.jsp" %>--></td>
+			<td><!--  //<%@ include file="top.jsp" %>--></td>
 		</tr>
 		<tr>
 			<td style="height:400px;"><c:import url="/${formpath }" /> </td>
 		</tr>
 		<tr>
-			<td style="height:50px;"><%@ include file="footer.jsp" %></td>
+			<td style="height:50px; "><%@ include file="footer.jsp" %></td>
 		</tr>
 	</table>
 	</div>

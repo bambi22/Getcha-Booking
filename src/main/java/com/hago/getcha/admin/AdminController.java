@@ -23,7 +23,7 @@ public class AdminController {
 	public String adminLoginProc(String adminId, String adminPw, Model model) {
 		int result = adminService.adminLoginProc(model, adminId, adminPw);
 		if(result == 0 || result == 1) {
-			return "forward:admin?formpath=adminLogin";
+			return "forward:adminLogin";
 		}else if(result == 3){
 			return "forward:restMainProc";
 		}else {
