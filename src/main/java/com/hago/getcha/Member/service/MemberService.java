@@ -41,7 +41,7 @@ public class MemberService implements IMemberService{
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
-		session.setAttribute("email", member.getEmail());
+		//session.setAttribute("email", member.getEmail());
 		return "가입완료";
 	}
 
