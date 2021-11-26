@@ -48,6 +48,7 @@
 			<td style="width:100px; height:40px;"><b>상태</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.status}</b>
 			<input type="button" style="width:80px;" value="예약취소" class="deleteBtn" id="${reservationView.resNum}"/>
+			<button onclick="location.href='index/formpath=write?restNum=${reservationView.resNum}'">리뷰 쓰기</button>
 			<hr>
 			</td>
 		</tr>

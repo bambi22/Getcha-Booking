@@ -79,8 +79,8 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/memberView")
 	public String memberViewProc(String email, Model model) {
-		email = "test3";
-		session.setAttribute("email", email);
+		//email = "test1@test.com";
+		//session.setAttribute("email", email);
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=login";

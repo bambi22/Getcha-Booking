@@ -130,8 +130,8 @@
 <form action="writeProc" method="post" enctype="multipart/form-data">
 	<div id="ReviewWritingPage_Container">
 	    <div class="ReviewWritingPage_Row">
-	    <input type="hidden" name="restNum" value="21" />
-	      <strong class="RestaurantName">식당 이름21</strong>
+	    <input type="hidden" name="restNum" value="${restNum }" />
+	      <strong class="RestaurantName"></strong>
 	    </div>
 		<textarea name="content" id="content" rows="10" style="width:100%;" placeholder="음식은 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
 		<p class="bytes" align="right">0 / 500</p>

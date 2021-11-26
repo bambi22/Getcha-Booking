@@ -65,19 +65,24 @@ public class ReservationController {
 		logger.warn("restNum:"+ dto.getRestNum());
 		int result = service.reservationProc(dto);
 		if(result == 0) {
-			model.addAttribute("msg","로그?�해주세??");
+			model.addAttribute("msg","로그인해주세요");
 			return "login";
 		}else if(result == 1) {
-			model.addAttribute("msg","?�약?�었?�니??.");
+			model.addAttribute("msg","예약되었습니다.");
 			return "forward:index?formpath=main";
 		}else {
-			model.addAttribute("msg", "?�약 ?�패");
+			model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=calendar";
 		}
 	}
 	
 	@RequestMapping(value = "/reservationViewProc")
 	public String reservationViewProc(Model model, String email) {
+<<<<<<< HEAD
+		email = "test20@hago.com";
+		session.setAttribute("email", email);
+=======
+>>>>>>> origin/master
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		if(reservationView==null) {
 			return "forward:index?formpath=calendar";
@@ -105,10 +110,10 @@ public class ReservationController {
 		logger.warn("resNum:"+resNum);
 		int result = service.resDeleteProc(resNum);
 		if(result == 1) {
-			model.addAttribute("msg", "??��?�었?�니??.");
+			model.addAttribute("msg", "삭제되었습니다.");
 			return "forward:index?formpath=main";
 		}else {
-			model.addAttribute("msg", "??�� ?�패");
+			model.addAttribute("msg", "삭제 실패");
 			return "forward:index?formpath=deleteReservation";
 		}
 	}
