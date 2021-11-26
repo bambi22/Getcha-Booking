@@ -5,12 +5,6 @@
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
 <!DOCTYPE html>
 <html>
-<style>
-.item{height: 270px;
-
-}
-
-</style>
   <head>
     <title>GETCHA</title>
     
@@ -28,6 +22,13 @@
     
     <link rel="stylesheet" href="resources/css1/flaticon.css">
     <link rel="stylesheet" href="resources/css1/style.css">
+<style>
+.item{height: 270px;}
+#sidebar{left:-250px;}
+</style>
+<script>
+$('#sidebar').find('span').text('OPEN');
+</script>
   </head>
   <body>
 <div class="wrap">
@@ -96,8 +97,8 @@
 	 
     <!-- END nav -->
     
-    <div class="hero-wrap" style="background-image: url('resources/images/logo.png');" data-stellar-background-ratio="0.5">
-      <div class="overlay"></div>
+    <div class="hero-wrap"  >
+      <div class="overlay" data-stellar-background-ratio="0.5" style="background-image: url('resources/images/메인.jpg'); opacity:1; background-size:cover; min-height:100%; background-position: center;"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-8 ftco-animate d-flex align-items-end">
@@ -109,7 +110,7 @@
         </div>
       </div>
     </div>
-
+<!-- 
     <section class="ftco-intro">
     	<div class="container">
     		<div class="row no-gutters">
@@ -616,7 +617,7 @@
       </div>
       
     </footer>
-    
+  -->  
   
 
   <!-- loader -->
@@ -637,6 +638,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="resources/jsmain/google-map.js"></script>
   <script src="resources/jsmain/main.js"></script>
-    
+
   </body>
 </html>

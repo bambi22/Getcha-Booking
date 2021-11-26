@@ -68,7 +68,7 @@ public class MemberController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	 return "redirect:/main";
+    	 return "redirect:index?formpath=main";
     }
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
