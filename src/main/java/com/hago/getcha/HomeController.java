@@ -2,6 +2,7 @@ package com.hago.getcha;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,15 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-
+	@Autowired HttpSession session;
 	@RequestMapping(value = "/main")
 	public String home() {
 		return "main";
-	}
-	
-	@RequestMapping(value="/restView")
-	public String restView() {
-		return "restView";
 	}
 	
 	@RequestMapping(value="/")
@@ -33,11 +29,23 @@ public class HomeController {
 		return "common/index";
 	}
 	
+	@RequestMapping(value="/restView")
+	public String restView() {
+		return "common/restView";
+	}
+	
 	@RequestMapping(value="/admin")
 	public String admin(Model model, @RequestParam String formpath) {
 		model.addAttribute("formpath", formpath);
 		return "admin/admin";
 	}
+	
+	@RequestMapping(value="/restIndex")
+	public String restIndex(Model model, @RequestParam String formpath) {
+		model.addAttribute("formpath", formpath);
+		return "restManagement/restIndex";
+	}
+
 	
 	@RequestMapping(value="/member")
 	public String member() {
@@ -70,6 +78,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/write")
 	public String write() {
+		session.setAttribute("email", "test23@hago.com");
 		return "review/writeForm";
 	}
 	

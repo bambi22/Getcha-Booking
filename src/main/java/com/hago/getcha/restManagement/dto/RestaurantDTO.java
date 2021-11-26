@@ -15,6 +15,7 @@ public class RestaurantDTO extends ManagerDTO{
 	private String promotion;
 	private String representImage;
 	private String registerDate;
+	private double ratePoint;
 	
 	public String getRestName() {
 		return restName;
@@ -88,6 +89,12 @@ public class RestaurantDTO extends ManagerDTO{
 	}
 	public void setRegisterDate(String registerDate) {
 		this.registerDate = registerDate;
+	}
+	public double getRatePoint() {
+		return ratePoint;
+	}
+	public void setRatePoint(double ratePoint) {
+		this.ratePoint = ratePoint;
 	}
 
 	

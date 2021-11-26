@@ -18,7 +18,7 @@
 
 <center>
 <c:if test="${!empty sessionScope.msg }">
-	<script>alert(${sessionScope.msg});</script>
+	<script>alert("${sessionScope.msg}");</script>
 </c:if>
 <script>
 	//내비에 선택된 탭 색깔 변경

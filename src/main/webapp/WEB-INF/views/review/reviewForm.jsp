@@ -3,6 +3,9 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="<c:url value="/resources/css/review/review.css" />" rel="stylesheet" />
 <c:url var="root" value="/" />
+<c:if test="${empty sessionScope.email }">
+	 <script>location.href='index?formpath=login';</script>
+</c:if>
 <title>My Review</title>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -33,7 +36,7 @@
 </script>
 <body>
 <section>
-	<div align="center"><h2>나의 리뷰</h2></div>
+	<div align="center"><h2>나의 후기</h2></div>
 
 	<div id="ReviewPage_Container">
 	<c:forEach var="list" items="${reviewList }">

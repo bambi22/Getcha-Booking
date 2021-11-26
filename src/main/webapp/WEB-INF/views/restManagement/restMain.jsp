@@ -9,7 +9,6 @@
 <title>식당 메인</title>
 </head>
 <body style="display:flex;">
-	<c:import url="restNav.jsp"/>
 	<script>
 		//내비에 선택된 탭 색깔 변경
 		document.getElementById('restMainTab').className = 'nav-link active';

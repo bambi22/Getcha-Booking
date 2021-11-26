@@ -1,6 +1,8 @@
 package com.hago.getcha.Reservation.dto;
 
-public class ReservationDTO {
+import com.hago.getcha.Member.dto.MemberDTO;
+
+public class ReservationDTO extends MemberDTO{
 	private int restNum;
 	private String restName;
 	private int resNum;

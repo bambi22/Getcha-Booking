@@ -39,7 +39,7 @@ public class ReviewService {
 	SimpleDateFormat sdf;
 
 	public void writeProc(MultipartHttpServletRequest req) {
-		// String email = (String) session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		String content = req.getParameter("content");
 		String restNo = req.getParameter("restNum");
 		String points = req.getParameter("point");
@@ -47,11 +47,10 @@ public class ReviewService {
 		int point = Integer.parseInt(points);
 
 		ReviewDTO dto = new ReviewDTO();
-		dto.setEmail("test21@hago.com");
+		dto.setEmail(email);
 		dto.setContent(content);
 		dto.setRestNum(restNum);
 		dto.setPoint(point);
-		dto.setLikes(0);
 		Date date = new Date();
 		sdf = getDateForm("yyyy-MM-dd");
 		dto.setWriteDate(sdf.format(date));
@@ -103,8 +102,7 @@ public class ReviewService {
 	}
 
 	public void reviewProc(Model model) {
-		// String email = (String) session.getAttribute("email");
-		String email = "test21@hago.com";
+		String email = (String) session.getAttribute("email");
 		ArrayList<AllDTO> reviewList = dao.reviewProc(email);
 		model.addAttribute("reviewList", reviewList);
 	}

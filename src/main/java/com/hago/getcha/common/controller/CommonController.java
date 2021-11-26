@@ -45,6 +45,14 @@ public class CommonController {
 		service.searchProc(model, req);
 		return "forward:index?formpath=restList";
 	}
+
+	@RequestMapping(value = "guideBookShowListProc")
+	public String restPriceListProc(Model model) {
+		service.guideBookShowListProc(model);
+		return "forward:index?formpath=restList";
+	}
+
+	
 	
 }
 	

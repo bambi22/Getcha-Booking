@@ -5,7 +5,7 @@
 	/* #wrap{width:100%; height:100px; background:white;} */
 	#sidebar{background:black; width:250px; height:100%; top:0; 
 		left:0px; position:fixed; font-size:14px; z-index:1;}
-	#sidebar>button{background:#333; position:absolute; top:150px; left:250px; width:60px; height:52px; border:none; color:#FCF3E4;}
+	#sidebar>button{background:#333; position:absolute; top:155px; left:250px; width:57px; height:52px; border:none; color:#FCF3E4;}
 
 
 /* Style the sidenav links and the dropdown button */
@@ -148,7 +148,7 @@
 		  	</div>
 	      </li>
 	      <li>
-	         <button class="dropdown-btn">2021 가이드북 선정</button>
+	         <button class="dropdown-btn" onclick="location.href='guideBookShowListProc'">2021 가이드북 선정</button>
 	      </li>
 	      <li>
 	        <button class="dropdown-btn">리뷰수순 리스트</button>

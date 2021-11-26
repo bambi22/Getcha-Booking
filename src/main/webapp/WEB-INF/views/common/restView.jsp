@@ -78,6 +78,7 @@
 	<br><br>
 		<div class="restTitle">
 			<h2 id="restName">${rest.restName }</h2>
+			<c:if test="${not empty sessionScope.email}">
 	            <button id="collect_btn" data-num="${restNum }">
 		            <c:if test="${collection == 0}">
 		            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지">
@@ -86,8 +87,7 @@
 		            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지">
 		            </c:if>
 	            </button>
-	        <!-- <c:if test="${not empty sessionScope.id}"> -->
-	        <!-- </c:if> -->
+	        </c:if>
       	</div>
 			 <div class="status_branch">
                 <span class="cntReview"><img src="resources/img/icon/ic_review.png"> ${cntReview }</span>
@@ -199,7 +199,7 @@
 		</c:if>
 		<h3>메뉴</h3>
 		<div>
-		<c:if test="${wholeMenuList != null }">
+		<c:if test="${wholeMenuList != '파일 없음' }">
 			<c:forEach var="menu" items="${wholeMenuList}">
 				<img src="resources/img/wholeMenu/${menu.wholeMenu }" width="200">
 			</c:forEach>
@@ -220,43 +220,48 @@
 		
 		<h3>후기</h3>
 		<table id="reviewList">
-		<caption class="cap">최신순</caption>
-		<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
-		<tr>
-			<td rowspan="3" class="profile_space"><img class="profile_img" src="#" />${rew.nickName}</td>
-			<td>
-			<c:forEach begin="1" end="${rew.point }" step="1">
-				<img src="resources/img/icon/star.png" style="width:18px;">
-			</c:forEach>
-			</td>
-		</tr>
-		<tr>
-			<td><pre>${rew.content }</pre></td>
-		</tr>
-		<tr>
-			<td>
-			<c:if test="${rew.fileNames != '파일없음' }">
-			<ul>
-				<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
-				<li>
-					<div class="review_image">
-						<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
-					</div>
-				</li>
-				</c:forTokens>
-			</ul>
-			</c:if>
-			</td>
-		</tr>
-		<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
 		<c:choose>
-			<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="700px"></td></tr></c:when>
-			<c:otherwise><tr><td></td></tr></c:otherwise>
+			<c:when test="${fn:length(reviewList) != 0 }">
+			<caption class="cap">최신순</caption>
+			<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
+			<tr>
+				<td rowspan="3" class="profile_space"><img class="profile_img" src="#" />${rew.nickName}</td>
+				<td>
+				<c:forEach begin="1" end="${rew.point }" step="1">
+					<img src="resources/img/icon/star.png" style="width:18px;">
+				</c:forEach>
+				</td>
+			</tr>
+			<tr>
+				<td><pre>${rew.content }</pre></td>
+			</tr>
+			<tr>
+				<td>
+				<c:if test="${rew.fileNames != '파일없음' }">
+				<ul>
+					<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
+					<li>
+						<div class="review_image">
+							<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
+						</div>
+					</li>
+					</c:forTokens>
+				</ul>
+				</c:if>
+				</td>
+			</tr>
+			<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
+				<c:choose>
+					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="700px"></td></tr></c:when>
+					<c:otherwise><tr><td></td></tr></c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<tr>
+				<td colspan="2"><p align="center">${page }</p></td>
+			</tr>
+			</c:when>
+			<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
 		</c:choose>
-		</c:forEach>
-		<tr>
-			<td colspan="2"><p align="center">${page }</p></td>
-		</tr>
 		</table>
 	</div>
 </body>
