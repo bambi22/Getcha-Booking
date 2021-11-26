@@ -1,149 +1,191 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>예약 현황</title>
-<style>
-	div.reserveTable{
-		overflow: auto;
-		white-space: nowrap;
-	}
-</style>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="resources/css/reservation/bookingManagement.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script>
 	$( function() {
 	  $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+1M" });
 	} );
+	
+	function changeDate(){
+		var date = $('#datepicker').val();
+		location.href="selectRestReservationProc?searchDate="+date;
+		
+	}
+
+	function seatedProc(){
+		var res = document.getElementById('dropbtn').value;
+		alert(res);
+		$('#seatedTable').append("<td>"+res+"</td>");
+	}
+	
 </script>
-<script>
-function popup(){
-	var url = "insertSales";
-    var name = "주문 정보 입력";
-    var option = "width = 500, height = 500, top = 100, left = 200"
-    window.open(url, name, option);
-}
-</script>
+
 </head>
 <body style="display:flex;">
-	<c:import url="restNav.jsp"/>
+	
 	<script>
 		//내비에 선택된 탭 색깔 변경
 		document.getElementById('bookingTab').className = 'nav-link active';
 	</script>
-	<hr>
-	<br>
-	
-	<nav style="float:left; text-align:center; margin:30px">
-		<h3> Seated </h3>
-		<div><b>김소희</b><br>5명<br><br></div>
-		<div><b>이윤경</b><br>4명<br><br></div>
-		<div><b>김새봄</b><br>10명<br><br></div>
-		<div><b>남웅식</b><br>10명<br><br></div>
-	</nav>
-	<div class="reserveTable">
-		<input type="text" id="datepicker" value="날짜 선택">
-		<table border="1" style="margin:10px;">
+	<div align="center" style="padding:20px">
+		<span class="bn_time" >clock</span>
+		<span class="bn_date" >clock</span>
+	</div>
+	<div style="background-color:#DEDEDE; padding:20px;">
+		<input type="text" id="datepicker" placeholder="${date }" >
+		<input type="button" value="조회" onclick="changeDate()">
+		
+		
+		<table id="seatedTable" style="border-color:white; margin:10px;">
 			<tr>
-				<td>테이블</td>
-				<td>11:00-12:00</td>
-				<td>12:00-13:00</td>
-				<td>13:00-14:00</td>
-				<td>14:00-15:00</td>
-				<td>15:00-16:00</td>
-				<td>16:00-17:00</td>
-				<td>17:00-18:00</td>
-				<td>18:00-19:00</td>
-				<td>19:00-20:00</td>
-				<td>20:00-21:00</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td></td>
-				<td onclick="popup()"><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td><b>김새봄</b><br>10명<br></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td><b>김새봄</b><br>10명<br></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td></td>
-				<td><b>김새봄</b><br>10명<br></td>
-				<td></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>5</td>
-				<td></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-				<td><b>김새봄</b><br>10명<br></td>
-				<td></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>남웅식</b><br>10명<br></td>
-			</tr>
-			<tr>
-				<td>6</td>
-				<td></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>이윤경</b><br>4명<br></td>
-				<td></td>
-				<td></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td><b>김소희</b><br>5명<br></td>
-				<td></td>
-				<td><b>남웅식</b><br>10명<br></td>
-				<td><b>김새봄</b><br>10명<br></td>
-			</tr>
-			<tr>
+				<td><h3>Seated</h3></td>
+				<c:forEach var="j" begin="0" end="${fn:length(reserveList) }" step="1" >
+			    	<td>				
+					<div class="dropdown">
+						<c:if test="${reserveList[j].status == '착석' }"> 
+					    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#3F80A1">
+					    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+					    	</button>
+					  		<div id="myDropdown${j }" class="dropdown-content">
+					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }">상태 완료</a>
+						  	</div>
+					 	</c:if> 
+					 </div>
+				  	</td>
+				</c:forEach>
 			</tr>
 		</table>
-	</div>
 
+		
+		<table id="reservationTable" border="1" style="margin:10px;">
+			<c:forEach var="i" begin="11" end="22" step="1">
+			<tr>
+				<th>${i }:00</th>
+				<c:forEach var="j" begin="0" end="${fn:length(reserveList) }" step="1" >
+					<c:if test="${reserveList[j].hours == i}">
+						<td>
+							<div class="dropdown">
+								<c:if test="${reserveList[j].status == '예약확인' }"> 
+							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)">
+							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    	</button>
+							  		<div id="myDropdown${j }" class="dropdown-content">
+							    		<a href="javascript:">회원 정보</a>
+							    		<a href="reserveConfirmProc?resNum=${reserveList[j].resNum }">예약 확인</a>
+								  	</div>
+							 	</c:if> 
+							  	
+								<c:if test="${reserveList[j].status == '확인완료'}">
+							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#404040">
+							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    	</button>
+							  		<div id="myDropdown${j }" class="dropdown-content">
+							    		<a href="javascript:">회원 정보</a>
+							    		<a href="customerSeatedProc?resNum=${reserveList[j].resNum }">착석</a>
+							    		<a href="reserveCancelProc?resNum=${reserveList[j].resNum }">예약 취소</a>
+							    		<a href="noShowProc?resNum=${reserveList[j].resNum }">노쇼</a>
+								  	</div>
+							  	</c:if>
+								<c:if test="${reserveList[j].status == '노쇼' }">
+							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#962D3E">
+							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    	</button>
+							  	</c:if>
+							  	<c:if test="${reserveList[j].status == '착석' }"> 
+							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#3F80A1">
+							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    	</button>
+							  		<div id="myDropdown${j }" class="dropdown-content">
+							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }">상태 완료</a>
+								  	</div>
+					 			</c:if> 
+							</div>
+						</td>
+					</c:if>				
+				</c:forEach> 				
+			</tr>
+			</c:forEach>
+		</table>
+		
+	</div>
+	
+<script>
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction(drop) {
+	var down_class = drop.getAttribute('class');
+  	document.getElementById(down_class).classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('#dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script>
+function clock(){
+	var date = new Date();
+	//년도
+	var nowYear = date.getFullYear();
+	// date Object
+	var month = date.getMonth();
+	// 월
+	var clockDate = date.getDate();
+	// 날짜
+	var day = date.getDay();
+    // 요일은 숫자형태로 리턴되기때문에 미리 배열로 
+	var week = ['일', '월', '화', '수', '목', '금', '토'];
+	// 시간
+	var hours = date.getHours();
+	// 분
+	var minutes = date.getMinutes();
+	// 초
+	var seconds = date.getSeconds();
+    // 시간 분 초는 한자리 수 이면 앞에0을 붙임
+    var hours_str = hours < 10 ? "0"+hours : hours;
+	var minutes_str = minutes < 10 ? "0"+minutes : minutes;
+	var seconds_str = seconds < 10 ? "0"+seconds : seconds;
+    // 월은 0부터 1월이기때문에 +1일을 해주고
+    $(".bn_date").html(week[day]+"요일 "+(month+1)+"/"+clockDate+"/"+nowYear);
+	$(".bn_time").html(hours_str+":"+minutes_str+":"+seconds_str);
+        
+}
+
+
+function init() {
+	// 최초에 함수를 한번 실행
+    clock();
+    //1초마다 반복
+	setInterval(clock, 1000);
+}
+
+
+$(document).ready(function(){
+	init();	
+});
+
+</script>
 </body>
 </html>

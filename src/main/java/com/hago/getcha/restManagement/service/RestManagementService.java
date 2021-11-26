@@ -33,14 +33,12 @@ public class RestManagementService implements IRestManagementService {
 	@Autowired IRestModifyDAO modifyDao;
 	@Autowired IRestRegisterDAO registerDao;
 
-	
-	
-	
 	@Override
 	public void restInfo(Model model) {
 		int restNum = (Integer)session.getAttribute("restNum");
 		// 식당 정보 가져오기
 		RestaurantDTO rest = infoDao.selectRestaurant(restNum);
+		rest.setRatePoint(Double.parseDouble(rest.getAvgPoint()));
 		// 영업시간 가져오기
 		ArrayList<OpenHourDTO> openList = infoDao.selectOpenHour(restNum);
 		// 부대시설 가져오기

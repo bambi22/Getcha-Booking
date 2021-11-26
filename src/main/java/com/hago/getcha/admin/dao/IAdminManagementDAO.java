@@ -26,6 +26,12 @@ public interface IAdminManagementDAO {
 
 	public ArrayList<AdditionDTO> guideBookList();
 
+	public AdditionDTO selectRestNum(int restNum);
+
+	public void updateGuide(int restNum, String guideBook);
+
+	public void addGuide(int restNum, String guideBook);
+
 	
 
 }

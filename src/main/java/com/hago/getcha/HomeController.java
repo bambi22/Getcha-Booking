@@ -40,6 +40,13 @@ public class HomeController {
 		return "admin/admin";
 	}
 	
+	@RequestMapping(value="/restIndex")
+	public String restIndex(Model model, @RequestParam String formpath) {
+		model.addAttribute("formpath", formpath);
+		return "restManagement/restIndex";
+	}
+
+	
 	@RequestMapping(value="/member")
 	public String member() {
 		return "member/member";

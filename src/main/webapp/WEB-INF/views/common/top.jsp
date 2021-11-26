@@ -9,10 +9,10 @@
 		<td align="center" colspan=5><h1><a href="${root}index?formpath=main">Getcha</a></h1></td>
 	</tr>
 	<tr>
-		<td align="center" colspan=5><hr/></td>
+		<td align="center" colspan=5 width=100%><hr/></td>
 	</tr>
 	<tr align="right">
-		<td width=1080></td>
+		<td width=700></td>
 		<c:choose>
 			<c:when test="${empty sessionScope.id }">
 				<td><a href="${root}index?formpath=login">로그인</a></td>

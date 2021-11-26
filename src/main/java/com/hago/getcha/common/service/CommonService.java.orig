@@ -52,17 +52,17 @@ public class CommonService {
 		ArrayList<WholeMenuDTO> wholeMenuList = infoDao.selectWholeMenu(restNum);
 		
 		int totalCount = rDao.reviewCount(restNum);
-		int pageBlock = 3; //?�이지?? ?�시 ??
-		int end = currentPage * pageBlock; //?�이지?? ?�번??
-		int begin = end+1 - pageBlock; //?�이지?? ?�작 번호
+		int pageBlock = 3; //페이지당 표시 수
+		int end = currentPage * pageBlock; //페이지당 끝번호
+		int begin = end+1 - pageBlock; //페이지당 시작 번호
 	
 		ArrayList<ReviewsDTO> reviewList = rDao.selectAll(begin, end, restNum);
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
 		cDto.setEmail(email);
 		cDto.setRestNum(restNum);
-		int cntCollection = cDao.collCount(restNum); //관?? ?�당?�로 ?�?�된 �? ??
-		int collection = cDao.collChck(cDto); // 1 -> ?�?�된 ?�당, 0 -> ?�?�x
+		int cntCollection = cDao.collCount(restNum); //관심 식당으로 저장된 총 수
+		int collection = cDao.collChck(cDto); // 1 -> 저장된 식당, 0 -> 저장x
 		
 		model.addAttribute("rest", rest);
 		model.addAttribute("openList", openList);
@@ -89,10 +89,10 @@ public class CommonService {
 		cDto.setRestNum(restNum);
 		int check = cDao.collChck(cDto);
 		int result;
-		if(check == 0) { //중복 ?�닌 ?�태�? ?�?? 진행
-			result = cDao.collectProc(cDto); //?�?? ?�공 ?? 1 반환
+		if(check == 0) { //중복 아닌 상태로 저장 진행
+			result = cDao.collectProc(cDto); //저장 성공 시 1 반환
 		}
-		else result = 0; // ?�?�된 ?�태�? 0 반환
+		else result = 0; // 저장된 상태면 0 반환
 		return result;
 	}
 	
@@ -156,13 +156,7 @@ public class CommonService {
 		}
 	}
 
-	public void searchProc(Model model, HttpServletRequest req) {
-		String keyword = req.getParameter("keyword");
-		if(keyword == null) return;
-		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
-		model.addAttribute("restList", restList);
-	}
-
+<<<<<<< HEAD
 	public void guideBookShowListProc(Model model) {
 		LocalDate now = LocalDate.now();
 		String guideBook = Integer.toString(now.getYear());
@@ -178,5 +172,12 @@ public class CommonService {
 		}
 		model.addAttribute("restList", guideList);
 		
+=======
+	public void searchProc(Model model, HttpServletRequest req) {
+		String keyword = req.getParameter("keyword");
+		if(keyword == null) return;
+		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
+		model.addAttribute("restList", restList);
+>>>>>>> origin/master
 	}
 }
