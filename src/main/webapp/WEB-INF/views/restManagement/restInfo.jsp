@@ -20,7 +20,7 @@
 <link type="text/css" rel="stylesheet" href="resources/css/restManagement/jquery.timepicker.css" media=""/><!-- 타이머css -->
 <!-- 카카오 주소 라이브러리 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ca9e6dca916cb522a752c40d791a9b9&libraries=services"></script>
-
+<c:url var="root" value="/" />
 </head>
 <body style="display:flex;">
 	<script>
@@ -33,7 +33,8 @@
 	<!-- 식당 사진 보여주기 -->
 	<div>
 		<c:forEach var="image" items="${restImgList}">
-			<img src="resources/img/restaurant/${image.restImage }" width="200">
+ 			<img src="${root }upload/restaurant/${image.restImage }" width="200">
+		
 		</c:forEach>
 	</div>
 	<br><br>
@@ -328,7 +329,7 @@
 	<!-- 포로모션 보여주기 & 수정 -->
 	<h4>진행 중인 프로모션</h4>
 	<c:if test="${rest.promotion != '파일 없음' }">
-		<p><img src="resources/img/promotion/${rest.promotion }" width="300"></p>
+		<p><img src="${root }upload/promotion/${rest.promotion }" width="300"></p>
 	</c:if>
 	
 	<a href="javascript:showModify('promotionForm')">수정하기</a>
@@ -354,7 +355,7 @@
 	<div>
 		<c:if test="${wholeMenuList != null }">
 			<c:forEach var="menu" items="${wholeMenuList}">
-				<img src="resources/img/wholeMenu/${menu.wholeMenu }" width="200">
+				<img src="${root }upload/wholeMenu/${menu.wholeMenu }" width="200">
 			</c:forEach>
 		</c:if>
 	</div>
@@ -369,7 +370,7 @@
 					<td>${menuList[i].priceStr }</td>
 					<td>
 						<c:if test="${menuList[i].menuImage != '파일 없음'}">
-							<img src="resources/img/menu/${menuList[i].menuImage }" width="100">
+							<img src="${root }upload/menu/${menuList[i].menuImage }" width="100">
 						</c:if>
 					</td>
 				</tr>

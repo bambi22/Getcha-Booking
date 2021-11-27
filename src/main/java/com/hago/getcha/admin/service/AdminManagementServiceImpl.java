@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,24 +102,7 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		
 	}
 	
-	@Override
-	public HashMap<String, String> findRestaurant(HashMap<String, String> map) {
-		String keyword = map.get("keyword");
-		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
-		if(restList != null) {
-			int count = restList.size();
-			map.put("count", Integer.toString(count));
-			for(int i=0; i<count; i++) {
-				map.put("restNum"+i, Integer.toString(restList.get(i).getRestNum()));
-				map.put("restName"+i, restList.get(i).getRestName());	
-			}
-			System.out.println(map.get("restNum0"));
-			return map;
-		}else {
-			map.put("resultList", null);
-			return map;
-		}
-	}
+
 	
 
 	public int managerRegisterProc(Model model, ManagerDTO managerDto, String pwOk, String[] phoneStr1, String[] phoneStr2) {
@@ -174,23 +158,31 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		
 	}
 
-	public String addGuideBookProc(int restNum) {
-		AdditionDTO addition = adminDao.selectRestNum(restNum);
+	public String addGuideBookProc(String[] add) {
 		LocalDate now = LocalDate.now();
 		String guideBook = Integer.toString(now.getYear());
-		if(addition != null) {
-			if(addition.getGuideBook()==null) {
-				
-				adminDao.updateGuide(restNum, guideBook);
-				return "추가되었습니다.";
-			}else {
-				return "이미 추가된 식당입니다.";
+		for(String restStr : add){
+			int restNum = Integer.parseInt(restStr); 
+			AdditionDTO addition = adminDao.selectRestNum(restNum, guideBook);
+			if(addition == null) {
+				adminDao.updateGuide(restNum, guideBook);				
 			}
-		}else {
-			adminDao.addGuide(restNum, guideBook);
-			return "추가되었습니다.";
 		}
+		return "추가되었습니다.";
 		
+	}
+
+	public HashMap<String, Object> findRestaurant(HashMap<String, Object> map) {
+		String key = (String)map.get("key");
+		ArrayList<RestSumDTO> restList = infoDao.searchProc(key);
+		if(restList.isEmpty()) {
+			String resultMsg = "검색 결과가 없습니다.";
+			map.put("resultMsg", resultMsg);
+			return map;
+		}else {
+			map.put("restList", restList);	
+			return map;
+		}
 	}
 
 	

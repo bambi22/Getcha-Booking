@@ -67,11 +67,11 @@
 	<select id="guideBookList" resultMap="addition">
 		select * from additionInfo where guidebook is not null order by guidebook desc
 	</select>
-	<select id="selectRestNum" resultMap="addition" parameterType="java.lang.Integer">
-		select * from additionInfo where restnum=#{restNum}
+	<select id="selectRestNum" resultMap="addition" >
+		select * from additionInfo where restnum=#{param1} and guidebook=#{param2}
 	</select>
 	<update id="updateGuide">
-		update addtionInfo set guidebook=#{param2} where restNum=#{param1}
+		update additionInfo set guidebook=#{param2} where restNum=#{param1}
 	</update>
 	<insert id="addGuide">
 		insert into additionInfo(restnum, guideBook) values(#{param1}, #{param2})

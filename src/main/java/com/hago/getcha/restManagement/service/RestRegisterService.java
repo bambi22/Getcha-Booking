@@ -29,11 +29,15 @@ public class RestRegisterService implements IRestRegisterService {
 	@Autowired IRestInfoDAO infoDao;
 	@Autowired HttpSession session;
 	
-	public String saveFile(int restNum, MultipartFile file, String location) {
+	public String saveFile(int restNum, MultipartFile file, String realPath) {
 		Calendar cal = Calendar.getInstance(); 	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String fileName = restNum+ "-"+sdf.format(cal.getTime()) + "-" + file.getOriginalFilename();
-		File save = new File(location + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
+		File folder = new File(realPath);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		File save = new File(realPath + fileName);	//경로 지정 + 저장할 파일명 넣어줌
 		try {
 			file.transferTo(save);				// 그 위치에 저장해줌
 		} catch (Exception e) {
@@ -67,8 +71,9 @@ public class RestRegisterService implements IRestRegisterService {
 		
 		// 프로모션 파일 가져와서 저장
 		MultipartFile file = req.getFile("promotion");
-		if(file.getSize() != 0) {		
-			String fileName = saveFile(restNum, file, FILE_LOCATION_PROMOTION);
+		if(file.getSize() != 0) {	
+			String realPath = req.getServletContext().getRealPath(FILE_LOCATION_PROMOTION);
+			String fileName = saveFile(restNum, file, realPath);
 			restDto.setPromotion(fileName);   
 		}else {
 			restDto.setPromotion("파일 없음");
@@ -110,7 +115,8 @@ public class RestRegisterService implements IRestRegisterService {
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
 				if(f.getSize() != 0) {		
-					String fileName = saveFile(restNum, f, FILE_LOCATION_RESTAURANT);
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_RESTAURANT);
+					String fileName = saveFile(restNum, f, realPath);
 					imgDto.setRestNum(restNum);
 					imgDto.setRestImage(fileName);   
 				}else {
@@ -146,7 +152,8 @@ public class RestRegisterService implements IRestRegisterService {
 				menuDto.setMenuDescript(menuDescriptStr[i]);
 				menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
 			    if(!files.get(i).isEmpty()) { 
-				    String fileName = saveFile(restNum, files.get(i), FILE_LOCATION_MENU);
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
+				    String fileName = saveFile(restNum, files.get(i), realPath);
 				    menuDto.setMenuImage(fileName); 
 			    }else { 
 				    menuDto.setMenuImage("파일 없음"); 
@@ -165,7 +172,8 @@ public class RestRegisterService implements IRestRegisterService {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
 				menuDto.setRestNum(restNum);
 				if(!f.isEmpty()) { 
-				    String fileName = saveFile(restNum, f, FILE_LOCATION_WHOLEMENU);
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
+				    String fileName = saveFile(restNum, f, realPath);
 				    menuDto.setWholeMenu(fileName);   
 				}else {
 					menuDto.setWholeMenu("파일 없음");   
