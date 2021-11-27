@@ -27,7 +27,7 @@ alert(message);
 			<tr>
 				<td colspan=2 align='center'>
 					<input type=submit value='확인' style="width:80px;"/>
-					<input type="button" style="width:80px;" value="취소" onclick="location.href='memberView'"/>
+					<input type="button" style="width:80px;" value="취소" onclick="location.href='${root}memberViewProc'"/>
 			</tr>
 		</table>
 	</form>

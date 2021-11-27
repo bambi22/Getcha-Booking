@@ -73,30 +73,43 @@ public class MemberController {
 	}
 	@RequestMapping(value = "memberProc")
 	public String memberProc(MemberDTO member, Model model) {
-		String msg = service.memberProc(member);
-		model.addAttribute("msg", msg);
-		return "forward:/index?formpath=member";
+		int result = service.memberProc(member);
+		
+		if(result == 0) {
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			//model.addAttribute("url","/memberModi");
+			return "forward:index?formpath=member";
+		}else if(result == 1) {
+			session.invalidate();
+			model.addAttribute("msg", "중복 아이디입니다.");
+			//model.addAttribute("url","/main");
+			return "forward:index?formpath=member";
+		}else {
+			model.addAttribute("msg", "가입완료");
+			//model.addAttribute("url","/memberModi");
+			return "forward:index?formpath=/main";
+		}
 	}
-	@RequestMapping(value = "/memberView")
+	@RequestMapping(value = "memberViewProc")
 	public String memberViewProc(String email, Model model) {
-		//email = "test1@test.com";
-		//session.setAttribute("email", email);
+		email = (String) session.getAttribute("email");
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=login";
 		}
 		if(sessionEmail.equals(email)) {
 			service.memberViewProc(email,model);
-			return "member/memberView";
+			return "forward:index?formpath=memberView";
 		}
 		return "forward:index?formpath=main";
 	}
 	
-	@RequestMapping(value="/memberModi", method = {RequestMethod.POST, RequestMethod.GET})
-	public String memberModi(String email, Model model) {
-		session.setAttribute("email", email);
+	@RequestMapping(value="memberModiView", method = {RequestMethod.POST, RequestMethod.GET})
+	public String memberModiView(String email, Model model) {
+		email = (String)session.getAttribute("email");
+		logger.warn("email:"+email);
 		service.memberViewProc(email,model);
-		return "member/memberModi";
+		return "forward:index?formpath=memberModi";
 	}
 	
 	final static Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -131,15 +144,16 @@ public class MemberController {
 		member.setEmail(email);
 		int result = service.memberDeleteProc(member);
 		if(result == 0) {
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			model.addAttribute("msg", "입력한 두 비밀번호가 일치하지 않습니다.");
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=deleteForm";
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
+			session.invalidate();
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=main";
 		}else {
-			model.addAttribute("msg", "삭제 실패하였습니다.");
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=deleteForm";
 		}

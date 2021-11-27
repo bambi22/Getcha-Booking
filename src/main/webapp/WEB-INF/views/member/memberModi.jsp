@@ -2,14 +2,13 @@
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${empty sessionScope.email }">
 	<script>
+		alert("로그인 후 이용 가능합니다.");
 		location.href='index?formpath=login'
 	</script>
 </c:if>
-<script>
-	var message="${msg}";
-	//var url = "${url}";
-	alert(message);
-	//document.location.href=url;
+<script type="text/javascript">
+var message="${msg}";
+alert(message);
 </script>
 <center>
 	<form action=memberModiProc method="post">
@@ -69,7 +68,7 @@
 			<tr>
 				<td align='center' height=40 colspan=4>
 				<input type=submit value='수정' style="width:120px;"/>
-				<input type="button" style="width:120px;" value="취소" onclick="location.href='memberView'"/>
+				<input type="button" style="width:120px;" value="취소" onclick="location.href='${root}memberViewProc'"/>
 				</td>
 			</tr>
 		</table>

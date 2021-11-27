@@ -52,6 +52,15 @@ public class HomeController {
 		return "member/member";
 	}
 	
+	@RequestMapping(value="/memberView")
+	public String memberView() {
+		return "member/memberView";
+	}
+	@RequestMapping(value="/memberModi")
+	public String memberModi() {
+		return "member/memberModi";
+	}
+	
 	@RequestMapping(value="/deleteForm")
 	public String deleteForm() {
 		return "member/deleteForm";
