@@ -1,5 +1,7 @@
 package com.hago.getcha.admin.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.config.PageCon;
 import com.hago.getcha.restManagement.dao.IRestInfoDAO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
 @Service
@@ -100,16 +103,19 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	
 	@Override
 	public HashMap<String, String> findRestaurant(HashMap<String, String> map) {
-		RestaurantDTO restDto = infoDao.selectRestaurant(Integer.parseInt(map.get("keyword")));
-		if(restDto != null) {
-			map.put("resultNum", Integer.toString(restDto.getRestNum()));
-			map.put("resultName", restDto.getRestName());
-			map.put("resultType", restDto.getType());
-			map.put("resultDong", restDto.getDong());
-			map.put("resultAddr", restDto.getAddress());
+		String keyword = map.get("keyword");
+		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
+		if(restList != null) {
+			int count = restList.size();
+			map.put("count", Integer.toString(count));
+			for(int i=0; i<count; i++) {
+				map.put("restNum"+i, Integer.toString(restList.get(i).getRestNum()));
+				map.put("restName"+i, restList.get(i).getRestName());	
+			}
+			System.out.println(map.get("restNum0"));
 			return map;
 		}else {
-			map.put("resultNum", "none");
+			map.put("resultList", null);
 			return map;
 		}
 	}

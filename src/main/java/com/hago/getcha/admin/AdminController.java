@@ -2,6 +2,7 @@ package com.hago.getcha.admin;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.admin.service.AdminManagementServiceImpl;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 
 @Controller
 public class AdminController {
