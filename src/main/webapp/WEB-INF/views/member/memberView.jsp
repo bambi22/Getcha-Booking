@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:if test="${empty sessionScope.email }">
-	<script>
-		alert("로그인 후 이용해주세요.");
-		location.href="index?formpath=login";
+	<script type="text/javascript">
+		alert('로그인 후 이용해주세요.')
+		location.href="index?formpath=login"
 	</script>
 </c:if>
 <c:url var="root" value="/"/>
@@ -17,14 +17,14 @@
 			$("#f").submit();
 		})
 	})
-	$("document").ready(function(){
-		$('.modifyBtn').css("cursor", "pointer").click(function(){
-			let email = $(this).attr("id");
-			$("#email").val(email);
-			$("#f").attr("action", "${root}memberModi");
-			$("#f").submit();
-		})
-	})
+	//$("document").ready(function(){
+	//	$('.modifyBtn').css("cursor", "pointer").click(function(){
+	//		let email = $(this).attr("id");
+	//		$("#email").val(email);
+	//		$("#f").attr("action", "${root}memberModi");
+	//		$("#f").submit();
+	//	})
+	//})
 </script>
 <center>
 <form id="f" method="get">
@@ -66,9 +66,9 @@
 		</tr>
 		<tr>
 			<td colspan=2 align="right">
-				<input type="button" style="width:60px;" value="수정" class="modifyBtn" id="${memberView.email}"/>
+				<input type="button" style="width:60px;" value="수정" onclick="location.href='${root}memberModiView'"/>
 				<input type="button" style="width:60px;" value="홈" onclick="location.href='${root}index?formpath=main'"/>
-				<input type="button" style="width:60px;" value="탈퇴" class="deleteBtn" id="${memberView.email}"/>
+				<input type="button" style="width:60px;" value="탈퇴" onclick="location.href='${root}index?formpath=deleteForm'"/>
 			</td>
 		</tr>
 	</table>

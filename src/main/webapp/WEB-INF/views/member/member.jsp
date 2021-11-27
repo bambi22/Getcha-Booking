@@ -93,11 +93,15 @@
                   
                   </div>
                   <div class="form-group">
-                    <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호" onblur="pwchk()">
-                  	<input type="text" style="border-width:0px" size="50" name="pwchk" id="pwchk" value="비밀번호는 8자리 이상의 영어+숫자조합이어야 합니다." readonly="readonly">
+                    <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호">
+                    <div class="alert-length" id="alert-length">비밀번호는 8자리 이상으로 입력해주세요.</div>
+                    <div class="alert-space" id="alert-space">비밀번호는 공백 없이 입력해주세요.</div>
+                    <div class="alert-eng" id="alert-eng">비밀번호는 영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.</div>
                   </div>
                   <div class="form-group">
-                    <input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">                  
+                    <input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">
+                    <div class="alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+                    <div class="alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
                   </div>
                   <div class="form-group">
                     <input type="text" name="mobile" id="mobile" tabindex="2" class="form-control" placeholder="휴대폰 번호">                  
@@ -126,7 +130,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <!-- <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입"> -->
+                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입">
                           <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소">
                       </div>
                     </div>
@@ -143,7 +147,7 @@
               <a href="${root}index?formpath=login" class="active" id="login-form-link"><div class="login">로그인</div></a>
             </div>
             <div class="col-xs-6 tabs">
-              <a id="register-form-link"><div class="register"><input type="submit" name="register-submit" id="register-submit" value="회원가입"></div></a>
+              <a id="register-form-link"><div class="register">회원가입</div></a>
            
             </div>
           </div>
@@ -170,19 +174,55 @@
 </script>
 </body>
 <script>
-	
+	$(function(){
+		$("#alert-success").hide();
+		$("#alert-danger").hide();
+		$("#pwCheck").keyup(function(){
+			var pw = $("#pw").val();
+			var pwCheck = $("#pwCheck").val();
+			if(pw != "" || pwCheck != ""){
+				if(pw == pwCheck){
+					$("#alert-success").show();
+					$("#alert-danger").hide();
+					$("#submit").removeAttr("disabled");
+				}else{
+					$("#alert-success").hide();
+					$("#alert-danger").show();
+					$("#submit").attr("disabled", "disabled");
+				}
+			}
+		});
+	});
 
-	function pwchk(){
-		var pw = document.getElementById("pw").value;
-		var pwChk = document.getElementById("pwChk").value;
-		if(pwChk.length == 0 || pwChk == null){
-			document.getElementById("chk").value="비밀번호를 입력하세요.";
-		}else if(pw !=pwChk){
-			document.getElementById("chk").value="비밀번호가 일치하지않습니다.";
-		}else{
-			document.getElementById("chk").value="비밀번호가 동일합니다.";
-		}
-		return;
-	}
+	$(function(){
+		$("#alert-length").hide();
+		$("#alert-space").hide();
+		$("#alert-eng").hide();
+		$("#pw").blur(function(){
+			var pw = $("#pw").val();
+			var num = pw.search(/[0-9]/g);
+			var eng = pw.search(/[a-z]/ig);
+			var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+			if(pw.length<8){
+				$("#alert-length").show();
+				$("#alert-space").hide();
+				$("#alert-eng").hide();
+			}else if(pw.search(/\s/)!=-1){
+				$("#alert-length").hide();
+				$("#alert-space").show();
+				$("#alert-eng").hide();
+			}else if((num<0&&eng<0)||(eng<0&&spe<0)||(spe<0&&num<0)){
+				$("#alert-length").hide();
+				$("#alert-space").hide();
+				$("#alert-eng").show();
+			}else{
+				$("#alert-length").hide();
+				$("#alert-space").hide();
+				$("#alert-eng").hide();
+				console.log("통과");
+			}
+		});
+	});
+	
 </script>
 </html>

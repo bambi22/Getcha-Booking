@@ -25,6 +25,7 @@
 <style>
 .item{height: 270px;}
 #sidebar{left:-250px;}
+
 </style>
 <script>
 $('#sidebar').find('span').text('OPEN');
@@ -56,7 +57,7 @@ $('#sidebar').find('span').text('OPEN');
                   </c:if>  
                     <c:if test="${ sessionScope.email != null }">
                    <%--  <p class="mb-0"><a class="mr-2" >회원 : ${sessionScope.email}님</a> --%>
-                    <img src="resources/img/icon/profileIcon.png" style="width:40px">
+               		<img src="resources/img/icon/profileIcon.png" style="width:40px">
                     <span ><a href="logout" style="color:white">로그아웃</a></span>
                     </c:if>
 		        </div>
@@ -79,9 +80,10 @@ $('#sidebar').find('span').text('OPEN');
 	          
 	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">이동</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="resources/img/icon/profileIcon.png" style="width:40px"></a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="#">이동1</a>
+              	<a class="dropdown-item" href="${root}memberViewProc">회원정보</a>
                 <a class="dropdown-item" href="#">이동2</a>
                 <a class="dropdown-item" href="#">이동3</a>
                 <a class="dropdown-item" href="#">이동4</a>

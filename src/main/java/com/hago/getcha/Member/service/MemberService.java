@@ -2,6 +2,7 @@ package com.hago.getcha.Member.service;
 
 
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,27 +23,38 @@ public class MemberService implements IMemberService{
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
 	@Override
-	public String memberProc(MemberDTO member) {
+	public int memberProc(MemberDTO member) {
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
-		if(member.getPw().equals(member.getPwCheck())==false) {
-			logger.warn("pw: " + member.getPw());
-			logger.warn("pwCheck:"+ member.getPwCheck());
-			return "비밀번호가 일치하지 않습니다.";
+		if(memberPwChk(member) == 0) {
+			return 0;
 		}
-			
-		if(member.getEmail() == "" || member.getPw() == "")
-			return "필수 정보입니다.";
 		if(dao.CheckEmail(member.getEmail()) > 0)
-			return "중복 아이디입니다.";
+			return 1;
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
 		//session.setAttribute("email", member.getEmail());
-		return "가입완료";
+		return 2;
+	}
+	
+	public int memberPwChk(MemberDTO member) {
+		String pw = member.getPw();
+		String pwCheck = member.getPwCheck();
+		String pattern1 = "^[A-Za-z0-9]{8,40}$";	//숫자+영문, 8~40자
+		String pattern2 ="^.*(?=^.{8,40}$)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$";	//영문+특수문자, 8~40자
+		String pattern3 = "^.*(?=^.{8,40}$)(?=.*\\d)(?=.*[!@#$%^&+=]).*$";	//숫자+특수문자, 8~40자
+		boolean match1 = Pattern.matches(pattern1, pw);
+		boolean match2 = Pattern.matches(pattern2, pw);
+		boolean match3 = Pattern.matches(pattern3, pw);
+		if(pw.equals(pwCheck)==false)
+			return 0;
+		if(match1 == false || match2 == false || match3 == false)
+			return 0;
+		return 1;
 	}
 
 	public int pwCheck(MemberDTO member) {
@@ -58,18 +70,16 @@ public class MemberService implements IMemberService{
 		if(check != null && encoder.matches(member.getPw(), check.getPw())) {
 			if(dao.memberDeleteProc(check) == 1) {
 				logger.warn("dao:"+Integer.toString(dao.memberDeleteProc(check)));
-				session.invalidate();
 				return 1;
 			}
 		}
-		if(check == null) 
+		if(check == null) {
 			logger.warn("check=null");
-		if(encoder.matches(member.getPw(), check.getPw())==false)
+			return 2;
+		}
+		if(encoder.matches(member.getPw(), check.getPw())==false) {
 			logger.warn("match false");
-		//if(dao.memberChilDelete(check) != 1)
-			//logger.warn("memberChilDelete!=1");
-		if(dao.memberDeleteProc(check)!=1) {
-			logger.warn("memberDeleteProc!=1");
+			return 2;
 		}
 		return 2;
 	}
@@ -86,6 +96,7 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public void memberViewProc(String email, Model model) {
+		logger.warn("email:"+email);
 		MemberDTO memberView = dao.memberViewProc(email);
 		if(memberView != null) {
 			model.addAttribute("memberView",memberView);
@@ -95,7 +106,6 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public int memberModiProc(MemberDTO member) {
-		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		logger.warn("pw: " + member.getPw());
