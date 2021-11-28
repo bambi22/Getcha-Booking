@@ -9,6 +9,7 @@ public class RestSumDTO {
 	private String restIntro;
 	private String representImage;
 	private String key;
+	private int count;
 	
 	public int getRestNum() {
 		return restNum;
@@ -57,6 +58,12 @@ public class RestSumDTO {
 	}
 	public void setKey(String key) {
 		this.key = key;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	
 }

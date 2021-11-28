@@ -51,6 +51,12 @@ public class CommonController {
 		service.guideBookShowListProc(model);
 		return "forward:index?formpath=restList";
 	}
+	
+	@RequestMapping(value = "popularListProc")
+	public String popularListProc(Model model) {
+		service.popularListProc(model);
+		return "forward:index?formpath=restList";
+	}
 
 	
 	

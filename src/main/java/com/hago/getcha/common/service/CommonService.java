@@ -28,6 +28,7 @@ import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 import com.hago.getcha.restManagement.dto.WholeMenuDTO;
 import com.hago.getcha.review.dao.IReviewDAO;
+import com.hago.getcha.review.dto.ReviewCountDTO;
 import com.hago.getcha.review.dto.ReviewsDTO;
 
 @Service
@@ -52,17 +53,17 @@ public class CommonService {
 		ArrayList<WholeMenuDTO> wholeMenuList = infoDao.selectWholeMenu(restNum);
 		
 		int totalCount = rDao.reviewCount(restNum);
-		int pageBlock = 3; //?�이지?? ?�시 ??
-		int end = currentPage * pageBlock; //?�이지?? ?�번??
-		int begin = end+1 - pageBlock; //?�이지?? ?�작 번호
+		int pageBlock = 3; //?�이지?? ?�시 ??
+		int end = currentPage * pageBlock; //?�이지?? ?�번??
+		int begin = end+1 - pageBlock; //?�이지?? ?�작 번호
 	
 		ArrayList<ReviewsDTO> reviewList = rDao.selectAll(begin, end, restNum);
 		//String email = (String) session.getAttribute("email");
 		String email = "test21@hago.com";
 		cDto.setEmail(email);
 		cDto.setRestNum(restNum);
-		int cntCollection = cDao.collCount(restNum); //관?? ?�당?�로 ?�?�된 �? ??
-		int collection = cDao.collChck(cDto); // 1 -> ?�?�된 ?�당, 0 -> ?�?�x
+		int cntCollection = cDao.collCount(restNum); //관?? ?�당?�로 ?�?�된 �? ??
+		int collection = cDao.collChck(cDto); // 1 -> ?�?�된 ?�당, 0 -> ?�?�x
 		
 		model.addAttribute("rest", rest);
 		model.addAttribute("openList", openList);
@@ -89,10 +90,10 @@ public class CommonService {
 		cDto.setRestNum(restNum);
 		int check = cDao.collChck(cDto);
 		int result;
-		if(check == 0) { //중복 ?�닌 ?�태�? ?�?? 진행
-			result = cDao.collectProc(cDto); //?�?? ?�공 ?? 1 반환
+		if(check == 0) { //중복 ?�닌 ?�태�? ?�?? 진행
+			result = cDao.collectProc(cDto); //?�?? ?�공 ?? 1 반환
 		}
-		else result = 0; // ?�?�된 ?�태�? 0 반환
+		else result = 0; // ?�?�된 ?�태�? 0 반환
 		return result;
 	}
 	
@@ -117,6 +118,11 @@ public class CommonService {
 				restList= listDao.restLocationList(type);						
 			}
 		}
+		for(RestaurantDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
+		
 		model.addAttribute("restList", restList);
 		
 	}
@@ -139,7 +145,12 @@ public class CommonService {
 		if(arrange.equals("upper10")) {
 			restList = listDao.selectPriceList(100000, 100000);
 			inputCommonInfo(restList);
-		}		
+		}	
+		
+		for(RestaurantDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
 		model.addAttribute("restList", restList);
 		
 	}
@@ -160,6 +171,10 @@ public class CommonService {
 		String keyword = req.getParameter("keyword");
 		if(keyword == null) return;
 		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
+		for(RestSumDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
 		model.addAttribute("restList", restList);
 	}
 
@@ -175,8 +190,24 @@ public class CommonService {
 			guide.setAvgPoint(rest.getAvgPoint());
 			guide.setType(rest.getType());
 			guide.setRepresentImage(rest.getRepresentImage());
+			int count = listDao.restReviewCountProc(guide.getRestNum());
+			guide.setCount(count);
 		}
 		model.addAttribute("restList", guideList);
 		
+	}
+
+	public void popularListProc(Model model) {
+		ArrayList<ReviewCountDTO> countList = listDao.reviewCountProc();
+		for(ReviewCountDTO dto : countList) {
+			RestaurantDTO rest = infoDao.selectRestaurant(dto.getRestNum());
+			dto.setRestName(rest.getRestName());
+			dto.setRestIntro(rest.getRestIntro());
+			dto.setDong(rest.getDong());
+			dto.setAvgPoint(rest.getAvgPoint());
+			dto.setType(rest.getType());
+			dto.setRepresentImage(rest.getRepresentImage());
+		}
+		model.addAttribute("restList", countList);
 	}
 }

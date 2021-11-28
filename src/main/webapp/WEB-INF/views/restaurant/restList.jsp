@@ -25,13 +25,14 @@
     </style>
 </head>
 <body>	
+<c:url var="root" value="/" />
 <div class="album py-5 bg-light" style="margin-left:250px; width:1000px">
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 <c:forEach var="rest" items="${restList }"  step="1">
         <div class="col">
           <div class="card shadow-sm">
-          	<img src="resources/img/restaurant/${rest.representImage }" width="100%" height="200">
+          	<img src="${root }upload/restaurant/${rest.representImage }" width="100%" height="200">
             <!-- <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg> -->
 
             <div class="card-body">
@@ -51,7 +52,7 @@
 	                <c:if test="${rest.avgPoint != '0'  }">
 	                	<img  src="resources/img/icon/star.png" width="10px">
 	                </c:if>
-	                ${rest.avgPoint }
+	                ${rest.avgPoint }(${rest.count })
 	            </small>
               </div>
             </div>

@@ -54,7 +54,7 @@ window.onload=function() {
 	<header>
 	<div class="restMainImg_wrap">
 		<c:forEach var="image" items="${restImgList}">
-			<img src="resources/img/restaurant/${image.restImage }" width="200">
+			<img src="${root }upload/restaurant/${image.restImage }" width="200">
 		</c:forEach>
 	</div>
 	<br><br>
@@ -177,14 +177,14 @@ window.onload=function() {
 		
 		<c:if test="${rest.promotion != '파일 없음' }">
 		<h4>진행 중인 프로모션</h4>
-			<p><img src="resources/img/promotion/${rest.promotion }" width="200"></p>
+			<p><img src="${root }upload/promotion/${rest.promotion }" width="200"></p>
 			<br><hr align="left" width="700px"><br>
 		</c:if>
 		<h3>메뉴</h3>
 		<div>
 		<c:if test="${wholeMenuList != '파일 없음' }">
 			<c:forEach var="menu" items="${wholeMenuList}">
-				<img src="resources/img/wholeMenu/${menu.wholeMenu }" width="200">
+				<img src="${root }upload/wholeMenu/${menu.wholeMenu }" width="200">
 			</c:forEach>
 		</c:if>
 		</div>

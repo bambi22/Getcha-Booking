@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.restManagement.dto.MenuDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
+import com.hago.getcha.review.dto.ReviewCountDTO;
 
 @Repository
 public interface IRestListDAO {
@@ -23,4 +24,8 @@ public interface IRestListDAO {
 	public ArrayList<MenuDTO> selectPriceList(int start, int end);
 
 	public ArrayList<AdditionDTO> guideBookShowList(String guideBook);
+
+	public ArrayList<ReviewCountDTO> reviewCountProc();
+
+	public int restReviewCountProc(int restNum);
 }
