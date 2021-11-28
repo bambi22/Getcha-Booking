@@ -10,7 +10,7 @@
 <title>예약 현황</title>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="resources/css/reservation/bookingManagement.css">
+<link rel="stylesheet" href="resources/css/reservation/reservationManagement.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script>
@@ -29,7 +29,8 @@
 		alert(res);
 		$('#seatedTable').append("<td>"+res+"</td>");
 	}
-	
+
+
 </script>
 
 </head>
@@ -52,18 +53,18 @@
 			<tr>
 				<td><h3>Seated</h3></td>
 				<c:forEach var="j" begin="0" end="${fn:length(reserveList) }" step="1" >
+					<c:if test="${reserveList[j].status == '착석' }"> 
 			    	<td>				
-					<div class="dropdown">
-						<c:if test="${reserveList[j].status == '착석' }"> 
+						<div class="dropdown">
 					    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#3F80A1">
-					    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+					    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 					    	</button>
 					  		<div id="myDropdown${j }" class="dropdown-content">
 					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
 						  	</div>
-					 	</c:if> 
-					 </div>
+						 </div>
 				  	</td>
+				 	</c:if> 
 				</c:forEach>
 			</tr>
 		</table>
@@ -78,21 +79,35 @@
 						<td>
 							<div class="dropdown">
 								<c:if test="${reserveList[j].status == '예약확인' }"> 
-							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)">
-							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    	<button id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)">
+							    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
-							    		<a href="javascript:">회원 정보</a>
+							    		<button type="button" class="collapsible">회원 정보</button>  
+							    			<div class="content">
+											  <span>
+											  생년월일 : ${reserveList[j].birth }<br>
+											  성별 : ${reserveList[j].gender }<br>
+											  전화번호: <br> ${reserveList[j].mobile }
+											  </span>
+											</div>
 							    		<a href="reserveConfirmProc?resNum=${reserveList[j].resNum }&searchDate=${date}">예약 확인</a>
 								  	</div>
 							 	</c:if> 
 							  	
 								<c:if test="${reserveList[j].status == '확인완료'}">
 							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#404040">
-							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
-							    		<a href="javascript:">회원 정보</a>
+							    		<button type="button" class="collapsible">회원 정보</button>  
+							    			<div class="content">
+											  <span>
+											  생년월일 : ${reserveList[j].birth }<br>
+											  성별 : ${reserveList[j].gender }<br>
+											  전화번호: <br> ${reserveList[j].mobile }
+											  </span>
+											</div>
 							    		<a href="customerSeatedProc?resNum=${reserveList[j].resNum }&searchDate=${date}">착석</a>
 							    		<a href="reserveCancelProc?resNum=${reserveList[j].resNum }&searchDate=${date}">예약 취소</a>
 							    		<a href="noShowProc?resNum=${reserveList[j].resNum }&searchDate=${date}">노쇼</a>
@@ -100,12 +115,12 @@
 							  	</c:if>
 								<c:if test="${reserveList[j].status == '노쇼' }">
 							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#962D3E">
-							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 							    	</button>
 							  	</c:if>
 							  	<c:if test="${reserveList[j].status == '착석' }"> 
 							    	<button  id="dropbtn" class="myDropdown${j }" onclick="myFunction(this)" style="background-color:#3F80A1">
-							    		${reserveList[j].resNum }<br>${reserveList[j].email} ${reserveList[j].capacity}명
+							    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
 							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
@@ -128,10 +143,9 @@ function myFunction(drop) {
 	var down_class = drop.getAttribute('class');
   	document.getElementById(down_class).classList.toggle("show");
 }
-
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('#dropbtn')) {
+  if (!event.target.matches('#dropbtn') == !event.target.matches('.collapsible') ) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
@@ -141,6 +155,22 @@ window.onclick = function(event) {
       }
     }
   }
+}
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {    
+	this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
 }
 </script>
 

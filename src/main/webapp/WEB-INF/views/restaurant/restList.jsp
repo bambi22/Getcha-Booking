@@ -51,7 +51,7 @@
 	                <c:if test="${rest.avgPoint != '0'  }">
 	                	<img  src="resources/img/icon/star.png" width="10px">
 	                </c:if>
-	                ${rest.avgPoint }
+	                ${rest.avgPoint }(${rest.count })
 	            </small>
               </div>
             </div>

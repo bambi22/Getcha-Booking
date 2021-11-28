@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.hago.getcha.Member.dao.IMemberDAO;
+import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
 import com.hago.getcha.reservationManagement.dao.IReservationManagementDAO;
 
@@ -40,12 +41,16 @@ public class ReservationManagementServiceImpl implements IReservationManagementS
 			
 			LocalDate datetime2 = LocalDate.parse(reserve.getResDay(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 			reserve.setResDay(datetime2.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
-			
 			String[] hoursStr = reserve.getHours().split(":");
 			reserve.setHours(hoursStr[0]);
-//			MemberDTO member = memberDao.memberViewProc(reserve.getEmail());
-//			reserve.setNickname(member.getNickname());
-//			reserve.setMobile(member.getMobile());
+			MemberDTO member = memberDao.memberViewProc(reserve.getEmail());
+			reserve.setNickname(member.getNickname());
+			reserve.setMobile(member.getMobile());
+			reserve.setBirth(member.getBirth());
+			if(member.getGender().equals("w"))
+				reserve.setGender("여성");
+			else if(member.getGender().equals("m"))
+				reserve.setGender("남성");
 		}
 
 		model.addAttribute("reserveList", reserveList);

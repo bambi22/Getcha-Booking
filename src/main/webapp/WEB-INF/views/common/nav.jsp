@@ -141,7 +141,7 @@
 	         <button class="dropdown-btn" onclick="location.href='guideBookShowListProc'">2021 가이드북 선정</button>
 	      </li>
 	      <li>
-	        <button class="dropdown-btn">리뷰수순 리스트</button>
+	        <button class="dropdown-btn" onclick="location.href='popularListProc'">인기순 리스트</button>
       	</li>
 	      <li>
 	       <button class="dropdown-btn">연말 추천 리스트</button>

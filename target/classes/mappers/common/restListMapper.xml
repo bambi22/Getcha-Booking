@@ -59,5 +59,13 @@
 	<select id="guideBookShowList" resultMap="guide" parameterType="String">
 		select * from additionInfo where guidebook=#{guideBook}
 	</select>
+
+	<resultMap type="com.hago.getcha.review.dto.ReviewCountDTO" id="count">
+		<result property="restNum" column="restNum"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	<select id="reviewCountProc" resultMap="count" >
+		select restnum, count(restnum) as count from rest_review group by restnum order by count(restnum) desc
+	</select>
 	
 </mapper>

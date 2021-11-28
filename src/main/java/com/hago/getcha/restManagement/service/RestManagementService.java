@@ -32,6 +32,7 @@ public class RestManagementService implements IRestManagementService {
 	@Autowired IRestInfoDAO infoDao;
 	@Autowired IRestModifyDAO modifyDao;
 	@Autowired IRestRegisterDAO registerDao;
+	@Autowired RestRegisterService registerService;
 
 	@Override
 	public void restInfo(Model model) {
@@ -62,22 +63,7 @@ public class RestManagementService implements IRestManagementService {
 		model.addAttribute("wholeMenuList", wholeMenuList);
 	}
 
-	
-	// 파일 저장 메소드	
-	public String saveFile(int restNum, MultipartFile file, String location) {
-		Calendar cal = Calendar.getInstance(); 	
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String fileName = restNum+ "-"+sdf.format(cal.getTime()) + "-" + file.getOriginalFilename();
-		File save = new File(location + "\\" + fileName);	//경로 지정 + 저장할 파일명 넣어줌
-		try {
-			file.transferTo(save);				// 그 위치에 저장해줌
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 	
-		return fileName;
-	}
-	
-	
+		
 	// 파일 삭제 메소드
 	public void deleteFile(String location, String fileName) {
 		File oldFile= new File(location + "\\" + fileName);
@@ -117,7 +103,8 @@ public class RestManagementService implements IRestManagementService {
 				RestImageDTO imgDto = new RestImageDTO();
 				imgDto.setRestNum(restNum);
 				if(f.getSize() != 0) {
-					String fileName = saveFile(restNum, f, FILE_LOCATION_RESTAURANT);
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_RESTAURANT);
+					String fileName = registerService.saveFile(restNum, f, realPath);
 					imgDto.setRestImage(fileName);   	
 				}
 				registerDao.addRestImage(imgDto);
@@ -180,7 +167,8 @@ public class RestManagementService implements IRestManagementService {
 
 		MultipartFile file = req.getFile("promotion");
 		if(file.getSize() != 0) {	
-			String fileName = saveFile(restNum, file, FILE_LOCATION_PROMOTION);
+			String realPath = req.getServletContext().getRealPath(FILE_LOCATION_PROMOTION);
+			String fileName = registerService.saveFile(restNum, file, realPath);
 			restDto.setPromotion(fileName);   
 		}else {
 			restDto.setPromotion("파일 없음");
@@ -220,7 +208,8 @@ public class RestManagementService implements IRestManagementService {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
 				menuDto.setRestNum(restNum);
 				if(f.getSize() != 0) {
-					String fileName = saveFile(restNum, f, FILE_LOCATION_WHOLEMENU);
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
+					String fileName = registerService.saveFile(restNum, f, realPath);
 					menuDto.setWholeMenu(fileName);   	
 				}else {
 					menuDto.setWholeMenu("파일 없음");
@@ -252,7 +241,8 @@ public class RestManagementService implements IRestManagementService {
 			menuDto.setMenuDescript(menuDescriptStr[i]);
 			menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
 		    if(!menuFiles.get(i).isEmpty()) { 
-			    String fileName = saveFile(restNum, menuFiles.get(i), FILE_LOCATION_MENU);
+				String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
+			    String fileName = registerService.saveFile(restNum, menuFiles.get(i), realPath);
 			    menuDto.setMenuImage(fileName); 
 		    }else { 
 			    menuDto.setMenuImage("파일 없음"); 
