@@ -26,4 +26,6 @@ public interface IRestListDAO {
 	public ArrayList<AdditionDTO> guideBookShowList(String guideBook);
 
 	public ArrayList<ReviewCountDTO> reviewCountProc();
+
+	public int restReviewCountProc(int restNum);
 }

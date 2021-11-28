@@ -36,7 +36,7 @@
 
 /* Main content */
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 250px; /* Same as the width of the sidenav */
   padding: 0px 10px;
 }
 
@@ -97,7 +97,7 @@
 	    </a>
 	    <hr>
 	    <section id="search_container">
-			<form id="f" method="get">	
+			<form id="f" action="searchProc" method="get">	
    				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력" style="width:210px"/>
 			</form>
 		</section>

@@ -118,6 +118,11 @@ public class CommonService {
 				restList= listDao.restLocationList(type);						
 			}
 		}
+		for(RestaurantDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
+		
 		model.addAttribute("restList", restList);
 		
 	}
@@ -140,7 +145,12 @@ public class CommonService {
 		if(arrange.equals("upper10")) {
 			restList = listDao.selectPriceList(100000, 100000);
 			inputCommonInfo(restList);
-		}		
+		}	
+		
+		for(RestaurantDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
 		model.addAttribute("restList", restList);
 		
 	}
@@ -161,6 +171,10 @@ public class CommonService {
 		String keyword = req.getParameter("keyword");
 		if(keyword == null) return;
 		ArrayList<RestSumDTO> restList = infoDao.searchProc(keyword);
+		for(RestSumDTO rest : restList) {
+			int count = listDao.restReviewCountProc(rest.getRestNum());
+			rest.setCount(count);
+		}
 		model.addAttribute("restList", restList);
 	}
 
@@ -176,6 +190,8 @@ public class CommonService {
 			guide.setAvgPoint(rest.getAvgPoint());
 			guide.setType(rest.getType());
 			guide.setRepresentImage(rest.getRepresentImage());
+			int count = listDao.restReviewCountProc(guide.getRestNum());
+			guide.setCount(count);
 		}
 		model.addAttribute("restList", guideList);
 		

@@ -67,5 +67,8 @@
 	<select id="reviewCountProc" resultMap="count" >
 		select restnum, count(restnum) as count from rest_review group by restnum order by count(restnum) desc
 	</select>
+	<select id="restReviewCountProc" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		select count(restnum) as count from rest_review where restnum=#{restNum}
+	</select>
 	
 </mapper>
