@@ -31,35 +31,28 @@ public class MemberController {
 	
 	
 
-	@RequestMapping(value="login", method=RequestMethod.POST)
-	public String loginPOST(HttpServletRequest request, MemberDTO member, RedirectAttributes rttr) throws Exception{
-		
-		HttpSession session = request.getSession();
+	@RequestMapping(value="loginProc", method=RequestMethod.POST)
+	public String loginProc(Model model, MemberDTO member){
+
 		String rawPw = "";
 		String encodePw = "";
-	
 		MemberDTO lvo = service.memberLogin(member);	
-		
 		if(lvo != null) {			
-			
 			rawPw = member.getPw();		
 			encodePw = lvo.getPw();		
 			
-			if(true == pwEncoder.matches(rawPw, encodePw)) {		
-				
-				lvo.setPw("");				
-				session.setAttribute("member", lvo); 			
-				
+			if(true == pwEncoder.matches(rawPw, encodePw) || rawPw.equals(encodePw)) {		
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 	
+				model.addAttribute("result", "로그인 성공");
 				return "forward:index?formpath=main";					
 			} else {
-				rttr.addFlashAttribute("result", 0);			
-				return "forward:/login";					
+				model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+				return "forward:index?formpath=login";					
 			}			
-		} else {			
-			rttr.addFlashAttribute("result", 0);			
-			return "redirect:/login";
+		} else {				
+			model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+			return "forward:index?formpath=login";
 		}
 	}
 	
@@ -80,30 +73,43 @@ public class MemberController {
 	}
 	@RequestMapping(value = "memberProc")
 	public String memberProc(MemberDTO member, Model model) {
-		String msg = service.memberProc(member);
-		model.addAttribute("msg", msg);
-		return "forward:/index?formpath=member";
+		int result = service.memberProc(member);
+		
+		if(result == 0) {
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			//model.addAttribute("url","/memberModi");
+			return "forward:index?formpath=member";
+		}else if(result == 1) {
+			session.invalidate();
+			model.addAttribute("msg", "중복 아이디입니다.");
+			//model.addAttribute("url","/main");
+			return "forward:index?formpath=member";
+		}else {
+			model.addAttribute("msg", "가입완료");
+			//model.addAttribute("url","/memberModi");
+			return "forward:index?formpath=/main";
+		}
 	}
-	@RequestMapping(value = "/memberView")
+	@RequestMapping(value = "memberViewProc")
 	public String memberViewProc(String email, Model model) {
-		//email = "test1@test.com";
-		//session.setAttribute("email", email);
+		email = (String) session.getAttribute("email");
 		String sessionEmail = (String)session.getAttribute("email");
 		if(email==""||email==null||sessionEmail==""||sessionEmail==null) {
 			return "forward:index?formpath=login";
 		}
 		if(sessionEmail.equals(email)) {
 			service.memberViewProc(email,model);
-			return "member/memberView";
+			return "forward:index?formpath=memberView";
 		}
 		return "forward:index?formpath=main";
 	}
 	
-	@RequestMapping(value="/memberModi", method = {RequestMethod.POST, RequestMethod.GET})
-	public String memberModi(String email, Model model) {
-		session.setAttribute("email", email);
+	@RequestMapping(value="memberModiView", method = {RequestMethod.POST, RequestMethod.GET})
+	public String memberModiView(String email, Model model) {
+		email = (String)session.getAttribute("email");
+		logger.warn("email:"+email);
 		service.memberViewProc(email,model);
-		return "member/memberModi";
+		return "forward:index?formpath=memberModi";
 	}
 	
 	final static Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -138,15 +144,16 @@ public class MemberController {
 		member.setEmail(email);
 		int result = service.memberDeleteProc(member);
 		if(result == 0) {
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			model.addAttribute("msg", "입력한 두 비밀번호가 일치하지 않습니다.");
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=deleteForm";
 		}else if(result == 1) {
 			model.addAttribute("msg","삭제되었습니다.");
+			session.invalidate();
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=main";
 		}else {
-			model.addAttribute("msg", "삭제 실패하였습니다.");
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
 			//model.addAttribute("url","/");
 			return "forward:index?formpath=deleteForm";
 		}

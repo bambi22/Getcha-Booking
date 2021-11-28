@@ -57,7 +57,7 @@
 					<div class="image_wrap">
 						<c:forTokens var="fileName" items="${list.fileNames }" delims=",">
 						<div class="review_image">
-							<img src="${root }upload/${fileName }" style="height:100%; width:100%; ">
+							<img src="${root }upload/${fileName }" style="height:100%; width:100%; "> 
 						</div>
 						</c:forTokens>
 					</div>

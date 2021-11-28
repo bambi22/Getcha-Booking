@@ -1,22 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
-
-<c:if test="${empty sessionScope.adminId }">
-	<script>
-		alert('최고 관리자 로그인이 필요합니다.');
-		location.href='adminLogin';
-	</script>
-</c:if> 
-
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
+	<c:if test="${empty sessionScope.adminId }">
+		<script>
+			alert('최고 관리자 로그인이 필요합니다.');
+			location.href='adminLogin';
+		</script>
+	</c:if> 
 </head>
 
 
 <center>
+<c:url var="root" value="/" />
 <c:if test="${!empty sessionScope.msg }">
 	<script>alert("${sessionScope.msg}");</script>
 </c:if>
@@ -32,7 +30,9 @@
 	<c:forEach var="rest" items="${restList }" begin="${page.start}" end="${page.end}" step="1">
 		<tr onclick="#" id='infoRow'>
 			<td style="width: 160px; height:110px;" align="center">
-				<img src="resources/img/restaurant/${rest.representImage }" style="width:150; height:100;">
+				<c:if test="${rest.representImage != null }">
+ 					<img src="${root }upload/restaurant/${rest.representImage }" style="width:150; height:100;">
+				</c:if>
 			</td>
 			<td style="width: 100px; height:40px;" align="center">
 				${rest.restNum }

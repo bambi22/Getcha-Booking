@@ -25,6 +25,7 @@
 <style>
 .item{height: 270px;}
 #sidebar{left:-250px;}
+
 </style>
 <script>
 $('#sidebar').find('span').text('OPEN');
@@ -50,13 +51,14 @@ $('#sidebar').find('span').text('OPEN');
 			    		</p>
 		        </div>
 		        <div class="reg">
-		        	      	<c:if test = "${sessionScope.email == null }">
+		        	      <c:if test = "${sessionScope.email == null }">
                  <p class="mb-0"><a href="${root}index?formpath=login" class="mr-2">로그인</a> 
                  <a href="${root}index?formpath=member">회원가입</a></p>
                   </c:if>  
                     <c:if test="${ sessionScope.email != null }">
-                    <p class="mb-0"><a class="mr-2" >회원 : ${sessionScope.email}님</a>
-                    <a href="logout">로그아웃</a></p>
+                   <%--  <p class="mb-0"><a class="mr-2" >회원 : ${sessionScope.email}님</a> --%>
+               		<img src="resources/img/icon/profileIcon.png" style="width:40px">
+                    <span ><a href="logout" style="color:white">로그아웃</a></span>
                     </c:if>
 		        </div>
 					</div>
@@ -65,7 +67,7 @@ $('#sidebar').find('span').text('OPEN');
 		</div>
     
 	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
+	    <div class="container" style="z-index:6">
 	      <a class="navbar-brand" href="">GETCHA</a>
 	      
 
@@ -78,9 +80,10 @@ $('#sidebar').find('span').text('OPEN');
 	          
 	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">이동</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="resources/img/icon/profileIcon.png" style="width:40px"></a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="#">이동1</a>
+              	<a class="dropdown-item" href="${root}memberViewProc">회원정보</a>
                 <a class="dropdown-item" href="#">이동2</a>
                 <a class="dropdown-item" href="#">이동3</a>
                 <a class="dropdown-item" href="#">이동4</a>
@@ -110,7 +113,6 @@ $('#sidebar').find('span').text('OPEN');
         </div>
       </div>
     </div>
-<!-- 
     <section class="ftco-intro">
     	<div class="container">
     		<div class="row no-gutters">
@@ -617,7 +619,6 @@ $('#sidebar').find('span').text('OPEN');
       </div>
       
     </footer>
-  -->  
   
 
   <!-- loader -->

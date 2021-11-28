@@ -1,10 +1,12 @@
 package com.hago.getcha.admin.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.ui.Model;
 
 import com.hago.getcha.admin.dto.ManagerDTO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 
 public interface IAdminManagementService {
 	
@@ -22,5 +24,5 @@ public interface IAdminManagementService {
 	
 	public void guideBookListProc(Model model);
 	
-	public HashMap<String, String> findRestaurant(HashMap<String, String> map);
+	// public HashMap<String, String> findRestaurant(HashMap<String, String> map);
 }

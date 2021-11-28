@@ -43,7 +43,7 @@
 		</set>
 		WHERE email=#{email}
 	</update>
-	<select id="memberLogin" resultType="com.hago.getcha.Member.dto.MemberDTO">
-			SELECT email,pw,nickname FROM getchamember WHERE email = #{email}	
+	<select id="memberLogin" resultMap="member" parameterType="com.hago.getcha.Member.dto.MemberDTO">
+			SELECT * FROM getchamember WHERE email = #{email}	
 	</select>
 </mapper>

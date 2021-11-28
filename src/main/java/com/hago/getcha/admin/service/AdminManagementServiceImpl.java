@@ -1,10 +1,13 @@
 package com.hago.getcha.admin.service;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import com.hago.getcha.admin.dto.AdditionDTO;
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.config.PageCon;
 import com.hago.getcha.restManagement.dao.IRestInfoDAO;
+import com.hago.getcha.restManagement.dto.RestSumDTO;
 import com.hago.getcha.restManagement.dto.RestaurantDTO;
 
 @Service
@@ -98,21 +102,7 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		
 	}
 	
-	@Override
-	public HashMap<String, String> findRestaurant(HashMap<String, String> map) {
-		RestaurantDTO restDto = infoDao.selectRestaurant(Integer.parseInt(map.get("keyword")));
-		if(restDto != null) {
-			map.put("resultNum", Integer.toString(restDto.getRestNum()));
-			map.put("resultName", restDto.getRestName());
-			map.put("resultType", restDto.getType());
-			map.put("resultDong", restDto.getDong());
-			map.put("resultAddr", restDto.getAddress());
-			return map;
-		}else {
-			map.put("resultNum", "none");
-			return map;
-		}
-	}
+
 	
 
 	public int managerRegisterProc(Model model, ManagerDTO managerDto, String pwOk, String[] phoneStr1, String[] phoneStr2) {
@@ -168,23 +158,31 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 		
 	}
 
-	public String addGuideBookProc(int restNum) {
-		AdditionDTO addition = adminDao.selectRestNum(restNum);
+	public String addGuideBookProc(String[] add) {
 		LocalDate now = LocalDate.now();
 		String guideBook = Integer.toString(now.getYear());
-		if(addition != null) {
-			if(addition.getGuideBook()==null) {
-				
-				adminDao.updateGuide(restNum, guideBook);
-				return "추가되었습니다.";
-			}else {
-				return "이미 추가된 식당입니다.";
+		for(String restStr : add){
+			int restNum = Integer.parseInt(restStr); 
+			AdditionDTO addition = adminDao.selectRestNum(restNum, guideBook);
+			if(addition == null) {
+				adminDao.updateGuide(restNum, guideBook);				
 			}
-		}else {
-			adminDao.addGuide(restNum, guideBook);
-			return "추가되었습니다.";
 		}
+		return "추가되었습니다.";
 		
+	}
+
+	public HashMap<String, Object> findRestaurant(HashMap<String, Object> map) {
+		String key = (String)map.get("key");
+		ArrayList<RestSumDTO> restList = infoDao.searchProc(key);
+		if(restList.isEmpty()) {
+			String resultMsg = "검색 결과가 없습니다.";
+			map.put("resultMsg", resultMsg);
+			return map;
+		}else {
+			map.put("restList", restList);	
+			return map;
+		}
 	}
 
 	

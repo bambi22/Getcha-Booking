@@ -6,7 +6,7 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 
 
-public class MemberServiceImpl implements LoginService{
+public class LoginServiceImpl implements ILoginService{
 	@Autowired
 	IMemberDAO membermapper;
 	
