@@ -24,6 +24,24 @@
 });
 </script>
 <html>
+<style>
+#register-reset{
+color:#FCF3E4;
+}
+#register-submit{
+color:#FCF3E4;
+}
+.form-control btn btn-reset{
+background-color:#B0978D;
+width:274px;
+
+
+}
+.form-control btn btn-register{
+width:280px;
+height:65px;
+}
+</style>
 <script>
 	function sendAuthNum(){
 		var e = document.getElementById("email").value;
@@ -127,15 +145,8 @@
 					<input type=radio name='gender' value='w' />여자
 					<input type=radio name='gender' value='m' />남자
                    </div>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입">
-                          <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소">
-                      </div>
-                    </div>
-                  </div>
-              </form>
+                  
+              
                
              
             </div>
@@ -144,10 +155,10 @@
         <div class="panel-heading">
           <div class="row"with  >
             <div class="col-xs-6 tabs">
-              <a href="${root}index?formpath=login" class="active" id="login-form-link"><div class="login">로그인</div></a>
+              <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소">
             </div>
             <div class="col-xs-6 tabs">
-              <a id="register-form-link"><div class="register">회원가입</div></a>
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입">
            
             </div>
           </div>
@@ -156,6 +167,7 @@
     </div>
   </div>
 </div>
+
 <footer>
     <div class="container">
         <div class="col-md-10 col-md-offset-1 text-center">

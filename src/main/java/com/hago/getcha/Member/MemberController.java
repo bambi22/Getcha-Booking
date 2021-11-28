@@ -45,7 +45,7 @@ public class MemberController {
 			rawPw = member.getPw();		
 			encodePw = lvo.getPw();		
 			
-			if(true == pwEncoder.matches(rawPw, encodePw)) {		
+			if(true == pwEncoder.matches(rawPw, encodePw) || rawPw.equals(encodePw)) {		
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 	
 				model.addAttribute("result", "로그인 성공");

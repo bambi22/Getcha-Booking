@@ -14,6 +14,7 @@
 
 
 <center>
+<c:url var="root" value="/" />
 <c:if test="${!empty sessionScope.msg }">
 	<script>alert("${sessionScope.msg}");</script>
 </c:if>
@@ -29,7 +30,9 @@
 	<c:forEach var="rest" items="${restList }" begin="${page.start}" end="${page.end}" step="1">
 		<tr onclick="#" id='infoRow'>
 			<td style="width: 160px; height:110px;" align="center">
-				<img src="resources/img/restaurant/${rest.representImage }" style="width:150; height:100;">
+				<c:if test="${rest.representImage != null }">
+ 					<img src="${root }upload/restaurant/${rest.representImage }" style="width:150; height:100;">
+				</c:if>
 			</td>
 			<td style="width: 100px; height:40px;" align="center">
 				${rest.restNum }

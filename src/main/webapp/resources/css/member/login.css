@@ -131,7 +131,7 @@ label {
   padding: 0 30px;
 }
 .panel-login>.panel-heading .login {
-  padding: 20px 30px;
+  padding: 19px;
   border-bottom-leftt-radius: 5px;
 }
 .panel-login>.panel-heading .register {
@@ -141,7 +141,7 @@ label {
 }
 .panel-login>.panel-heading a{
   text-decoration: none;
-  color: #666;
+  color: #FCF3E4;
   font-weight: 300;
   font-size: 16px;
   -webkit-transition: all 0.1s linear;

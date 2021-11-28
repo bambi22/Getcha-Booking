@@ -14,7 +14,7 @@ public class ReservationManagementController {
 	@RequestMapping(value="selectRestReservationProc")
 	public String selectRestReservationProc(Model model, String searchDate) {
 		reserveService.selectRestReservation(model, searchDate);
-		return "forward:restIndex?formpath=bookingManagement";
+		return "forward:restIndex?formpath=reservationManagement";
 	}
 	
 	@RequestMapping(value="reserveConfirmProc")

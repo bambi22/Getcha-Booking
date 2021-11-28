@@ -24,5 +24,5 @@ public interface IAdminManagementService {
 	
 	public void guideBookListProc(Model model);
 	
-	public HashMap<String, String> findRestaurant(HashMap<String, String> map);
+	// public HashMap<String, String> findRestaurant(HashMap<String, String> map);
 }

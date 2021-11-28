@@ -130,9 +130,9 @@ public class HomeController {
 		return "admin/managerRegisterForm";
 	}
 	
-	@RequestMapping("/bookingManagement")
-	public String bookingManagement() {
-		return "restManagement/bookingManagement";
+	@RequestMapping("/reservationManagement")
+	public String reservationManagement() {
+		return "reservation/reservationManagement";
 	}
 	
 	@RequestMapping("/guideBookList")
