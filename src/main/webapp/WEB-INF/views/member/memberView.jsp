@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+.container{
+height:720px;}
+</style>
 <c:if test="${empty sessionScope.email }">
 	<script type="text/javascript">
 		alert('로그인 후 이용해주세요.')
@@ -27,43 +31,66 @@
 	//})
 </script>
 <center>
-<form id="f" method="get">
-	<input type="hidden" id="email" name="email">
-	<table>
-		<tr>
-			<td colspan=2 >
-			<h2>회원정보</h2>
-		</tr>
-		<tr>
-			<td style="width:100px; height:40px;"><b>닉네임</b></td>
-			<td style="width:250px; height:40px;"><b>${memberView.nickname}</b></td>
-		</tr>
-		<tr>
-			<td style="width:100px; height:40px;"><b>이메일</b></td>
-			<td style="width:250px; height:40px;"><b>${memberView.email}</b></td>
-		</tr>
-		<tr>
-			<td style="width:100px; height:40px;"><b>휴대폰 번호</b></td>
-			<td style="width:250px; height:40px;"><b>${memberView.mobile}</b></td>
-		</tr>
-		<tr>
-			<td style="width:100px; height:40px;"><b>생일</b></td>
-			<td style="width:250px; height:40px;"><b>${memberView.birth}</b></td>
-		</tr>
-		<tr>
-			<td style="width:100px; height:40px;"><b>성별</b></td>
-			<c:choose>
-				<c:when test="${memberView.gender == 'm' }">
-					<td style="width:100px; height:40px;" align="left" valign="bottom">남</td>
-				</c:when>
-				<c:when test="${memberView.gender == 'w' }">
-					<td style="width:100px; height:40px;" align="left" valign="bottom">여</td>
-				</c:when>
-				<c:otherwise>
-					<td style="width:100px; height:40px;" align="left" valign="bottom">선택안함</td>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<body>
+<div class="container">
+
+   <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-login">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+           
+              <form id="f"  method="get" role="form" >
+                <h2>회원정보</h2>
+                  <div class="form-group">
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" disabled  value="이메일:${memberView.email}">
+                   
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" disabled  value="닉네임:${memberView.nickname}">
+                   
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="nickname" id="nickname" tabindex="1" class="form-control"  disabled   value="휴대폰 번호:${memberView.mobile}">
+                  
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="pw" id="pw" tabindex="2" class="form-control" disabled  value="생일:${memberView.birth}">
+                   
+                  </div>           
+                   
+                    <div class="form-group">
+             
+<c:choose>
+	<c:when test="${memberView.gender == 'm' }">  
+ <input type="text" tabindex="2" class="form-control" disabled  value="성별:남자">
+</c:when>      
+<c:when test="${memberView.gender == 'w' }">
+ <input type="text" tabindex="2" class="form-control" disabled  value="성별:여자">
+	</c:when>
+<c:otherwise>
+                   <input type="text" tabindex="2" class="form-control" disabled  value="성별:선택안함">
 				</c:otherwise>
-			</c:choose>
-		</tr>
+			</c:choose>	
+					
+                   </div>
+                  
+              
+               
+             
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 		<tr>
 			<td colspan=2 align="right">
 				<input type="button" style="width:60px;" value="수정" onclick="location.href='${root}memberModiView'"/>
