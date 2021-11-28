@@ -84,9 +84,9 @@ $('#sidebar').find('span').text('OPEN');
               <img src="resources/img/icon/profileIcon.png" style="width:40px"></a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a class="dropdown-item" href="${root}memberViewProc">회원정보</a>
-                <a class="dropdown-item" href="#">이동2</a>
-                <a class="dropdown-item" href="#">이동3</a>
-                <a class="dropdown-item" href="#">이동4</a>
+                <a class="dropdown-item" href="${root }reservationViewProc">예약 보기</a>
+                <a class="dropdown-item" href="${root }reviewProc">내 리뷰</a>
+                <a class="dropdown-item" href="${root }myCollectProc">관심 식당</a>
               </div>
             </li>
 	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>

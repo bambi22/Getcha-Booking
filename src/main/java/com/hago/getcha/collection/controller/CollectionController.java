@@ -45,7 +45,6 @@ public class CollectionController {
 	@RequestMapping(value = "delCollect")
 	public Map<String, String> delCollect(@RequestBody Map<String,String> map) {
 		String restNo = map.get("restNum");
-		logger.warn("취소할 식당 번호: " + restNo);
 		int result = service.delCollect(restNo);
 		if(result == 1)
 			map.put("result", "success");

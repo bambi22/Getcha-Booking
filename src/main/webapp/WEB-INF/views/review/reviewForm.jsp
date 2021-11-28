@@ -2,38 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="<c:url value="/resources/css/review/review.css" />" rel="stylesheet" />
+<script src="resources/js/myPage/reviewList.js"></script>
 <c:url var="root" value="/" />
 <c:if test="${empty sessionScope.email }">
 	 <script>location.href='index?formpath=login';</script>
 </c:if>
-<title>My Review</title>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.delBtn').on('click',function(){
-			var answer = confirm("정말 삭제하겠습니까?");
-			if(answer){
-			var n = $(this).attr('id');
-			var f = $(this).attr('data-fileName');
-			$.ajax({	
-		 	   url : "deleteProc", type: "POST",
-		 	   data : "reviewNum="+n + "&fileNames="+f,
-		 	   //{'reviewNum' : n}
-		 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		 	   success : function(data) {
-				if(data.result == "success"){
-					location.reload();
-					}else{
-						alert("삭제 실패했습니다. 관리자에게 문의바랍니다.");
-						}
-				},
-		 	   error: function(e){
-		 		   alert("error: " + e);
-		 	   }
-			});
-			}
-		});
-	});
-</script>
+<title>Getcha Table</title>
 <body>
 <section>
 	<div align="center"><h2>나의 후기</h2></div>
@@ -47,7 +21,7 @@
 		<input type="hidden" name="content" value="${list.content }" />
 		<input type="hidden" id="fileNames" name="fileNames" value="${list.fileNames }" />
 			<div class="Review_Row">
-				<div class="title"><a href="restViewProc?restNum=${list.restNum }">${list.restName }</a>
+				<div class="title"><a href="restViewProc?restNum=${list.restNum }"><label>${list.restName }</label></a>
 					<c:forEach begin="1" end="${list.point }" step="1">
 						<img src="resources/img/icon/star.png">
 					</c:forEach>
@@ -73,6 +47,5 @@
 		</form>
 	</c:forEach>
 	</div>
-		<a href="reviewProc">조회</a>
 </section>
 </body>

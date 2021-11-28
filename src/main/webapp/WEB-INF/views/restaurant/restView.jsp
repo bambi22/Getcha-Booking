@@ -9,69 +9,45 @@
 <title>식당 정보 보기</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
+<script src="resources/js/restaurant/restView.js"></script>
 <script>
-	window.onload=function() {
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
+window.onload=function() {
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
-		// 지도를 생성합니다    
-		var map = new kakao.maps.Map(mapContainer, mapOption);
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		var addr = document.getElementById('addr').innerHTML;
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch(addr, function(result, status) {
-		    // 정상적으로 검색이 완료됐으면 
-		     if (status === kakao.maps.services.Status.OK) {
-		        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	var addr = document.getElementById('addr').innerHTML;
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-		        // 결과값으로 받은 위치를 마커로 표시합니다
-		        var marker = new kakao.maps.Marker({
-		            map: map,
-		            position: coords
-		        });
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
 
-		        // 인포윈도우로 장소에 대한 설명을 표시합니다
-		        var infowindow = new kakao.maps.InfoWindow({
-		            content: '<div style="width:150px;text-align:center;padding:6px 0;">${rest.restName}</div>'
-		        });
-		        infowindow.open(map, marker);
-		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		        map.setCenter(coords);
-		    } 
-		});  
-		
-		$('#collect_btn').on('click',function(){
-			var target = $(this);
-			var num = $(this).attr('data-num');
-			$.ajax({	
-		 	   url : "collectProc", type: "POST",
-		 	   data : "reviewNum="+num,
-		 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
-		 	   success : function(data) {
-				if(data.result == "success"){
-					$(target).children().attr('src', "resources/img/icon/full_ht.png");
-					$(target).children().attr('alt', "저장된 상태");
-					}else{
-						alert("저장한 식당입니다.");
-						}
-				},
-		 	   error: function(e){
-		 		   alert("error: " + e);
-		 	   }
-			});
-		});
-		
-		$(".pageNav").on('click', function(e){
-			var location = document.querySelector("#review").offsetTop;
-			window.scrollTo({top:location, behavior:'auto'});
-		});
-		
-	}
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">${rest.restName}</div>'
+	        });
+	        
+	        infowindow.open(map, marker);
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	}); 
+}
 </script>
 </head>
 <body>
@@ -84,6 +60,7 @@
 	<br><br>
 		<div class="restTitle">
 			<h2 id="restName">${rest.restName }</h2>
+			<button id="share_btn"><img src="resources/img/icon/ic_share.png" width="30"></button>
 			<c:if test="${not empty sessionScope.email}">
 	            <button id="collect_btn" data-num="${restNum }">
 		            <c:if test="${collection == 0}">
@@ -98,11 +75,11 @@
 			 <div class="status_branch">
                 <span class="cntReview"><img src="resources/img/icon/ic_review.png"> ${cntReview }</span>
                 <span class="cntCollection"><img src="resources/img/icon/full_ht.png"> ${cntCollection }</span>
-	        </div> 
-			<p>${rest.restIntro }</p>
-			<span>${rest.type }·${rest.dong }</span>
-			<br>
-			<img src="resources/img/icon/star.png" width="20"><label>&nbsp${rest.avgPoint }</label>
+				<p>${rest.restIntro }</p>
+				<span>${rest.type }·${rest.dong }</span>
+				<br>
+				<img src="resources/img/icon/star.png" width="20" /><label>${rest.avgPoint }</label>
+			</div> 
 		<br>
 		<hr align="left" width="700px">
 		<br>
@@ -224,7 +201,7 @@
 		</table>
 		<br>
 		
-		<h3 id="review">후기</h3>
+		<h3>후기</h3>
 		<table id="reviewList">
 		<c:choose>
 			<c:when test="${fn:length(reviewList) != 0 }">
@@ -249,15 +226,11 @@
 			<tr>
 				<td>
 				<c:if test="${rew.fileNames != '파일없음' }">
-				<ul>
 					<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
-					<li>
 						<div class="review_image">
 							<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
 						</div>
-					</li>
 					</c:forTokens>
-				</ul>
 				</c:if>
 				</td>
 			</tr>
@@ -268,7 +241,7 @@
 				</c:choose>
 			</c:forEach>
 			<tr>
-				<td colspan="2"><p align="center">${page }</p></td>
+				<td colspan="2" align="center"><nav class="pageNav">${page }</nav></td>
 			</tr>
 			</c:when>
 			<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
