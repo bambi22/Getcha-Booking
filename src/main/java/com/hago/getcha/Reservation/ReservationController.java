@@ -46,6 +46,7 @@ public class ReservationController {
 	@ResponseBody
 	public Map<String, Object> SearchDay(@RequestBody Map<String, String>map) throws Exception{
 		logger.warn("controller");
+		int restNum = 15;
 		session.setAttribute("restNum", restNum);
 		String date = (String)map.get("resDay");
 		List<Map<String, String>> dataList = service.checkAjax(date, restNum);

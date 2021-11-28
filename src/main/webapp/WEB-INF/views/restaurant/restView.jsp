@@ -65,6 +65,12 @@
 		 	   }
 			});
 		});
+		
+		$(".pageNav").on('click', function(e){
+			var location = document.querySelector("#review").offsetTop;
+			window.scrollTo({top:location, behavior:'auto'});
+		});
+		
 	}
 </script>
 </head>
@@ -96,7 +102,7 @@
 			<p>${rest.restIntro }</p>
 			<span>${rest.type }·${rest.dong }</span>
 			<br>
-			<img src="resources/img/icon/star.png" width="20"><label> ${rest.avgPoint }</label>
+			<img src="resources/img/icon/star.png" width="20"><label>&nbsp${rest.avgPoint }</label>
 		<br>
 		<hr align="left" width="700px">
 		<br>
@@ -218,14 +224,19 @@
 		</table>
 		<br>
 		
-		<h3>후기</h3>
+		<h3 id="review">후기</h3>
 		<table id="reviewList">
 		<c:choose>
 			<c:when test="${fn:length(reviewList) != 0 }">
 			<caption class="cap">최신순</caption>
 			<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
 			<tr>
-				<td rowspan="3" class="profile_space"><img class="profile_img" src="#" />${rew.nickName}</td>
+				<td rowspan="3">
+					<div class="profile_wrap" style="text-align:center">
+						<img class="profile_img" src="resources/img/icon/profileIcon.png" style="width:50px;">
+						<p>${rew.nickName}</p>
+					</div>
+				</td>
 				<td>
 				<c:forEach begin="1" end="${rew.point }" step="1">
 					<img src="resources/img/icon/star.png" style="width:18px;">
@@ -233,7 +244,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><pre>${rew.content }</pre></td>
+				<td colspan="2"><pre>${rew.content }</pre></td>
 			</tr>
 			<tr>
 				<td>
@@ -252,7 +263,7 @@
 			</tr>
 			<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
 				<c:choose>
-					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="700px"></td></tr></c:when>
+					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="800px"></td></tr></c:when>
 					<c:otherwise><tr><td></td></tr></c:otherwise>
 				</c:choose>
 			</c:forEach>

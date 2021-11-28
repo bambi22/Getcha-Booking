@@ -97,7 +97,7 @@
 	    </a>
 	    <hr>
 	    <section id="search_container">
-			<form id="f" method="get">	
+			<form action="searchProc" method="get" >	
    				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력" style="width:210px"/>
 			</form>
 		</section>
