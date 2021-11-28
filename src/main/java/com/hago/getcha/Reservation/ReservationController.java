@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hago.getcha.Reservation.dao.IReservationDAO;
@@ -21,40 +22,37 @@ import com.hago.getcha.Reservation.dto.ReservationDTO;
 import com.hago.getcha.Reservation.service.ReservationService;
 
 @Controller
-public class ReservationController {
+public class ReservationController{
 	@Autowired HttpSession session;
 	@Autowired ReservationService service;
 	@Autowired IReservationDAO dao;
 	Logger logger = LoggerFactory.getLogger(ReservationController.class);
 	
-	@RequestMapping(value="/calendar")
-	public String calendar(Model model) {
-		int restNum = 15;
-		session.setAttribute("restNum", restNum);
-		ArrayList<String> weekList = service.allList(restNum);
-		ReservationDTO info = service.getInfo(restNum);
-		ArrayList<ReservationDTO> resList = service.resList(restNum);
+	@RequestMapping(value="/calendarProc")
+	public String calendarProc(@RequestParam String restNum, Model model) {
+		logger.warn("restNum:"+restNum);
+		int restnum = Integer.parseInt(restNum);
+		session.setAttribute("restNum", restnum);
+		ArrayList<String> weekList = service.allList(restnum);
+		ReservationDTO info = service.getInfo(restnum);
+		ArrayList<ReservationDTO> resList = service.resList(restnum);
 		if(weekList.isEmpty()||resList.isEmpty()||info==null) {
-			return "reservation/calendar";
+			return "forward:index?formpath=calendar";
 		}
 		model.addAttribute("weekList", weekList);
 		model.addAttribute("restList", resList);
 		model.addAttribute("info", info);
-		return "reservation/calendar";
+		return "forward:index?formpath=calendar";
 	}
 	
 	@RequestMapping(value = "SearchDay", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Map<String, Object> SearchDay(@RequestBody Map<String, String>map) throws Exception{
-<<<<<<< HEAD
 		logger.warn("controller");
 		int restNum = (int) session.getAttribute("restNum");
-=======
-		int restNum = (Integer)session.getAttribute("restNum");
 		session.setAttribute("restNum", restNum);
->>>>>>> 92ed2c9b3ec9a8d47b2bc49cc7b00b5e442a5c89
 		String date = (String)map.get("resDay");
-		List<Map<String, String>> dataList = service.checkAjax(date, restNum);
+		List<Map<String, Object>> dataList = service.checkAjax(date, restNum);
 		Map<String, Object>data2 = new HashMap<String, Object>();
 		data2.put("datas", dataList);
 		return data2;
@@ -71,7 +69,6 @@ public class ReservationController {
 		logger.warn("restNum:"+ dto.getRestNum());
 		int result = service.reservationProc(dto);
 		if(result == 0) {
-<<<<<<< HEAD
 			model.addAttribute("msg","로그인해주세요.");
 			return "login";
 		}else if(result == 1) {
@@ -79,21 +76,13 @@ public class ReservationController {
 			return "forward:index?formpath=main";
 		}else {
 			model.addAttribute("msg", "예약 실패");
-=======
-			model.addAttribute("msg","로그?�해주세??");
-			return "login";
-		}else if(result == 1) {
-			model.addAttribute("msg","?�약?�었?�니??.");
-			return "forward:index?formpath=main";
-		}else {
-			model.addAttribute("msg", "?�약 ?�패");
->>>>>>> 92ed2c9b3ec9a8d47b2bc49cc7b00b5e442a5c89
 			return "forward:index?formpath=calendar";
 		}
 	}
 	
 	@RequestMapping(value = "/reservationViewProc")
 	public String reservationViewProc(Model model, String email) {
+		email = (String)session.getAttribute("email");
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		if(reservationView==null) {
 			return "forward:index?formpath=calendar";
@@ -104,34 +93,21 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value="resDelete")
-	public String deleteReservation(String resNum, Model model) {
-		session.setAttribute("resNum", resNum);
+	public String resDelete(String resNum, Model model) {
+		logger.warn("1.resNumChek:"+resNum);
 		service.resDelete(resNum, model);
-		return "reservation/deleteReservation";
-	}
-	
-	@RequestMapping(value = "/deleteReservation")
-	public String deleteReservation(int resNum, HttpSession session) {
-		resNum = (int) session.getAttribute("resNum");
-		return "Reservation/deleteReservation";
+		return "forward:index?formpath=deleteReservation";
 	}
 	
 	@RequestMapping(value = "/DeleteProc")
-	public String resDeleteProc(int resNum, Model model, HttpSession session) {
+	public String DeleteProc(String resNum, Model model, HttpSession session) {
 		logger.warn("resNum:"+resNum);
 		int result = service.resDeleteProc(resNum);
 		if(result == 1) {
-<<<<<<< HEAD
-			model.addAttribute("msg", "삭제되었습니다.");
+			model.addAttribute("msg", "취소되었습니다.");
 			return "forward:index?formpath=main";
 		}else {
-			model.addAttribute("msg", "삭제 실패");
-=======
-			model.addAttribute("msg", "??��?�었?�니??.");
-			return "forward:index?formpath=main";
-		}else {
-			model.addAttribute("msg", "??�� ?�패");
->>>>>>> 92ed2c9b3ec9a8d47b2bc49cc7b00b5e442a5c89
+			model.addAttribute("msg", "취소실패하였습니다.");
 			return "forward:index?formpath=deleteReservation";
 		}
 	}

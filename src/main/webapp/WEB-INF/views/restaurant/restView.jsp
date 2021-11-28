@@ -105,6 +105,11 @@
 	<div id="container">
 		<table id="rest_detail">
 			<tr>
+				<td>
+					<button type="button" class="reservation_btn" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
+				</td>
+			</tr>
+			<tr>
 			<td> 주소 </td>
 			<td><p id="addr">${rest.address }</p></td>
 			</tr>

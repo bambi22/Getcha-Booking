@@ -8,24 +8,7 @@
 </c:if>
 <c:url var="root" value="/"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	$("document").ready(function(){
-		$('.deleteBtn').css("cursor", "pointer").click(function(){
-			let email = $(this).attr("id");
-			$("#email").val(email);
-			$("#f").attr("action", "${root}deleteForm");
-			$("#f").submit();
-		})
-	})
-	//$("document").ready(function(){
-	//	$('.modifyBtn').css("cursor", "pointer").click(function(){
-	//		let email = $(this).attr("id");
-	//		$("#email").val(email);
-	//		$("#f").attr("action", "${root}memberModi");
-	//		$("#f").submit();
-	//	})
-	//})
-</script>
+
 <center>
 <form id="f" method="get">
 	<input type="hidden" id="email" name="email">
