@@ -5,7 +5,7 @@
 <body>
 <c:import url="nav.jsp" />
 <div align="center">
-	<table style="width:100%;">
+	<table style="width:1420px;">
 		<tr>
 			<td><!-- <%@ include file="top.jsp" %>--></td>
 		</tr>
@@ -13,7 +13,7 @@
 			<td style="height:400px;"><c:import url="/${formpath }" /> </td>
 		</tr>
 		<tr>
-			<td style="height:50px; "><%@ include file="footer.jsp" %></td>
+			<td style="height:60px; "><%@ include file="footer.jsp" %></td>
 		</tr>
 	</table>
 	</div>

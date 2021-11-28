@@ -27,14 +27,18 @@
 			dataType: "json",
 			
 			success: function(result){
-				if(result.resultNum == "none"){
+				if(result.resultList == null){
 					$('#resultName').text("찾는 결과가 없습니다.");
 					document.getElementById('resultModal').style.display='block';					
 				}else{
-					$('#restNum').val(result.resultNum);
-					$('#resultInfo').text(result.resultType+"·"+result.resultDong);
+					var count = result.count;
+					for(var i=0; i<count; i++){
+				//		$('#restNum').val(result.(restNum+i));
+						
+					}
+		/* 			$('#resultInfo').text(result.resultType+"·"+result.resultDong);
 					$('#resultName').text(result.resultName);
-					$("#resultAddr").text(result.resultAddr);
+					$("#resultAddr").text(result.resultAddr); */
 					document.getElementById('resultModal').style.display='block';
 				}
 			},
@@ -83,7 +87,7 @@
 <div style="padding-left:100px;">	
 	<form>
 		<input type="text" id="keyword" placeholder="추가할 식당 번호 혹은 식당명 입력" style="height:40px; width:300px">
-		<button type="button" onclick="addGuide()">추가</button>
+		<button type="button" onclick="addGuide()">찾기</button>
 	</form>
 	<div id="resultModal" class="modal">
 	  <span onclick="document.getElementById('resultModal').style.display='none'" class="close" title="Close Modal">&times;</span>
