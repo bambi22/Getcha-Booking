@@ -7,7 +7,7 @@
 	 <script>location.href='index?formpath=login';</script>
 </c:if>
 <head>
-<title>Getcha Table</title>
+<title>GETCHA</title>
 <link href="<c:url value="/resources/css/review/write.css" />" rel="stylesheet" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="resources/js/myPage/reviewUpdate.js"></script>
@@ -23,7 +23,7 @@
 	    
 	    <strong class="RestaurantName">${restName }</strong>
 	    </div>
-		<textarea name="content" id="content" rows="9" style="width:100%;">${content }</textarea>
+		<textarea name="content" id="content" class="form-control" rows="10" placeholder="음식은 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!">${content }</textarea>
 		<p class="bytes" align="right">0 / 500</p>
 		
 		<div class="rate_wrap">

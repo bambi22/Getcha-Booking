@@ -44,6 +44,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/yoongang/Downloads/java-sdk-2.2-http-cv52/lib/javaSDK-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/yoongang/Downloads/java-sdk-2.2-http-cv52/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>

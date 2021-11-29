@@ -2,40 +2,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url var="root" value="/"/>
 <style>
-	a:link{color:black; text-decoration:none;}
+#header{background-color: black; height: 70px; width:100%;}
+.rows{width:100%; display:flex; height:100%; justify-content: space-between;}	 
+.coll-logo{flex-basis: 70%; margin: 10px 40px 5px 40px;}
+.coll-l{margin-left:auto; margin: 15px 50px 15px 40px; }
 </style>
-<table>
-	<tr>
-		<td align="center" colspan=5><h1><a href="${root}index?formpath=main">Getcha</a></h1></td>
-	</tr>
-	<tr>
-		<td align="center" colspan=5 width=100%><hr/></td>
-	</tr>
-	<tr align="right">
-		<td width=700></td>
+
+
+<header id="header">
+	<div class="rows">
+		<div class="coll-logo">
+			<a href="main"><img src="resources/img/logo/logo4.png" width="40px"></a>
+		</div>
 		<c:choose>
 			<c:when test="${not empty sessionScope.email }">
-			<td>
-			<div class="dropdown">
-			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+			<div class="dropdown coll-l" style="width:200px;">
+			 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:black">
 			    <img src="resources/img/icon/profileIcon.png" style="width:30px">
-			  </a>
+			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 			    <li><a class="dropdown-item" href="${root}memberViewProc">회원정보</a></li>
 			    <li><a class="dropdown-item" href="${root }reservationViewProc">예약 확인</a></li>
 			    <li><a class="dropdown-item" href="${root }reviewProc">내 리뷰</a></li>
 			    <li> <a class="dropdown-item" href="${root }myCollectProc">관심 식당</a></li>
+			    <li><a class="dropdown-item" href="${root}logout">로그아웃</a></li>
 			  </ul>
 			</div>
-            </td>	 
-			<td><a href="${root}logout">로그아웃</a></td>
+			
 			</c:when>
 			<c:otherwise>
-				<td><a href="${root}index?formpath=login">로그인</a></td>
-				<td><a href="${root}index?formpath=member">회원가입</a></td>
+				<div class="dropdown coll-l"><a class="headerMenu" href="${root}index?formpath=login">로그인</a></div>
+				<div class="dopdown coll-l"><a class="headerMenu" href="${root}index?formpath=member">회원가입</a></div>
 			</c:otherwise>
 		</c:choose>
-		<td width=50></td>
-	</tr>
-	
-</table>
+	</div>
+
+</header>

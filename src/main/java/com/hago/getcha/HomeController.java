@@ -11,16 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 	@Autowired HttpSession session;
-	@RequestMapping(value = "/main")
+	@RequestMapping(value = "/")
 	public String home() {
+		return "home";
+	}
+	
+	@RequestMapping(value = "main")
+	public String main() {
+		return "home";
+	}
+	@RequestMapping(value = "main2")
+	public String main2() {
 		return "main";
 	}
 	
-	@RequestMapping(value="/")
-	public String index(Model model) {
-		model.addAttribute("formpath", "main");
-		return "common/index";
-	}
 	
 	@RequestMapping(value="/index")
 	public String index(Model model, @RequestParam String formpath) {

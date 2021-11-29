@@ -6,7 +6,7 @@
 margin-right:60px;}
 	/* #wrap{width:100%; height:100px; background:white;} */
 	#sidebar{background:black; width:250px; height:100%; top:0; 
-		left:0px; position:fixed; font-size:14px; z-index:3;}
+		left:-250px; position:fixed; font-size:14px; z-index:1;}
 	#sidebar>button{background:#333; position:absolute; top:155px; left:250px; width:57px; height:52px; border:none; color:#FCF3E4;}
 
 
@@ -76,24 +76,26 @@ margin-right:60px;}
 <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
 <script>
-	$('document').ready(function(){
+$('document').ready(function(){
 		var duration = 250;
 		var $side=$('#sidebar');
 		var $sidebt = $('#openBtn').on('click',function(){
 			$side.toggleClass('open');
 			if($side.hasClass('open')){
-				$side.stop(true).animate({left:'0px'},duration);
+				$side.stop(true).animate({left:'0px'},duration);			
 				$side.find('span').text('CLOSE');
 			}else{
-				$side.stop(true).animate({left:'-250px'},duration);
+				$side.stop(true).animate({left:'-250px'},duration);		
 				$side.find('span').text('OPEN');
 			};
 		});
-	});
+	}); 
+	
+	
 </script>
 <aside id="sidebar">
 		<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width:250px;height:100%;background-color:black;">
-	    <a href="index?formpath=main" id="main-img" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+	    <a href="${root }main" id="main-img" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 	      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
 	      <img class="fs-4" src="resources/img/logo/logo.png" width="120">
 	    </a>
@@ -158,7 +160,7 @@ margin-right:60px;}
     </ul>
     <hr>
   </div>
-	<button id="openBtn"><span class="btn_t">CLOSE</span></button>
+	<button id="openBtn"><span class="btn_t">OPEN</span></button>
 </aside>
 
 <script>
