@@ -376,12 +376,12 @@ public class ReservationService{
 	}
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
-		view = (ArrayList<ReservationDTO>) view.stream().sorted((o1,o2) -> o1.getResDay().toString().compareTo(o2.getResDay().toString())
+		/*view = (ArrayList<ReservationDTO>) view.stream().sorted((o1,o2) -> o1.getResDay().toString().compareTo(o2.getResDay().toString())
 				).collect(Collectors.toList());
 		for(int i=0; i<view.size(); i++) {
 			ReservationDTO dto = view.get(i);
 			logger.warn("resDay: " + dto.getResDay());
-		}
+		}*/
 		
 		return view;
 	}

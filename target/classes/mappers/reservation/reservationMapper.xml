@@ -44,7 +44,7 @@
 		<result property="status" column="status"/>
 	</resultMap>
 	<select id="reservationView" resultMap="resView" parameterType="String">
-		SELECT * FROM getchares WHERE email=#{email}
+		SELECT * FROM getchares WHERE email=#{email} order by resDay
 	</select>
 	
 	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="userinfo">
