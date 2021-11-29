@@ -3,7 +3,6 @@ package com.hago.getcha.Reservation.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,7 +22,6 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
-import com.hago.getcha.booking.config.SmsConfig;
 
 @Service
 public class ReservationService{
@@ -378,13 +374,19 @@ public class ReservationService{
 		else
 			return 2;
 	}
-	
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
-		//view = (ArrayList<ReservationDTO>) view.stream().sorted(Comparator.comparing(ReservationDTO::getResDay)).collect(Collectors.toList());
+		view = (ArrayList<ReservationDTO>) view.stream().sorted((o1,o2) -> o1.getResDay().toString().compareTo(o2.getResDay().toString())
+				).collect(Collectors.toList());
+		for(int i=0; i<view.size(); i++) {
+			ReservationDTO dto = view.get(i);
+			logger.warn("resDay: " + dto.getResDay());
+		}
 		
 		return view;
 	}
+	
+	
 	
 	public void resDelete(String resNum, Model model) {
 		int no = Integer.parseInt(resNum);
