@@ -51,15 +51,6 @@ public class ReservationService{
 		return memberInfo;
 	}
 	
-	//List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-	
-	/*@Override
-	public int compare(HashMap<String, Object> o1, HashMap<String, Object> o2) {
-		String name1 = (String) o1.get("time");
-		String name2 = (String) o1.get("time");
-		return name1.compareTo(name2);
-	}*/
-	
 	public List<Map<String, Object>> checkAjax(String date, int restNum) throws Exception {
 		List<Map<String, Object>> checkres = checkres(restNum, date);
 		checkres = checkres.stream().sorted((o1,o2) -> o1.get("time").toString().compareTo(o2.get("time").toString())
@@ -242,16 +233,16 @@ public class ReservationService{
 							logger.warn("remove:"+timePart.get(j));
 							timePart.remove(resTime);
 						}
-				}else {
+				//}else {
 					
-					for(int j=0; j<timePart.size(); j++) {
-						timeCapa = new HashMap<String, Object>();
-						String capa=Integer.toString(capacity);
-						logger.warn("check필요:"+timePart.get(j)+"/"+capa);
-						timeCapa.put("time", timePart.get(j));
-						timeCapa.put("capa", capa);
-						dataList.add(timeCapa);
-					}	
+				//	for(int j=0; j<timePart.size(); j++) {
+				//		timeCapa = new HashMap<String, Object>();
+				//		String capa=Integer.toString(capacity);
+				//		logger.warn("check필요:"+timePart.get(j)+"/"+capa);
+				//		timeCapa.put("time", timePart.get(j));
+				//		timeCapa.put("capa", capa);
+				//		dataList.add(timeCapa);
+				//	}	
 					//return dataList;
 				}
 			}
@@ -269,6 +260,14 @@ public class ReservationService{
 			logger.warn("timaPart:"+ timePart.get(i));
 		}
 		
+		for(int i=0; i<timePart.size(); i++) {
+			timeCapa = new HashMap<String, Object>();
+			String capa=Integer.toString(capacity);
+			logger.warn("check필요:"+timePart.get(i)+"/"+capa);
+			timeCapa.put("time", timePart.get(i));
+			timeCapa.put("capa", capa);
+			dataList.add(timeCapa);
+		}
 		
 		logger.warn("=========================");
 		//예약 시간의 예약인원

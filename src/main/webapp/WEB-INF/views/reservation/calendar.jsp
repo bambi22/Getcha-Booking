@@ -33,6 +33,7 @@ function search(){
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
+				//str+="<td><select name='time'><option value="'+obj["time"]+'">+"obj["time"]+"</option></td>";
 				str+="<td onclick='setTime(obj['time']);' style='cursor:pointer;'>"+obj["time"]+"</td>";
 			});
 			str+="</tr>"
@@ -73,9 +74,13 @@ function search(){
 
 </script>
 <body>
-<div class="container" style="width:1130px; position:relative; padding-top:60px; margin:auto;">
-	
-	<div style="width:55%; float:left; text-align:center;">
+<!-- <div class="container" style="width:1130px; position:relative; padding-top:60px; margin:auto;"> -->
+<div class="container" style="margin:auto;">
+<form action="reservationProc" method="post">
+	<h4>날짜</h4>
+	<input type="text" id="resDay" name="resDay"/>
+	<input type="button" value="조회" onclick="search();">
+	<div id="div_calendar" style="width:300px; display:none;">
 		<div>
 			<button type="button" onclick="changeMonth(-1);"><i class="fa fa-chevron-left"></i></button>
 			<input type="number" id="year" value="2020" style="width:80px; display:initial;" class="form-control"/>
@@ -111,16 +116,20 @@ function search(){
 			</tbody>
 		</table>
 	</div>
-	<form action="reservationProc" method="post">
+	<h4>시간</h4>
+	<div id = showTime>
+	<input type="text" id="hours" name="hours"/>
+	</div>
+	<h4>인원</h4>
+	<div id = showData>
+		<select name="capacity">
+		</select>
+	</div>
+	<input type="submit" value="예약하기">
+	<input type="reset" value="취소">
 	<div id = "reservation" style="width:40%; float:right;" >
 	<table style="width:100%; height:70%; layout:fixed" class="checkTab">
-		<tr><th>날짜</th></tr>
-		<tr>
-			<td><input type="text" id="resDay" name="resDay"/></td>
-			<td colspan="2"><input type="button" value="조회" onclick="search();"></td>
-		</tr>
-		<tr><th>시간</th></tr>
-		<tr id=showTime>
+		<!-- <tr id=showTime>
 		</tr>
 		<tr>
 			<td>
@@ -134,10 +143,10 @@ function search(){
 				</select>
 			</td>
 		</tr>
+		<tr> -->
 		<tr>
 			<td>
-				<input type="submit" value="예약하기">
-				<input type="reset" value="취소">
+				
 			</td>
 		</tr>
 	</table>
@@ -147,7 +156,7 @@ function search(){
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
-
+	//윤년체크
 	function checkLeapYear(year){
 		if(year%400 == 0){
 			return true;
@@ -159,33 +168,59 @@ function search(){
 			return false;
 		}
 	}
+	//각 월의 1일이 무슨 요일인지
 	function getFirstDayOfWeek(year,month){
 		if(month < 10) month = "0" + month;
 		
 		return (new Date(year+"-"+month+"-01")).getDay();
 	}
+	//년, 월을 사용자가 선택하는 대로 변화
 	function changeYearMonth(year,month){
 		let month_day = [31,28,31,30,31,30,31,31,30,31,30,31]
 		if(month == 2){
+			//윤년인지 아닌지 확인, 윤년이면 28일을 29일로 변화
 			if(checkLeapYear(year)) month_day[1] = 29;
 		}
 		let first_day_of_week = getFirstDayOfWeek(year,month);
 		let arr_calendar=[];
+		//1일이 시작되기 전 부분에 빈칸넣기
 		for(let i=0; i<first_day_of_week; i++){
 			arr_calendar.push("");
 		}
+		//1일부터 마지막날까지 입력
 		for(let i=1; i<=month_day[month-1]; i++){
 			arr_calendar.push(String(i));
 		}
+		//달을 7일로 나눠서 나머지를 빈칸으로 채움
 		let remain_day=7 -(arr_calendar.length%7);
 		if(remain_day < 7){
 			for(let i=0; i<remain_day; i++){
 				arr_calendar.push("");
 			}
 		}
-		renderCalendar(arr_calendar);
+		let today = new Date();
+		let today_month= today.getMonth()+1;
+		if(month<today_month){
+			console.log("1.입력달: " + month);
+			console.log("1.이번달"+today_month)
+			renderCalendarPre(arr_calendar);
+		}else if(month == today_month){
+			console.log("2.입력달: " + month);
+			console.log("2.이번달"+today_month)
+			renderCalendarThis(arr_calendar);
+		}else{
+			console.log("3.입력달: " + month);
+			console.log("3.이번달"+today_month)
+			renderCalendar(arr_calendar);	//renderCalendar함수에 arr_calendar 배열을 넣어줌
+		}
+		
 	}
+	//위의 배열을 받아서 달력으로 출력
 	function renderCalendar(data){
+		let today = new Date();
+		let today_date = today.getDate();
+		console.log("1.today" + today);
+		console.log("1.today_date" + today_date);
 		let h = [];
 		for(let i = 0; i<data.length; i++){
 			if(i==0){
@@ -194,8 +229,53 @@ function search(){
 				h.push('</tr>');
 				h.push('<tr>');
 			}
-			h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer;">'+data[i]+'</td>');
+				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer;">'+data[i]+'</td>');
+			}
+		h.push('</tr>');
+		$("#tb_body").html(h.join(""));
+	}
+	function renderCalendarThis(data){
+		let today = new Date();
+		let today_date = today.getDate();
+		console.log("2.today" + today);
+		console.log("2.today_date" + today_date);
+		let h = [];
+		for(let i = 0; i<data.length; i++){
+			if(i==0){
+				h.push('<tr>');
+			}else if(i%7 == 0){
+				h.push('</tr>');
+				h.push('<tr>');
+			}
+			if(data[i]<today_date){
+				h.push('<td style="background-color:#EAEAEA;">'+data[i]+'</td>');
+			}else if(today_date==data[i]){
+				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer; background-color:red;">'+data[i]+'</td>');
+				console.log("일치" + data[i]);
+			}else{
+				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer;">'+data[i]+'</td>');
+				console.log("일치안함" + data[i]);
+			}
 		}
+		h.push('</tr>');
+		$("#tb_body").html(h.join(""));
+	}
+	
+	function renderCalendarPre(data){
+		let today = new Date();
+		let today_date = today.getDate();
+		console.log("1.today" + today);
+		console.log("1.today_date" + today_date);
+		let h = [];
+		for(let i = 0; i<data.length; i++){
+			if(i==0){
+				h.push('<tr>');
+			}else if(i%7 == 0){
+				h.push('</tr>');
+				h.push('<tr>');
+			}
+				h.push('<td style="background-color:#EAEAEA;">'+data[i]+'</td>');
+			}
 		h.push('</tr>');
 		$("#tb_body").html(h.join(""));
 	}
@@ -203,8 +283,9 @@ function search(){
 	function setDate(day){
 		if(day<10) day="0" +day;
 		$("#resDay").val(current_year + "-" + current_month + "-" + day);
+		$("#div_calendar").hide();
 	}
-	
+	//달력 변화
 	function changeMonth(diff){
 		if(diff == undefined){
 			current_month = parseInt($("#month").val());
@@ -220,7 +301,7 @@ function search(){
 		}
 		loadCalendar();
 	}
-
+	//변화되는 년, 달에 따라 달력 변화
 	function loadCalendar(){
 		$("#year").val(current_year);
 		$("#month").val(current_month);
@@ -228,10 +309,17 @@ function search(){
 	}
 	let current_year=(new Date()).getFullYear();
 	let current_month = (new Date()).getMonth()+1;
+	
 	$("#year").val(current_year);
 	$("#month").val(current_month);
 	
 	changeYearMonth(current_year,current_month);
+	let today = new Date();
+	let today_date = today.getDate();
+	
+	$("#resDay").click(function(){
+		$("#div_calendar").toggle();
+	})
 	
 
 </script>
