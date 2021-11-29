@@ -87,7 +87,7 @@ window.onload=function() {
 		  <div class="carousel-inner">
 		    <c:forEach var="image" items="${restImgList}" varStatus="vs">
 		    	<div class="carousel-item">
-		    		<img src="${root }upload/restaurant/${image.restImage }" class="d-block w-100">
+		    		<img src="${root }upload/restaurant/${image.restImage }">
 	   			</div>
 		    </c:forEach>
 		  </div>
@@ -101,8 +101,7 @@ window.onload=function() {
 		  </button>
 	</div>
 	<br><br>
-		<div class="restTitle">
-			<h2 id="restName">${rest.restName }</h2>
+		<div class="restTitle"><h2>${rest.restName }</h2></div>
 			<button id="share_btn"><img src="resources/img/icon/ic_share.png" width="30"></button>
 			<c:if test="${not empty sessionScope.email}">
 	            <button id="collect_btn" data-num="${restNum }">
@@ -114,7 +113,6 @@ window.onload=function() {
 		            </c:if>
 	            </button>
 	        </c:if>
-      	</div>
 			 <div class="status_branch">
                 <span class="cntReview"><img src="resources/img/icon/ic_review.png"> ${cntReview }</span>
                 <span class="cntCollection"><img src="resources/img/icon/full_ht.png"> ${cntCollection }</span>
@@ -124,19 +122,18 @@ window.onload=function() {
 				<img src="resources/img/icon/star.png" width="20" /><label>${rest.avgPoint }</label>
 			</div> 
 		<br>
-		<hr align="left" width="700px">
-		<br>
+		<hr align="left" width="800px">
 	</header>
 	
 	<div id="container">
 		<table id="rest_detail">
 			<tr>
-				<td>
-					<button type="button" class="reservation_btn" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
+				<td align="right">
+					<button type="button" class="btn btn-dark" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
 				</td>
 			</tr>
 			<tr>
-			<td> 주소 </td>
+			<td>주소</td>
 			<td><p id="addr">${rest.address }</p></td>
 			</tr>
 			<tr>
@@ -220,13 +217,13 @@ window.onload=function() {
 		<br>
 				
 		<br>
-		<hr align="left" width="700px">
+		<hr align="left" width="800px">
 		<br>
 		
 		<c:if test="${rest.promotion != '파일 없음' }">
 		<h4>진행 중인 프로모션</h4>
 			<p><img src="${root }upload/promotion/${rest.promotion }" width="200"></p>
-			<br><hr align="left" width="700px"><br>
+			<br><hr align="left" width="800px"><br>
 		</c:if>
 		<h3>메뉴</h3>
 		<div>

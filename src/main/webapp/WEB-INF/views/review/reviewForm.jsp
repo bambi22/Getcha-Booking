@@ -11,8 +11,7 @@
 </c:if>
 <title>Getcha Table</title>
 <body>
-<section>
-	<div align="center"><h2>나의 후기</h2></div>
+	<div id="PageTitle"><h2>나의 후기</h2></div>
 
 	<div id="ReviewPage_Container">
 	<c:forEach var="list" items="${reviewList }">
@@ -28,7 +27,7 @@
 						<img src="resources/img/icon/star.png">
 					</c:forEach>
 				</div>
-				<div><pre>${list.content }</pre></div>
+				<div class="contentBox"><pre>${list.content }</pre></div>
 				<c:if test="${list.fileNames != '파일없음' }">
 					<div class="image_wrap">
 						<c:forTokens var="fileName" items="${list.fileNames }" delims=",">
@@ -54,5 +53,4 @@
 		</form>
 	</c:forEach>
 	</div>
-</section>
 </body>

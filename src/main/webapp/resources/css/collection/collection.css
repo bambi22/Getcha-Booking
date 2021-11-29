@@ -2,13 +2,15 @@
 
 	#CollectionPage_Container { width: 900px; margin: auto; }
 	
+	#PageTitle {margin: 15px; text-align: center;}
+	
 	.container_Row { height: 200px; width: 100%; margin: 5px ,0px; }
 	
 	.rest_summary {border-spacing: 10px;}
 	
 	tr {height: 40px;}
 	
-	.representImg_wrap { height: 130px; width: 120px; overflow: hidden; border-radius : 20px;}
+	.representImg_wrap { height: 130px; width: 120px; overflow: hidden; border-radius : 20px; margin-right: 10px;}
     
     span img {margin-left: 3px;}
     
@@ -17,9 +19,8 @@
     .calBtn { width: 100px; height: 30px; padding: 5px;}
     
     a {text-decoration: none; font-weight:bold;}
+    a:hover {text-decoration: underline;} 
     
-    a:hover {text-decoration: underline;}
-      
     #sidebar{left:-250px;}
       
      

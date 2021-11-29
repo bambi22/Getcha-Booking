@@ -25,6 +25,7 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
+import com.hago.getcha.booking.config.SmsConfig;
 
 @Service
 public class ReservationService{
@@ -363,6 +364,9 @@ public class ReservationService{
 		ReservationDTO info = getInfo(restNum);
 		String restName = info.getRestName();
 		logger.warn("식당이름: "+ restName);
+		String nickName = "";
+		String mobile = "";
+		
 		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
@@ -374,6 +378,7 @@ public class ReservationService{
 		else
 			return 2;
 	}
+	
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
 		//view = (ArrayList<ReservationDTO>) view.stream().sorted(Comparator.comparing(ReservationDTO::getResDay)).collect(Collectors.toList());
