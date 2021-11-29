@@ -14,7 +14,7 @@
 				<tr>
 					<td rowspan="3" colspan="2">
 						<div class="representImg_wrap">
-							<a href="restViewProc?restNum=${list.restNum }">
+							<a href="restViewProc?restNum=${list.restNum }" class="link-dark">
 							<img src="resources/img/restaurant/${list.representImage }" style="height:100%; width:100%;">
 							</a>
 						</div>

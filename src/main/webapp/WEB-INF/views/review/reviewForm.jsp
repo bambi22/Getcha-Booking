@@ -23,7 +23,7 @@
 		<input type="hidden" name="content" value="${list.content }" />
 		<input type="hidden" id="fileNames" name="fileNames" value="${list.fileNames }" />
 			<div class="Review_Row">
-				<div class="title"><a href="restViewProc?restNum=${list.restNum }"><label>${list.restName }</label></a>
+				<div class="title"><a href="restViewProc?restNum=${list.restNum }" class="link-dark"><label>${list.restName }</label></a>
 					<c:forEach begin="1" end="${list.point }" step="1">
 						<img src="resources/img/icon/star.png">
 					</c:forEach>
