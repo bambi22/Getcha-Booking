@@ -14,13 +14,25 @@
 	<tr align="right">
 		<td width=700></td>
 		<c:choose>
-			<c:when test="${empty sessionScope.id }">
-				<td><a href="${root}index?formpath=login">로그인</a></td>
-				<td><a href="${root}index?formpath=member">회원가입</a></td>
+			<c:when test="${not empty sessionScope.email }">
+			<td>
+			<div class="dropdown">
+			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+			    <img src="resources/img/icon/profileIcon.png" style="width:30px">
+			  </a>
+			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			    <li><a class="dropdown-item" href="${root}memberViewProc">회원정보</a></li>
+			    <li><a class="dropdown-item" href="${root }reservationViewProc">예약 확인</a></li>
+			    <li><a class="dropdown-item" href="${root }reviewProc">내 리뷰</a></li>
+			    <li> <a class="dropdown-item" href="${root }myCollectProc">관심 식당</a></li>
+			  </ul>
+			</div>
+            </td>	 
+			<td><a href="${root}logout">로그아웃</a></td>
 			</c:when>
 			<c:otherwise>
-				<td><img src="resources/img/icon/profileIcon.png" style="width:20px"></td>
-				<%-- <td><a href="${root}logout">로그아웃</a></td> --%>
+				<td><a href="${root}index?formpath=login">로그인</a></td>
+				<td><a href="${root}index?formpath=member">회원가입</a></td>
 			</c:otherwise>
 		</c:choose>
 		<td width=50></td>

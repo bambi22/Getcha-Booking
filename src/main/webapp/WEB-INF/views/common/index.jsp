@@ -18,7 +18,7 @@
 <div>
 	<table style="width:100%;">
 		<tr>
-			<td><!-- <%@ include file="top.jsp" %>--></td>
+			<td> <%@ include file="top.jsp" %></td>
 		</tr>
 		<tr>
 			<td><c:import url="/${formpath }" /> </td>
