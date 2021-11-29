@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <style>
-*{
+/* *{
   font-family:'GowunDodum-Regular'  ;
 }
 @font-face {
@@ -10,7 +10,7 @@
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/SF_IceLemon.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+} */
 </style>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <body>

@@ -1,5 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 <c:if test="${empty sessionScope.email }">
 	<script>
 		alert("로그인 후 이용 가능합니다.");
@@ -10,10 +17,33 @@
 var message="${msg}";
 alert(message);
 </script>
+<<<<<<< HEAD
+<html>
+<style>
+#register-reset{
+color:#FCF3E4;
+}
+#register-submit{
+color:#FCF3E4;
+}
+.form-control btn btn-reset{
+background-color:#B0978D;
+width:274px;
+
+
+}
+.form-control btn btn-register{
+width:280px;
+height:65px;
+}
+</style>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+=======
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+>>>>>>> origin/master
 <body>
 <div class="container">
    <div class="row">
@@ -22,6 +52,69 @@ alert(message);
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
+<<<<<<< HEAD
+			<form action=memberModiProc method="post" id="login-form" role="fomr" style="display: block;">
+				<h2>회원수정</h2>
+					<div class="form-group">
+						<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="이메일" value='${memberView.email }' disabled="disabled"/>
+					</div>
+					<div class="form-group">
+                    	<input type="text" name="nickname" id="nickname" tabindex="1" class="form-control" placeholder="닉네임 입력" value='${memberView.nickname }'>
+                  	</div>
+					<div class="form-group">
+                    	<input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder="비밀번호">
+                    	<div class="alert-length" id="alert-length">비밀번호는 8자리 이상으로 입력해주세요.</div>
+                    	<div class="alert-space" id="alert-space">비밀번호는 공백 없이 입력해주세요.</div>
+                    	<div class="alert-eng" id="alert-eng">비밀번호는 영문, 숫자, 특수문자 중 2가지 이상을 혼합하여 입력해주세요.</div>
+                	</div>
+                  	<div class="form-group">
+                    	<input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">
+                    	<div class="alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+                    	<div class="alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+                  	</div>
+                  	<div class="form-group">
+                    	<input type="text" name="mobile" id="mobile" tabindex="2" class="form-control" placeholder="휴대폰 번호">                  
+                   	</div>
+                   	<div class="form-group">
+                   		<input type=text name='birth' id='birth' value='${memberView.birth }'disabled="disabled"/>
+					</div>
+					<div class="form-group">
+                    	<input type="text" tabindex="2" class="form-control" placeholder="성별">
+                    	<c:if test="${memberView.gender == 'n' }">
+							<input type=radio name='gender' value='n' checked="checked"/>선택안함
+							<input type=radio name='gender' value='m' disabled="disabled"/>남자
+							<input type=radio name='gender' value='w' disabled="disabled"/>여자
+						</c:if>
+						<c:if test="${memberView.gender == 'm' }">
+							<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
+							<input type=radio name='gender' value='m' checked="checked"/>남자
+							<input type=radio name='gender' value='w' disabled="disabled"/>여자
+						</c:if>
+						<c:if test="${memberView.gender == 'w' }">
+							<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
+							<input type=radio name='gender' value='m' disabled="disabled"/>남자
+							<input type=radio name='gender' value='w' checked="checked"/>여자
+						</c:if>
+                    </div>
+                    </div>
+          </div>
+        </div>
+        <div class="panel-heading">
+          <div class="row"with  >
+            <div class="col-xs-6 tabs">
+              <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소" onclick="location.href='${root}memberViewProc'">
+            </div>
+            <div class="col-xs-6 tabs">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원수정">
+           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+=======
             <h3><font color="red" id="msg">${msg}</font></h3>
               <form   action="memberModiProc" method="post" role="form" style="display: block;">
                 <h2>회원수정</h2>
@@ -82,6 +175,7 @@ alert(message);
 		</table>
 	</form>
 
+>>>>>>> origin/master
 <script>
 $(function(){
 	$("#alert-success").hide();

@@ -53,7 +53,7 @@ $('#sidebar').find('span').text('OPEN');
 					<div class="col-md-6 d-flex align-items-center">
 						<p class="mb-0 phone pl-md-2">
 						  <a class="navbar-brand" href="">GETCHA</a>
-							<a  class="mr-2"><span class="fa fa-phone mr-1"></span> 010 1234 5678</a> 
+							<a  class="mr-2"><span class="fa fa-phone mr-1"></span> 010 1234 1234</a> 
 							<a href="#"><span ></span> GETCHA@gmail.com</a>
 						</p>
 					</div>

@@ -6,7 +6,7 @@
 margin-right:60px;}
 	/* #wrap{width:100%; height:100px; background:white;} */
 	#sidebar{background:black; width:250px; height:100%; top:0; 
-		left:0px; position:fixed; font-size:14px; z-index:3;}
+		left:0px; position:fixed; font-size:14px; z-index:1;}
 	#sidebar>button{background:#333; position:absolute; top:155px; left:250px; width:57px; height:52px; border:none; color:#FCF3E4;}
 
 
