@@ -12,7 +12,7 @@
 <header id="header">
 	<div class="rows">
 		<div class="coll-logo">
-			<img src="resources/img/logo/logo4.png" width="40px">
+			<a href="main"><img src="resources/img/logo/logo4.png" width="40px"></a>
 		</div>
 		<c:choose>
 			<c:when test="${not empty sessionScope.email }">

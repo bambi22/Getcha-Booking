@@ -10,19 +10,18 @@
 
 <c:import url="common/nav.jsp" />
 <c:import url="common/top.jsp" />
-<script>
+<!-- <script>
 $('#sidebar').find('span').text('OPEN');
-</script> 
+</script> --> 
 <style type="text/css">
     html,body{ margin:0; padding:0; width:100%; height:100%;}
-    #sidebar{left:-250px; z-index:4;}
+/*     #sidebar{left:-250px; z-index:4;} */
     #header{ background-color:none; z-index:3; position:fixed;}
     a { text-decoration:none underline; color:white;  }
     a:hover { color: #F2EBC7; }
     *{
       transition-duration: 0.8s;
 	}
-	
 	.section {
 	  width: 100%;
 	  height: 100vh;
@@ -33,8 +32,8 @@ $('#sidebar').find('span').text('OPEN');
 	}
 	#search{position: absolute; top:180px; width: 100%;	} 
 	#session1{position: absolute; top:940px; width: 100%;	} 
-	#session2{position: absolute; top:1680px; width: 100%;	} 
-	#session3{position: absolute; top:2280px; width: 100%;	} 
+	#session2{position: absolute; top:1600px; width: 100%;	} 
+	#session3{position: absolute; top:2300px; width: 100%;	} 
 	.mainSearch{
 		border: none;
 		border-radius: 10px;

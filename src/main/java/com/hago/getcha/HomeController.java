@@ -20,6 +20,11 @@ public class HomeController {
 	public String main() {
 		return "home";
 	}
+	@RequestMapping(value = "main2")
+	public String main2() {
+		return "main";
+	}
+	
 	
 	@RequestMapping(value="/index")
 	public String index(Model model, @RequestParam String formpath) {
