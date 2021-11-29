@@ -23,5 +23,7 @@ $(document).ready(function(){
 			});
 			}else return;
 		});
+		
+		$('#sidebar').find('span').text('OPEN');
 	});
 	

@@ -22,4 +22,5 @@ $(document).ready(function(){
 			});
 			}
 		});
+		$('#sidebar').find('span').text('OPEN');
 });

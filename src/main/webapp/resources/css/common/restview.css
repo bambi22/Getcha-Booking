@@ -24,6 +24,6 @@
 	.date_row {height:40px; margin:0;}
 	.date_row p {font-size: 15px; color: #CACACA; text-align: right; padding-right: 5px;} 
 	.line {margin:0; padding:0;}
-	a { color: #000; text-decoration: none;}
+	a {text-decoration: none;}
     a:hover {text-decoration: underline;}
     #sidebar{left:-250px;}
