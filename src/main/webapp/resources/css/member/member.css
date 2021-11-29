@@ -209,7 +209,7 @@ label {
 }
 
 .btn-register {
-  background-color: #E8E9EC;
+  background-color: #2D3B55;
   outline: none;
   color: #2D3B55;
   font-size: 14px;
@@ -227,7 +227,7 @@ label {
   background-color: #2D3B55;
 }
 .btn-reset {
-  background-color: #E8E9EC;
+  background-color: #B0978D;
   outline: none;
   color: #2D3B55;
   font-size: 14px;
@@ -238,7 +238,7 @@ label {
   border: none;
   border-radius: 0px;
   box-shadow: none;
-  margin-top:10px;
+ 
 }
 .btn-reset:hover,
 .btn-reset:focus {

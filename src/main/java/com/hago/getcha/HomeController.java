@@ -28,12 +28,6 @@ public class HomeController {
 		return "common/index";
 	}
 	
-
-	@RequestMapping(value="/reservationView")
-	public String reservationView() {
-		return "reservation/reservationView";
-	}
-	
 	@RequestMapping(value="/admin")
 	public String admin(Model model, @RequestParam String formpath) {
 		model.addAttribute("formpath", formpath);
@@ -64,6 +58,21 @@ public class HomeController {
 	@RequestMapping(value="/deleteForm")
 	public String deleteForm() {
 		return "member/deleteForm";
+	}
+	
+	@RequestMapping(value="/reservationView")
+	public String reservationView() {
+		return "reservation/reservationView";
+	}
+	
+	@RequestMapping(value="/calendar")
+	public String calendar() {
+		return "reservation/calendar";
+	}
+
+	@RequestMapping(value = "/deleteReservation")
+	public String deleteReservation(int resNum, HttpSession session) {
+		return "reservation/deleteReservation";
 	}
 	
 	@RequestMapping(value="restMain")

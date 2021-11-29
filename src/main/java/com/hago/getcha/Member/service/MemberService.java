@@ -27,6 +27,9 @@ public class MemberService implements IMemberService{
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
+		logger.warn("pw : " + member.getPw());
+		logger.warn("pwCheck : " + member.getPwCheck());
+		logger.warn("memberPwCheck:" + memberPwChk(member));
 		if(memberPwChk(member) == 0) {
 			return 0;
 		}
@@ -50,11 +53,16 @@ public class MemberService implements IMemberService{
 		boolean match1 = Pattern.matches(pattern1, pw);
 		boolean match2 = Pattern.matches(pattern2, pw);
 		boolean match3 = Pattern.matches(pattern3, pw);
-		if(pw.equals(pwCheck)==false)
-			return 0;
-		if(match1 == false || match2 == false || match3 == false)
-			return 0;
-		return 1;
+		if(pw.equals(pwCheck)==true) {
+			logger.warn("일치 체크:"+pw.equals(pwCheck));
+			return 1;
+		}
+			
+		if(match1 == true&&match2 == true || match1==true&&match3 == true|| match3 == true&&match2 == true) {
+			logger.warn("match check:"+ match1+ match2 + match3 );
+			return 1;
+		}
+		return 0;
 	}
 
 	public int pwCheck(MemberDTO member) {
@@ -106,17 +114,20 @@ public class MemberService implements IMemberService{
 
 	@Override
 	public int memberModiProc(MemberDTO member) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String securePw = encoder.encode(member.getPw());
 		logger.warn("pw: " + member.getPw());
+		logger.warn("pwCheck: " + member.getPwCheck());
 		logger.warn("birth : " + member.getBirth());
 		logger.warn("gender:" + member.getGender());
 		logger.warn("nickname:"+member.getNickname());
 		logger.warn("email:"+member.getEmail());
-		member.setPw(securePw);
-		if(member.getEmail() == "" || member.getPw()==""||member.getEmail()==null||member.getPw()==null)
+		if(memberPwChk(member) == 0) {
+			logger.warn("pWChk=0");
 			return 0;
-		if(dao.memberModiProc(member) == 1)
+		}
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securePw = encoder.encode(member.getPw());
+		member.setPw(securePw);
+		if(dao.memberModiProc(member) == 1) 
 			return 1;
 		else
 			return 2;

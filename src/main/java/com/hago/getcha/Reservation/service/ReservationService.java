@@ -3,11 +3,15 @@ package com.hago.getcha.Reservation.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +27,7 @@ import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
 
 @Service
-public class ReservationService {
+public class ReservationService{
 	@Autowired IReservationDAO dao;
 	@Autowired IMemberDAO member;
 	@Autowired HttpSession session;
@@ -46,14 +50,24 @@ public class ReservationService {
 		MemberDTO memberInfo = member.memberViewProc(email);
 		return memberInfo;
 	}
-
-	public List<Map<String, String>> checkAjax(String date, int restNum) throws Exception {
-		List<Map<String, String>> checkres = checkres(restNum, date);
-		
-		for(Map<String, String> map : checkres) {
-			for(Map.Entry<String, String>entry:map.entrySet()) {
+	
+	//List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+	
+	/*@Override
+	public int compare(HashMap<String, Object> o1, HashMap<String, Object> o2) {
+		String name1 = (String) o1.get("time");
+		String name2 = (String) o1.get("time");
+		return name1.compareTo(name2);
+	}*/
+	
+	public List<Map<String, Object>> checkAjax(String date, int restNum) throws Exception {
+		List<Map<String, Object>> checkres = checkres(restNum, date);
+		checkres = checkres.stream().sorted((o1,o2) -> o1.get("time").toString().compareTo(o2.get("time").toString())
+				).collect(Collectors.toList());
+		for(Map<String, Object> map : checkres) {
+			for(Entry<String, Object> entry:map.entrySet()) {
 				String key = entry.getKey();
-				String value = entry.getValue();
+				String value = (String) entry.getValue();
 				logger.warn("key: " + key + "| value: " + value);
 			}
 		}
@@ -185,10 +199,10 @@ public class ReservationService {
 		return timePart;
 	}
 	//checkres
-	public List<Map<String, String>> checkres(int restNum, String date) throws Exception {
+	public List<Map<String, Object>> checkres(int restNum, String date) throws Exception {
 		logger.warn("map 호출");
-		Map<String, String>timeCapa = new HashMap<String, String>();
-		List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
+		Map<String, Object>timeCapa = new HashMap<String, Object>();
+		List<Map<String, Object>> dataList = new ArrayList<Map<String,Object>>();
 		ReservationDTO get = new ReservationDTO();
 		List<String>resTCheck = new ArrayList<String>();
 		List<String>resPCheck = new ArrayList<String>();
@@ -203,7 +217,7 @@ public class ReservationService {
 		if(resList.size()<1) {
 			logger.warn("예약내역 없음");
 			for(int i=0; i<timePart.size(); i++) {
-				timeCapa = new HashMap<String, String>();
+				timeCapa = new HashMap<String, Object>();
 				String capa=Integer.toString(capacity);
 				timeCapa.put("time", timePart.get(i));
 				timeCapa.put("capa", capa);
@@ -231,14 +245,14 @@ public class ReservationService {
 				}else {
 					
 					for(int j=0; j<timePart.size(); j++) {
-						timeCapa = new HashMap<String, String>();
+						timeCapa = new HashMap<String, Object>();
 						String capa=Integer.toString(capacity);
 						logger.warn("check필요:"+timePart.get(j)+"/"+capa);
 						timeCapa.put("time", timePart.get(j));
 						timeCapa.put("capa", capa);
 						dataList.add(timeCapa);
 					}	
-					return dataList;
+					//return dataList;
 				}
 			}
 		}
@@ -332,24 +346,10 @@ public class ReservationService {
 		logger.warn("===================================");
 		for(String key : map.keySet()) {
 			logger.warn("key:"+key+"/value:"+map.get(key));
-			timeCapa = new HashMap<String, String>();
+			timeCapa = new HashMap<String, Object>();
 			timeCapa.put("time", key);
 			logger.warn("key"+key+"capa"+Integer.toString(map.get(key)));
 			timeCapa.put("capa", Integer.toString(map.get(key)));
-			dataList.add(timeCapa);
-		}
-		
-		
-		
-		logger.warn("=========================");
-		//예약가능 시간과 일치하는 예약시간 없을때
-		for(int i=0; i<timePart.size(); i++) {
-			timeCapa = new HashMap<String, String>();
-			String stCapa = Integer.toString(capacity);
-			logger.warn("capa:" +stCapa);
-			logger.warn("hour:"+timePart.get(i));
-			timeCapa.put("time", timePart.get(i));
-			timeCapa.put("capa", stCapa);
 			dataList.add(timeCapa);
 		}
 		
@@ -375,7 +375,10 @@ public class ReservationService {
 			return 2;
 	}
 	public ArrayList<ReservationDTO> reservationView(String email) {
-		return dao.reservationView(email);
+		ArrayList<ReservationDTO> view = dao.reservationView(email);
+		//view = (ArrayList<ReservationDTO>) view.stream().sorted(Comparator.comparing(ReservationDTO::getResDay)).collect(Collectors.toList());
+		
+		return view;
 	}
 	
 	public void resDelete(String resNum, Model model) {
@@ -384,9 +387,12 @@ public class ReservationService {
 		model.addAttribute("res", res);
 	}
 	
-	public int resDeleteProc(int resNum) {
+	public int resDeleteProc(String resNum) {
 		logger.warn("resNum:"+resNum);
-		int result = dao.resDeleteProc(resNum);
+		int no = Integer.parseInt(resNum);
+		int result = dao.resDeleteProc(no);
 		return result;
 	}
+	
+	
 }

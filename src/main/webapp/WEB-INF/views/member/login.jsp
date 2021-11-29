@@ -2,7 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <html>
+<style>
+.login{
+width:274px;
+border:1 solid black;
+
+}
+.register{
+
+height:65px;
+}
+</style>
 <script  src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">

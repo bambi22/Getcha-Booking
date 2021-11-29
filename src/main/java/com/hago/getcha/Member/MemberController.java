@@ -1,8 +1,12 @@
 package com.hago.getcha.Member;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -122,11 +126,12 @@ public class MemberController {
 		member.setBirth(birth);
 		member.setGender(gender);
 		int result = service.memberModiProc(member);
-		
+		logger.warn("result:"+result);
 		if(result == 0) {
-			model.addAttribute("msg", "필수 정보입니다.");
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
+			
 			//model.addAttribute("url","/memberModi");
-			return "forward:index?formpath=memberModi";
+			return "/memberModiView";
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
@@ -135,7 +140,7 @@ public class MemberController {
 		}else {
 			model.addAttribute("msg", "수정실패.");
 			//model.addAttribute("url","/memberModi");
-			return "forward:index?formpath=/memberModi";
+			return "/memberModiView";
 		}
 	}
 	@RequestMapping(value = "memberDeleteProc")

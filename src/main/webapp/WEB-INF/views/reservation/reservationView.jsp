@@ -9,18 +9,18 @@
 <c:url var="root" value="/"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	$("document").ready(function(){
+	/*$("document").ready(function(){
 		$('.deleteBtn').css("cursor", "pointer").click(function(){
 			let no = $(this).attr("id");
 			$("#resNum").val(no);
 			$("#f").attr("action", "${root}resDelete");
 			$("#f").submit();
 		})
-	})
+	})*/
 </script>
 <center>
-<form id="f" method="get">
-	<input type="hidden" id="resNum" name="resNum"/>
+<!-- <form id ="f" method="post">
+<input type="hidden" id="resNum" name="resNum"/> -->
 	<table>
 		<tr>
 			<td colspan=2>
@@ -47,12 +47,11 @@
 		<tr>
 			<td style="width:100px; height:40px;"><b>상태</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.status}</b>
-			<input type="button" style="width:80px;" value="예약취소" class="deleteBtn" id="${reservationView.resNum}"/>
+			<input type="button" style="width:80px;" value="예약취소" onclick="location.href='${root}resDelete?resNum=${reservationView.resNum}'"/>
 			<button onclick="location.href='index/formpath=write?restNum=${reservationView.resNum}'">리뷰 쓰기</button>
 			<hr>
 			</td>
 		</tr>
 		</c:forEach>
 	</table>
-	</form>
 </center>

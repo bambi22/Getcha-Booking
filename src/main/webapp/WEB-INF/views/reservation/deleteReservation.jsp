@@ -3,18 +3,16 @@
 <c:url var="root" value="/"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-	$("document").ready(function(){
+	/*$("document").ready(function(){
 		$('.deleteBtn').css("cursor", "pointer").click(function(){
 			let no = $(this).attr("id");
 			$("#resNum").val(no);
 			$("#f").attr("action", "${root}DeleteProc");
 			$("#f").submit();
 		})
-	})
+	})*/
 </script>
 <center>
-<form id ="f" method="post">
-<input type="hidden" id="resNum" name="resNum"/>
 	<table>
 		<tr>
 			<td colspan=2 >
@@ -42,10 +40,9 @@
 		</tr>
 		<tr>
 			<td align='right' height=40>
-				<input type="button" style="width:80px;" value="예약취소" class="deleteBtn" id="${res.resNum}"/>
-				<input type="button" value="예약 내역" onclick = "location.href='reservationView'"/>
+				<input type="button" style="width:80px;" value="예약취소" onclick="location.href='${root}DeleteProc?resNum=${res.resNum}'"/>
+				<input type="button" value="예약 내역" onclick="location.href='${root}reservationViewProc'"/>
 			</td>
 		<tr>
 	</table>
-</form>
 </center>
