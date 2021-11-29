@@ -1,12 +1,10 @@
 @charset "UTF-8";
-	section {
-		width: 1200px;
+	#ReviewPage_Container {
+		width: 900px;
 		margin: auto;
 	}
 	
-	#ReviewPage_Container {
-		margin: 10px;
-	}
+	#PageTitle {margin: 15px; text-align: center;}
 	
 	.Review_Row{
 		margin: 5px ,0px;
@@ -15,7 +13,7 @@
 	.title {
 		font-weight: bold, 700;
 		font-size: 18px;
-		padding: 15px;
+		padding: 10px;
 	}
 	
 	.title img{
@@ -24,6 +22,8 @@
 		width: 20px;
 		padding: 3px;
 	}
+	
+	.contentBox {margin: 5px 10px;}
 	
 	.image_wrap{
 		height: 120px;
@@ -54,7 +54,7 @@
     
     .button_wrap div {width: 100px;}
     
-    a { color: #000; text-decoration: none; font-weight:bold;}
+    a {font-weight:bold;}
     a:hover {text-decoration: underline;} 
     #sidebar{left:-250px;}
      

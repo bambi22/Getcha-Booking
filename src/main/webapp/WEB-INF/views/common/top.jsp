@@ -17,9 +17,9 @@
 			<c:when test="${not empty sessionScope.email }">
 			<td>
 			<div class="dropdown">
-			  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+			 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color:black">
 			    <img src="resources/img/icon/profileIcon.png" style="width:30px">
-			  </a>
+			  </button>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 			    <li><a class="dropdown-item" href="${root}memberViewProc">회원정보</a></li>
 			    <li><a class="dropdown-item" href="${root }reservationViewProc">예약 확인</a></li>
