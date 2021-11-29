@@ -28,25 +28,30 @@ function search(){
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			var str="<tr>";
 			var list = data.datas;
-			$("select[name='showTime'] option").remove();
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
-				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');
-			})
-			$("select[name='showTime']").change(function(){
-				console.log($(this).val());
-				console.log($("select[name='showTime'] option:selected").text());
+				
+				//str+="<td><select name='time'><option value="'+obj["time"]+'">+"obj["time"]+"</option></td>";
+				
+				str+="<td onclick='setTime(obj['time']);' style='cursor:pointer;'>"+obj["time"]+"</td>";
+			});
+			str+="</tr>"
+				$("#showTime").html(str);
+			$("#showTime td").click(function(){
+				
 				var str=""
 				var ctr=""
-				var td=$(this).val();
-				console.log("td" + td);
-				$("#hours").val(td);
-				$("#hours").html(td)
+				var td=$(this);
+				console.log("선택된 데이터:"+td.text());
+				$("#hours").val(td.text());
+				str = td.text();
+				$("#hours").html(str)
 				
 				$(list).each(function(ind,obj){
-					if(obj["time"]==td){
+					if(obj["time"]==str){
 						console.log(obj["time"]);
 						var ctr=obj["capa"];
 						var capanum = parseInt(ctr);
@@ -75,7 +80,8 @@ function search(){
 <div class="container" style="margin:auto;">
 <form action="reservationProc" method="post">
 	<h4>날짜</h4>
-	<input type="text" id="resDay" name="resDay" style="cursor:pointer;" readonly="readonly;"/>
+	<input type="text" id="resDay" name="resDay"/>
+	<input type="button" value="조회" onclick="search();">
 	<div id="div_calendar" style="width:300px; display:none;">
 		<div>
 			<button type="button" onclick="changeMonth(-1);"><i class="fa fa-chevron-left"></i></button>
@@ -113,16 +119,18 @@ function search(){
 		</table>
 	</div>
 	<h4>시간</h4>
-	<div id = time>
-		<select name="showTime" id="showTime">
-			<option value="">시간 선택</option>
-		</select>
-		<input type="hidden" id="hours" name="hours"/>
-	</div>
+	<table>
+		<tr id=showTime>
+		</tr>
+		<tr>
+			<td>
+			<input type="hidden" id="hours" name="hours"/>
+			</td>
+		</tr> 
+	</table>
 	<h4>인원</h4>
 	<div id = showData>
-		<select name="capacity">
-		<option value="">인원 선택</option></select>
+		<select name="capacity"></select>
 	</div>
 	<input type="submit" value="예약하기">
 	<input type="reset" value="취소">
@@ -212,10 +220,7 @@ function search(){
 	}
 	function renderCalendarThis(data){
 		let today = new Date();
-		let today_year=today.getFullYear();
-		let today_month=today.getMonth()+1;
 		let today_date = today.getDate();
-		$("#resDay").val(today_year+"-"+today_month+"-"+today_date);
 		console.log("2.today" + today);
 		console.log("2.today_date" + today_date);
 		let h = [];
@@ -263,7 +268,6 @@ function search(){
 		if(day<10) day="0" +day;
 		$("#resDay").val(current_year + "-" + current_month + "-" + day);
 		$("#div_calendar").hide();
-		search();
 	}
 	//달력 변화
 	function changeMonth(diff){

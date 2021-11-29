@@ -359,21 +359,22 @@ public class ReservationService{
 	
 	//선택된 날짜, 시간, 인원 예약하기
 	public int reservationProc(ReservationDTO dto) {
+		logger.warn("예약 service");
 		int restNum = dto.getRestNum();
 		ReservationDTO info = getInfo(restNum);
 		String restName = info.getRestName();
 		logger.warn("식당이름: "+ restName);
-		String nickName = "";
-		String mobile = "";
-		
+		//String nickName = "";
+		//String mobile = "";
 		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
 		dto.setStatus("예약확인");
 		if(dto.getEmail()==""||dto.getEmail()==null)
 			return 0;
-		if(dao.reservationProc(dto)==1)
+		if(dao.reservationProc(dto)==1) {
 			return 1;
+		}
 		else
 			return 2;
 	}

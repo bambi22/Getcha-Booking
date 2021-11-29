@@ -69,13 +69,13 @@ public class ReservationController{
 		logger.warn("restNum:"+ dto.getRestNum());
 		int result = service.reservationProc(dto);
 		if(result == 0) {
-			model.addAttribute("msg","로그인해주세요.");
+			//model.addAttribute("msg","로그인해주세요.");
 			return "login";
 		}else if(result == 1) {
-			model.addAttribute("msg","예약되었습니다.");
-			return "forward:index?formpath=main";
+			//model.addAttribute("msg","예약되었습니다.");
+			return "forward:main";
 		}else {
-			model.addAttribute("msg", "예약 실패");
+			//model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=calendar";
 		}
 	}
