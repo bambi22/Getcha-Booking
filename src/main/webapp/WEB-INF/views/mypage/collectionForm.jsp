@@ -6,7 +6,7 @@
 <c:url var="root" value="/" />
 <title>Getcha Table</title>
 <body>
-	<div align="center"><h2>관심 식당</h2></div>
+	<div id="PageTitle"><h2>관심 식당</h2></div>
 	<div id="CollectionPage_Container">
 	<c:forEach var="list" items="${collectionList }">
 		<div class="container_Row">
@@ -20,7 +20,7 @@
 						</div>
 					</td>
 					<td>
-						<a href="restViewProc?restNum=${list.restNum }">${list.restName }</a>
+						<a href="restViewProc?restNum=${list.restNum }" class="link-dark">${list.restName }</a>
 						<span><img src="resources/img/icon/star.png" width="20"> ${list.avgPoint }</span>
 					</td>
 				</tr>

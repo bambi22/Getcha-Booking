@@ -1,19 +1,19 @@
 @charset "UTF-8";
 	header, #container {width:950px; margin:auto;}
-	.restTitle {display: flex; height:50px;}
-	#restName {margin-top:4px; padding:2px;}
-	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
-	#collect_btn:active {margin-left: 5px; margin-top: 5px; box-shadow:none;}
-	#collect_btn img {width: 30px;}
+	.restTitle {display: flex; height:50px; margin-right: 10px;}
+	.restTitle {float: left;}
 	#share_btn {background-color: white; padding :0; border: 0; outline: none; text-align: right;}
-	#share_btn:active {margin-left: 5px; margin-top: 5px; box-shadow:none;}
-	.carousel-item {height: 500px; width:450px;}
-	.carousel-item img {height:auto;}
+	#share_btn:active {box-shadow:none;}
+	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
+	#collect_btn:active {box-shadow:none;}
+	#collect_btn img {width: 30px;}
+	#carouselExampleIndicators {height:450px; width:750px;}
+	.carousel-item img {height:100%; width:100%;}
 	.cntReview img {width: 20px;} 
 	.cntCollection img {width: 20px;} 
 	.status_branch span {margin-right: 5px;}
 	.status_branch img {margin-right: 5px;}
-	#rest_detail {border-spacing: 5px;}
+	#rest_detail {border-spacing: 10px;}
 	.facil_wrap div {margin-right: 5px;}
 	facil_wrap div {text-align:center;}
 	#reviewList {border-top: 2px solid; border-bottom: 2px solid; border-spacing: 5px 10px; width: 700px;}
