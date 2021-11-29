@@ -226,4 +226,18 @@ public class ReviewService {
 		return new SimpleDateFormat(type);
 	}
 
+	public void updateProc(HttpServletRequest req, Model model) {
+		String reviewNum = req.getParameter("reviewNum");
+		String restNum = req.getParameter("restNum");
+		String restName = req.getParameter("restName");
+		String content = req.getParameter("content");
+		String fileNames = req.getParameter("fileNames");
+		
+		model.addAttribute("reviewNum", reviewNum);
+		model.addAttribute("restNum", restNum);
+		model.addAttribute("restName", restName);
+		model.addAttribute("content", content);
+		model.addAttribute("fileNames", fileNames);
+	}
+
 }

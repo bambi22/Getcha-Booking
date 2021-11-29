@@ -13,16 +13,17 @@
 <script src="resources/js/myPage/reviewUpdate.js"></script>
 </head>
 <body>
-<form id="f" method="post" enctype="multipart/form-data">
-	<div id="ReviewWritingPage_Container">
-	    <div class="ReviewWritingPage_Row">
+	<div id="writing_Container">
+	<form id="f" method="post" enctype="multipart/form-data">
+	    <div class="writing_Row">
 	    <input type="hidden" name="reviewNum" value="${reviewNum }" />
 	    <input type="hidden" name="restNum" value="${restNum }" />
 	    <input type="hidden" name="restName" value="${restName }" />
 	    <input type="hidden" name="fileNames" value="${fileNames }" />
-	      <strong class="RestaurantName">${restName }</strong>
+	    
+	    <strong class="RestaurantName">${restName }</strong>
 	    </div>
-		<textarea name="content" id="content" rows="10" style="width:100%;">${content }</textarea>
+		<textarea name="content" id="content" rows="9" style="width:100%;">${content }</textarea>
 		<p class="bytes" align="right">0 / 500</p>
 		
 		<div class="rate_wrap">
@@ -74,22 +75,24 @@
 		</div>
        	
        	<c:if test="${fileNames != '파일없음' }">
-			<label class="subtitle">등록한 리뷰 사진</label>
-			<label class="caution">(*사진 삭제 시, 수정 완료하지 않아도 삭제 됩니다)</label>
-			<div class="upload_wrap">
-		       	<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">
-			       	<div>
-				       	<div class="pre_img"><img id="ph${st.count }" src="${root }upload/${fileName }" /></div><br/>
-			      		<button type="button" id="${reviewNum }" data-fileName="${fileName }" class="delBtn" style="width: 60px; ">삭제</button>
-			      	</div>
-		       	</c:forTokens>
-	 		</div>
+      	<div class="subtitle">
+			<span>등록한 리뷰 사진</span>
+			<span class="caution">(*사진 삭제 시, 수정 완료하지 않아도 삭제 됩니다)</span>
+		</div>
+		<div class="preview_wrap">
+	       	<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">
+		       	<div>
+			       	<div class="pre_img"><img id="ph${st.count }" src="${root }upload/${fileName }" /></div><br/>
+		      		<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
+		      	</div>
+	       	</c:forTokens>
+ 		</div>
        	</c:if>
 	 	<div class="button_wrap">
-			<button onclick="submitCheck()" style="width: 60px;">수정</button>
-			<input type="button" style="width: 60px;" value='취소' onclick="location.href='${root}reviewProc'"/>
+			<button onclick="submitCheck()" class="btn btn-dark">수정</button>
+			<button type="button" class="btn btn-dark" onclick="location.href='reviewProc'">취소</button>
 		</div>
+		</form>
 		</div>
-	</form>
 </body>
 </html>

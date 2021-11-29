@@ -3,6 +3,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="<c:url value="/resources/css/review/review.css" />" rel="stylesheet" />
 <script src="resources/js/myPage/reviewList.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <c:url var="root" value="/" />
 <c:if test="${empty sessionScope.email }">
 	 <script>location.href='index?formpath=login';</script>
@@ -39,10 +41,15 @@
 				<div>
 					<p class="date">${list.writeDate }</p>
 				</div>
-				<div class="button_wrap">
-					<input type="submit" value="수정" style="width: 100px" />
-					<input type="button" id="${list.reviewNum }" data-fileName="${list.fileNames }" class="delBtn" value="삭제" style="width: 100px; "/>
-				</div><hr>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="button_wrap">
+							<button type="submit" class="btn btn-dark">수정</button>
+							<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
+						</div><hr>
+					</div>
+				</div>
+				
 			</div>
 		</form>
 	</c:forEach>

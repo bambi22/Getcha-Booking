@@ -52,6 +52,8 @@
       	text-align: right;
     }
     
+    .button_wrap div {width: 100px;}
+    
     a { color: #000; text-decoration: none; font-weight:bold;}
     a:hover {text-decoration: underline;} 
      

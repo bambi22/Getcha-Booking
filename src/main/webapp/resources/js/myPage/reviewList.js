@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$('.delBtn').on('click',function(){
 			var answer = confirm("정말 삭제하겠습니까?");
 			if(answer){
-			var n = $(this).attr('id');
+			var n = $(this).attr('data-id');
 			var f = $(this).attr('data-fileName');
 			$.ajax({	
 		 	   url : "deleteProc", type: "POST",
@@ -21,8 +21,7 @@ $(document).ready(function(){
 		 		   alert("error: " + e);
 		 	   }
 			});
-			}
+			}else return;
 		});
-		$('#sidebar').find('span').text('OPEN');
 	});
 	
