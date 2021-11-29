@@ -4,12 +4,14 @@
    <!-- Bootstrap core CSS -->
 <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" >
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 240px; height:100%; display:flex;">
-    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <span class="fs-4">GetchaTable</span>
-    </a>
+<style>
+#logoImg{ width:160px; margin:10%;}
+.restNav{ margin-top:20px; }
+</style>
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 240px; height:100%; ">
+    <div id="logoImg" ><img src="resources/img/logo/logo2.png" width="100%" onclick="location.href='restMainProc'"></div>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+    <ul class="nav nav-pills flex-column mb-auto restNav">
       <li class="nav-item">
         <a href="restMainProc" id="restMainTab" class="nav-link text-white" aria-current="page">       
           홈
