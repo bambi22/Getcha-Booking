@@ -6,8 +6,9 @@
 <html>
 <style>
 .login{
-width:274px;
-border:1 solid black;
+width:263px;
+height: 59;
+
 
 }
 .register{

@@ -85,42 +85,9 @@ $('#sidebar').find('span').text('OPEN');
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-    
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container" style="z-index:6">
-	      <a class="navbar-brand" href="">GETCHA</a>
-	      
-
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          
-	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>
-	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="resources/img/icon/profileIcon.png" style="width:40px"></a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="${root}memberViewProc">회원정보</a>
-                <a class="dropdown-item" href="${root}reservationViewProc">예약확인</a>
-                <a class="dropdown-item" href="#">이동3</a>
-                <a class="dropdown-item" href="#">이동4</a>
-              </div>
-            </li>
-	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>
-	          <li class="nav-item"><a href="#" class="nav-link">이동</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-=======
 		 </nav>
   	
    
->>>>>>> origin/master
   	
     
 	 
