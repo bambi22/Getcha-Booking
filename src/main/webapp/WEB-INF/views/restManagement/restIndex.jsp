@@ -1,17 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
-<body>
-
-<c:import url="restNav.jsp"/>
-
-<div align="center" >
-	<table style="width:100%;">
-		<tr><td style="height:100px;"><%@ include file="../common/top.jsp" %></td></tr>
-		<tr><td style="padding: 30px;"><c:import url="/${formpath }" /></td></tr>
-		<tr><td style="height:50px;"><%@ include file="../common/footer.jsp" %></td></tr>
-	</table>
-	</div>
+<style>
+	#restBody{ display:flex; }
+	#restNav{position:fixed; height:100%;}
+	#restContent { margin-left:240px; width:100%; padding:50px; height:100%;
+		background-image: url('resources/img/common/daeliseok.jfif');
+		min-height: 100%; background-size: cover; }
+</style>
+<body id="restBody">
+<div id="restNav">
+	<c:import url="restNav.jsp"/>
+</div>
+<div id="restContent">	
+	<c:import url="/${formpath }" />
+</div>
 </body>
 </html>
+
