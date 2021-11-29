@@ -11,7 +11,8 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
-<script src="resources/js/restaurant/restView.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 window.onload=function() {
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -47,15 +48,57 @@ window.onload=function() {
 	        map.setCenter(coords);
 	    } 
 	}); 
+	
+	$('#collect_btn').on('click',function(){
+		var target = $(this);
+		var num = $(this).attr('data-num');
+		$.ajax({	
+	 	   url : "collectProc", type: "POST",
+	 	   data : "reviewNum="+num,
+	 	   contentType: "application/x-www-form-urlencoded; charset=utf-8",
+	 	   success : function(data) {
+			if(data.result == "success"){
+				$(target).children().attr('src', "resources/img/icon/full_ht.png");
+				$(target).children().attr('alt', "저장된 상태");
+				}else{
+					alert("저장한 식당입니다.");
+					}
+			},
+	 	   error: function(e){
+	 		   alert("error: " + e);
+	 	   }
+		});
+	});
+	
+	$('.carousel-item').filter(':first').addClass('active');
+	
+	$('#sidebar').find('span').text('OPEN');
 }
 </script>
 </head>
 <body>
 	<header>
-	<div class="restMainImg_wrap">
-		<c:forEach var="image" items="${restImgList}">
-			<img src="${root }upload/restaurant/${image.restImage }" width="200">
-		</c:forEach>
+	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+		  <div class="carousel-indicators">
+			<c:forEach var="i" begin="0" end="${fn:length(restImgList) }">
+		    	<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i }" class="active" aria-current="true" aria-label="Slide ${i+1 }"></button>
+		  	</c:forEach>
+		  </div>
+		  <div class="carousel-inner">
+		    <c:forEach var="image" items="${restImgList}" varStatus="vs">
+		    	<div class="carousel-item">
+		    		<img src="${root }upload/restaurant/${image.restImage }" class="d-block w-100">
+	   			</div>
+		    </c:forEach>
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
 	</div>
 	<br><br>
 		<div class="restTitle">

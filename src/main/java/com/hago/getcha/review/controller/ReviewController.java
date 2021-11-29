@@ -29,20 +29,15 @@ public class ReviewController {
 		return "forward:index?formpath=review";
 	}
 	
-	@RequestMapping(value = "reviewProc")
+	@RequestMapping(value = "/reviewProc")
 	public String reviewProc(Model model) {
 		service.reviewProc(model);
 		return "forward:index?formpath=review";
 	}
 	
 	@RequestMapping(value = "updateProc")
-	public String updateProc(@RequestParam int reviewNum, @RequestParam String restName, @RequestParam int restNum,
-			@RequestParam String content, @RequestParam String fileNames, Model model) {
-		model.addAttribute("reviewNum", reviewNum);
-		model.addAttribute("restNum", restNum);
-		model.addAttribute("restName", restName);
-		model.addAttribute("content", content);
-		model.addAttribute("fileNames", fileNames);
+	public String updateProc(HttpServletRequest req, Model model) {
+		service.updateProc(req, model);
 		return "forward:index?formpath=update";
 	}
 	

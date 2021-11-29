@@ -4,19 +4,23 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.hago.getcha.collection.controller.CollectionController;
 import com.hago.getcha.collection.dao.ICollectionDAO;
 import com.hago.getcha.collection.dto.AllCollectDTO;
 import com.hago.getcha.collection.dto.CollectDTO;
 
 @Service
 public class CollectionService {
+	final static Logger logger = LoggerFactory.getLogger(CollectionService.class);
 	@Autowired ICollectionDAO cDao;
 	@Autowired CollectDTO cDto;
-	private HttpSession session;
+	@Autowired HttpSession session;
 	
 	public int colletProc(String restNo) {
 		String email = (String) session.getAttribute("email");
@@ -33,8 +37,8 @@ public class CollectionService {
 	}
 
 	public void myCollectProc(Model model) {
-		//String email = (String) session.getAttribute("email");
-		String email = "test23@hago.com";
+		String email = (String) session.getAttribute("email");
+		logger.warn("email : " + email);
 		ArrayList<AllCollectDTO> collectionList = cDao.myCollectProc(email);
 		model.addAttribute("collectionList", collectionList);
 	}
