@@ -49,7 +49,7 @@ public class MemberController {
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 	
 				model.addAttribute("result", "로그인 성공");
-				return "forward:index?formpath=main";					
+				return "forward:main";					
 			} else {
 				model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
 				return "forward:index?formpath=login";					
