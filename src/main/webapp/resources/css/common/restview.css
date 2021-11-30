@@ -1,6 +1,5 @@
 @charset "UTF-8";
 	section {width:1000px; margin:auto; box-shadow: 1px 1px 3px 1px #dadce0;}
-	header, #container {padding:10px;}
 	header div {margin:auto;}
 	.restInfo {margin-left: 50px; padding:5px;}
 	#restTitle>ul {margin-right: 50px;}
@@ -9,7 +8,7 @@
 	#booking_btn {float:right; margin-right: 60px;}
 	#share_btn {background-color: white; padding :0; border: 0; outline: none; height: 40px; width:40px;}
 	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 40px; width:40px;}
-	#carouselExampleIndicators {height:450px; width:850px;}
+	#carouselExampleIndicators {height:450px; width:880px; margin-top: 10px;}
 	.carousel-item img {height:100%; width:100%;}
 	.cntReview img {width: 20px;} 
 	.cntCollection img {width: 20px;} 

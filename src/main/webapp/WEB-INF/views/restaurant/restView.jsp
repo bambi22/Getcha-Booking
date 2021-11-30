@@ -11,8 +11,6 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" >
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 window.onload=function() {
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -112,10 +110,10 @@ window.onload=function() {
 					<c:if test="${not empty sessionScope.email}">
 		            <li><button id="collect_btn" data-num="${restNum }">
 			            <c:if test="${collection == 0}">
-			            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지" width="30">
+			            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지" width="35">
 			            </c:if>
 			            <c:if test="${collection == 1}">
-			            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지" width="30">
+			            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지" width="35">
 			            </c:if>
 		            </button></li>
 		        </c:if>
