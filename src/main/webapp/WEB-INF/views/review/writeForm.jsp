@@ -16,7 +16,7 @@
 	<form action="writeProc" method="post" enctype="multipart/form-data">
 	    <div class="writing_Row">
 	    <input type="hidden" name="restNum" value="${restNum }" />
-	      <strong class="RestaurantName"></strong>
+	      <strong class="RestaurantName">${restName }</strong>
 	    </div>
 		<textarea name="content" id="content" class="form-control" rows="10" placeholder="음식은 어떠셨나요? 식당의 분위기와 서비스도 궁금해요!"></textarea>
 		<p class="bytes" align="right">0 / 500</p>
