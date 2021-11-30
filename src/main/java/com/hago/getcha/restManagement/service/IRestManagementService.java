@@ -21,9 +21,9 @@ public interface IRestManagementService {
 	
 	public void modifyPromotionProc(MultipartHttpServletRequest req);
 	
-	public void deletePromotionProc(MultipartHttpServletRequest req);
+	public void deletePromotionProc(HttpServletRequest req);
 	
-	public void menuModifyProc(HttpServletRequest req);
+	public void menuModifyProc(MultipartHttpServletRequest req);
 	
 	public void deleteWholeMenuProc();
 }
