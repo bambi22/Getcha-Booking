@@ -100,11 +100,10 @@ $('document').ready(function(){
 	      <img class="fs-4" src="resources/img/logo/logo.png" width="120">
 	    </a>
 	    <hr>
-	     <section id="search_container">
-			<form action="searchProc" method="get" >	
-   				<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력" style="width:210px"/>
-			</form>
-		</section>
+    
+		<form action="searchProc" method="get" >	
+  			<input type="text" name="keyword" id="keywordInput" placeholder="검색 키워드 입력" style="width:210px"/>
+		</form>
 		
 	    <ul class="nav nav-pills flex-column mb-auto">
 	      <li class="nav-item">

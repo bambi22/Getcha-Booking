@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url var="root" value="/"/>
 <style>
-#header{background-color: black; height: 70px; width:100%; }
-.rows{width:100%; display:flex; height:100%; justify-content: space-between;}	 
+#header{background-color: black; height: 70px; width:100%;}
+.rows{width:100%; display:flex; height:100%; justify-content: space-between;}
+#top>ul {margin-right: 20px;}
+#top>ul>li {float:right; padding:20px 20px; list-style-type:none;}	
 .coll-logo{flex-basis: 70%; margin: 10px 40px 5px 40px;}
 .coll-l{margin-left:auto; margin: 15px 50px 15px 40px; }
- a { text-decoration:none underline; color:white;  }
-    a:hover { color: #F2EBC7; }
 </style>
 
 
@@ -16,6 +16,7 @@
 		<div class="coll-logo">
 			<a href="main"><img src="resources/img/logo/logo4.png" width="40px"></a>
 		</div>
+		<div id="top">
 		<c:choose>
 			<c:when test="${not empty sessionScope.email }">
 			<div class="dropdown coll-l" style="width:200px;">
@@ -33,10 +34,13 @@
 			
 			</c:when>
 			<c:otherwise>
-				<div class="dropdown coll-l"><a class="headerMenu" href="${root}index?formpath=login" style="text-decoration:none underline; color:white; ">로그인</a></div>
-				<div class="dopdown coll-l"><a class="headerMenu" href="${root}index?formpath=member">회원가입</a></div>
+			<ul>
+				<li><a class="headerMenu" href="${root}index?formpath=member" style="text-decoration: none;">회원가입</a></li>
+				<li><a class="headerMenu" href="${root}index?formpath=login" style="text-decoration: none;">로그인</a></li>
+			</ul>
 			</c:otherwise>
 		</c:choose>
+		</div>
 	</div>
 
 </header>
