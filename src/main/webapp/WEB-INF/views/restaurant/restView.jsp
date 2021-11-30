@@ -77,6 +77,7 @@ window.onload=function() {
 </script>
 </head>
 <body>
+<section>
 	<header>
 	<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 		  <div class="carousel-indicators">
@@ -100,20 +101,27 @@ window.onload=function() {
 		    <span class="visually-hidden">Next</span>
 		  </button>
 	</div>
+	</header>
 	<br><br>
-		<div class="restTitle"><h2>${rest.restName }</h2></div>
-			<button id="share_btn"><img src="resources/img/icon/ic_share.png" width="30"></button>
-			<c:if test="${not empty sessionScope.email}">
-	            <button id="collect_btn" data-num="${restNum }">
-		            <c:if test="${collection == 0}">
-		            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지">
-		            </c:if>
-		            <c:if test="${collection == 1}">
-		            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지">
-		            </c:if>
-	            </button>
-	        </c:if>
-			 <div class="status_branch">
+	<div id="container">
+		<div class="restInfo">
+			<div id="restTitle">
+				<div><h2>${rest.restName }</h2></div>
+				<ul>
+					<li><button id="share_btn"><img src="resources/img/icon/ic_share.png" width="35"></button></li>
+					<c:if test="${not empty sessionScope.email}">
+		            <li><button id="collect_btn" data-num="${restNum }">
+			            <c:if test="${collection == 0}">
+			            	<img src="resources/img/icon/empty_ht.png" alt="빈 하트 이미지" width="30">
+			            </c:if>
+			            <c:if test="${collection == 1}">
+			            	<img src="resources/img/icon/full_ht.png" alt="검정 하트 이미지" width="30">
+			            </c:if>
+		            </button></li>
+		        </c:if>
+				</ul>
+		    </div>
+			<div class="status_branch">
                 <span class="cntReview"><img src="resources/img/icon/ic_review.png"> ${cntReview }</span>
                 <span class="cntCollection"><img src="resources/img/icon/full_ht.png"> ${cntCollection }</span>
 				<p>${rest.restIntro }</p>
@@ -121,15 +129,14 @@ window.onload=function() {
 				<br>
 				<img src="resources/img/icon/star.png" width="20" /><label>${rest.avgPoint }</label>
 			</div> 
+			<button type="button" id="booking_btn" class="btn btn-dark" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
+		</div>
 		<br>
-		<hr align="left" width="800px">
-	</header>
-	
-	<div id="container">
+		<hr align="center" width="950px">
 		<table id="rest_detail">
 			<tr>
 				<td>
-					<button type="button" class="btn btn-dark" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
+					
 				</td>
 			</tr>
 			<tr>
@@ -143,7 +150,7 @@ window.onload=function() {
 			</tr>
 			<tr>
 				<td> 영업 시간 </td>
-				<td>
+				<td style="padding:5px;">
 					<c:forEach var="open" items="${openList }">
 						<c:if test="${open.daySelection != '휴무' }">
 							${open.weekSelection } ${open.daySelection } ${open.hours } <br>
@@ -158,7 +165,7 @@ window.onload=function() {
 			</tr>
 			<tr>
 				<td> 부대시설 </td>
-				<td class="facil_wrap">
+				<td class="facil_wrap" style="padding:5px;">
 					<c:forEach var="facil" items="${facilityList}">
 						<c:if test="${facil.facility == '주차 가능' }">
 							<div style="display:inline; float:left;">
@@ -214,46 +221,45 @@ window.onload=function() {
 				</td>
 			</tr>
 		</table>
-		<br>
-				
-		<br>
-		<hr align="left" width="800px">
-		<br>
-		
-		<c:if test="${rest.promotion != '파일 없음' }">
-		<h4>진행 중인 프로모션</h4>
-			<p><img src="${root }upload/promotion/${rest.promotion }" width="200"></p>
-			<br><hr align="left" width="800px"><br>
-		</c:if>
-		<h3>메뉴</h3>
-		<div>
-		<c:if test="${wholeMenuList != '파일 없음' }">
-			<c:forEach var="menu" items="${wholeMenuList}">
-				<img src="${root }upload/wholeMenu/${menu.wholeMenu }" width="200">
-			</c:forEach>
-		</c:if>
+			<c:if test="${rest.promotion != '파일 없음' }">
+				<br><hr align="center" width="950px">
+				<div class="promotion_section">
+					<h3>진행 중인 프로모션</h3>
+					<p><img src="${root }upload/promotion/${rest.promotion }" width="300"></p>
+				</div>
+			</c:if>
+			<br><hr align="center" width="950px"><br>
+			<div class="menuSection">
+			<h3>메뉴</h3>
+			<c:if test="${wholeMenuList != '파일 없음' }">
+				<c:forEach var="menu" items="${wholeMenuList}">
+					<img src="${root }upload/wholeMenu/${menu.wholeMenu }" width="200">
+				</c:forEach>
+			</c:if>
+			
+			<table style="border: 1px solid; width: 600px;">
+				<c:forEach var="i" begin="0" end="${fn:length(menuList) }">
+					<c:if test="${menuList[i].category != menuList[i-1].category}">
+						<tr><th>${menuList[i].category }</th></tr>
+					</c:if>	
+					<tr>
+						<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td>
+						<td>${menuList[i].unitPrice }</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
-		<table style="border: 1px solid; width: 600px;">
-			<c:forEach var="i" begin="0" end="${fn:length(menuList) }">
-				<c:if test="${menuList[i].category != menuList[i-1].category}">
-					<tr><th>${menuList[i].category }</th></tr>
-				</c:if>	
-				<tr>
-					<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td>
-					<td>${menuList[i].unitPrice }</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<br>
+	</div>
+	<br><br>
 		
-		<h3>후기</h3>
-		<table id="reviewList">
+		<h3 style="margin: 0px 50px">후기</h3>
+		<table id="reviewList" cellpadding="5">
 		<c:choose>
 			<c:when test="${fn:length(reviewList) != 0 }">
 			<caption class="cap">최신순</caption>
 			<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
 			<tr>
-				<td rowspan="3">
+				<td rowspan="3" width="150px">
 					<div class="profile_wrap" style="text-align:center">
 						<img class="profile_img" src="resources/img/icon/profileIcon.png" style="width:50px;">
 						<p>${rew.nickName}</p>
@@ -281,7 +287,7 @@ window.onload=function() {
 			</tr>
 			<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
 				<c:choose>
-					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="left" width="800px"></td></tr></c:when>
+					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="center" width="950px"></td></tr></c:when>
 					<c:otherwise><tr><td></td></tr></c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -292,6 +298,6 @@ window.onload=function() {
 			<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
 		</c:choose>
 		</table>
-	</div>
+</section>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd93e659890d767f6ef2a30852c7410c&libraries=services"></script>
