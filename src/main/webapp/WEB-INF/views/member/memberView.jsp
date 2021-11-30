@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-.container{height:720px; margin-top:50px;}
+.container{margin:50px;}
 .btn_set{text-align: center;}
 .btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
 </style>

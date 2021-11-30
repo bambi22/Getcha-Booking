@@ -11,8 +11,12 @@
 		alert(message);
 	</script>
 </c:if>
-<center>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<style>
+.container{margin:50px;}
+.btn_set{text-align: center;}
+.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
+</style>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -28,22 +32,21 @@
               <form   action="memberDeleteProc" method="post" role="form" style="display: block;">
                 <h2>회원탈퇴</h2>
                   <div class="form-group">
-                    
-                 
-                  <div class="form-group">
                     <input type="password" name="pw" id="pw" tabindex="2" class="form-control" placeholder='비밀번호'>
-                   
                   </div>
                   <div class="form-group">
                     <input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">
-                   
                   </div>
-              
-			<tr>
-				<td colspan=2 align='center'>
+                  <div class="btn_set">
 					<input type=submit value='확인' style="width:80px;"/>
 					<input type="button" style="width:80px;" value="취소" onclick="location.href='${root}memberViewProc'"/>
-			</tr>
-		</table>
-	</form>
-</center>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
