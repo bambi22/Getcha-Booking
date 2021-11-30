@@ -8,8 +8,8 @@
 <meta charset="utf-8"/>
 <title>GetchaTable</title>
 
-<c:import url="common/nav.jsp" />
-<c:import url="common/top.jsp" />
+<c:import url="/WEB-INF/views/common/nav.jsp" />
+<c:import url="/WEB-INF/views/common/top.jsp" />
 <!-- <script>
 $('#sidebar').find('span').text('OPEN');
 </script> --> 
