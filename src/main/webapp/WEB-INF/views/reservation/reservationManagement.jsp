@@ -60,7 +60,7 @@
 					    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 					    	</button>
 					  		<div id="myDropdown${j }" class="dropdown-content">
-					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
+					    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">방문완료</a>
 						  	</div>
 						 </div>
 				  	</td>
@@ -123,7 +123,7 @@
 							    		${reserveList[j].resNum }<br>${reserveList[j].nickname} ${reserveList[j].capacity}명
 							    	</button>
 							  		<div id="myDropdown${j }" class="dropdown-content">
-							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">상태 완료</a>
+							    		<a href="orderDoneProc?resNum=${reserveList[j].resNum }&searchDate=${date}">방문완료</a>
 								  	</div>
 					 			</c:if> 
 							</div>

@@ -26,7 +26,7 @@
 		update getchares set status='착석' where resnum=#{resNum}
 	</update>
 	<update id="orderDone" parameterType="java.lang.Integer">
-		update getchares set status='상태완료' where resnum=#{resNum}
+		update getchares set status='방문완료' where resnum=#{resNum}
 	</update>
 	<delete id="reserveCancel" parameterType="java.lang.Integer">
 		update getchares set status='예약취소' where resnum=#{resNum}

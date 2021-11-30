@@ -28,8 +28,6 @@ public interface IAdminManagementDAO {
 
 	public AdditionDTO selectRestNum(int restNum, String guideBook);
 
-	public void updateGuide(int restNum, String guideBook);
-
 	public void addGuide(int restNum, String guideBook);
 
 	
