@@ -4,15 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-	.container{width:1130px; position:relative; padding:60px; margin:auto; text-align:center;}
-	.select_time{margin-top:20px;}
-	.select_people{margin-top:20px;}
-	.showTime{width:180px; text-align:center;}
-	.capacity{width:180px; text-align:center;}
-	.btn{margin-top:20px;}
-	.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
-</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -37,25 +28,30 @@ function search(){
 		dataType:'json',
 		success:function(data){
 			console.log(data);
+			var str="<tr>";
 			var list = data.datas;
-			$("select[name='showTime'] option").remove();
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
-				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');
-			})
-			$("select[name='showTime']").change(function(){
-				console.log($(this).val());
-				console.log($("select[name='showTime'] option:selected").text());
+				
+				//str+="<td><select name='time'><option value="'+obj["time"]+'">+"obj["time"]+"</option></td>";
+				
+				str+="<td onclick='setTime(obj['time']);' style='cursor:pointer;'>"+obj["time"]+"</td>";
+			});
+			str+="</tr>"
+				$("#showTime").html(str);
+			$("#showTime td").click(function(){
+				
 				var str=""
 				var ctr=""
-				var td=$(this).val();
-				console.log("td" + td);
-				$("#hours").val(td);
-				$("#hours").html(td)
+				var td=$(this);
+				console.log("선택된 데이터:"+td.text());
+				$("#hours").val(td.text());
+				str = td.text();
+				$("#hours").html(str)
 				
 				$(list).each(function(ind,obj){
-					if(obj["time"]==td){
+					if(obj["time"]==str){
 						console.log(obj["time"]);
 						var ctr=obj["capa"];
 						var capanum = parseInt(ctr);
@@ -80,13 +76,13 @@ function search(){
 
 </script>
 <body>
-<!-- <div class="container" style="margin:auto;"> -->
-
-<div class="container">
+<!-- <div class="container" style="width:1130px; position:relative; padding-top:60px; margin:auto;"> -->
+<div class="container" style="margin:auto;">
 <form action="reservationProc" method="post">
-	<h5>날짜</h5>
-	<input type="text" id="resDay" name="resDay" style="cursor:pointer; text-align:center;" readonly="readonly;"/>
-	<div class="div_calendar" id="div_calendar" style="display:none;">
+	<h4>날짜</h4>
+	<input type="text" id="resDay" name="resDay"/>
+	<input type="button" value="조회" onclick="search();">
+	<div id="div_calendar" style="width:300px; display:none;">
 		<div>
 			<button type="button" onclick="changeMonth(-1);"><i class="fa fa-chevron-left"></i></button>
 			<input type="number" id="year" value="2020" style="width:80px; display:initial;" class="form-control"/>
@@ -106,7 +102,7 @@ function search(){
 			</select>
 			<button type="button" onclick="changeMonth(1);"><i class="fa fa-chevron-right"></i></button>
 		</div>
-		<table class="table table-bordered" style="width:50%; height:40%; text-align:center;" align="center">
+		<table class="table table-bordered" style="width:90%; height:80%; text-align:center;" align="center">
 			<thead>
 				<tr>
 					<th>일</th>
@@ -122,23 +118,23 @@ function search(){
 			</tbody>
 		</table>
 	</div>
-	<div id = time class="select_time">
-		<h5>시간</h5>
-		<select name="showTime" id="showTime" class="showTime">
-			<option value="">시간 선택</option>
-		</select>
-		<input type="hidden" id="hours" name="hours"/>
+	<h4>시간</h4>
+	<table>
+		<tr id=showTime>
+		</tr>
+		<tr>
+			<td>
+			<input type="hidden" id="hours" name="hours"/>
+			</td>
+		</tr> 
+	</table>
+	<h4>인원</h4>
+	<div id = showData>
+		<select name="capacity"></select>
 	</div>
-	<div id = showData class="select_people">
-		<h5>인원</h5>
-		<select name="capacity" id="capacity" class="capacity">
-		<option value="">인원 선택</option></select>
-	</div>
-	<div class="btn">
-		<input type="submit" class="btn_btn" value="예약하기">
-		<input type="reset" class="btn_btn" value="취소">
-		<input type="button" class="btn_btn" value="돌아가기" onclick="history.back()">
-	</div>
+	<input type="submit" value="예약하기">
+	<input type="reset" value="취소">
+	
 </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -188,12 +184,11 @@ function search(){
 		}
 		let today = new Date();
 		let today_month= today.getMonth()+1;
-		let today_year= today.getFullYear();
-		if(year==today_year && month<today_month||year<today_year){
+		if(month<today_month){
 			console.log("1.입력달: " + month);
 			console.log("1.이번달"+today_month)
 			renderCalendarPre(arr_calendar);
-		}else if(year==today_year && month == today_month){
+		}else if(month == today_month){
 			console.log("2.입력달: " + month);
 			console.log("2.이번달"+today_month)
 			renderCalendarThis(arr_calendar);
@@ -225,10 +220,7 @@ function search(){
 	}
 	function renderCalendarThis(data){
 		let today = new Date();
-		let today_year=today.getFullYear();
-		let today_month=today.getMonth()+1;
 		let today_date = today.getDate();
-		$("#resDay").val(today_year+"-"+today_month+"-"+today_date);
 		console.log("2.today" + today);
 		console.log("2.today_date" + today_date);
 		let h = [];
@@ -240,9 +232,9 @@ function search(){
 				h.push('<tr>');
 			}
 			if(data[i]<today_date){
-				h.push('<td style="background-color:#F6F6F6; color:#BDBDBD">'+data[i]+'</td>');
+				h.push('<td style="background-color:#EAEAEA;">'+data[i]+'</td>');
 			}else if(today_date==data[i]){
-				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer; background-color:#CEFBC9;">'+data[i]+'</td>');
+				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer; background-color:red;">'+data[i]+'</td>');
 				console.log("일치" + data[i]);
 			}else{
 				h.push('<td onclick="setDate('+data[i]+');" style="cursor:pointer;">'+data[i]+'</td>');
@@ -266,7 +258,7 @@ function search(){
 				h.push('</tr>');
 				h.push('<tr>');
 			}
-				h.push('<td style="background-color:#F6F6F6; color:#BDBDBD;">'+data[i]+'</td>');
+				h.push('<td style="background-color:#EAEAEA;">'+data[i]+'</td>');
 			}
 		h.push('</tr>');
 		$("#tb_body").html(h.join(""));
@@ -276,7 +268,6 @@ function search(){
 		if(day<10) day="0" +day;
 		$("#resDay").val(current_year + "-" + current_month + "-" + day);
 		$("#div_calendar").hide();
-		search();
 	}
 	//달력 변화
 	function changeMonth(diff){

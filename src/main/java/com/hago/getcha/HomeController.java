@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 	@Autowired HttpSession session;
+	
 	@RequestMapping(value = "/")
 	public String home() {
 		return "home";

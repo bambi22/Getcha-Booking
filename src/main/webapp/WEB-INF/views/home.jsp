@@ -8,21 +8,20 @@
 <meta charset="utf-8"/>
 <title>GetchaTable</title>
 
-<c:import url="common/nav.jsp" />
-<c:import url="common/top.jsp" />
-<script>
+<!-- <script>
 $('#sidebar').find('span').text('OPEN');
-</script> 
+</script> --> 
+	<c:import url="/WEB-INF/views/common/nav.jsp" /> 
+	<c:import url="/WEB-INF/views/common/top.jsp" />
 <style type="text/css">
     html,body{ margin:0; padding:0; width:100%; height:100%;}
-    #sidebar{left:-250px; z-index:4;}
+/*     #sidebar{left:-250px; z-index:4;} */
     #header{ background-color:none; z-index:3; position:fixed;}
     a { text-decoration:none underline; color:white;  }
     a:hover { color: #F2EBC7; }
     *{
       transition-duration: 0.8s;
 	}
-	
 	.section {
 	  width: 100%;
 	  height: 100vh;
@@ -33,8 +32,8 @@ $('#sidebar').find('span').text('OPEN');
 	}
 	#search{position: absolute; top:180px; width: 100%;	} 
 	#session1{position: absolute; top:940px; width: 100%;	} 
-	#session2{position: absolute; top:1680px; width: 100%;	} 
-	#session3{position: absolute; top:2280px; width: 100%;	} 
+	#session2{position: absolute; top:1600px; width: 100%;	} 
+	#session3{position: absolute; top:2300px; width: 100%;	} 
 	.mainSearch{
 		border: none;
 		border-radius: 10px;
@@ -94,6 +93,7 @@ window.onload = function(){
 
 
 <body >
+
     <div class="section">
 		<video width="100%" height="auto" autoplay loop muted>
 	        <source src="resources/video/poursoup.mp4" type="video/mp4">
@@ -141,6 +141,7 @@ window.onload = function(){
 				<p style="color:white; font-size:16px; font-weight: bold;">나를 위한 시간</p>
 				<p style="color:white; font-size:14px;"><a href="restTypeListProc?mode=location&type=신사동">지역별 레스토랑 확인하기 ></a></p>
 			</div>
+			<button style="width:50px; height:100px; float:right; opacity:0.9" onclick="location.href='adminLogin'"></button>
 		</div>
 	</div>
 </html>

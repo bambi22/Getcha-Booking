@@ -107,6 +107,7 @@ public class CommonService {
 			}else {
 				restList= listDao.restTypeList(type);						
 			}
+			model.addAttribute("title", "종류별 추천 레스토랑 : "+ type);
 		}
 		if(mode.equals("location")) {
 			if(type.equals("etc")) {
@@ -117,6 +118,7 @@ public class CommonService {
 			}else {
 				restList= listDao.restLocationList(type);						
 			}
+			model.addAttribute("title", "지역별 추천 레스토랑 : "+ type);
 		}
 		for(RestaurantDTO rest : restList) {
 			int count = listDao.restReviewCountProc(rest.getRestNum());
@@ -133,18 +135,22 @@ public class CommonService {
 		if(arrange.equals("under3")) {
 			restList = listDao.selectPriceList(0, 30000);
 			inputCommonInfo(restList);
+			model.addAttribute("title", "가격별 추천 레스토랑 : ~30,000원" );
 		}
 		if(arrange.equals("under5")) {
 			restList = listDao.selectPriceList(30000, 50000);
 			inputCommonInfo(restList);
+			model.addAttribute("title", "가격별 추천 레스토랑 : 30,000~50,000원" );
 		}
 		if(arrange.equals("under10")) {
 			restList = listDao.selectPriceList(50000, 100000);
 			inputCommonInfo(restList);
+			model.addAttribute("title", "가격별 추천 레스토랑 : 50,000~100,000원" );
 		}
 		if(arrange.equals("upper10")) {
 			restList = listDao.selectPriceList(100000, 100000);
 			inputCommonInfo(restList);
+			model.addAttribute("title", "가격별 추천 레스토랑 : 100,000~" );
 		}	
 		
 		for(RestaurantDTO rest : restList) {
@@ -175,6 +181,7 @@ public class CommonService {
 			int count = listDao.restReviewCountProc(rest.getRestNum());
 			rest.setCount(count);
 		}
+		model.addAttribute("title", "'"+keyword+"'에 대한 검색 결과" );
 		model.addAttribute("restList", restList);
 	}
 
@@ -193,6 +200,7 @@ public class CommonService {
 			int count = listDao.restReviewCountProc(guide.getRestNum());
 			guide.setCount(count);
 		}
+		model.addAttribute("title", guideBook+"년 가이드북 선정 레스토랑" );
 		model.addAttribute("restList", guideList);
 		
 	}
@@ -208,6 +216,7 @@ public class CommonService {
 			dto.setType(rest.getType());
 			dto.setRepresentImage(rest.getRepresentImage());
 		}
+		model.addAttribute("title", "인기순 레스토랑" );
 		model.addAttribute("restList", countList);
 	}
 }

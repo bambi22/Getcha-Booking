@@ -1,8 +1,10 @@
 package com.hago.getcha.Reservation.dto;
 
+import java.util.Comparator;
+
 import com.hago.getcha.Member.dto.MemberDTO;
 
-public class ReservationDTO extends MemberDTO{
+public class ReservationDTO extends MemberDTO implements Comparator<ReservationDTO>{
 	private int restNum;
 	private String restName;
 	private int resNum;
@@ -80,5 +82,9 @@ public class ReservationDTO extends MemberDTO{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	@Override
+	public int compare(ReservationDTO o1, ReservationDTO o2) {
+		return o1.getResDay().compareTo(o2.getResDay());
 	}
 }

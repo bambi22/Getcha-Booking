@@ -47,7 +47,6 @@ public class RestRegisterService implements IRestRegisterService {
 	}
 	
 	
-	
 	public void restRegisterProc(String[] facilities, String[] openHour, MultipartHttpServletRequest req) {
 		int restNum = (Integer)session.getAttribute("restNum");
 		
@@ -189,7 +188,7 @@ public class RestRegisterService implements IRestRegisterService {
 	public int restMainProc(Model model) {
 		int restNum = (Integer)session.getAttribute("restNum");
 		RestaurantDTO restDto = infoDao.selectRestaurant(restNum);
-		if(restDto.getRestName() != null) {
+		if(restDto != null) {
 			model.addAttribute("restDto", restDto);
 			return 1;
 		}else {

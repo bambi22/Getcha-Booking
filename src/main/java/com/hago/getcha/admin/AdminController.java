@@ -1,23 +1,16 @@
 package com.hago.getcha.admin;
 
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hago.getcha.admin.dto.ManagerDTO;
 import com.hago.getcha.admin.service.AdminManagementServiceImpl;
-import com.hago.getcha.restManagement.dto.RestSumDTO;
 
 @Controller
 public class AdminController {
@@ -39,7 +32,7 @@ public class AdminController {
 	@RequestMapping(value="adminLogoutProc")
 	public String adminLogoutProc(Model model) {
 		adminService.adminLogoutProc(model);
-		return "forward:index?formpath=main";
+		return "forward:home";
 	}
 
 	@RequestMapping(value="managerListProc")
@@ -53,12 +46,7 @@ public class AdminController {
 	public HashMap<String, String> isExistId(@RequestBody HashMap<String, String> map) {
 		return adminService.isExistId(map);
 	}
-	
-//	@RequestMapping(value = "findRestaurant", produces = "application/json;charset=utf-8")
-//	@ResponseBody
-//	public HashMap<String, String> findRestaurant(@RequestBody HashMap<String, String> map) {
-//		return adminService.findRestaurant(map);
-//	}
+
 	
 	@RequestMapping(value = "findRestaurant", produces = "application/json;charset=utf-8")
 	@ResponseBody

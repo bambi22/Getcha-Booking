@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url var="root" value="/"/>
 <style>
-#header{background-color: black; height: 70px; width:100%;}
+#header{background-color: black; height: 70px; width:100%; }
 .rows{width:100%; display:flex; height:100%; justify-content: space-between;}	 
 .coll-logo{flex-basis: 70%; margin: 10px 40px 5px 40px;}
 .coll-l{margin-left:auto; margin: 15px 50px 15px 40px; }
@@ -12,7 +12,7 @@
 <header id="header">
 	<div class="rows">
 		<div class="coll-logo">
-			<a href="${root }main"><img src="resources/img/logo/logo4.png" width="40px"></a>
+			<a href="main"><img src="resources/img/logo/logo4.png" width="40px"></a>
 		</div>
 		<c:choose>
 			<c:when test="${not empty sessionScope.email }">
