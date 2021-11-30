@@ -5,13 +5,13 @@
 <html>
 <head>
 <style type="text/css">
-	.container{width:1130px; position:relative; padding:60px; margin:auto; text-align:center;}
-	.panel-body{background-color:white; overflow:hidden; width:400px; height:auto; text-align:center; margin:auto; border-radius:3px; padding:50px;}
+	.container{width:1130px; position:relative; text-align:center;}
+	.panel-body{background-color:white; overflow:hidden; width:450px; height:auto; text-align:center; margin:50px auto; border-radius:3px; padding:50px;}
 	.select_time{margin-top:20px;}
 	.select_people{margin-top:20px;}
 	.showTime{width:180px; text-align:center;}
 	.capacity{width:180px; text-align:center;}
-	.btn{margin-top:40px;}
+	.btnres{margin:40px;}
 	.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
 </style>
 <meta charset="UTF-8">
@@ -41,6 +41,7 @@ function search(){
 			console.log(data);
 			var list = data.datas;
 			$("select[name='showTime'] option").remove();
+			
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
@@ -78,6 +79,10 @@ function search(){
 	});
 }
 
+function change(){
+	const btn = document.getElementById('resBtn');
+	btn.disabled = false;
+}
 
 
 </script>
@@ -136,11 +141,11 @@ function search(){
 				</div>
 				<div id = showData class="select_people">
 					<h5>인원</h5>
-					<select name="capacity" id="capacity" class="capacity">
+					<select name="capacity" id="capacity" class="capacity" onchange="change()">
 						<option value="">인원 선택</option></select>
 				</div>
-				<div class="btn">
-					<input type="submit" class="btn_btn" value="예약하기">
+				<div class="btnres">
+					<input type="submit" class="btn_btn" value="예약하기" id="resBtn" disabled="disabled">
 					<input type="reset" class="btn_btn" value="취소">
 					<input type="button" class="btn_btn" value="돌아가기" onclick="history.back()">
 				</div>

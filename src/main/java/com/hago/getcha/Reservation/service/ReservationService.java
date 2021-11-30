@@ -1,6 +1,8 @@
 package com.hago.getcha.Reservation.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -230,17 +232,6 @@ public class ReservationService{
 							logger.warn("remove:"+timePart.get(j));
 							timePart.remove(resTime);
 						}
-				//}else {
-					
-				//	for(int j=0; j<timePart.size(); j++) {
-				//		timeCapa = new HashMap<String, Object>();
-				//		String capa=Integer.toString(capacity);
-				//		logger.warn("check필요:"+timePart.get(j)+"/"+capa);
-				//		timeCapa.put("time", timePart.get(j));
-				//		timeCapa.put("capa", capa);
-				//		dataList.add(timeCapa);
-				//	}	
-					//return dataList;
 				}
 			}
 		}
@@ -255,15 +246,23 @@ public class ReservationService{
 		logger.warn("=========================");
 		for(int i=0; timePart.size()>i; i++) {
 			logger.warn("timaPart:"+ timePart.get(i));
-		}
+			}
+		
 		
 		for(int i=0; i<timePart.size(); i++) {
-			timeCapa = new HashMap<String, Object>();
-			String capa=Integer.toString(capacity);
-			logger.warn("check필요:"+timePart.get(i)+"/"+capa);
-			timeCapa.put("time", timePart.get(i));
-			timeCapa.put("capa", capa);
-			dataList.add(timeCapa);
+			if(timePart.get(i).equals("휴무")) {
+				String cap = Integer.toString(0);
+				timeCapa.put("time", timePart.get(i));
+				timeCapa.put("capa", cap);
+				dataList.add(timeCapa);
+			}else {
+				timeCapa = new HashMap<String, Object>();
+				String capa=Integer.toString(capacity);
+				logger.warn("check필요:"+timePart.get(i)+"/"+capa);
+				timeCapa.put("time", timePart.get(i));
+				timeCapa.put("capa", capa);
+				dataList.add(timeCapa);
+			}
 		}
 		
 		logger.warn("=========================");
@@ -306,7 +305,6 @@ public class ReservationService{
 					logger.warn("인원:"+dto.getCapacity());
 					list.add(dto);
 				}else {
-					//map.put(check.getHours(), check.getCapacity());
 					ReservationDTO dto = new ReservationDTO();
 					String time = check.getHours();
 					int cap = check.getCapacity();
@@ -360,29 +358,30 @@ public class ReservationService{
 		ReservationDTO info = getInfo(restNum);
 		String restName = info.getRestName();
 		logger.warn("식당이름: "+ restName);
-		//String nickName = "";
-		//String mobile = "";
-		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
 		dto.setStatus("예약확인");
 		if(dto.getEmail()==""||dto.getEmail()==null)
 			return 0;
+		if(dto.getHours().equals("휴무")) {
+			return 3;
+		}
 		if(dao.reservationProc(dto)==1) {
 			return 1;
 		}
 		else
 			return 2;
 	}
+	
+	public void statusChange(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String date = format.format(new Date());
+		logger.warn("오늘 날짜:" + date);
+		dao.statusChange(date);
+	}
+	
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
-		/*view = (ArrayList<ReservationDTO>) view.stream().sorted((o1,o2) -> o1.getResDay().toString().compareTo(o2.getResDay().toString())
-				).collect(Collectors.toList());
-		for(int i=0; i<view.size(); i++) {
-			ReservationDTO dto = view.get(i);
-			logger.warn("resDay: " + dto.getResDay());
-		}*/
-		
 		return view;
 	}
 	
