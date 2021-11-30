@@ -70,7 +70,6 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	@Override
 	public void adminLogoutProc(Model model) {
 		session.invalidate();
-		model.addAttribute("msg", "로그아웃 되었습니다.");
 	}
 
 	@Override

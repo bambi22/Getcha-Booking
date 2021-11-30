@@ -32,7 +32,7 @@ public class AdminController {
 	@RequestMapping(value="adminLogoutProc")
 	public String adminLogoutProc(Model model) {
 		adminService.adminLogoutProc(model);
-		return "forward:home";
+		return "redirect:home";
 	}
 
 	@RequestMapping(value="managerListProc")
