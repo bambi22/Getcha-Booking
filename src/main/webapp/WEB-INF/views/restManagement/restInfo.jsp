@@ -21,26 +21,130 @@
 <!-- 카카오 주소 라이브러리 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4ca9e6dca916cb522a752c40d791a9b9&libraries=services"></script>
 <c:url var="root" value="/" />
+
+<style>
+	.restInfo{ height:auto; padding: 40px 40px 20px 40px ; margin-top:20px;background-color:#F2F2F2; box-shadow: 1px 1px 3px 1px #dadce0;}
+	.restModify{ height:auto; padding: 20px 40px 20px 40px; background-color:white; margin-bottom: 30px;box-shadow: 1px 1px 3px 1px #dadce0;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+.btn_modify{text-decoration:none; font-size:12px; width:80px; height:30; margin-top:20px; 
+	border:none; border-radius:2px; background-color: #343642; color: white; box-shadow: 1px 1px 3px 1px #dadce0;}
+.btn_modify:hover{ background-color: #962D3E; }
+.modifyBtn{ text-decoration:none; color: white; }
+.modifyBox{ width:200px; height: 40px; text-align:center; line-height:40px; background-color: #8c8c8C;box-shadow: 1px 1px 3px 1px #dadce0; }
+.modifyBox:hover{ color:white; background-color:#404040 }
+
+</style>
 </head>
-<body style="display:flex;">
+<body>
 	<script>
 		//내비에 선택된 탭 색깔 변경
 		document.getElementById('restInfoTab').className = 'nav-link active';
 	</script>
 
-	<br><br>
-<div>
+
+
+<div class="restInfo">
 	<!-- 식당 사진 보여주기 -->
-	<div>
+	<div class="slideshow-container">
 		<c:forEach var="image" items="${restImgList}">
- 			<img src="${root }upload/restaurant/${image.restImage }" width="200">
-		
+		<div class="mySlides fade">
+		  <img src="${root }upload/restaurant/${image.restImage }" width="100%">
+		</div>
+		</c:forEach>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	</div>
+	<br>
+	<div style="text-align:center">
+		<c:forEach var="i" begin="0" end="${fn:length(restImgList)}">
+			<span class="dot" onclick="currentSlide${i}" ></span> 
 		</c:forEach>
 	</div>
-	<br><br>
-	
+
 	<!-- 식당 기본 정보 출력 -->
-	<div>
 	<h3>${rest.restName }</h3>
 	<p>${rest.restIntro }</p>
 	<span>${rest.type }·${rest.dong }</span>
@@ -60,12 +164,16 @@
 	</c:forEach>
 	<p>평점 : ${rest.ratePoint }</p>
 	
-	</div>
-	<br>
-	<a href="javascript:showModify('modifyForm')">수정하기</a>
+	<a href="javascript:showModify('modifyForm')" class="modifyBtn">
+		<div class="modifyBox">수정하기</div>
+	</a>
+	
+</div>
+
+
 	
 	<!-- 식당 기본 정보 수정 -->
-	<div id="modifyForm" style="display:none">
+	<div id="modifyForm" class="restModify" style="display:none">
 		<form action="modifyBasicInfoProc"  method="post" enctype="multipart/form-data" >
 			<table>
 				<tr>
@@ -106,14 +214,15 @@
 				<div class="previewImgs">
 
 				</div>
-			<input type="submit" value="수정">
+			<input type="submit" class="btn_modify" value="수정">
 		</form>
 	</div>
-	<br>
-	<hr align="left" width="500px">
-	<br>
-	
-	<!-- 식당 상세 정보 출력 -->
+	<hr align="left" width="100%" >	
+
+
+
+<!-- 식당 상세 정보 출력 -->
+<div class="restInfo"> 
 	<table>
 		<tr>
 			<td> 주소 </td>
@@ -200,10 +309,11 @@
 		</tr>
 	</table>
 	<br>
-	<a href="javascript:showModify('detailsForm')">수정하기</a>
-	
+	<a href="javascript:showModify('detailsForm')" class="modifyBtn"><div class="modifyBox">수정하기</div></a>
+</div>
+
 	<!-- 식당 상세 정보 수정 -->
-	<div id="detailsForm" style="display:none">
+	<div id="detailsForm" class="restModify" style="display:none">
 		<form id="modifyDetail" action="modifyDetailProc"  method="post">
 			<table>
 				<tr>
@@ -319,21 +429,21 @@
 					</td>
 				</tr>
 			</table>
-			<input type="button" value="수정" onclick="modifyDetailInfo()">
+			<input type="button" class="btn_modify" value="수정" onclick="modifyDetailInfo()">
 		</form>
 	</div>
-	<br>
-	<hr align="left" width="500px">
-	<br>
+	<hr align="left" width="100%" >	
 	
 	<!-- 포로모션 보여주기 & 수정 -->
+	<div class="restInfo">
 	<h4>진행 중인 프로모션</h4>
 	<c:if test="${rest.promotion != '파일 없음' }">
-		<p><img src="${root }upload/promotion/${rest.promotion }" width="300"></p>
-	</c:if>
+		<p><img src="${root }upload/promotion/${rest.promotion }" width="400"></p>
+	</c:if>	
+	<a href="javascript:showModify('promotionForm')" class="modifyBtn"><div class="modifyBox">수정하기</div></a>
+	</div>
 	
-	<a href="javascript:showModify('promotionForm')">수정하기</a>
-	<div id="promotionForm" style="display:none">
+	<div id="promotionForm" class="restModify" style="display:none">
 		<form id="modifyPromotionForm"  method="post" enctype="multipart/form-data" >
 			<span>식당 사진</span>
 			<input type="file" id="promotion" name="promotion" style="display:none;" multiple> 
@@ -341,16 +451,15 @@
 			<div id="previewImg">	
 				<img id="previewPromotion" >
 			</div>
-			<input type="button" value="수정" onclick="modifyPromotion()">
-			<input type="button" value="삭제" onclick="deletePromotion()">
+			<input type="button" class="btn_modify" value="수정" onclick="modifyPromotion()">
+			<input type="button"  class="btn_modify" value="삭제" onclick="deletePromotion()">
 		</form>
 	</div>
 	
-	<br>
-	<hr align="left" width="500px">
-	<br>
+	<hr align="left" width="100%" >	
 	
 	<!--  메뉴 보여주기  -->
+	<div class="restInfo">
 	<h3>메뉴</h3>
 	<div>
 		<c:if test="${wholeMenuList != null }">
@@ -359,7 +468,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<table style="border: 1px solid; width: 600px;">
+	<table style="border: 1px solid; width: 100%;">
 		<c:if test="${fn:length(menuList) != 0 }">
 		<c:forEach var="i" begin="0" end="${fn:length(menuList)-1 }">
 			<c:if test="${menuList[i].category != menuList[i-1].category}">
@@ -378,10 +487,12 @@
 		</c:if>
 	</table>
 	<br>
-	<a href="javascript:showModify('menuModifyForm')">수정하기</a>
+	<a href="javascript:showModify('menuModifyForm')" class="modifyBtn"><div class="modifyBox">수정하기</div></a>
+	</div>
+	
 	
 	<!-- 메뉴 수정하기 -->
-	<div id="menuForm" style="display:none">
+	<div id="menuForm" class="restModify" style="display:none">
 		<form id="menuModifyForm" action="menuModifyProc" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="length" value="${fn:length(menuList)-1}">
 			<br>
@@ -392,7 +503,7 @@
 			
 			</div>
 			<br>
-			<table border="1" id="registerTable">
+			<table border="1" id="registerTable" style="width:100%">
 				<tr id="trMenu">
 					<th style="width:100px">분류</th><th style="width:150px">메뉴명</th><th style="width:200px">메뉴 소개</th><th style="width:100px">가격</th><th>메뉴 이미지</th><th></th>
 				</tr>
@@ -425,11 +536,10 @@
 				</c:if>
 			</table>
 			<button type="button" id="addRow" onclick="addModifyRow()">행 추가</button>
-			<button type="button" onclick="modifyMenu()">메뉴 수정</button>
+			<button type="button" class="btn_modify" onclick="modifyMenu()">메뉴 수정</button>
 			<br>
 		</form>
 	</div>
-</div>
 </body>
 <script>
 //메뉴 이미지 이미보기
@@ -443,6 +553,33 @@ function previewImg(input){
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
 }
 </script>
 

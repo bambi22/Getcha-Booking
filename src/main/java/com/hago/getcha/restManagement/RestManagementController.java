@@ -1,6 +1,8 @@
 package com.hago.getcha.restManagement;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,8 +69,8 @@ public class RestManagementController {
 	}
 	
 	@RequestMapping(value="deletePromotionProc")
-	public String deletePromotionProc(Model model) {
-		rmService.deletePromotionProc();
+	public String deletePromotionProc(Model model, HttpServletRequest req) {
+		rmService.deletePromotionProc(req);
 		rmService.restInfo(model);
 		return "forward:restIndex?formpath=restInfo";
 	}

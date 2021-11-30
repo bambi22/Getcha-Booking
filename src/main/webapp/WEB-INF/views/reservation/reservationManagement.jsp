@@ -44,7 +44,7 @@
 		<span class="bn_time" >clock</span>
 		<span class="bn_date" >clock</span>
 	</div>
-	<div style="background-color:#DEDEDE; padding:20px;">
+	<div style="background-color:#F2F2F2; box-shadow: 1px 1px 3px 1px #dadce0; padding:20px;">
 		<input type="text" id="datepicker" placeholder="${date }" >
 		<input type="button" value="조회" onclick="changeDate()">
 		

@@ -11,12 +11,14 @@
     font-weight: normal;
     font-style: normal;
 } */
-#head{ posotion:relative;}
+#index {position:relative; display:flex; flex-direction: column;}
+#head{margin-bottom:auto;}
+#foot{margin-top:auto;}
 </style>
 
 <body>
 <c:import url="nav.jsp" />
-<div>
+<div id="index">
 	<div id="head"> <c:import url="top.jsp" /></div>
 	<div id="formpath"><c:import url="/${formpath }" /> </div>
 	<div id="foot"> <c:import url="footer.jsp" /></div>

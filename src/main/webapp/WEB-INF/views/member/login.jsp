@@ -39,8 +39,8 @@ function loginSubmit(){
 </script>
 
 <body>
-      <form id="login-form" action="loginProc" method="post" role="form" style="display: block;">
-<div class="container">
+<form id="login-form" action="loginProc" method="post" role="form" style="display: block;">
+<div class="container" style="padding-top:50px;">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-login">
