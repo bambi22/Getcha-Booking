@@ -5,10 +5,12 @@
 		location.href="index?formpath=main";
 	</script>
 </c:if>
-<script type="text/javascript">
-var message="${msg}";
-alert(message);
-</script>
+<c:if test="${not empty msg }">
+	<script>
+		var message="${msg}";
+		alert(message);
+	</script>
+</c:if>
 <center>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

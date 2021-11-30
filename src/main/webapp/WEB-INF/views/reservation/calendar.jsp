@@ -6,17 +6,19 @@
 <head>
 <style type="text/css">
 	.container{width:1130px; position:relative; padding:60px; margin:auto; text-align:center;}
+	.panel-body{background-color:white; overflow:hidden; width:400px; height:auto; text-align:center; margin:auto; border-radius:3px; padding:50px;}
 	.select_time{margin-top:20px;}
 	.select_people{margin-top:20px;}
 	.showTime{width:180px; text-align:center;}
 	.capacity{width:180px; text-align:center;}
-	.btn{margin-top:20px;}
+	.btn{margin-top:40px;}
 	.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 </head>
 <c:if test="${empty sessionScope.email }">
 	<script>
@@ -83,64 +85,69 @@ function search(){
 <!-- <div class="container" style="margin:auto;"> -->
 
 <div class="container">
-<form action="reservationProc" method="post">
-	<h5>날짜</h5>
-	<input type="text" id="resDay" name="resDay" style="cursor:pointer; text-align:center;" readonly="readonly;"/>
-	<div class="div_calendar" id="div_calendar" style="display:none;">
-		<div>
-			<button type="button" onclick="changeMonth(-1);"><i class="fa fa-chevron-left"></i></button>
-			<input type="number" id="year" value="2020" style="width:80px; display:initial;" class="form-control"/>
-			<select id="month" class="form-control" style="width:80px; display:initial;" onchange="changeMonth();">
-				<option value="1">1월</option>
-				<option value="2">2월</option>
-				<option value="3">3월</option>
-				<option value="4">4월</option>
-				<option value="5">5월</option>
-				<option value="6">6월</option>
-				<option value="7">7월</option>
-				<option value="8">8월</option>
-				<option value="9">9월</option>
-				<option value="10">10월</option>
-				<option value="11">11월</option>
-				<option value="12">12월</option>
-			</select>
-			<button type="button" onclick="changeMonth(1);"><i class="fa fa-chevron-right"></i></button>
+        <div class="panel-body">
+			<form action="reservationProc" method="post">
+				<div class="div_day">
+				<h5>날짜</h5>
+				<input type="text" id="resDay" name="resDay" style="cursor:pointer; text-align:center;" readonly="readonly;"/>
+				</div>
+				<div class="div_calendar" id="div_calendar" style="display:none;">
+				<div>
+					<button type="button" onclick="changeMonth(-1);"><i class="fa fa-chevron-left"></i></button>
+					<input type="number" id="year" value="2020" style="width:80px; display:initial;" class="form-control"/>
+					<select id="month" class="form-control" style="width:80px; display:initial;" onchange="changeMonth();">
+						<option value="1">1월</option>
+						<option value="2">2월</option>
+						<option value="3">3월</option>
+						<option value="4">4월</option>
+						<option value="5">5월</option>
+						<option value="6">6월</option>
+						<option value="7">7월</option>
+						<option value="8">8월</option>
+						<option value="9">9월</option>
+						<option value="10">10월</option>
+						<option value="11">11월</option>
+						<option value="12">12월</option>
+					</select>
+					<button type="button" onclick="changeMonth(1);"><i class="fa fa-chevron-right"></i></button>
+				</div>
+				<table class="table table-bordered" style="width:50%; height:40%; text-align:center;" align="center">
+					<thead>
+						<tr>
+							<th>일</th>
+							<th>월</th>
+							<th>화</th>
+							<th>수</th>
+							<th>목</th>
+							<th>금</th>
+							<th>토</th>
+						</tr>
+					</thead>
+					<tbody id="tb_body">
+					</tbody>
+				</table>
+				</div>
+				<div id = time class="select_time">
+					<h5>시간</h5>
+					<select name="showTime" id="showTime" class="showTime">
+						<option value="">시간 선택</option>
+					</select>
+					<input type="hidden" id="hours" name="hours"/>
+				</div>
+				<div id = showData class="select_people">
+					<h5>인원</h5>
+					<select name="capacity" id="capacity" class="capacity">
+						<option value="">인원 선택</option></select>
+				</div>
+				<div class="btn">
+					<input type="submit" class="btn_btn" value="예약하기">
+					<input type="reset" class="btn_btn" value="취소">
+					<input type="button" class="btn_btn" value="돌아가기" onclick="history.back()">
+				</div>
+			</form>
 		</div>
-		<table class="table table-bordered" style="width:50%; height:40%; text-align:center;" align="center">
-			<thead>
-				<tr>
-					<th>일</th>
-					<th>월</th>
-					<th>화</th>
-					<th>수</th>
-					<th>목</th>
-					<th>금</th>
-					<th>토</th>
-				</tr>
-			</thead>
-			<tbody id="tb_body">
-			</tbody>
-		</table>
 	</div>
-	<div id = time class="select_time">
-		<h5>시간</h5>
-		<select name="showTime" id="showTime" class="showTime">
-			<option value="">시간 선택</option>
-		</select>
-		<input type="hidden" id="hours" name="hours"/>
-	</div>
-	<div id = showData class="select_people">
-		<h5>인원</h5>
-		<select name="capacity" id="capacity" class="capacity">
-		<option value="">인원 선택</option></select>
-	</div>
-	<div class="btn">
-		<input type="submit" class="btn_btn" value="예약하기">
-		<input type="reset" class="btn_btn" value="취소">
-		<input type="button" class="btn_btn" value="돌아가기" onclick="history.back()">
-	</div>
-</form>
-</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>

@@ -13,11 +13,12 @@
 		location.href='index?formpath=login'
 	</script>
 </c:if>
-<script type="text/javascript">
-var message="${msg}";
-alert(message);
-</script>
-<<<<<<< HEAD
+<c:if test="${not empty msg }">
+	<script>
+		var message="${msg}";
+		alert(message);
+	</script>
+</c:if>
 <html>
 <style>
 #register-reset{
@@ -102,7 +103,7 @@ height:65px;
               <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소" onclick="location.href='${root}memberViewProc'">
             </div>
             <div class="col-xs-6 tabs">
-                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원수정">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원수정" onclick="location.href='${root}memberViewProc'">
             </div>
           </div>
         </div>
