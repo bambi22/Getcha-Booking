@@ -1,77 +1,50 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="UTF-8"%>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>       
+<!DOCTYPE html>  
 <style>
-.ft-h5{text-align:center; background-color:black; color:white; line-height:100px;position:absolute;width:100%}
-#di{width:200px;height:200px;}
+.copy{margin-top:70px;font-size:30px;}
+
 </style>
-
-
-<footer>
-<div id="d1">
-       <div class="container">
-        <div class="row mb-5">
-          <div class="col-sm-12 col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2 logo"><a href="#">GETCHA <span></span></a></h2>
-              <p>Far far away, behind the word mountains, far from the countries.</p>
-              <ul class="ftco-footer-social list-unstyled mt-2">
-                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">설명</h2>
-              <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-4">
-              <h2 class="ftco-heading-2">설명</h2>
-              <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">설명</h2>
-              <ul class="list-unstyled">
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-                <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>설명</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">설명</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon fa fa-map marker"></span><span class="text">설명</span></li>
-	                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">010 1234 5678</span></a></li>
-	                <li><a href="#"><span class="icon fa fa-paper-plane pr-4"></span><span class="text">GETCHA@gmail.com</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
+ <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 	
-	<h5 class="ft-h5" >
-		Copyright ⓒ HAGO Lab. All rights reserved.
-	</h5>
-	</div>
-</footer>
-	
+		<link rel="stylesheet" href="resources/css1/css/footer/style.css">
+		<link rel="stylesheet" href="resources/css1/css/footer/ionicons.min.css">
+  </head>
+  <body>
+		
+		<footer class="footer-07">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-12 text-center">
+						<h2 class="footer-heading"><a href="main" class="logo">GETCHA.com</a></h2>
+						<p class="menu">
+							<a href="#">Home</a>
+							<a href="#">Agent</a>
+							<a href="#">About</a>
+							<a href="#">Listing</a>
+							<a href="#">Blog</a>
+							<a href="#">Contact</a>
+						</p>
+						<ul class="ftco-footer-social p-0">
+              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="ion-logo-twitter"></span></a></li>
+              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="ion-logo-facebook"></span></a></li>
+              <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="ion-logo-instagram"></span></a></li>
+            </ul>
+					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col-md-12 text-center">
+						<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					  Copyright &copy;<script>document.write(new Date().getFullYear());</script>@ HAGO Lab All rights reserved  <i class="ion-ios-heart" aria-hidden="true"></i> by <a href="main" target="_blank">GETCHA.com</a>
+					 </p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		
+
+  
+  </body>

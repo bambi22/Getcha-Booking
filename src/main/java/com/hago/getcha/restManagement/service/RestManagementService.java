@@ -189,7 +189,6 @@ public class RestManagementService implements IRestManagementService {
 			deleteFile(realPath);
 			
 		}
-		|
 
 		MultipartFile file = req.getFile("promotion");
 		if(file.getSize() != 0) {	
