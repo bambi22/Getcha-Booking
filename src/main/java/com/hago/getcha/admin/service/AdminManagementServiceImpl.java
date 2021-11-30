@@ -10,6 +10,8 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,12 +35,14 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	@Value("#{prop['adminId']}")	private String adminId;
 	@Value("#{prop['adminPw']}")	private String adminPw;
 	
-	
+	final static Logger logger = LoggerFactory.getLogger(AdminManagementServiceImpl.class);
 	@Override
 	public int adminLoginProc(Model model, String id, String pw) {		
 		//최고 관리자는 properties파일에 있는 값과 비교
 		if(id.equals(adminId)) {
+			logger.warn(adminId);
 			if(pw.equals(adminPw)) {
+				logger.warn(adminPw);
 				session.setAttribute("adminId", "관리자");
 				model.addAttribute("msg", "로그인 성공.");
 				return 2;
@@ -160,11 +164,11 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	public String addGuideBookProc(String[] add) {
 		LocalDate now = LocalDate.now();
 		String guideBook = Integer.toString(now.getYear());
-		for(String restStr : add){
+		for(String restStr : add) {
 			int restNum = Integer.parseInt(restStr); 
-			AdditionDTO addition = adminDao.selectRestNum(restNum, guideBook);
-			if(addition == null) {
-				adminDao.updateGuide(restNum, guideBook);				
+			AdditionDTO addit = adminDao.selectRestNum(restNum, guideBook);
+			if(addit == null) {
+				adminDao.addGuide(restNum, guideBook);
 			}
 		}
 		return "추가되었습니다.";
