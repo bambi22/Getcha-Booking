@@ -128,7 +128,7 @@ window.onload=function() {
 	<div id="container">
 		<table id="rest_detail">
 			<tr>
-				<td align="right">
+				<td>
 					<button type="button" class="btn btn-dark" onclick="location.href='calendarProc?restNum=${rest.restNum}'">예약하기</button>
 				</td>
 			</tr>

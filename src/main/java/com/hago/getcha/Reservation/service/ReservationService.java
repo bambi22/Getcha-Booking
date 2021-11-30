@@ -25,7 +25,6 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
-import com.hago.getcha.booking.config.SmsConfig;
 
 @Service
 public class ReservationService{
