@@ -65,7 +65,7 @@ public class MemberController {
     public String logoutMainGET(HttpServletRequest request) throws Exception{
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	return "redirect:main";
+    	 return "forward:main";
     }
 	@RequestMapping(value = "CheckEmail", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -91,7 +91,7 @@ public class MemberController {
 		}else {
 			model.addAttribute("msg", "가입완료");
 			//model.addAttribute("url","/memberModi");
-			return "forward:index?formpath=/main";
+			return "forward:main";
 		}
 	}
 	@RequestMapping(value = "memberViewProc")
@@ -105,7 +105,7 @@ public class MemberController {
 			service.memberViewProc(email,model);
 			return "forward:index?formpath=memberView";
 		}
-		return "forward:index?formpath=main";
+		return "forward:main";
 	}
 	
 	@RequestMapping(value="memberModiView", method = {RequestMethod.POST, RequestMethod.GET})
@@ -136,7 +136,7 @@ public class MemberController {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
 			//model.addAttribute("url","/main");
-			return "forward:index?formpath=main";
+			return "forward:main";
 		}else {
 			model.addAttribute("msg", "수정실패.");
 			//model.addAttribute("url","/memberModi");
@@ -156,7 +156,7 @@ public class MemberController {
 			model.addAttribute("msg","삭제되었습니다.");
 			session.invalidate();
 			//model.addAttribute("url","/");
-			return "forward:index?formpath=main";
+			return "forward:main";
 		}else {
 			model.addAttribute("msg", "비밀번호가 일치하지 않습니다.");
 			//model.addAttribute("url","/");

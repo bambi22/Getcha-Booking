@@ -8,20 +8,15 @@
 </c:if>
 <c:url var="root" value="/"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	/*$("document").ready(function(){
-		$('.deleteBtn').css("cursor", "pointer").click(function(){
-			let no = $(this).attr("id");
-			$("#resNum").val(no);
-			$("#f").attr("action", "${root}resDelete");
-			$("#f").submit();
-		})
-	})*/
-</script>
+<style>
+	.container{display:flex;}
+	.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
+	.btn_btnd{color:white; background-color:#D5D5D5; border-color:#D5D5D5; font-size:15px; border-radius:5px; padding:5px 10px;}
+</style>
 <center>
 <!-- <form id ="f" method="post">
 <input type="hidden" id="resNum" name="resNum"/> -->
-	<table>
+	<table class="container">
 		<tr>
 			<td colspan=2>
 			<h2>예약정보</h2>
@@ -47,8 +42,26 @@
 		<tr>
 			<td style="width:100px; height:40px;"><b>상태</b></td>
 			<td style="width:250px; height:40px;"><b>${reservationView.status}</b>
-			<input type="button" style="width:80px;" value="예약취소" onclick="location.href='${root}resDelete?resNum=${reservationView.resNum}'"/>
-			<button type="button" onclick="location.href='index?formpath=write&restNum=${reservationView.resNum}'">리뷰 쓰기</button>
+			
+			<c:choose>
+				<c:when test="${reservationView.status eq '예약확인'}">
+					<input type="button" style="width:80px;" value="예약취소" class="btn_btn" id="btn_cancle" onclick="location.href='${root}resDelete?resNum=${reservationView.resNum}'"/>
+				</c:when>
+				<c:otherwise>
+					<input type="button" style="width:80px;" value="예약취소" class="btn_btnd" disabled="disabled"/>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${reservationView.status eq '완료상태'}">
+					<button type="button" class="btn_btn" onclick="location.href='index?formpath=write&restNum=${reservationView.resNum}'">리뷰 쓰기</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn_btnd" disabled="disabled">리뷰 쓰기</button>
+				</c:otherwise>
+			</c:choose>
+			
+			
+			
 			<hr>
 			</td>
 		</tr>
