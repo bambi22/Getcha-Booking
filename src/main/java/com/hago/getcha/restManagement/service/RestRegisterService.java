@@ -170,9 +170,9 @@ public class RestRegisterService implements IRestRegisterService {
 			for(MultipartFile f : files) {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
 				menuDto.setRestNum(restNum);
-				if(!f.isEmpty()) { 
+				if(f.getSize() != 0) { 
 					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
-				    String fileName = saveFile(restNum, f, realPath);
+					String fileName = saveFile(restNum, f, realPath);
 				    menuDto.setWholeMenu(fileName);   
 				}else {
 					menuDto.setWholeMenu("파일 없음");   

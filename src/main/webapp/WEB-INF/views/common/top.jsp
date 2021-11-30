@@ -6,6 +6,8 @@
 .rows{width:100%; display:flex; height:100%; justify-content: space-between;}	 
 .coll-logo{flex-basis: 70%; margin: 10px 40px 5px 40px;}
 .coll-l{margin-left:auto; margin: 15px 50px 15px 40px; }
+ a { text-decoration:none underline; color:white;  }
+    a:hover { color: #F2EBC7; }
 </style>
 
 
@@ -31,7 +33,7 @@
 			
 			</c:when>
 			<c:otherwise>
-				<div class="dropdown coll-l"><a class="headerMenu" href="${root}index?formpath=login">로그인</a></div>
+				<div class="dropdown coll-l"><a class="headerMenu" href="${root}index?formpath=login" style="text-decoration:none underline; color:white; ">로그인</a></div>
 				<div class="dopdown coll-l"><a class="headerMenu" href="${root}index?formpath=member">회원가입</a></div>
 			</c:otherwise>
 		</c:choose>

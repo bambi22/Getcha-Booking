@@ -20,13 +20,13 @@
 
 </head>
 <body>
-<c:if test="${!empty msg }"><script>alert(${msg});</script></c:if>
-	<h3>식당 정보 등록</h3>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
+	<h3 style="text-align:center;">식당 정보 등록</h3>
 	<form id="f" action="restRegisterProc" method="post" enctype="multipart/form-data">
-		<table>
+		<table style="margin:auto; width:900px;">
 			<tr>
-				<td> 식당 이름 </td>
-				<td> 
+				<td width="30%"> 식당 이름 </td>
+				<td width="70%"> 
 					<input type="text" name="restName" id="restName"><br>
 					<label id="warnRestName" style="color:red;"></label>
 				</td>
@@ -180,7 +180,10 @@
 				</td>
 			</tr>
 		</table>
-		<input type="button" value="다음 : 메뉴등록" onclick="submitBtn()">
+		<div style="margin-left:50%">
+			<input type="button" value="다음 : 메뉴등록" onclick="submitBtn()">
+			<input type="button" value="취소" onclick="location.href='logoutProc'">
+		</div>
 	</form>
 </body>
 

@@ -15,8 +15,8 @@ $('#sidebar').find('span').text('OPEN');
 	<c:import url="/WEB-INF/views/common/top.jsp" />
 <style type="text/css">
     html,body{ margin:0; padding:0; width:100%; height:100%;}
-/*     #sidebar{left:-250px; z-index:4;} */
-    #header{ background-color:none; z-index:3; position:fixed;}
+    #header{ background-color:none; z-index:1; position:fixed;}
+    #sidebar{z-index:3;}
     a { text-decoration:none underline; color:white;  }
     a:hover { color: #F2EBC7; }
     *{
