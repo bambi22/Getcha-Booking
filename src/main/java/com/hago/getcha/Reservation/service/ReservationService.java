@@ -3,7 +3,6 @@ package com.hago.getcha.Reservation.service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -25,7 +22,6 @@ import com.hago.getcha.Member.dao.IMemberDAO;
 import com.hago.getcha.Member.dto.MemberDTO;
 import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
-import com.hago.getcha.booking.config.SmsConfig;
 
 @Service
 public class ReservationService{
@@ -51,15 +47,6 @@ public class ReservationService{
 		MemberDTO memberInfo = member.memberViewProc(email);
 		return memberInfo;
 	}
-	
-	//List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-	
-	/*@Override
-	public int compare(HashMap<String, Object> o1, HashMap<String, Object> o2) {
-		String name1 = (String) o1.get("time");
-		String name2 = (String) o1.get("time");
-		return name1.compareTo(name2);
-	}*/
 	
 	public List<Map<String, Object>> checkAjax(String date, int restNum) throws Exception {
 		List<Map<String, Object>> checkres = checkres(restNum, date);
@@ -243,16 +230,16 @@ public class ReservationService{
 							logger.warn("remove:"+timePart.get(j));
 							timePart.remove(resTime);
 						}
-				}else {
+				//}else {
 					
-					for(int j=0; j<timePart.size(); j++) {
-						timeCapa = new HashMap<String, Object>();
-						String capa=Integer.toString(capacity);
-						logger.warn("check필요:"+timePart.get(j)+"/"+capa);
-						timeCapa.put("time", timePart.get(j));
-						timeCapa.put("capa", capa);
-						dataList.add(timeCapa);
-					}	
+				//	for(int j=0; j<timePart.size(); j++) {
+				//		timeCapa = new HashMap<String, Object>();
+				//		String capa=Integer.toString(capacity);
+				//		logger.warn("check필요:"+timePart.get(j)+"/"+capa);
+				//		timeCapa.put("time", timePart.get(j));
+				//		timeCapa.put("capa", capa);
+				//		dataList.add(timeCapa);
+				//	}	
 					//return dataList;
 				}
 			}
@@ -270,6 +257,14 @@ public class ReservationService{
 			logger.warn("timaPart:"+ timePart.get(i));
 		}
 		
+		for(int i=0; i<timePart.size(); i++) {
+			timeCapa = new HashMap<String, Object>();
+			String capa=Integer.toString(capacity);
+			logger.warn("check필요:"+timePart.get(i)+"/"+capa);
+			timeCapa.put("time", timePart.get(i));
+			timeCapa.put("capa", capa);
+			dataList.add(timeCapa);
+		}
 		
 		logger.warn("=========================");
 		//예약 시간의 예약인원
@@ -360,31 +355,38 @@ public class ReservationService{
 	
 	//선택된 날짜, 시간, 인원 예약하기
 	public int reservationProc(ReservationDTO dto) {
+		logger.warn("예약 service");
 		int restNum = dto.getRestNum();
 		ReservationDTO info = getInfo(restNum);
 		String restName = info.getRestName();
 		logger.warn("식당이름: "+ restName);
-		String nickName = "";
-		String mobile = "";
-		
+		//String nickName = "";
+		//String mobile = "";
 		
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
 		dto.setStatus("예약확인");
 		if(dto.getEmail()==""||dto.getEmail()==null)
 			return 0;
-		if(dao.reservationProc(dto)==1)
+		if(dao.reservationProc(dto)==1) {
 			return 1;
+		}
 		else
 			return 2;
 	}
-	
 	public ArrayList<ReservationDTO> reservationView(String email) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
-		//view = (ArrayList<ReservationDTO>) view.stream().sorted(Comparator.comparing(ReservationDTO::getResDay)).collect(Collectors.toList());
+		/*view = (ArrayList<ReservationDTO>) view.stream().sorted((o1,o2) -> o1.getResDay().toString().compareTo(o2.getResDay().toString())
+				).collect(Collectors.toList());
+		for(int i=0; i<view.size(); i++) {
+			ReservationDTO dto = view.get(i);
+			logger.warn("resDay: " + dto.getResDay());
+		}*/
 		
 		return view;
 	}
+	
+	
 	
 	public void resDelete(String resNum, Model model) {
 		int no = Integer.parseInt(resNum);
