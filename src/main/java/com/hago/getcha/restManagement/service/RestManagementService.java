@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class RestManagementService implements IRestManagementService {
 	@Autowired IRestInfoDAO infoDao;
 	@Autowired IRestModifyDAO modifyDao;
 	@Autowired IRestRegisterDAO registerDao;
-	@Autowired RestRegisterService registerService;
 
 	@Override
 	public void restInfo(Model model) {
@@ -65,15 +65,34 @@ public class RestManagementService implements IRestManagementService {
 
 		
 	// 파일 삭제 메소드
-	public void deleteFile(String location, String fileName) {
-		File oldFile= new File(location + "\\" + fileName);
+	public void deleteFile(String location) {
+		File oldFile= new File(location);
 		if(oldFile.exists())
 			oldFile.delete();
+	}
+	
+	public String saveFile(int restNum, MultipartFile file, String realPath) {
+		Calendar cal = Calendar.getInstance(); 	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String fileName = restNum+ "-"+sdf.format(cal.getTime()) + "-" + file.getOriginalFilename();
+		File folder = new File(realPath);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		File save = new File(realPath + fileName);	//경로 지정 + 저장할 파일명 넣어줌
+		try {
+			file.transferTo(save);				// 그 위치에 저장해줌
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 	
+		return fileName;
 	}
 	
 	@Override
 	public void modifyBasicInfoProc(MultipartHttpServletRequest req) {
 		int restNum = (Integer)session.getAttribute("restNum");
+		String name = req.getParameter("restName");
+		System.out.println("이름" + name);
 		/*기본 정보 수정*/
 		RestaurantDTO restDto = new RestaurantDTO();
 		restDto.setRestNum(restNum);
@@ -88,23 +107,27 @@ public class RestManagementService implements IRestManagementService {
 		}
 		modifyDao.modifyBasicInfo(restDto);
 		
-		
 		/*식당 사진 수정 : 전체 삭제 후 다시 추가하는 방식*/
 		List<MultipartFile> files = req.getFiles("restImage");
+		System.out.println("사진 개수 : " + files.size());
+		
 		if(files != null) {
 			ArrayList<RestImageDTO> restImgList = infoDao.selectRestImage(restNum);
 			for(RestImageDTO delImgDto : restImgList) {
-				deleteFile(FILE_LOCATION_RESTAURANT, delImgDto.getRestImage());
+				String realPath = req.getServletContext().getRealPath(FILE_LOCATION_RESTAURANT+delImgDto.getRestImage());
+				deleteFile(realPath);
 			}
 			modifyDao.deleteRestImage(restNum);
 			
-			int i = 1;
+			
+			int i = 1;				
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
+				System.out.println("사진 추가");
 				imgDto.setRestNum(restNum);
 				if(f.getSize() != 0) {
 					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_RESTAURANT);
-					String fileName = registerService.saveFile(restNum, f, realPath);
+					String fileName = saveFile(restNum, f, realPath);
 					imgDto.setRestImage(fileName);   	
 				}
 				registerDao.addRestImage(imgDto);
@@ -122,8 +145,8 @@ public class RestManagementService implements IRestManagementService {
 		if(!address[0].equals("")) {
 			System.out.println(address[0]);
 			restDto.setAddress(address[0] +","+ address[1]);			
-			modifyDao.modifyDetail(restDto);
 		}
+		modifyDao.modifyDetail(restDto);
 		
 		//부대시설 삭제 후 추가
 		if(facilities != null) {
@@ -162,13 +185,15 @@ public class RestManagementService implements IRestManagementService {
 		int restNum = (Integer)session.getAttribute("restNum");
 		RestaurantDTO restDto = infoDao.selectRestaurant(restNum);
 		if(restDto.getPromotion() != null) {
-			deleteFile(FILE_LOCATION_PROMOTION, restDto.getPromotion()); 
+			String realPath = req.getServletContext().getRealPath(FILE_LOCATION_PROMOTION+restDto.getPromotion());
+			deleteFile(realPath);
+			
 		}
 
 		MultipartFile file = req.getFile("promotion");
 		if(file.getSize() != 0) {	
 			String realPath = req.getServletContext().getRealPath(FILE_LOCATION_PROMOTION);
-			String fileName = registerService.saveFile(restNum, file, realPath);
+			String fileName = saveFile(restNum, file, realPath);
 			restDto.setPromotion(fileName);   
 		}else {
 			restDto.setPromotion("파일 없음");
@@ -178,12 +203,13 @@ public class RestManagementService implements IRestManagementService {
 
 	
 	
-	public void deletePromotionProc() {
+	public void deletePromotionProc(HttpServletRequest req) {
 		int restNum = (Integer)session.getAttribute("restNum");
 		RestaurantDTO restDto = infoDao.selectRestaurant(restNum);
 		String promotion = restDto.getPromotion();
-		if(restDto.getPromotion() != null) {
-			deleteFile(FILE_LOCATION_PROMOTION, promotion);
+		if(promotion != null) {
+			String realPath = req.getServletContext().getRealPath(FILE_LOCATION_PROMOTION+promotion);
+			deleteFile(realPath);
 			restDto.setPromotion("파일 없음");
 		}
 		modifyDao.modifyPromotion(restDto);
@@ -199,7 +225,8 @@ public class RestManagementService implements IRestManagementService {
 			ArrayList<WholeMenuDTO> wholeMenuList = infoDao.selectWholeMenu(restNum);
 			if(wholeMenuList != null) {
 				for(WholeMenuDTO wholeMenuDto : wholeMenuList) {
-					deleteFile(FILE_LOCATION_WHOLEMENU, wholeMenuDto.getWholeMenu());
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU+wholeMenuDto.getWholeMenu());
+					deleteFile(realPath);
 				}				
 			}
 			modifyDao.deleteWholeMenu(restNum);
@@ -209,7 +236,7 @@ public class RestManagementService implements IRestManagementService {
 				menuDto.setRestNum(restNum);
 				if(f.getSize() != 0) {
 					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
-					String fileName = registerService.saveFile(restNum, f, realPath);
+					String fileName = saveFile(restNum, f, realPath);
 					menuDto.setWholeMenu(fileName);   	
 				}else {
 					menuDto.setWholeMenu("파일 없음");
@@ -227,7 +254,8 @@ public class RestManagementService implements IRestManagementService {
 		ArrayList<MenuDTO>menuList = infoDao.selectMenu(restNum);
 		if(menuList != null) {
 			for(MenuDTO menuDto : menuList) {
-				deleteFile(FILE_LOCATION_MENU, menuDto.getMenuImage());
+				String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU+menuDto.getMenuImage());
+				deleteFile(realPath);
 			}				
 		}
 		modifyDao.deleteMenu(restNum);
@@ -242,7 +270,7 @@ public class RestManagementService implements IRestManagementService {
 			menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
 		    if(!menuFiles.get(i).isEmpty()) { 
 				String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
-			    String fileName = registerService.saveFile(restNum, menuFiles.get(i), realPath);
+			    String fileName = saveFile(restNum, menuFiles.get(i), realPath);
 			    menuDto.setMenuImage(fileName); 
 		    }else { 
 			    menuDto.setMenuImage("파일 없음"); 

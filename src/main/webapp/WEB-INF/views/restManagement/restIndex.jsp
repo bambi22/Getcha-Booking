@@ -4,7 +4,7 @@
 <style>
 	#restBody{ display:flex; }
 	#restNav{position:fixed; height:100%;}
-	#restContent { margin-left:240px; width:100%; padding:50px; height:100%;
+	#restContent { overflow:auto;margin-left:240px; width:100%; padding:50px 50px 50px 50px; height:100%;
 		background-image: url('resources/img/common/daeliseok.jfif');
 		min-height: 100%; background-size: cover; }
 </style>
