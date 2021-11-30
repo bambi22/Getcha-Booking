@@ -5,18 +5,10 @@
 <body>
 <c:import url="adminNav.jsp" />
 <div align="center" >
-	<table style="width:100%;">
-		<tr>
-			<td rowspan="3"><c:import url="adminNav.jsp" /></td>
-			<td style="padding-left:280px; height: 50px"><%@ include file="../common/top.jsp" %></td>
-		</tr>
-		<tr>
-			<td style="padding-left:280px; margin-top:40px;"><c:import url="/${formpath }" /> </td>
-		</tr>
-		<tr>
-			<td style="padding-left:280px; height:50px;"><%@ include file="../common/footer.jsp" %></td>
-		</tr>
-	</table>
+		<div></div><c:import url="adminNav.jsp" /></div>
+
+			<div style="padding-left:280px; margin-top:40px;"><c:import url="/${formpath }" /> </div>
+
 	</div>
 </body>
 </html>

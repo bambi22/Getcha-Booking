@@ -118,7 +118,7 @@ public class ReservationController{
 		int result = service.resDeleteProc(resNum);
 		if(result == 1) {
 			model.addAttribute("msg", "취소되었습니다.");
-			return "forward:index?formpath=main";
+			return "forward:main";
 		}else {
 			model.addAttribute("msg", "취소실패하였습니다.");
 			return "forward:index?formpath=deleteReservation";

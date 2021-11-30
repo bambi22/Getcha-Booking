@@ -3,22 +3,22 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,500);
 body {
+  padding-bottom: 20px;
   background:#F7F7F7;
   color:#666666;
   font-family: 'Roboto', sans-serif;
   font-weight:100;
 }
-
+.panel-body {
+	margin-top:150px;
+}
 body{
   width: 100%;
-   background: -webkit-linear-gradient(left,#B0B1B2,#747678,#1D1E1E, #B0B1B2);
-  background: linear-gradient(to right,#B0B1B2, #747678,#1D1E1E,#B0B1B2);
+
   background-size: 600% 100%;
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
 }
-
-.container{padding-top:90px;}
 
 @-webkit-keyframes HeroBG {
   0% {

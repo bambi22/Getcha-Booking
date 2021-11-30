@@ -16,7 +16,7 @@
 	<table>
 		<tr>
 			<td colspan=2 >
-			<h2>회원삭제</h2>
+			<h2>예약취소</h2>
 		</tr>
 		<tr>
 			<td align='right' height=40>식당</td>
