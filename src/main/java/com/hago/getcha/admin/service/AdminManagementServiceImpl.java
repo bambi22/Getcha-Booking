@@ -164,11 +164,11 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	public String addGuideBookProc(String[] add) {
 		LocalDate now = LocalDate.now();
 		String guideBook = Integer.toString(now.getYear());
-		for(String restStr : add){
+		for(String restStr : add) {
 			int restNum = Integer.parseInt(restStr); 
-			AdditionDTO addition = adminDao.selectRestNum(restNum, guideBook);
-			if(addition == null) {
-				adminDao.updateGuide(restNum, guideBook);				
+			AdditionDTO addit = adminDao.selectRestNum(restNum, guideBook);
+			if(addit == null) {
+				adminDao.addGuide(restNum, guideBook);
 			}
 		}
 		return "추가되었습니다.";

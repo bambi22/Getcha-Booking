@@ -1,22 +1,26 @@
 @charset "UTF-8";
-	header, #container {width:950px; margin:auto;}
-	.restTitle {display: flex; height:50px; margin-right: 10px;}
-	.restTitle {float: left;}
-	#share_btn {background-color: white; padding :0; border: 0; outline: none; text-align: right;}
-	#share_btn:active {box-shadow:none;}
-	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 50px; width:50px;}
-	#collect_btn:active {box-shadow:none;}
-	#collect_btn img {width: 30px;}
-	#carouselExampleIndicators {height:450px; width:750px;}
+	section {width:1000px; margin:auto; box-shadow: 1px 1px 3px 1px #dadce0;}
+	header, #container {padding:10px;}
+	header div {margin:auto;}
+	.restInfo {margin-left: 50px; padding:5px;}
+	#restTitle>ul {margin-right: 50px;}
+	#restTitle>ul>li:nth-child(+n+1) {float:right; list-style-type:none; padding-left:5px;}
+	#restTitle>ul>li::after {content: ''; display: block; clear: both;}
+	#booking_btn {float:right; margin-right: 60px;}
+	#share_btn {background-color: white; padding :0; border: 0; outline: none; height: 40px; width:40px;}
+	#collect_btn {background-color: white; padding :0; border: 0; outline: none; height: 40px; width:40px;}
+	#carouselExampleIndicators {height:450px; width:850px;}
 	.carousel-item img {height:100%; width:100%;}
 	.cntReview img {width: 20px;} 
 	.cntCollection img {width: 20px;} 
 	.status_branch span {margin-right: 5px;}
 	.status_branch img {margin-right: 5px;}
-	#rest_detail {border-spacing: 10px;}
+	#rest_detail {border-spacing: 10px; margin-left: 50px; margin-bottom: 30px;}
 	.facil_wrap div {margin-right: 5px;}
 	facil_wrap div {text-align:center;}
-	#reviewList {border-top: 2px solid; border-bottom: 2px solid; border-spacing: 5px 10px; width: 700px;}
+	.promotion_section {margin-left: 50px;}
+	.menuSection {margin-left: 50px;}
+	#reviewList {margin: 0px 50px 30px 50px; padding-right:10px; width: 450px; border-top: 2px solid; border-bottom: 2px solid;}
 	.cap {caption-side: top; text-align: right; font-size: 13px; color: #8C8C8C}
 	.review_image {height:100px; width:100px; overflow:hidden; border-radius : 20px; float:left; margin-right:5px;}
 	ul {list-style-type:none;}
@@ -24,6 +28,6 @@
 	.date_row {height:40px; margin:0;}
 	.date_row p {font-size: 15px; color: #CACACA; text-align: right; padding-right: 5px;} 
 	.line {margin:0; padding:0;}
-	a {text-decoration: none;}
+	a {text-decoration: none;} 
     a:hover {text-decoration: underline;}
     #sidebar{left:-250px;}

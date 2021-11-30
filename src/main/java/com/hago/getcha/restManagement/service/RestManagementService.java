@@ -213,7 +213,6 @@ public class RestManagementService implements IRestManagementService {
 			restDto.setPromotion("파일 없음");
 		}
 		modifyDao.modifyPromotion(restDto);
-		
 	}
 
 	
@@ -275,19 +274,16 @@ public class RestManagementService implements IRestManagementService {
 		    }else { 
 			    menuDto.setMenuImage("파일 없음"); 
 	        }
-			
 		    registerDao.addMenu(menuDto);
 			
 			i++;
-		}
-		
+		}	
 	}
-
 
 	public void deleteWholeMenuProc() {
 		int restNum = (Integer)session.getAttribute("restNum");
 		modifyDao.deleteWholeMenu(restNum);
 		
 	}
-	
+
 }

@@ -33,7 +33,7 @@
 		<h3>${title }</h3>
 	</div>
     <div class="container" >
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" >
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
 		<c:forEach var="rest" items="${restList }"  step="1">
         <div class="col" >
           <div class="card shadow-sm" style="height:100%;">

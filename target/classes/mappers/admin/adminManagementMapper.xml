@@ -70,9 +70,6 @@
 	<select id="selectRestNum" resultMap="addition" >
 		select * from additionInfo where restnum=#{param1} and guidebook=#{param2}
 	</select>
-	<update id="updateGuide">
-		update additionInfo set guidebook=#{param2} where restNum=#{param1}
-	</update>
 	<insert id="addGuide">
 		insert into additionInfo(restnum, guideBook) values(#{param1}, #{param2})
 	</insert>

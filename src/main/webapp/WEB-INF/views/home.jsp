@@ -8,8 +8,6 @@
 <meta charset="utf-8"/>
 <title>GetchaTable</title>
 
-<c:import url="/WEB-INF/views/common/nav.jsp" />
-<c:import url="/WEB-INF/views/common/top.jsp" />
 <!-- <script>
 $('#sidebar').find('span').text('OPEN');
 </script> --> 
@@ -18,7 +16,7 @@ $('#sidebar').find('span').text('OPEN');
 <style type="text/css">
     html,body{ margin:0; padding:0; width:100%; height:100%;}
     #header{ background-color:none; z-index:1; position:fixed;}
-    #sidebar{z-index:3;}
+	#sidebar{z-index:3;}
     a { text-decoration:none underline; color:white;  }
     a:hover { color: #F2EBC7; }
     *{

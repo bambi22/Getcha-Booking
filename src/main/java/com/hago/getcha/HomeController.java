@@ -17,7 +17,7 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "main")
+	@RequestMapping(value = "/main")
 	public String main() {
 		return "home";
 	}
@@ -96,7 +96,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/write")
-	public String write() {
+	public String write(Model model, @RequestParam String restNum, @RequestParam String restName) {
+		model.addAttribute("restNum", restNum);
+		model.addAttribute("restName", restName);
 		return "review/writeForm";
 	}
 	

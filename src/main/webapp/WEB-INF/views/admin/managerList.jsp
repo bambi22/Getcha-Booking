@@ -46,7 +46,8 @@
 				   ${rest.restId }
 				  </button>
 				  <ul class="dropdown-menu" aria-labelledby="defaultDropdown">
-				    <li><a class="dropdown-item" href="deleteManagerProc?restNum=${rest.restNum }">식당 관리자 삭제</a></li>
+				    <li><a class="dropdown-item"  id="${rest.restNum }" onclick="deleteManager(this)">식당 관리자 삭제</a></li>
+				    <%-- <li><a class="dropdown-item"  href="deleteManagerProc?restNum=${rest.restNum }" onclick="deleteManager(this)">식당 관리자 삭제</a></li> --%>
 				  </ul>
 				</div>
 			</td>
@@ -57,7 +58,13 @@
 		</tr>		
 	</c:forEach>
 </table>
-
+<script>
+function deleteManager(btn){
+	var t= confirm("삭제하시겠습니까?");
+	var num = $(btn).attr("id");
+	location.href="deleteManagerProc?restNum="+num;
+}
+</script>
 
 <c:choose>
 	<c:when test="${page.pageNumber <= 1 }">
