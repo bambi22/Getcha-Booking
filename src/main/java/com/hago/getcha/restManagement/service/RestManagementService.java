@@ -289,5 +289,19 @@ public class RestManagementService implements IRestManagementService {
 		modifyDao.deleteWholeMenu(restNum);
 		
 	}
+
+
+	@Override
+	public void deletePromotionProc(MultipartHttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void menuModifyProc(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
