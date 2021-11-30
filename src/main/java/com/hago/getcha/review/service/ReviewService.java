@@ -43,6 +43,9 @@ public class ReviewService {
 		String content = req.getParameter("content");
 		String restNo = req.getParameter("restNum");
 		String points = req.getParameter("point");
+		logger.warn("content : " + content);
+		logger.warn("restNum : " + restNo);
+		logger.warn("point : " + points);
 		int restNum = Integer.parseInt(restNo);
 		int point = Integer.parseInt(points);
 
@@ -54,9 +57,6 @@ public class ReviewService {
 		Date date = new Date();
 		sdf = getDateForm("yyyy-MM-dd");
 		dto.setWriteDate(sdf.format(date));
-		logger.warn("content : " + content);
-		logger.warn("restNum : " + restNum);
-		logger.warn("point : " + point);
 
 		StringBuilder builder = new StringBuilder();
 		String fileName = "";
