@@ -27,13 +27,12 @@ input{border:none;}
 		<input type="hidden" id="inputOrNot" name="inputOrNot"> 
 		<table border="1" id="registerTable">
 			<tr id="trMenu">
-				<th style="width:150px">분류</th><th style="width:150px">메뉴명</th><th style="width:200px">메뉴 소개</th>
+				<th style="width:150px">분류</th><th style="width:150px">메뉴명</th>
 				<th style="width:100px">가격</th><th style="width:150px;">메뉴 이미지</th><th style="width:60px;"></th>
 			</tr>
 			<tr style="height:50px;">
 				<td><input type="text" id="Category0"  name="category" placeholder="분류" style="width:95px"></td>
 	            <td><input type="text" id="menuName0" name="menuName" placeholder="메뉴명" style="width:145px"></td>
-	            <td><input type="text" id="menuDescript0"  name="menuDescript" placeholder="메뉴 소개" style="width:190px"></td>
 	            <td><input type="number" id="unitPrice0" name="unitPrice" placeholder="가격" style="width:100px"></td>
 	            <td>
 	            	<input type="file" id="menuImage0" name="menuImage" style="display:none;" onchange="previewImg(this)">

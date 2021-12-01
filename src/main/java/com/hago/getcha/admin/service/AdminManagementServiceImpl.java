@@ -141,8 +141,10 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 	@Override
 	public void deleteManagerProc(String restNum) {
 		int num = Integer.parseInt(restNum);
-		adminDao.deleteManager(num);
 		adminDao.deleteRestaurant(num);
+		System.out.println("식당 삭제");
+		adminDao.deleteManager(num);
+		System.out.println("매니저 삭제");
 	}
 
 	@Override

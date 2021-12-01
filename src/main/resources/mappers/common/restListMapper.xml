@@ -38,7 +38,6 @@
 		<result property="restNum" column="restNum"/>
 		<result property="category" column="category"/>
 		<result property="menuName" column="menuName"/>
-		<result property="menuDescript" column="menuIntro"/>
 		<result property="unitPrice" column="unitPrice"/>
 		<result property="menuImage" column="menuImage"/>
 	</resultMap>

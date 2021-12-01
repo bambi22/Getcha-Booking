@@ -135,11 +135,10 @@ public class RestRegisterService implements IRestRegisterService {
 	public void menuRegisterProc(MultipartHttpServletRequest req) {	
 		int restNum = (Integer)session.getAttribute("restNum");
 		String[] menuNameStr = req.getParameterValues("menuName");
-		if(menuNameStr.equals(null)) {			
-			String[] categoryStr = req.getParameterValues("category"); 
-			String[] menuDescriptStr = req.getParameterValues("menuDescript"); 
-			String[] unitPriceStr = req.getParameterValues("unitPrice"); 
-			List<MultipartFile> files = req.getFiles("menuImage");
+		String[] categoryStr = req.getParameterValues("category");  
+		String[] unitPriceStr = req.getParameterValues("unitPrice"); 
+		List<MultipartFile> files = req.getFiles("menuImage");
+		if(!menuNameStr.equals(null)) {			
 			int i= 0;
 			for(String menuName : menuNameStr) {
 				if(menuName != null) {
@@ -147,7 +146,6 @@ public class RestRegisterService implements IRestRegisterService {
 					menuDto.setRestNum(restNum);
 					menuDto.setCategory(categoryStr[i]);	
 					menuDto.setMenuName(menuName);
-					menuDto.setMenuDescript(menuDescriptStr[i]);
 					int price = Integer.parseInt(unitPriceStr[i]);
 					menuDto.setUnitPrice(price);
 					if(!files.get(i).isEmpty()) { 
@@ -179,8 +177,6 @@ public class RestRegisterService implements IRestRegisterService {
 				}
 				rrDao.addWholeMenu(menuDto);
 			}
-		}else{
-			System.out.println("파일없음");
 		}
 		
 	}

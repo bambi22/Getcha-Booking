@@ -9,7 +9,7 @@
 .restNav{ margin-top:20px; }
 </style>
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 240px; height:100%; ">
-    <div id="logoImg" ><img src="resources/img/logo/logo2.png" width="100%" onclick="location.href='restMainProc'"></div>
+    <div id="logoImg" ><img src="resources/img/logo/logo2.png" width="100%" onclick="location.href='main'"></div>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto restNav">
       <li class="nav-item">
