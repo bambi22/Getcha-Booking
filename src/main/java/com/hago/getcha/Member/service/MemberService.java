@@ -48,7 +48,7 @@ public class MemberService implements IMemberService{
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
-		model.addAttribute("msg", "가입완료");
+		model.addAttribute("msg", "가입완료되었습니다.");
 		return 2;
 	}
 	
@@ -132,9 +132,8 @@ public class MemberService implements IMemberService{
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			logger.warn("pWChk=0");
 			return 0;
-		}
-		if(member.getPw().isEmpty()) {
-			model.addAttribute("msg","비밀번호를 입력해주세요.");
+		}if(member.getNickname().isEmpty()|| member.getNickname()==null) {
+			model.addAttribute("msg", "내용을 입력해주세요.");
 			return 3;
 		}
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

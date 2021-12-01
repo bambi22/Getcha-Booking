@@ -48,14 +48,14 @@ public class MemberController {
 			if(true == pwEncoder.matches(rawPw, encodePw) || rawPw.equals(encodePw)) {		
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 			
-				model.addAttribute("result", "로그인 성공");
+				model.addAttribute("msg", "로그인 성공");
 				return "forward:main";					
 			} else {
-				model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+				model.addAttribute("msg", "이메일과 비밀번호를 확인하십시오.");
 				return "forward:index?formpath=login";					
 			}			
 		} else {				
-			model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+			model.addAttribute("msg", "이메일과 비밀번호를 확인하십시오.");
 			return "forward:index?formpath=login";
 		}
 	}
@@ -124,8 +124,7 @@ public class MemberController {
 		if(result == 0) {
 			return "forward:memberModiView";
 		}else if(result == 1) {
-			session.invalidate();
-			return "forward:index?formpath=memberView";
+			return "forward:memberViewProc";
 		}else if(result==3) {
 			return "forward:memberModiView";
 		}else {

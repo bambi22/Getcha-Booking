@@ -39,6 +39,7 @@ function loginSubmit(){
 </script>
 
 <body>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <form id="login-form" action="loginProc" method="post" role="form" style="display: block;">
 <div class="container" style="padding-top:50px;">
    <div class="row">

@@ -57,7 +57,7 @@ height:65px;
 					<h2>회원수정</h2>
 					
 					<div class="form-group">
-						<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="이메일" value='${memberView.email }' disabled="disabled"/>
+						<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="이메일" value='이메일  :  ${memberView.email }' disabled="disabled"/>
 					</div>
 					<div class="form-group">
                     	<input type="text" name="nickname" id="nickname" tabindex="1" class="form-control" placeholder="닉네임 입력" value='${memberView.nickname }'>
@@ -74,43 +74,38 @@ height:65px;
                     	<div class="alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
                   	</div>
                   	<div class="form-group">
-                    	<input type="text" name="mobile" id="mobile" tabindex="2" class="form-control" placeholder="휴대폰 번호">                  
+                    	<input type="text" name="mobile" id="mobile" tabindex="2" class="form-control" value='전화번호  :  ${memberView.mobile}'disabled="disabled"/>                  
                    	</div>
                    	<div class="form-group">
-                   		<input type=text name='birth' id='birth' value='${memberView.birth }'disabled="disabled"/>
+                   		<input type=text name='birth' id='birth' tabindex="2" class="form-control" value='생일  :  ${memberView.birth }'disabled="disabled"/>
 					</div>
 					<div class="form-group">
-                    	<input type="text" tabindex="2" class="form-control" placeholder="성별">
+                    	
                     	<c:if test="${memberView.gender == 'n' }">
-							<input type=radio name='gender' value='n' checked="checked"/>선택안함
-							<input type=radio name='gender' value='m' disabled="disabled"/>남자
-							<input type=radio name='gender' value='w' disabled="disabled"/>여자
+                    		<input type="text" tabindex="2" class="form-control" value='성별  :  선택안함' disabled="disabled">
 						</c:if>
 						<c:if test="${memberView.gender == 'm' }">
-							<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
-							<input type=radio name='gender' value='m' checked="checked"/>남자
-							<input type=radio name='gender' value='w' disabled="disabled"/>여자
+							<input type="text" tabindex="2" class="form-control" value='성별  :  남성' disabled="disabled">
 						</c:if>
 						<c:if test="${memberView.gender == 'w' }">
-							<input type=radio name='gender' value='n' disabled="disabled"/>선택안함
-							<input type=radio name='gender' value='m' disabled="disabled"/>남자
-							<input type=radio name='gender' value='w' checked="checked"/>여자
+							<input type="text" tabindex="2" class="form-control" value='성별  :  여성' disabled="disabled">
 						</c:if>
                     </div>
+                    <div class="panel-heading">
+         				 <div class="row"with  >
+           				 <div class="col-xs-6 tabs">
+             				 <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소" onclick="location.href='${root}memberViewProc'">
+            			</div>
+           				 <div class="col-xs-6 tabs">
+                			<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원수정" onclick="location.href='${root}memberModiProc'">
+           				 </div>
+          				</div>
+        			</div>
 				</form>
 			</div>
 		</div>
 	</div>
-        <div class="panel-heading">
-          <div class="row"with  >
-            <div class="col-xs-6 tabs">
-              <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소" onclick="location.href='${root}memberViewProc'">
-            </div>
-            <div class="col-xs-6 tabs">
-                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원수정" onclick="location.href='${root}memberViewProc'">
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
