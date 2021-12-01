@@ -18,7 +18,7 @@ body{
           animation: HeroBG 20s ease infinite;
 }
 
-.container{padding-top:90px;}
+
 
 @-webkit-keyframes HeroBG {
   0% {

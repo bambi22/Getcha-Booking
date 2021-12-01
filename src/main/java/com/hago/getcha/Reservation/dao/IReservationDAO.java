@@ -14,4 +14,5 @@ public interface IReservationDAO {
 	public int resDeleteProc(int resNum);
 	public String userinfo(String email);
 	public ReservationDTO deleteView(int restNum);
+	public void statusChange(String date);
 }

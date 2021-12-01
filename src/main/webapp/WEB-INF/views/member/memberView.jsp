@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-.container{height:720px;}
+.container{margin:50px;}
+.btn_set{text-align: center;}
 .btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px;}
 </style>
 <c:if test="${empty sessionScope.email }">
@@ -13,7 +14,6 @@
 <c:url var="root" value="/"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<center>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
@@ -29,36 +29,38 @@
               <form id="f"  method="get" role="form" >
                 <h2>회원정보</h2>
                   <div class="form-group">
-                    <input type="text" name="email" id="email" tabindex="1" class="form-control" disabled  value="이메일:${memberView.email}">
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" disabled  value="이메일 :  ${memberView.email}">
                   </div>
                   
                   <div class="form-group">
-                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" disabled  value="닉네임:${memberView.nickname}">
+                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" disabled  value="닉네임 :  ${memberView.nickname}">
                   </div>
                   
                   <div class="form-group">
-                    <input type="text" name="nickname" id="nickname" tabindex="1" class="form-control"  disabled   value="휴대폰 번호:${memberView.mobile}">
+                    <input type="text" name="nickname" id="nickname" tabindex="1" class="form-control"  disabled   value="휴대폰 번호 :  ${memberView.mobile}">
                   </div>
                   
                   <div class="form-group">
-                    <input type="text" name="pw" id="pw" tabindex="2" class="form-control" disabled  value="생일:${memberView.birth}">
+                    <input type="text" name="pw" id="pw" tabindex="2" class="form-control" disabled  value="생일 :  ${memberView.birth}">
                   </div>           
                   <div class="form-group">
                   	<c:choose>
                   		<c:when test="${memberView.gender == 'm' }">
-                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별:남자">
+                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별 : 남자">
                   		</c:when>
                   		<c:when test="${memberView.gender == 'w' }">
-                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별:여자">
+                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별 : 여자">
                   		</c:when>
                   		<c:otherwise>
-                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별:선택안함">
+                  			<input type="text" tabindex="2" class="form-control" disabled  value="성별 : 선택안함">
                   		</c:otherwise>
                   	</c:choose>
 				</div>
+				<div class="btn_set">
 				<input type="button" style="width:60px;" value="수정" class="btn_btn" onclick="location.href='${root}memberModiView'"/>
 				<input type="button" style="width:60px;" value="홈" class="btn_btn" onclick="location.href='${root}index?formpath=main'"/>
 				<input type="button" style="width:60px;" value="탈퇴" class="btn_btn" onclick="location.href='${root}index?formpath=deleteForm'"/>
+				</div>
 				</form>
             </div>
           </div>
@@ -67,4 +69,3 @@
     </div>
   </div>
 </div>
-</center>

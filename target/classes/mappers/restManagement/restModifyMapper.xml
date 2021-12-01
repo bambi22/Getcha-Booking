@@ -5,12 +5,11 @@
 <mapper namespace="com.hago.getcha.restManagement.dao.IRestModifyDAO">
 	<!-- 식당 기본 정보 수정 -->
 	<update id="modifyBasicInfo" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
-		UPDATE restaurant
+		UPDATE restaurant 
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="restName != ''">restname=#{restName},</if>
 			<if test="restIntro != ''">restintro=#{restIntro},</if>
 			<if test="type != ''">type=#{type},</if>
-
 		</trim>
 		WHERE restnum=#{restNum}
 	</update>
@@ -22,7 +21,7 @@
 	
 	<!-- 식당 상세 정보 수정 -->
 	<update id="modifyDetail" parameterType="com.hago.getcha.restManagement.dto.RestaurantDTO">
-		UPDATE restaurant
+		UPDATE restaurant 
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="zipcode != ''">zipcode=#{zipcode},</if>
 			<if test="address != ''">address=#{address},</if>

@@ -73,19 +73,22 @@ public class ReservationController{
 		logger.warn("restNum:"+ dto.getRestNum());
 		int result = service.reservationProc(dto);
 		if(result == 0) {
-			//model.addAttribute("msg","로그인해주세요.");
+			model.addAttribute("msg","로그인해주세요.");
 			return "login";
 		}else if(result == 1) {
-			//model.addAttribute("msg","예약되었습니다.");
-			return "forward:main";
+			model.addAttribute("msg","예약되었습니다.");
+			return "forward:reservationViewProc";
+		}else if(result == 3) {
+			model.addAttribute("msg", "휴무에는 예약하실 수 없습니다.");
+			return "forward:index?formpath=calendar";
 		}else {
-			//model.addAttribute("msg", "예약 실패");
+			model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=calendar";
 		}
 	}
 	
 	@RequestMapping(value = "/reservationViewProc")
-	public String reservationViewProc(Model model, String email) {
+	public String reservationViewProc(Model model, String email) throws Exception {
 		email = (String)session.getAttribute("email");
 		logger.warn("email:"+email);
 		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
@@ -93,16 +96,14 @@ public class ReservationController{
 		if(reservationView==null) {
 			return "forward:index?formpath=calendar";
 		}else {
-			/*logger.warn("=====정렬=====");
-			Minicomparator comp = new Minicomparator();
-			Collections.sort(reservationView, comp);
-			for(int i =0; i<reservationView.size(); i++) {
-				ReservationDTO dto = reservationView.get(i);
-				logger.warn("예약일:"+dto.getResDay());
-			}*/
 			model.addAttribute("reservationView",reservationView);
 			return "forward:index?formpath=reservationView";
 		}
+	}
+	@RequestMapping(value = "/statusChange")
+	public String statusChange() {
+		service.statusChange();
+		return "forward:reservationViewProc";
 	}
 	
 	@RequestMapping(value="resDelete")
@@ -118,7 +119,7 @@ public class ReservationController{
 		int result = service.resDeleteProc(resNum);
 		if(result == 1) {
 			model.addAttribute("msg", "취소되었습니다.");
-			return "forward:main";
+			return "forward:reservationViewProc";
 		}else {
 			model.addAttribute("msg", "취소실패하였습니다.");
 			return "forward:index?formpath=deleteReservation";

@@ -65,4 +65,8 @@
 	<delete id="resDeleteProc" parameterType="int">
 		update getchares set status='예약취소' where resnum=#{resNum}
 	</delete>
+	
+	<update id="statusChange" parameterType="String">
+		<![CDATA[UPDATE GETCHARES SET status='노쇼' WHERE STATUS='예약확인' AND RESDAY < #{date}]]>
+	</update>
 </mapper>
