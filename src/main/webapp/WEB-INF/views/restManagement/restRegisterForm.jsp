@@ -17,18 +17,9 @@
 <!-- 이 페이지 자바스크립트 링크 -->
 <script type="text/javascript" src="resources/js/restManagement/restRegister.js" ></script>
 <link type="text/css" rel="stylesheet" href="resources/css/restManagement/restRegister.css" />
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("input:checkbox").on('click',function(){
-			if($(this).prop('checked')){
-				alert();
-			}else{
-				alert('해제');
-			}
-		});
-	});
-</script>
+
 </head>
+
 <body>
 <c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 	<h3 style="text-align:center;">식당 정보 등록</h3>

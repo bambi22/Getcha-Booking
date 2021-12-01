@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hago.getcha.Reservation.dao.IReservationDAO;
 import com.hago.getcha.Reservation.dto.ReservationDTO;
-import com.hago.getcha.Reservation.service.Minicomparator;
 import com.hago.getcha.Reservation.service.ReservationService;
 
 @Controller
@@ -71,41 +70,38 @@ public class ReservationController{
 		logger.warn("capa:"+dto.getCapacity());
 		logger.warn("email:"+dto.getEmail());
 		logger.warn("restNum:"+ dto.getRestNum());
-		int result = service.reservationProc(dto);
+		int result = service.reservationProc(dto, model);
 		if(result == 0) {
-			model.addAttribute("msg","로그인해주세요.");
-			return "login";
+			return "forward:login";
 		}else if(result == 1) {
-			model.addAttribute("msg","예약되었습니다.");
 			return "forward:reservationViewProc";
 		}else if(result == 3) {
-			model.addAttribute("msg", "휴무에는 예약하실 수 없습니다.");
 			return "forward:index?formpath=calendar";
 		}else {
-			model.addAttribute("msg", "예약 실패");
 			return "forward:index?formpath=calendar";
 		}
 	}
 	
 	@RequestMapping(value = "/reservationViewProc")
-	public String reservationViewProc(Model model, String email) throws Exception {
+	public String reservationViewProc(Model model, String email){
 		email = (String)session.getAttribute("email");
 		logger.warn("email:"+email);
-		ArrayList<ReservationDTO>reservationView = service.reservationView(email);
+		int result = service.reservationView(email,model);
+		if(result == 1) {
+			return "forward:index?formpath=reservationView";
+		}else {
+			return "forward:main";
+		}
+		/*ArrayList<ReservationDTO>reservationView = service.reservationView(email);
 		logger.warn("service");
 		if(reservationView==null) {
-			return "forward:index?formpath=calendar";
+			
+			return "forward:main";
 		}else {
 			model.addAttribute("reservationView",reservationView);
 			return "forward:index?formpath=reservationView";
-		}
+		}*/
 	}
-	@RequestMapping(value = "/statusChange")
-	public String statusChange() {
-		service.statusChange();
-		return "forward:reservationViewProc";
-	}
-	
 	@RequestMapping(value="resDelete")
 	public String resDelete(String resNum, Model model) {
 		logger.warn("1.resNumChek:"+resNum);

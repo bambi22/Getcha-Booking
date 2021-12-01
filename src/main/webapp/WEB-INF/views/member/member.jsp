@@ -91,6 +91,7 @@ height:65px;
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <body>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <div class="container">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -128,7 +129,7 @@ height:65px;
                     <input type="text" name="mobile" id="mobile" tabindex="2" class="form-control" placeholder="휴대폰 번호">                  
                    </div>
                     <div class="form-group">
-                    <input type="password"  tabindex="2" class="form-control" placeholder="생일">                  
+                    <input type="password"  tabindex="2" class="form-control" placeholder="생일" readonly="readonly">                  
                 <select name="birth1">
 					<%for(int i=2002; i>=1900; i--){ %>
 						<option value="<%=i %>"><%=i %></option><%} %>
@@ -143,7 +144,7 @@ height:65px;
 					</select>일<br><br>
                   </div>
                     <div class="form-group">
-                    <input type="text" tabindex="2" class="form-control" placeholder="성별">                  
+                    <input type="text" tabindex="2" class="form-control" placeholder="성별" readonly="readonly">                  
                    	<input type=radio name='gender' value='n' checked="checked"/>선택안함
 					<input type=radio name='gender' value='w' />여자
 					<input type=radio name='gender' value='m' />남자
