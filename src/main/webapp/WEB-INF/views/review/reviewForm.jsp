@@ -38,15 +38,11 @@
 				<div>
 					<p class="date">${list.writeDate }</p>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="button_wrap">
-							<button type="submit" class="btn btn-dark">수정</button>
-							<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
-						</div><hr>
-					</div>
+				<div class="button_wrap">
+					<button type="submit" class="modiBtn">수정</button>
+					<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
 				</div>
-				
+			<hr>	
 			</div>
 		</form>
 	</c:forEach>

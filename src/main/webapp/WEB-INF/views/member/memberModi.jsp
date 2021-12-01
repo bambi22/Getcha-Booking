@@ -23,10 +23,13 @@
 <style>
 .container{margin:50px;}
 #register-reset{
-color:#FCF3E4;
+ background-color: #B0978D;
+    color: #FCF3E4;
 }
 #register-submit{
-color:#FCF3E4;
+
+ background-color: #2d3b55;
+    color: #FCF3E4;
 }
 .form-control btn btn-reset{
 background-color:#B0978D;

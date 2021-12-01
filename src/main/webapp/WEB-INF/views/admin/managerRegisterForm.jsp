@@ -74,7 +74,7 @@ function managerRegister(){
 
 </script>
 <style>
-	.container{width:1130px; position:relative; padding:60px; margin:auto; text-align:center;}
+	.container{width:800px; position:relative; margin:auto; text-align:center; width:"100%";}
 	.panel-body{background-color:white; overflow:hidden; width:800px; height:auto; text-align:center; margin:auto; border-radius:3px; padding:50px;}
 	table{margin:auto; }
 	td{width:150px; text-align:left; padding:20px;}
@@ -98,10 +98,9 @@ function managerRegister(){
 	document.getElementById('managerRegisterTab').className = 'nav-link active';
 </script>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-<body>
+<center style="width:100%">
 <div class="container">
-   
-        <div class="panel-body">
+     <div class="panel-body">
 <form action="managerRegisterProc" id="registerForm" method="post">
 <table>
 	<tr>
@@ -127,7 +126,7 @@ function managerRegister(){
 	</tr>
 	<tr>
 		<td align='right'>전화번호1</td>
-		<td>
+		<td colspan="2">
 			<select id="phone1" name="phoneStr1">
 				<option value="010">010</option>
 				<option value="02">02</option>
@@ -141,7 +140,7 @@ function managerRegister(){
 	</tr>
 	<tr>
 		<td align='right'>전화번호2</td>
-		<td>
+		<td colspan="2">
 			<select id="phone1" name="phoneStr2">
 				<option value="010">010</option>
 				<option value="02">02</option>
@@ -159,4 +158,4 @@ function managerRegister(){
 </form>
 </div>
 </div>
-
+</center>

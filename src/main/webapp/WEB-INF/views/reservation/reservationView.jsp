@@ -52,7 +52,7 @@
 			</c:choose>
 			<c:choose>
 				<c:when test="${reservationView.status eq '방문완료'}">
-					<button type="button" class="btn_btn" onclick="location.href='index?formpath=write&restNum=${reservationView.resNum}'">리뷰 쓰기</button>
+					<button type="button" class="btn_btn" onclick="location.href='index?formpath=write&restNum=${reservationView.restNum}&restName=${reservationView.restName}'">리뷰 쓰기</button>
 				</c:when>
 				<c:otherwise>
 					<button type="button" class="btn_btnd" disabled="disabled">리뷰 쓰기</button>
