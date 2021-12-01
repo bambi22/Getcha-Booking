@@ -77,7 +77,7 @@
        	<c:if test="${fileNames != '파일없음' }">
       	<div class="subtitle">
 			<span>등록한 리뷰 사진</span>
-			<span class="caution">(*사진 삭제 시, 수정 완료하지 않아도 삭제 됩니다)</span>
+			<span class="caution">(*사진 삭제 시, 수정 완료하지 않아도 삭제 됩니다.)</span>
 		</div>
 		<div class="preview_wrap">
 	       	<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">

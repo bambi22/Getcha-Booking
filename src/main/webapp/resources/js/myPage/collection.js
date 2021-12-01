@@ -4,7 +4,6 @@ $(document).ready(function(){
 			var answer = confirm("정말 취소하겠습니까?");
 			if(answer){
 			var n = $(this).attr('data-id');
-			alert(n);
 			var info = {restNum:n}
 			$.ajax({	
 		 	   url : "delCollect", type: "POST",

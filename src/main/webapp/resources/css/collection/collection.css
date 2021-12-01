@@ -14,9 +14,9 @@
     
     span img {margin-left: 3px;}
     
-    .button_wrap { text-align: right;}
-    
-    .calBtn { width: 100px; height: 30px; padding: 5px;}
+    .button_wrap {text-align: right;}
+    .calBtn {color:white; background-color:#343a40; border-color:#343a40; font-size:15px; border-radius:5px; padding:6px 12px; height:38px; width:58px;}
+    .calBtn:hover {background-color:black; border-color:black;}
     
     a {text-decoration: none; font-weight:bold;}
     a:hover {text-decoration: underline;} 
