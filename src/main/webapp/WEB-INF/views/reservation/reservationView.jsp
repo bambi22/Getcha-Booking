@@ -17,6 +17,7 @@
 	.btn_btnd{color:white; background-color:#D5D5D5; border-color:#D5D5D5; font-size:15px; border-radius:5px; padding:5px 10px;}
 </style>
 <center>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <div class="title">
 	<h2>예약정보</h2>
 </div>

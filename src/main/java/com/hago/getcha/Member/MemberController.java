@@ -81,16 +81,13 @@ public class MemberController {
 		
 		if(result == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			//model.addAttribute("url","/memberModi");
-			return "forward:index?formpath=member";
+			return "forward:member";
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "중복 아이디입니다.");
-			//model.addAttribute("url","/main");
-			return "forward:index?formpath=member";
+			return "forward:member";
 		}else {
 			model.addAttribute("msg", "가입완료");
-			//model.addAttribute("url","/memberModi");
 			return "forward:main";
 		}
 	}
@@ -129,17 +126,13 @@ public class MemberController {
 		logger.warn("result:"+result);
 		if(result == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			
-			//model.addAttribute("url","/memberModi");
 			return "/memberModiView";
 		}else if(result == 1) {
 			session.invalidate();
 			model.addAttribute("msg", "수정되었습니다.");
-			//model.addAttribute("url","/main");
 			return "forward:main";
 		}else {
 			model.addAttribute("msg", "수정실패.");
-			//model.addAttribute("url","/memberModi");
 			return "/memberModiView";
 		}
 	}

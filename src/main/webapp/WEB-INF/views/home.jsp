@@ -14,6 +14,15 @@ $('#sidebar').find('span').text('OPEN');
 	<c:import url="/WEB-INF/views/common/nav.jsp" /> 
 	<c:import url="/WEB-INF/views/common/top.jsp" />
 <style type="text/css">
+*{
+  font-family:'GowunDodum-Regular';
+}
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
     html,body{ margin:0; padding:0; width:100%; height:100%;}
     #header{ background-color:none; z-index:1; position:fixed;}
 	#sidebar{z-index:3;}

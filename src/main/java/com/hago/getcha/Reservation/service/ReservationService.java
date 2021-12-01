@@ -1,8 +1,6 @@
 package com.hago.getcha.Reservation.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -352,7 +350,7 @@ public class ReservationService{
 	
 	
 	//선택된 날짜, 시간, 인원 예약하기
-	public int reservationProc(ReservationDTO dto) {
+	public int reservationProc(ReservationDTO dto, Model model) {
 		logger.warn("예약 service");
 		int restNum = dto.getRestNum();
 		ReservationDTO info = getInfo(restNum);
@@ -361,31 +359,46 @@ public class ReservationService{
 		dto.setOrderNum(00);
 		dto.setRestName(restName);
 		dto.setStatus("예약확인");
-		if(dto.getEmail()==""||dto.getEmail()==null)
+		if(dto.getEmail()==""||dto.getEmail()==null) {
+			model.addAttribute("msg","로그인해주세요.");
 			return 0;
+		}
 		if(dto.getHours().equals("휴무")) {
+			model.addAttribute("msg", "휴무에는 예약하실 수 없습니다.");
 			return 3;
 		}
 		if(dao.reservationProc(dto)==1) {
+			model.addAttribute("msg","예약되었습니다.");
 			return 1;
 		}
-		else
+		else {
+			model.addAttribute("msg", "예약 실패");
 			return 2;
+		}
 	}
 	
-	public void statusChange(){
+	public int checkDate(int day){
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String date = format.format(new Date());
-		logger.warn("오늘 날짜:" + date);
-		dao.statusChange(date);
+		int day1 = Integer.parseInt(date.replaceAll("[^0-9]", ""));
+		logger.warn("오늘 날짜:"+day1);
+		if(day < day1) {
+			return 0;
+		}else {
+			return 1;
+		}
 	}
 	
-	public ArrayList<ReservationDTO> reservationView(String email) {
+	public int reservationView(String email, Model model) {
 		ArrayList<ReservationDTO> view = dao.reservationView(email);
-		return view;
+		if(view==null || view.isEmpty()) {
+			model.addAttribute("msg","예약내역이 없습니다.");
+			return 0;
+		}else {
+			model.addAttribute("reservationView", view);
+			return 1;	
+		}
 	}
-	
-	
 	
 	public void resDelete(String resNum, Model model) {
 		int no = Integer.parseInt(resNum);
@@ -397,6 +410,7 @@ public class ReservationService{
 		logger.warn("resNum:"+resNum);
 		int no = Integer.parseInt(resNum);
 		int result = dao.resDeleteProc(no);
+		
 		return result;
 	}
 	

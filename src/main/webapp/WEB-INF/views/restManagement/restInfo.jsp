@@ -117,7 +117,9 @@ img {vertical-align: middle;}
 .modifyBtn{ text-decoration:none; color: white; }
 .modifyBox{ width:200px; height: 40px; text-align:center; line-height:40px; background-color: #8c8c8C;box-shadow: 1px 1px 3px 1px #dadce0; }
 .modifyBox:hover{ color:white; background-color:#404040 }
-
+	input[type=checkbox]{display:none;}
+	input[type=checkbox]+label{cursor:pointer; padding:5px; background-repeat:no-repeat;}
+	input[type=checkbox]:checked+label{border:3px inset;}
 </style>
 </head>
 <body>
