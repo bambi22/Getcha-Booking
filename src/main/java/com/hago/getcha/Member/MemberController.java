@@ -77,17 +77,12 @@ public class MemberController {
 	}
 	@RequestMapping(value = "memberProc")
 	public String memberProc(MemberDTO member, Model model) {
-		int result = service.memberProc(member);
-		
+		int result = service.memberProc(member,model);
 		if(result == 0) {
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			return "forward:member";
 		}else if(result == 1) {
-			session.invalidate();
-			model.addAttribute("msg", "중복 아이디입니다.");
 			return "forward:member";
 		}else {
-			model.addAttribute("msg", "가입완료");
 			return "forward:main";
 		}
 	}

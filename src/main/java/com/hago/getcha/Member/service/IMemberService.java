@@ -6,7 +6,7 @@ import com.hago.getcha.Member.dto.MemberDTO;
 
 public interface IMemberService {
 	public String CheckEmail(String email);
-	public int memberProc(MemberDTO member);
+	public int memberProc(MemberDTO member,Model model);
 	public int memberDeleteProc(MemberDTO check);
 	public void memberViewProc(String email, Model model);
 	public int memberModiProc(MemberDTO member);
