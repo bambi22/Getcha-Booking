@@ -15,16 +15,15 @@ function addModifyRow(){
   const newCell3 = newRow.insertCell(2);
   const newCell4 = newRow.insertCell(3);
   const newCell5 = newRow.insertCell(4);
-  const newCell6 = newRow.insertCell(5);
+  
   
   // Cell에 텍스트 추가
   newCell1.innerHTML = '<input type="text" id="category'+i+'" name="category" style="width:80" placeholder="분류">';
   newCell2.innerHTML = '<input type="text" id="menuName'+i+'" name="menuName" style="width:135px" placeholder="메뉴명">';
-  newCell3.innerHTML = '<input type="text" id="menuDescript'+i+'" name="menuDescript"  placeholder="메뉴 소개" style="width:190px">';
-  newCell4.innerHTML = '<input type="number" id="unitPrice'+i+'" name="unitPrice" placeholder="가격" style="width:100px">';
-  newCell5.innerHTML = '<input type="file" id="menuImage'+i+'" name="menuImage" style="display:none;" onchange="previewImg(this)">'+
-  						'<label for="menuImage'+i+'"><img name="menuImage'+i+'" src="resources/img/icon/upload.png" width="20"></label>';
-  newCell6.innerHTML = "<button type='button' name='delMenu' onclick='deleteRow(this)'>삭제</button>";
+  newCell3.innerHTML = '<input type="number" id="unitPrice'+i+'" name="unitPrice" placeholder="가격" style="width:100px">';
+  newCell4.innerHTML = '<input type="file" id="menuImage'+i+'" name="menuImage" style="display:none;" onchange="previewImg(this)">'+
+  						'<label for="menuImage'+i+'"><img name="menuImage'+i+'" src="resources/img/icon/upload.png" width="40"></label>';
+  newCell5.innerHTML = "<button type='button' name='delMenu' onclick='deleteRow(this)'>삭제</button>";
 
   i++;
 }

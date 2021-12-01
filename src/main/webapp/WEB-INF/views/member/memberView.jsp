@@ -19,6 +19,7 @@
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <body>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <div class="container">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -58,7 +59,7 @@
 				</div>
 				<div class="btn_set">
 				<input type="button" style="width:60px;" value="수정" class="btn_btn" onclick="location.href='${root}memberModiView'"/>
-				<input type="button" style="width:60px;" value="홈" class="btn_btn" onclick="location.href='${root}index?formpath=main'"/>
+				<input type="button" style="width:60px;" value="홈" class="btn_btn" onclick="location.href='${root}main'"/>
 				<input type="button" style="width:60px;" value="탈퇴" class="btn_btn" onclick="location.href='${root}index?formpath=deleteForm'"/>
 				</div>
 				</form>

@@ -30,6 +30,10 @@ public class MemberService implements IMemberService{
 		logger.warn("pw : " + member.getPw());
 		logger.warn("pwCheck : " + member.getPwCheck());
 		logger.warn("memberPwCheck:" + memberPwChk(member));
+		if(member.getEmail()==null||member.getPw()==null||member.getEmail()==""||member.getPw()=="") {
+			model.addAttribute("msg", "정보를 입력해주세요.");
+			return 3;
+		}
 		if(memberPwChk(member) == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			return 0;
@@ -44,7 +48,7 @@ public class MemberService implements IMemberService{
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
-		model.addAttribute("msg", "가입완료");
+		model.addAttribute("msg", "가입완료되었습니다.");
 		return 2;
 	}
 	
@@ -117,7 +121,7 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public int memberModiProc(MemberDTO member) {
+	public int memberModiProc(MemberDTO member, Model model) {
 		logger.warn("pw: " + member.getPw());
 		logger.warn("pwCheck: " + member.getPwCheck());
 		logger.warn("birth : " + member.getBirth());
@@ -125,16 +129,24 @@ public class MemberService implements IMemberService{
 		logger.warn("nickname:"+member.getNickname());
 		logger.warn("email:"+member.getEmail());
 		if(memberPwChk(member) == 0) {
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			logger.warn("pWChk=0");
 			return 0;
+		}if(member.getNickname().isEmpty()|| member.getNickname()==null) {
+			model.addAttribute("msg", "내용을 입력해주세요.");
+			return 3;
 		}
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		member.setPw(securePw);
-		if(dao.memberModiProc(member) == 1) 
+		if(dao.memberModiProc(member) == 1) {
+			model.addAttribute("msg", "수정되었습니다.");
 			return 1;
-		else
+		}
+		else {
+			model.addAttribute("msg", "수정실패.");
 			return 2;
+		}
 	}
 
 	@Override
@@ -165,18 +177,16 @@ public class MemberService implements IMemberService{
 		}else
 			logger.warn("인증번호 생성되어 있음");
 	}
-
+	
 	@Override
-	public String authConfirm(String inputAuthNum) {
+	public int authConfirm(String authNum, Model model) {
 		String sessionAuthNum = (String)session.getAttribute("authNum");
-		if(sessionAuthNum == null) 
-			return "인증번호를 생성하세요.";
-		if(inputAuthNum == "")
-			return "인증번호를 입력하세요.";
-		if(inputAuthNum.equals(sessionAuthNum)) {
-			session.setAttribute("authState", true);
-			return "인증완료";
+		logger.warn("sessionAuthNum: " + sessionAuthNum);
+		logger.warn("authNum:"+authNum);
+		if(authNum.equals(sessionAuthNum)) {
+			return 1;
+		}else {
+			return 0;
 		}
-		return "인증실패";
 	}
 }

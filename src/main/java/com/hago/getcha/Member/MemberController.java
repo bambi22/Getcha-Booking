@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,14 +49,14 @@ public class MemberController {
 			if(true == pwEncoder.matches(rawPw, encodePw) || rawPw.equals(encodePw)) {		
 				session.setAttribute("email", lvo.getEmail());	
 				session.setAttribute("nickName", lvo.getNickname()); 			
-				model.addAttribute("result", "로그인 성공");
+				model.addAttribute("msg", "로그인 성공");
 				return "forward:main";					
 			} else {
-				model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+				model.addAttribute("msg", "이메일과 비밀번호를 확인하십시오.");
 				return "forward:index?formpath=login";					
 			}			
 		} else {				
-			model.addAttribute("result", "이메일과 비밀번호를 확인하십시오.");
+			model.addAttribute("msg", "이메일과 비밀번호를 확인하십시오.");
 			return "forward:index?formpath=login";
 		}
 	}
@@ -79,11 +80,13 @@ public class MemberController {
 	public String memberProc(MemberDTO member, Model model) {
 		int result = service.memberProc(member,model);
 		if(result == 0) {
-			return "forward:member";
+			return "forward:index?formpath=member";
 		}else if(result == 1) {
-			return "forward:member";
+			return "forward:index?formpath=member";
+		}else if(result == 3){
+			return "forward:index?formpath=member";
 		}else {
-			return "forward:main";
+			return "forward:index?formpath=login";
 		}
 	}
 	@RequestMapping(value = "memberViewProc")
@@ -115,20 +118,22 @@ public class MemberController {
 		MemberDTO memberView = dao.memberViewProc(member.getEmail());
 		String birth = memberView.getBirth();
 		String gender=memberView.getGender();
+		String mobile = memberView.getMobile();
+		member.setMobile(mobile);
 		member.setBirth(birth);
 		member.setGender(gender);
-		int result = service.memberModiProc(member);
+		
+		int result = service.memberModiProc(member, model);
 		logger.warn("result:"+result);
 		if(result == 0) {
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			return "/memberModiView";
+			return "forward:memberModiView";
 		}else if(result == 1) {
-			session.invalidate();
-			model.addAttribute("msg", "수정되었습니다.");
-			return "forward:main";
+			return "forward:memberViewProc";
+		}else if(result==3) {
+			return "forward:memberModiView";
 		}else {
 			model.addAttribute("msg", "수정실패.");
-			return "/memberModiView";
+			return "forward:memberModiView";
 		}
 	}
 	@RequestMapping(value = "memberDeleteProc")
@@ -165,14 +170,21 @@ public class MemberController {
 		return map;
 	}
 	
-	@RequestMapping(value = "authConfirm")
-	public Map<String, String> authConfirm(@RequestBody Map<String, String>map){
-		Boolean check = (Boolean)session.getAttribute("authState");
-		if(check != null&& check == true) {
-			map.put("msg", "인증 완료");
-			return map;
+	@ResponseBody
+	@RequestMapping(value="authConfirm")
+	public Map<String, String> authConfirm(Model model, @RequestBody Map<String, String>map){
+		logger.warn("controller");
+		Map<String, String> resultmap = new HashMap<String, String>();
+		String authNum = (String)map.get("inputAuthNum");
+		logger.warn("authNum:"+authNum);
+		int result = service.authConfirm(authNum,model);
+		logger.warn("result:"+result);
+		if(result == 1) {
+			resultmap.put("msg", "이메일이 인증되었습니다.");
+			return resultmap;
+		}else {
+			resultmap.put("msg", "이메일 인증번호를 확인해주세요.");
+			return resultmap;
 		}
-		map.put("msg", service.authConfirm(map.get("c")));
-		return map;
 	}
 }

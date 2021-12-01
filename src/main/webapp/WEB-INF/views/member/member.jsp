@@ -78,15 +78,15 @@ height:65px;
 		}
 		var s = {inputAuthNum:i};
 		$.ajax({
-			url: "sendAuth", type:"POST",
-			data: JSON.stringify(info),
-			contentType: "application/json; charset=utf-8",
+			url: "authConfirm", type: "POST",
+			data: JSON.stringify(s),
+			contentType: "application/json;charset=UTF-8",
 			dataType:"json",
-			success: function(result){
-				$('#msg').text(result.msg);
+			success : function(data){
+				alert(data.msg);
 			},
-			error:function(){
-				$('#msg').text('error');
+			error : function(){
+				console.log("실패");
 			}
 		})
 	}
@@ -94,17 +94,7 @@ height:65px;
 
 <script>
 function memberSubmit(){
-	var email = document.getElementById('email').val;
-	var inputAuthNum = document.getElementById('inputAuthNum').val;
-	var nickname = document.getElementById('nickname').val;
-	var pw = document.getElementById('pw').val;
-	var pwCheck = document.getElementById('pwCheck').val;
-	var mobile = document.getElementById('mobile').val;
-	if(email==null||inputAuthNum==null||nickname==null||pw==null||pwCheck==null||mobile==null){
-		alert("정보를 입력해주세요.");
-	}else{
 		document.getElementById('login-form').submit();
-	}
 }
 </script>
 
@@ -118,7 +108,6 @@ function memberSubmit(){
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-           <!--  <h3><font color="red" id="msg">${msg}</font></h3> -->
               <form id="login-form"  action="memberProc" method="post" role="form" style="display: block;">
                 <h2>REGISTER</h2>
                   <div class="form-group">
@@ -126,7 +115,7 @@ function memberSubmit(){
                     <input type="button" value="Email 인증하기" onclick="sendAuthNum();">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" placeholder="이메일인증 번호" value="">
+                    <input type="text" name="inputAuthNum" id="inputAuthNum" tabindex="1" class="form-control" placeholder="이메일인증 번호" value="">
                     <input type="button" value="Email 인증확인" onclick="sendAuthConfirm();">
                   </div>
                   <div class="form-group">
@@ -173,16 +162,15 @@ function memberSubmit(){
           </div>
         </div>
         <div class="panel-heading">
-		          <div class="row">
-		            <div class="col-xs-6 tabs">
-		              <button type="button" class="active" id="login-form-link" onclick="memberSubmit()"><div class="login">회원가입</div></button>
-		            </div>
-		            <div class="col-xs-6 tabs">
-		              <a href="index?formpath=member" ><div class="register">취소</div></a>
-		           
-		            </div>
-		          </div>
-		        </div>
+          <div class="row"with  >
+            <div class="col-xs-6 tabs">
+              <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소" onclick="location.href='${root}main'">
+            </div>
+            <div class="col-xs-6 tabs">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입" onclick="memberSubmit()">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -205,7 +193,10 @@ function memberSubmit(){
 	});
 </script>
 </body>
+
 <script>
+	
+	//두 비밀번호 일치 여부 확인
 	$(function(){
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
@@ -225,7 +216,9 @@ function memberSubmit(){
 			}
 		});
 	});
-
+	
+	
+	//비밀번호 제약
 	$(function(){
 		$("#alert-length").hide();
 		$("#alert-space").hide();

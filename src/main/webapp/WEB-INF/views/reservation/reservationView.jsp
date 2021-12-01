@@ -42,6 +42,7 @@
 			</div>
 		
 			<div class="button">
+			
 			<c:choose>
 				<c:when test="${reservationView.status eq '예약확인'}">
 					<input type="button" style="width:80px;" value="예약취소" class="btn_btn" id="btn_cancle" onclick="location.href='${root}resDelete?resNum=${reservationView.resNum}'"/>
@@ -58,6 +59,8 @@
 					<button type="button" class="btn_btnd" disabled="disabled">리뷰 쓰기</button>
 				</c:otherwise>
 			</c:choose>
+			
+			
 			</div>
 		</div>
 	</c:forEach>

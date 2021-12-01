@@ -74,7 +74,7 @@ public class ReservationController{
 		if(result == 0) {
 			return "forward:login";
 		}else if(result == 1) {
-			return "forward:reservationViewProc";
+			return "redirect:reservationViewProc";
 		}else if(result == 3) {
 			return "forward:index?formpath=calendar";
 		}else {

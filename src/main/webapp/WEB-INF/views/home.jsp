@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>GetchaTable</title>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 
 <!-- <script>
 $('#sidebar').find('span').text('OPEN');

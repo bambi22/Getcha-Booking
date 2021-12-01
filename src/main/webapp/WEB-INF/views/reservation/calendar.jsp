@@ -27,6 +27,7 @@
 	</script>
 </c:if>
 <script>
+
 function search(){
 	var i = document.getElementById("resDay").value;
 	var e = {resDay:i}
@@ -41,12 +42,10 @@ function search(){
 			console.log(data);
 			var list = data.datas;
 			$("select[name='showTime'] option").remove();
-			
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
-				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');
-			})
+				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');})
 			$("select[name='showTime']").change(function(){
 				console.log($(this).val());
 				console.log($("select[name='showTime'] option:selected").text());
@@ -68,7 +67,6 @@ function search(){
 							
 							$("select[name='capacity']").append('<option value="'+i+'">'+i+'</option>');
 						}
-						
 					}
 				});
 			});
@@ -84,6 +82,10 @@ function change(){
 	btn.disabled = false;
 }
 
+function reservationSubmit(){
+	alert("예약되었습니다.");
+	document.getElementById('reservation-form').submit();
+}
 
 </script>
 <body>
@@ -91,7 +93,7 @@ function change(){
 
 <div class="container">
         <div class="panel-body">
-			<form action="reservationProc" method="post">
+			<form action="reservationProc" method="post" id="reservation-form">
 				<div class="div_day">
 				<h5>날짜</h5>
 				<input type="text" id="resDay" name="resDay" style="cursor:pointer; text-align:center;" readonly="readonly;"/>
@@ -145,7 +147,7 @@ function change(){
 						<option value="">인원 선택</option></select>
 				</div>
 				<div class="btnres">
-					<input type="submit" class="btn_btn" value="예약하기" id="resBtn" disabled="disabled">
+					<input type="button" class="btn_btn" value="예약하기" id="resBtn" disabled="disabled" onclick="reservationSubmit()">
 					<input type="reset" class="btn_btn" value="취소">
 					<input type="button" class="btn_btn" value="돌아가기" onclick="history.back()">
 				</div>

@@ -4,7 +4,6 @@ public class MenuDTO extends RestaurantDTO{
 	private int restNum;
 	private String category;
 	private String menuName;
-	private String menuDescript;
 	private int unitPrice;
 	private String menuImage;
 	private String priceStr;
@@ -29,12 +28,6 @@ public class MenuDTO extends RestaurantDTO{
 		this.menuName = menuName;
 	}
 	
-	public String getMenuDescript() {
-		return menuDescript;
-	}
-	public void setMenuDescript(String menuDescript) {
-		this.menuDescript = menuDescript;
-	}
 	public int getUnitPrice() {
 		return unitPrice;
 	}

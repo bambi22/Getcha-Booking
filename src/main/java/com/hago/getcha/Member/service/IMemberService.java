@@ -9,8 +9,9 @@ public interface IMemberService {
 	public int memberProc(MemberDTO member,Model model);
 	public int memberDeleteProc(MemberDTO check);
 	public void memberViewProc(String email, Model model);
-	public int memberModiProc(MemberDTO member);
+	public int memberModiProc(MemberDTO member, Model model);
 	public MemberDTO memberLogin(MemberDTO member) throws Exception;
 	public void sendAuth(String email);
-	public String authConfirm(String authNum);
+	//public String authConfirm(String authNum);
+	public int authConfirm(String authNum, Model model);
 }
