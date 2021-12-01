@@ -177,18 +177,16 @@ public class MemberService implements IMemberService{
 		}else
 			logger.warn("인증번호 생성되어 있음");
 	}
-
+	
 	@Override
-	public String authConfirm(String inputAuthNum) {
+	public int authConfirm(String authNum, Model model) {
 		String sessionAuthNum = (String)session.getAttribute("authNum");
-		if(sessionAuthNum == null) 
-			return "인증번호를 생성하세요.";
-		if(inputAuthNum == "")
-			return "인증번호를 입력하세요.";
-		if(inputAuthNum.equals(sessionAuthNum)) {
-			session.setAttribute("authState", true);
-			return "인증완료";
+		logger.warn("sessionAuthNum: " + sessionAuthNum);
+		logger.warn("authNum:"+authNum);
+		if(authNum.equals(sessionAuthNum)) {
+			return 1;
+		}else {
+			return 0;
 		}
-		return "인증실패";
 	}
 }

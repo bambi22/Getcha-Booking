@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -117,8 +118,11 @@ public class MemberController {
 		MemberDTO memberView = dao.memberViewProc(member.getEmail());
 		String birth = memberView.getBirth();
 		String gender=memberView.getGender();
+		String mobile = memberView.getMobile();
+		member.setMobile(mobile);
 		member.setBirth(birth);
 		member.setGender(gender);
+		
 		int result = service.memberModiProc(member, model);
 		logger.warn("result:"+result);
 		if(result == 0) {
@@ -166,14 +170,21 @@ public class MemberController {
 		return map;
 	}
 	
-	@RequestMapping(value = "authConfirm")
-	public Map<String, String> authConfirm(@RequestBody Map<String, String>map){
-		Boolean check = (Boolean)session.getAttribute("authState");
-		if(check != null&& check == true) {
-			map.put("msg", "인증 완료");
-			return map;
+	@ResponseBody
+	@RequestMapping(value="authConfirm")
+	public Map<String, String> authConfirm(Model model, @RequestBody Map<String, String>map){
+		logger.warn("controller");
+		Map<String, String> resultmap = new HashMap<String, String>();
+		String authNum = (String)map.get("inputAuthNum");
+		logger.warn("authNum:"+authNum);
+		int result = service.authConfirm(authNum,model);
+		logger.warn("result:"+result);
+		if(result == 1) {
+			resultmap.put("msg", "이메일이 인증되었습니다.");
+			return resultmap;
+		}else {
+			resultmap.put("msg", "이메일 인증번호를 확인해주세요.");
+			return resultmap;
 		}
-		map.put("msg", service.authConfirm(map.get("c")));
-		return map;
 	}
 }

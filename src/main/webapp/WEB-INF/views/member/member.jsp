@@ -78,15 +78,15 @@ height:65px;
 		}
 		var s = {inputAuthNum:i};
 		$.ajax({
-			url: "sendAuth", type:"POST",
-			data: JSON.stringify(info),
-			contentType: "application/json; charset=utf-8",
+			url: "authConfirm", type: "POST",
+			data: JSON.stringify(s),
+			contentType: "application/json;charset=UTF-8",
 			dataType:"json",
-			success: function(result){
-				$('#msg').text(result.msg);
+			success : function(data){
+				alert(data.msg);
 			},
-			error:function(){
-				$('#msg').text('error');
+			error : function(){
+				console.log("실패");
 			}
 		})
 	}
@@ -108,7 +108,6 @@ function memberSubmit(){
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-           <!--  <h3><font color="red" id="msg">${msg}</font></h3> -->
               <form id="login-form"  action="memberProc" method="post" role="form" style="display: block;">
                 <h2>REGISTER</h2>
                   <div class="form-group">
@@ -116,7 +115,7 @@ function memberSubmit(){
                     <input type="button" value="Email 인증하기" onclick="sendAuthNum();">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="authNum" id="inputAuthNum" tabindex="1" class="form-control" placeholder="이메일인증 번호" value="">
+                    <input type="text" name="inputAuthNum" id="inputAuthNum" tabindex="1" class="form-control" placeholder="이메일인증 번호" value="">
                     <input type="button" value="Email 인증확인" onclick="sendAuthConfirm();">
                   </div>
                   <div class="form-group">
