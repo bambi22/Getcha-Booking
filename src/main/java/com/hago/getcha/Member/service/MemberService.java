@@ -23,7 +23,7 @@ public class MemberService implements IMemberService{
 	final static Logger logger = LoggerFactory.getLogger(MemberService.class);
 	
 	@Override
-	public int memberProc(MemberDTO member) {
+	public int memberProc(MemberDTO member,Model model) {
 		String birth=member.getBirth1()+"년" + member.getBirth2()+"월"+member.getBirth3()+"일";
 		member.setBirth(birth);
 		logger.warn("Birth : " + member.getBirth());
@@ -31,16 +31,20 @@ public class MemberService implements IMemberService{
 		logger.warn("pwCheck : " + member.getPwCheck());
 		logger.warn("memberPwCheck:" + memberPwChk(member));
 		if(memberPwChk(member) == 0) {
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			return 0;
 		}
-		if(dao.CheckEmail(member.getEmail()) > 0)
+		if(dao.CheckEmail(member.getEmail()) > 0) {
+			model.addAttribute("msg", "중복 아이디입니다.");
 			return 1;
+		}
+			
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		member.setPw(securePw);
 		if("m".equals(member.getGender()) || "w".equals(member.getGender()) || member.getEmail() != null)
 			dao.insertMember(member);
-		//session.setAttribute("email", member.getEmail());
+		model.addAttribute("msg", "가입완료");
 		return 2;
 	}
 	

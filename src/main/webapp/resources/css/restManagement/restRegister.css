@@ -25,3 +25,6 @@
 } 
 
 .selected{border: 1px solid blue;}
+input[type=checkbox]{display:none;}
+	input[type=checkbox]+label{cursor:pointer; padding:5px; background-repeat:no-repeat;}
+	input[type=checkbox]:checked+label{border:3px inset;}

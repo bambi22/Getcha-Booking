@@ -87,7 +87,7 @@ function change(){
 
 </script>
 <body>
-<!-- <div class="container" style="margin:auto;"> -->
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 
 <div class="container">
         <div class="panel-body">

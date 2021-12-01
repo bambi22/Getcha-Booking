@@ -31,8 +31,10 @@ img {vertical-align: middle;}
 /* Slideshow container */
 .slideshow-container {
   max-width: 500px;
+  max-height: 400px;
   position: relative;
   margin: auto;
+  margin-bottom: 50px;
 }
 
 /* Next & previous buttons */
@@ -115,7 +117,9 @@ img {vertical-align: middle;}
 .modifyBtn{ text-decoration:none; color: white; }
 .modifyBox{ width:200px; height: 40px; text-align:center; line-height:40px; background-color: #8c8c8C;box-shadow: 1px 1px 3px 1px #dadce0; }
 .modifyBox:hover{ color:white; background-color:#404040 }
-
+	input[type=checkbox]{display:none;}
+	input[type=checkbox]+label{cursor:pointer; padding:5px; background-repeat:no-repeat;}
+	input[type=checkbox]:checked+label{border:3px inset;}
 </style>
 </head>
 <body>
@@ -131,18 +135,19 @@ img {vertical-align: middle;}
 	<div class="slideshow-container">
 		<c:forEach var="image" items="${restImgList}">
 		<div class="mySlides fade">
-		  <img src="${root }upload/restaurant/${image.restImage }" width="100%">
+		  <img src="${root }upload/restaurant/${image.restImage }" width="100%" height="50%">
 		</div>
 		</c:forEach>
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		<br>
+		<div style="text-align:center">
+			<c:forEach var="i" begin="0" end="${fn:length(restImgList)}">
+				<span class="dot" onclick="currentSlide${i}" ></span> 
+			</c:forEach>
+		</div>
 	</div>
 	<br>
-	<div style="text-align:center">
-		<c:forEach var="i" begin="0" end="${fn:length(restImgList)}">
-			<span class="dot" onclick="currentSlide${i}" ></span> 
-		</c:forEach>
-	</div>
 
 	<!-- 식당 기본 정보 출력 -->
 	<h3>${rest.restName }</h3>
@@ -175,7 +180,7 @@ img {vertical-align: middle;}
 	<!-- 식당 기본 정보 수정 -->
 	<div id="modifyForm" class="restModify" style="display:none">
 		<form action="modifyBasicInfoProc"  method="post" enctype="multipart/form-data" >
-			<table>
+			<table border-spacing="30px"  >
 				<tr>
 					<td>식당 이름</td><td><input type="text" name="restName" value="${rest.restName }"></td>
 				</tr>
