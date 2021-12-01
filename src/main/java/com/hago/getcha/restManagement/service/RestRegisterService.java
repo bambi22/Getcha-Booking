@@ -109,7 +109,7 @@ public class RestRegisterService implements IRestRegisterService {
 		
 		// 넘어온 식당 사진들 저장
 		List<MultipartFile> files = req.getFiles("restImage");
-		if(files != null) {
+		if(!files.isEmpty()) {
 			int i = 1;
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
@@ -133,62 +133,63 @@ public class RestRegisterService implements IRestRegisterService {
 	
 	
 	public void menuRegisterProc(MultipartHttpServletRequest req) {	
-		String inputOrNot = req.getParameter("inputOrNot");
 		int restNum = (Integer)session.getAttribute("restNum");
-		if(inputOrNot.equals("yes")) {
+		String[] menuNameStr = req.getParameterValues("menuName");
+		if(menuNameStr.equals(null)) {			
 			String[] categoryStr = req.getParameterValues("category"); 
-			String[] menuNameStr = req.getParameterValues("menuName"); 
 			String[] menuDescriptStr = req.getParameterValues("menuDescript"); 
 			String[] unitPriceStr = req.getParameterValues("unitPrice"); 
 			List<MultipartFile> files = req.getFiles("menuImage");
-			
 			int i= 0;
 			for(String menuName : menuNameStr) {
-				MenuDTO menuDto = new MenuDTO();
-				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
-				menuDto.setCategory(categoryStr[i]);	
-				menuDto.setMenuName(menuName);
-				menuDto.setMenuDescript(menuDescriptStr[i]);
-				menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
-			    if(!files.get(i).isEmpty()) { 
-					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
-				    String fileName = saveFile(restNum, files.get(i), realPath);
-				    menuDto.setMenuImage(fileName); 
-			    }else { 
-				    menuDto.setMenuImage("파일 없음"); 
-		        }
-				
-			    rrDao.addMenu(menuDto);
-				
-				i++;
+				if(menuName != null) {
+					MenuDTO menuDto = new MenuDTO();
+					menuDto.setRestNum(restNum);
+					menuDto.setCategory(categoryStr[i]);	
+					menuDto.setMenuName(menuName);
+					menuDto.setMenuDescript(menuDescriptStr[i]);
+					int price = Integer.parseInt(unitPriceStr[i]);
+					menuDto.setUnitPrice(price);
+					if(!files.get(i).isEmpty()) { 
+						String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
+						String fileName = saveFile(restNum, files.get(i), realPath);
+						menuDto.setMenuImage(fileName); 
+					}else { 
+						menuDto.setMenuImage("파일 없음"); 
+					}
+					
+					rrDao.addMenu(menuDto);
+					
+					i++;					
+				}
 			}
 		}
 	    
-	    
-	    List<MultipartFile> files = req.getFiles("wholeMenu");
-		if(files != null) {
-			for(MultipartFile f : files) {
+	    List<MultipartFile> files2 = req.getFiles("wholeMenu");
+		if(files2 != null) {
+			for(MultipartFile f : files2) {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
-				menuDto.setRestNum(restNum);
 				if(f.getSize() != 0) { 
-					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
-					String fileName = saveFile(restNum, f, realPath);
-				    menuDto.setWholeMenu(fileName);   
+					String realPath2 = req.getServletContext().getRealPath(FILE_LOCATION_WHOLEMENU);
+					String fileName2 = saveFile(restNum, f, realPath2);
+					menuDto.setRestNum(restNum);
+				    menuDto.setWholeMenu(fileName2);   
 				}else {
 					menuDto.setWholeMenu("파일 없음");   
 				}
 				rrDao.addWholeMenu(menuDto);
 			}
+		}else{
+			System.out.println("파일없음");
 		}
 		
 	}
 
 
-
 	public int restMainProc(Model model) {
 		int restNum = (Integer)session.getAttribute("restNum");
 		RestaurantDTO restDto = infoDao.selectRestaurant(restNum);
-		if(restDto == null) {
+		if(restDto.getRestName() == null || restDto.getRestName().equals("")) {
 			model.addAttribute("msg", "식당 정보를 먼저 등록하세요.");
 			return 0;			
 		}else {

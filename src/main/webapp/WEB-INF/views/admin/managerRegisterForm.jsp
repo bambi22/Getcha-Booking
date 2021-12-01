@@ -3,7 +3,14 @@
 <head>
 <title>식당관리자 등록</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 
 <script>
 function checkId(){
@@ -66,10 +73,15 @@ function managerRegister(){
 }
 
 </script>
-
+<style>
+	.container{width:1130px; position:relative; padding:60px; margin:auto; text-align:center;}
+	.panel-body{background-color:white; overflow:hidden; width:800px; height:auto; text-align:center; margin:auto; border-radius:3px; padding:50px;}
+	table{margin:auto; }
+	td{width:150px; text-align:left; padding:20px;}
+	.btn_btn{color:white; background-color:black; border-color:black; font-size:15px; border-radius:5px; padding:5px 10px; width:150px;}
+</style>
 
 </head>
-<center>
 <c:if test="${empty sessionScope.adminId }">
 	<script>
 		alert('최고 관리자 로그인이 필요합니다.');
@@ -85,6 +97,11 @@ function managerRegister(){
 	// 내비에 선택된 탭 색깔 변경 
 	document.getElementById('managerRegisterTab').className = 'nav-link active';
 </script>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<body>
+<div class="container">
+   
+        <div class="panel-body">
 <form action="managerRegisterProc" id="registerForm" method="post">
 <table>
 	<tr>
@@ -93,7 +110,7 @@ function managerRegister(){
 			<input type=text name='restId' id='id' placeholder='id 입력' onchange="changeId()"/><br> 
 			<label for="id"><font color="red" id="idMsg"></font></label>
 		</td>
-		<td colspan="2"><input type="button" value="중복 확인" onclick="checkId()"/></td>
+		<td colspan="2"><input type="button" class="btn_btn" value="중복 확인" onclick="checkId()"/></td>
 	</tr>
 	<tr>
 		<td align='right' height=40>패스워드</td>
@@ -136,13 +153,10 @@ function managerRegister(){
 					name="phoneStr2" id="capacity" style="width:60px"/>
 		</td> 
 	</tr>
-	<tr>
-		<td align='center' height=40 colspan=4>
-			<input type=button value='식당관리자 등록' style="width: 120px;" onclick="managerRegister()"/>	 
-		</td>
-	</tr>
-</table>
-</form>
+	</table>
+			<input type=button class="btn_btn" value='식당관리자 등록' onclick="managerRegister()"/>	 
 
-</center>
+</form>
+</div>
+</div>
 

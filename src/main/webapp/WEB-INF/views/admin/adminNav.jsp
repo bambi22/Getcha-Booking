@@ -13,7 +13,7 @@ position:fixed; font-size:14px; z-index:1; height:100%;
 
 <nav class="navigate">
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height:100%; ">
-    	<a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    	<a href="main" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 	      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
 	      <img class="fs-4" src="resources/img/logo/logo.png" width="120">
 	    </a>

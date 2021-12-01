@@ -128,7 +128,7 @@ public class AdminManagementServiceImpl implements IAdminManagementService{
 			managerDto.setRestPw(securePw);
 			adminDao.addManager(managerDto);
 			adminDao.addRestNum(managerDto.getRestId());
-			session.setAttribute("msg", "식당 관리자가 등록되었습니다.");
+			model.addAttribute("msg", "식당 관리자가 등록되었습니다.");
 			return 1;
 		}
 		
