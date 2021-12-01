@@ -5,12 +5,6 @@
 		location.href="index?formpath=main";
 	</script>
 </c:if>
-<c:if test="${not empty msg }">
-	<script>
-		var message="${msg}";
-		alert(message);
-	</script>
-</c:if>
 <style>
 .container{margin:50px;}
 .btn_set{text-align: center;}
@@ -21,6 +15,7 @@
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <body>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <div class="container">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -28,7 +23,6 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-            <h3><font color="red" id="msg">${msg}</font></h3>
               <form   action="memberDeleteProc" method="post" role="form" style="display: block;">
                 <h2>회원탈퇴</h2>
                   <div class="form-group">
@@ -38,8 +32,8 @@
                     <input type="password" name="pwCheck" id="pwCheck" tabindex="2" class="form-control" placeholder="비밀번호 확인">
                   </div>
                   <div class="btn_set">
-					<input type=submit value='확인' style="width:80px;"/>
-					<input type="button" style="width:80px;" value="취소" onclick="location.href='${root}memberViewProc'"/>
+					<input type=submit class="btn_btn" value='확인' style="width:80px;"/>
+					<input type="button" class="btn_btn" style="width:80px;" value="취소" onclick="location.href='${root}memberViewProc'"/>
 				</div>
 			</form>
 		</div>

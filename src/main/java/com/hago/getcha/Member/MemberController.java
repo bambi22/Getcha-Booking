@@ -79,11 +79,13 @@ public class MemberController {
 	public String memberProc(MemberDTO member, Model model) {
 		int result = service.memberProc(member,model);
 		if(result == 0) {
-			return "forward:member";
+			return "forward:index?formpath=member";
 		}else if(result == 1) {
-			return "forward:member";
+			return "forward:index?formpath=member";
+		}else if(result == 3){
+			return "forward:index?formpath=member";
 		}else {
-			return "forward:main";
+			return "forward:index?formpath=login";
 		}
 	}
 	@RequestMapping(value = "memberViewProc")
@@ -117,18 +119,18 @@ public class MemberController {
 		String gender=memberView.getGender();
 		member.setBirth(birth);
 		member.setGender(gender);
-		int result = service.memberModiProc(member);
+		int result = service.memberModiProc(member, model);
 		logger.warn("result:"+result);
 		if(result == 0) {
-			model.addAttribute("msg", "비밀번호를 확인해주세요.");
-			return "/memberModiView";
+			return "forward:memberModiView";
 		}else if(result == 1) {
 			session.invalidate();
-			model.addAttribute("msg", "수정되었습니다.");
-			return "forward:main";
+			return "forward:index?formpath=memberView";
+		}else if(result==3) {
+			return "forward:memberModiView";
 		}else {
 			model.addAttribute("msg", "수정실패.");
-			return "/memberModiView";
+			return "forward:memberModiView";
 		}
 	}
 	@RequestMapping(value = "memberDeleteProc")

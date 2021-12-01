@@ -4,6 +4,7 @@
 	<select id="CheckEmail" resultType="int" parameterType="String">
 		SELECT count(*) FROM getchamember WHERE email=#{email}
 	</select>
+	
 	<insert id="insertMember" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		INSERT INTO getchamember VALUES(#{email}, #{nickname},#{pw},#{mobile},#{birth},#{gender})
 	</insert>
@@ -15,12 +16,13 @@
 	<select id="userPassword" resultMap="check" parameterType="String">
 		SELECT email, pw FROM getchamember WHERE email=#{email}
 	</select>
+	
+	
 	<delete id="memberDeleteProc" parameterType="String">
 		DELETE FROM getchamember WHERE email=#{email}
 	</delete>
-	<!-- <delete id="memberChilDelete" parameterType="String">
-		DELETE FROM getchares WHERE email=#{email}
-	</delete> -->
+	
+	
 	<resultMap type="com.hago.getcha.Member.dto.MemberDTO" id="member">
 		<result property="email" column="email"/>
 		<result property="nickname" column="nickname"/>
@@ -32,6 +34,8 @@
 	<select id="memberViewProc" resultMap="member" parameterType="String">
 		SELECT * FROM getchamember WHERE email=#{email}
 	</select>
+	
+	
 	<update id="memberModiProc" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 		UPDATE getchamember
 		<set>
@@ -43,6 +47,8 @@
 		</set>
 		WHERE email=#{email}
 	</update>
+	
+	
 	<select id="memberLogin" resultMap="member" parameterType="com.hago.getcha.Member.dto.MemberDTO">
 			SELECT * FROM getchamember WHERE email = #{email}	
 	</select>

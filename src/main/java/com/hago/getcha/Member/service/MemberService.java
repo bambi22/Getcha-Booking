@@ -30,6 +30,10 @@ public class MemberService implements IMemberService{
 		logger.warn("pw : " + member.getPw());
 		logger.warn("pwCheck : " + member.getPwCheck());
 		logger.warn("memberPwCheck:" + memberPwChk(member));
+		if(member.getEmail()==null||member.getPw()==null||member.getEmail()==""||member.getPw()=="") {
+			model.addAttribute("msg", "정보를 입력해주세요.");
+			return 3;
+		}
 		if(memberPwChk(member) == 0) {
 			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			return 0;
@@ -117,7 +121,7 @@ public class MemberService implements IMemberService{
 	
 
 	@Override
-	public int memberModiProc(MemberDTO member) {
+	public int memberModiProc(MemberDTO member, Model model) {
 		logger.warn("pw: " + member.getPw());
 		logger.warn("pwCheck: " + member.getPwCheck());
 		logger.warn("birth : " + member.getBirth());
@@ -125,16 +129,25 @@ public class MemberService implements IMemberService{
 		logger.warn("nickname:"+member.getNickname());
 		logger.warn("email:"+member.getEmail());
 		if(memberPwChk(member) == 0) {
+			model.addAttribute("msg", "비밀번호를 확인해주세요.");
 			logger.warn("pWChk=0");
 			return 0;
+		}
+		if(member.getPw().isEmpty()) {
+			model.addAttribute("msg","비밀번호를 입력해주세요.");
+			return 3;
 		}
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(member.getPw());
 		member.setPw(securePw);
-		if(dao.memberModiProc(member) == 1) 
+		if(dao.memberModiProc(member) == 1) {
+			model.addAttribute("msg", "수정되었습니다.");
 			return 1;
-		else
+		}
+		else {
+			model.addAttribute("msg", "수정실패.");
 			return 2;
+		}
 	}
 
 	@Override

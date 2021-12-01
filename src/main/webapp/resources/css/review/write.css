@@ -14,14 +14,14 @@
 	
 	.rate_wrap {
 		height: 70px;
-		padding: 10px;
+		padding: 5px;
 		text-align: center;
 	}
 	
      .upload_wrap {
          height: 130px;
-         padding: 15px;
-         margin-bottom: 20px;
+         padding: 10px;
+         margin: 20px 0;
       }
       
       .wrapper::after {

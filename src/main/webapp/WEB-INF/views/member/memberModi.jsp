@@ -45,6 +45,7 @@ height:65px;
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <body>
+<c:if test="${!empty msg }"><script>alert('${msg}');</script></c:if>
 <div class="container">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
