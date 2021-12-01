@@ -5,11 +5,7 @@
 <link href="resources/css/member/member.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-<!------ Include the above in your HEAD tag ---------->
+
 <script>
 
     $('#login-form-link').click(function(e) {
@@ -34,7 +30,14 @@ color:#FCF3E4;
     background: #2d3b55;
 color:#FCF3E4;
 }
-.form-control btn btn-reset{
+.active{width: -webkit-fill-available; height: 69px;}
+.container{margin-top: 50px;}
+.panel-login>.panel-heading .register {
+  padding: 20px 30px;
+  background: #2d3b55;
+  border-bottom-right-radius: 5px;
+}
+/*.form-control btn btn-reset{
 background-color:#B0978D;
 width:274px;
 
@@ -43,8 +46,9 @@ width:274px;
 .form-control btn btn-register{
 width:280px;
 height:65px;
-}
+}*/
 </style>
+
 <script>
 	function sendAuthNum(){
 		var e = document.getElementById("email").value;
@@ -86,7 +90,22 @@ height:65px;
 			}
 		})
 	}
+</script>
 
+<script>
+function memberSubmit(){
+	var email = document.getElementById('email').val;
+	var inputAuthNum = document.getElementById('inputAuthNum').val;
+	var nickname = document.getElementById('nickname').val;
+	var pw = document.getElementById('pw').val;
+	var pwCheck = document.getElementById('pwCheck').val;
+	var mobile = document.getElementById('mobile').val;
+	if(email==null||inputAuthNum==null||nickname==null||pw==null||pwCheck==null||mobile==null){
+		alert("정보를 입력해주세요.");
+	}else{
+		document.getElementById('login-form').submit();
+	}
+}
 </script>
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -99,7 +118,7 @@ height:65px;
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-            <h3><font color="red" id="msg">${msg}</font></h3>
+           <!--  <h3><font color="red" id="msg">${msg}</font></h3> -->
               <form id="login-form"  action="memberProc" method="post" role="form" style="display: block;">
                 <h2>REGISTER</h2>
                   <div class="form-group">
@@ -149,24 +168,21 @@ height:65px;
 					<input type=radio name='gender' value='w' />여자
 					<input type=radio name='gender' value='m' />남자
                    </div>
-                  
-              
-               
-             
+               </form>
             </div>
           </div>
         </div>
         <div class="panel-heading">
-          <div class="row"with  >
-            <div class="col-xs-6 tabs">
-              <input type="reset" name="register-reset" id="register-reset" tabindex="4" class="form-control btn btn-reset" value="취소">
-            </div>
-            <div class="col-xs-6 tabs">
-                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="회원가입">
-           
-            </div>
-          </div>
-        </div>
+		          <div class="row">
+		            <div class="col-xs-6 tabs">
+		              <button type="button" class="active" id="login-form-link" onclick="memberSubmit()"><div class="login">회원가입</div></button>
+		            </div>
+		            <div class="col-xs-6 tabs">
+		              <a href="index?formpath=member" ><div class="register">취소</div></a>
+		           
+		            </div>
+		          </div>
+		        </div>
       </div>
     </div>
   </div>
