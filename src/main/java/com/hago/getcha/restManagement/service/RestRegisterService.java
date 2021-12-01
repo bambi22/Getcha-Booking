@@ -109,7 +109,7 @@ public class RestRegisterService implements IRestRegisterService {
 		
 		// 넘어온 식당 사진들 저장
 		List<MultipartFile> files = req.getFiles("restImage");
-		if(!files.isEmpty()) {
+		if(files.size() > 1) {
 			int i = 1;
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
@@ -166,7 +166,7 @@ public class RestRegisterService implements IRestRegisterService {
 		}
 	    
 	    List<MultipartFile> files2 = req.getFiles("wholeMenu");
-		if(files2 != null) {
+		if(files2.size() > 1) {
 			for(MultipartFile f : files2) {
 				WholeMenuDTO menuDto = new WholeMenuDTO();
 				if(f.getSize() != 0) { 

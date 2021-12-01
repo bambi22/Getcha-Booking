@@ -68,9 +68,9 @@
 <c:if test="${!empty msg }">
 	<script>alert("${msg}");</script>
 </c:if>
-<div style="padding-left:100px">
+<div style="padding-left:30px">
 	<c:forEach var="i" begin="0" end="${max-min}" step="1" >
-	<h5>${max-i } 가이드북 선정 레스토랑</h5>
+	<h5 style="margin-top:40px;">${max-i } 가이드북 선정 레스토랑</h5>
 		<table class="bluetop">
 			<tr>
 				<th>식당 번호</th><th>식당 이름</th><th>지역</th><th>평점</th>
@@ -91,7 +91,7 @@
 	</c:forEach>
 </div>
 
-<div style="padding-left:100px;">	
+<div style="padding-left:30px;">	
 	<form>
 		<input type="text" id="keyword" placeholder="2021년 가이드북 선정 식당을 추가해주세요." style="height:40px; width:300px">
 		<button type="button" onclick="addGuide()">찾기</button>

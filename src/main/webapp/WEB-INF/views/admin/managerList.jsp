@@ -4,15 +4,21 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
 	<script type="text/javascript" src="resources/js/bootstrap/bootstrap.bundle.js" ></script>
+<style>
+.page{ text-decoration:none; text-decoration:underline; color: black; }
+.page:hover{color:#A6A6A6;}
+#list{border-spacing:10px; border-collapse: separate; text-align:center;}
+</style>	
+
+</head>
+
+
 	<c:if test="${empty sessionScope.adminId }">
 		<script>
 			alert('최고 관리자 로그인이 필요합니다.');
 			location.href='adminLogin';
 		</script>
 	</c:if> 
-</head>
-
-
 <center>
 <c:url var="root" value="/" />
 <c:if test="${!empty msg }">
@@ -24,7 +30,7 @@
 </script>
 
 <table id="list">
-	<tr>
+	<tr height="50px;">
 		<th>대표사진</th><th>식당 번호</th><th>식당 기본 정보</th><th>관리자 아이디</th><th>등록날짜</th>
 	</tr>
 	<c:forEach var="rest" items="${restList }" begin="${page.start}" end="${page.end}" step="1">
@@ -70,10 +76,10 @@ function deleteManager(btn){
 
 <c:choose>
 	<c:when test="${page.pageNumber <= 1 }">
-		<a href='managerListProc?pageNumber=1'>이전</a>
+		<a href='managerListProc?pageNumber=1' class="page">이전</a>
 	</c:when>
 	<c:otherwise>
-		<a href='managerListProc?pageNumber=${page.pageNumber-1 }'>이전</a>
+		<a href='managerListProc?pageNumber=${page.pageNumber-1 }' class="page">이전</a>
 	</c:otherwise>
 </c:choose>
 <c:forEach var='num' begin='1' end='${page.totalPage }' step='1'>
@@ -82,16 +88,16 @@ function deleteManager(btn){
 			${num }
 		</c:when>
 		<c:otherwise>
-			<a href='managerListProc?pageNumber=${num }'>${num }</a>
+			<a href='managerListProc?pageNumber=${num }' class="page">${num }</a>
 		</c:otherwise>
 	</c:choose>
 </c:forEach>
 <c:choose>
 	<c:when test="${page.pageNumber >= page.totalPage}">
-		<a href='managerListProc?pageNumber=${page.totalPage }'>다음</a>
+		<a href='managerListProc?pageNumber=${page.totalPage }' class="page">다음</a>
 	</c:when>
 	<c:otherwise>
-		<a href='managerProc?pageNumber=${page.pageNumber+1 }'>다음</a>
+		<a href='managerProc?pageNumber=${page.pageNumber+1 }' class="page">다음</a>
 	</c:otherwise>
 </c:choose>
 
