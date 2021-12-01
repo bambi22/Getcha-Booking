@@ -133,7 +133,7 @@ img {vertical-align: middle;}
 	<div class="slideshow-container">
 		<c:forEach var="image" items="${restImgList}">
 		<div class="mySlides fade">
-		  <img src="${root }upload/restaurant/${image.restImage }" width="100%" height="50%">
+		  <img src="${root }upload/restaurant/${image.restImage }" width="100%" height="70%">
 		</div>
 		</c:forEach>
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>

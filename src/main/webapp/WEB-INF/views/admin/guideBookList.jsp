@@ -113,6 +113,7 @@
 	  </form>
 	</div>
 </div>	
+
 <script>
 //Get the modal
 var modal = document.getElementById('resultModal');
