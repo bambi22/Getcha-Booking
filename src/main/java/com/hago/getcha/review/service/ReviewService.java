@@ -106,6 +106,22 @@ public class ReviewService {
 		ArrayList<AllDTO> reviewList = dao.reviewProc(email);
 		model.addAttribute("reviewList", reviewList);
 	}
+	
+	public void updateProc(HttpServletRequest req, Model model) {
+		String reviewNum = req.getParameter("reviewNum");
+		String restNum = req.getParameter("restNum");
+		String restName = req.getParameter("restName");
+		String content = req.getParameter("content");
+		String fileNames = req.getParameter("fileNames");
+		logger.warn("수정페이지 식당번호: " + restNum);
+		logger.warn("수정페이지 리뷰번호: " + reviewNum);
+		logger.warn("수정페이지 파일이름: " + fileNames);
+		model.addAttribute("reviewNum", reviewNum);
+		model.addAttribute("restNum", restNum);
+		model.addAttribute("restName", restName);
+		model.addAttribute("content", content);
+		model.addAttribute("fileNames", fileNames);
+	}
 
 	public void modifyProc(MultipartHttpServletRequest req) {
 		String rewNo = req.getParameter("reviewNum");
@@ -224,20 +240,6 @@ public class ReviewService {
 
 	public static SimpleDateFormat getDateForm(String type) {
 		return new SimpleDateFormat(type);
-	}
-
-	public void updateProc(HttpServletRequest req, Model model) {
-		String reviewNum = req.getParameter("reviewNum");
-		String restNum = req.getParameter("restNum");
-		String restName = req.getParameter("restName");
-		String content = req.getParameter("content");
-		String fileNames = req.getParameter("fileNames");
-		
-		model.addAttribute("reviewNum", reviewNum);
-		model.addAttribute("restNum", restNum);
-		model.addAttribute("restName", restName);
-		model.addAttribute("content", content);
-		model.addAttribute("fileNames", fileNames);
 	}
 
 }

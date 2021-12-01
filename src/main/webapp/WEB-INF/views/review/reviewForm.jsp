@@ -18,7 +18,7 @@
 		<input type="hidden" name="restNum" value="${list.restNum }" />
 		<input type="hidden" name="restName" value="${list.restName }" />
 		<input type="hidden" name="content" value="${list.content }" />
-		<input type="hidden" id="fileNames" name="fileNames" value="${list.fileNames }" />
+		<input type="hidden" name="fileNames" value="${list.fileNames }" />
 			<div class="Review_Row">
 				<div class="title"><a href="restViewProc?restNum=${list.restNum }" class="link-dark"><label>${list.restName }</label></a>
 					<c:forEach begin="1" end="${list.point }" step="1">
@@ -26,15 +26,15 @@
 					</c:forEach>
 				</div>
 				<div class="contentBox"><pre>${list.content }</pre></div>
-				<c:if test="${list.fileNames != '파일없음' }">
 					<div class="image_wrap">
+					<c:if test="${list.fileNames != '파일없음' }">
 						<c:forTokens var="fileName" items="${list.fileNames }" delims=",">
 						<div class="review_image">
 							<img src="${root }upload/${fileName }" style="height:100%; width:100%; "> 
 						</div>
 						</c:forTokens>
+					</c:if>
 					</div>
-				</c:if>
 				<div>
 					<p class="date">${list.writeDate }</p>
 				</div>
@@ -42,9 +42,9 @@
 					<button type="submit" class="modiBtn">수정</button>
 					<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
 				</div>
-			<hr>	
 			</div>
 		</form>
+		<hr>	
 	</c:forEach>
 	</div>
 </body>

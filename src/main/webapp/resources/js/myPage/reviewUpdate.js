@@ -77,10 +77,11 @@ $(document).ready(function(){
 						alert("삭제 실패했습니다. 관리자에게 문의바랍니다.");
 						}
 				},
-		 	   error: function(){
-		 		   alert("error");
+		 	   error: function(e){
+		 		   alert("error" + e);
 		 	   }
 			});
+			
 			}
 		});
 

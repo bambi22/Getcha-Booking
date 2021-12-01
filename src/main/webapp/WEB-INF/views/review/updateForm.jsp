@@ -83,7 +83,7 @@
 	       	<c:forTokens var="fileName" items="${fileNames }" delims="," varStatus="st">
 		       	<div>
 			       	<div class="pre_img"><img id="ph${st.count }" src="${root }upload/${fileName }" /></div><br/>
-		      		<button type="button" data-id="${list.reviewNum }" data-fileName="${list.fileNames}" class="delBtn">삭제</button>
+		      		<button type="button" data-id="${reviewNum }" data-fileName="${fileName }" class="delBtn">삭제</button>
 		      	</div>
 	       	</c:forTokens>
  		</div>

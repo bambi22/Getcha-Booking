@@ -35,11 +35,13 @@ public class ReviewController {
 		return "forward:index?formpath=review";
 	}
 	
-	@RequestMapping(value = "updateProc")
-	public String updateProc(HttpServletRequest req, Model model) {
-		service.updateProc(req, model);
-		return "forward:index?formpath=update";
-	}
+	
+	  @RequestMapping(value = "updateProc") public String
+	  updateProc(HttpServletRequest req, Model model) { 
+		  service.updateProc(req,model); 
+		  return "forward:index?formpath=update"; 
+	  }
+	 
 	
 	@RequestMapping(value = "modifyProc")
 	public String modifyProc(MultipartHttpServletRequest req) {
@@ -52,6 +54,8 @@ public class ReviewController {
 	public Map<String, String> delFileProc(HttpServletRequest req) {
 		String reviewNum = req.getParameter("reviewNum");
 		String delFile = req.getParameter("fileName");
+		logger.warn(reviewNum);
+		logger.warn(delFile);
 		int result = service.delFileProc(reviewNum, delFile, req);
 		Map<String, String> data = new HashMap<>();
 		if(result == 1) 
