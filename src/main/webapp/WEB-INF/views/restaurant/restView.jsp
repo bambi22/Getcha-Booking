@@ -69,6 +69,7 @@ window.onload=function() {
 	});
 	
 	$('.carousel-item').filter(':first').addClass('active');
+	$('.carousel-items').filter(':first').addClass('active');
 	
 	$('#sidebar').find('span').text('OPEN');
 }
@@ -223,18 +224,42 @@ window.onload=function() {
 				<br><hr align="center" width="950px">
 				<div class="promotion_section">
 					<h3>진행 중인 프로모션</h3>
-					<p><img src="${root }upload/promotion/${rest.promotion }" width="300"></p>
+					<p><img src="${root }upload/promotion/${rest.promotion }" width="400px"></p>
 				</div>
 			</c:if>
 			<br><hr align="center" width="950px"><br>
-			<div class="menuSection">
-			<h3>메뉴</h3>
-			<c:if test="${wholeMenuList != '파일 없음' }">
-				<c:forEach var="menu" items="${wholeMenuList}">
-					<img src="${root }upload/wholeMenu/${menu.wholeMenu }" width="200">
-				</c:forEach>
-			</c:if>
 			
+		<div class="menuSection">
+			<h3>메뉴</h3>
+			 <c:if test="${wholeMenuList != '파일 없음' }"> 
+				<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+				  <div class="carousel-inner">
+				  	<c:forEach var="menu" items="${wholeMenuList}" varStatus="vs">
+				  		<c:choose>
+					  		<c:when test="${not vs.first}">
+						    	<div class="carousel-item">
+						      		<img src="${root }upload/wholeMenu/${menu.wholeMenu }">
+							    </div>
+						    </c:when>
+						    <c:otherwise>
+						    <div class="carousel-item active">
+						      	<img src="${root }upload/wholeMenu/${menu.wholeMenu }">
+							</div>
+							</c:otherwise>
+						</c:choose>
+				    </c:forEach>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			</c:if>
+
 			<table style="border: 1px solid; width: 600px;">
 				<c:forEach var="i" begin="0" end="${fn:length(menuList) }">
 					<c:if test="${menuList[i].category != menuList[i-1].category}">
@@ -250,54 +275,54 @@ window.onload=function() {
 	</div>
 	<br><br>
 		
-		<h3 style="margin: 0px 50px">후기</h3>
-		<table id="reviewList"  style="cellpadding: 5;" >
-		<c:choose>
-			<c:when test="${fn:length(reviewList) != 0 }">
-			<caption class="cap">최신순</caption>
-			<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
-			<tbody style="width: 450px;">
-			<tr>
-				<td rowspan="3" width="150px">
-					<div class="profile_wrap" style="text-align:center">
-						<img class="profile_img" src="resources/img/icon/profileIcon.png" style="width:50px;">
-						<p>${rew.nickName}</p>
-					</div>
-				</td>
-				<td>
-				<c:forEach begin="1" end="${rew.point }" step="1">
-					<img src="resources/img/icon/star.png" style="width:18px;">
-				</c:forEach>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"><pre>${rew.content }</pre></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-				<c:if test="${rew.fileNames != '파일없음' }">
-					<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
-						<div class="review_image">
-							<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
+		<div style="width: 800px;">
+			<h3 style="margin: 0px 50px">후기</h3>
+			<table id="reviewList"  cellpadding="5" cellspacing="3">
+			<c:choose>
+				<c:when test="${fn:length(reviewList) != 0 }">
+				<caption class="cap">최신순</caption>
+				<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
+				<tr>
+					<td rowspan="3" width="120px">
+						<div class="profile_wrap" style="text-align:center">
+							<img class="profile_img" src="resources/img/icon/profileIcon.png" style="width:50px;">
+							<p>${rew.nickName}</p>
 						</div>
-					</c:forTokens>
-				</c:if>
-				</td>
-			</tr>
-			<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
-				<c:choose>
-					<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="center" width="950px"></td></tr></c:when>
-					<c:otherwise><tr><td></td></tr></c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<tr>
-				<td colspan="3" align="center"><nav class="pageNav">${page }</nav></td>
-			</tr>
-			</c:when>
-			<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
-		</c:choose>
-		</tbody>
-		</table>
+					</td>
+					<td class="col">
+					<c:forEach begin="1" end="${rew.point }" step="1">
+						<img src="resources/img/icon/star.png" style="width:18px;">
+					</c:forEach>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="col"><pre>${rew.content }</pre></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="col">
+					<c:if test="${rew.fileNames != '파일없음' }">
+						<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
+							<div class="review_image">
+								<img src="${root }upload/${fileName }" style="height:100%; width:100%; "/>
+							</div>
+						</c:forTokens>
+					</c:if>
+					</td>
+				</tr>
+				<tr class="date_row"><td colspan="2" class="col"><p>${rew.writeDate }</p></td></tr>
+					<c:choose>
+						<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="center" width="800px"></td></tr></c:when>
+						<c:otherwise><tr><td></td></tr></c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<tr>
+					<td colspan="3" align="center"><nav class="pageNav">${page }</nav></td>
+				</tr>
+				</c:when>
+				<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
+			</c:choose>
+			</table>
+		</div>
 </section>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bd93e659890d767f6ef2a30852c7410c&libraries=services"></script>
