@@ -194,7 +194,10 @@ function memberSubmit(){
 	});
 </script>
 </body>
+
 <script>
+	
+	//두 비밀번호 일치 여부 확인
 	$(function(){
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
@@ -214,7 +217,9 @@ function memberSubmit(){
 			}
 		});
 	});
-
+	
+	
+	//비밀번호 제약
 	$(function(){
 		$("#alert-length").hide();
 		$("#alert-space").hide();

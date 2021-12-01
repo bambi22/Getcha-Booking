@@ -27,6 +27,7 @@
 	</script>
 </c:if>
 <script>
+
 function search(){
 	var i = document.getElementById("resDay").value;
 	var e = {resDay:i}
@@ -41,12 +42,10 @@ function search(){
 			console.log(data);
 			var list = data.datas;
 			$("select[name='showTime'] option").remove();
-			
 			$(list).each(function(ind,obj){
 				console.log(obj["time"]);
 				console.log(obj["capa"]);
-				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');
-			})
+				$("select[name='showTime']").append('<option value="'+obj['time']+'">'+obj['time']+'</option>');})
 			$("select[name='showTime']").change(function(){
 				console.log($(this).val());
 				console.log($("select[name='showTime'] option:selected").text());
@@ -68,7 +67,6 @@ function search(){
 							
 							$("select[name='capacity']").append('<option value="'+i+'">'+i+'</option>');
 						}
-						
 					}
 				});
 			});
