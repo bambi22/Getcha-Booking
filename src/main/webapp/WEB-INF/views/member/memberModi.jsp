@@ -21,6 +21,7 @@
 </c:if>
 <html>
 <style>
+.container{margin:50px;}
 #register-reset{
 color:#FCF3E4;
 }
@@ -30,8 +31,6 @@ color:#FCF3E4;
 .form-control btn btn-reset{
 background-color:#B0978D;
 width:274px;
-
-
 }
 .form-control btn btn-register{
 width:280px;

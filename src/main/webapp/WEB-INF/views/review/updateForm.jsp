@@ -7,7 +7,7 @@
 	 <script>location.href='index?formpath=login';</script>
 </c:if>
 <head>
-<title>GETCHA</title>
+<title>Getcha Table - 리뷰 수정</title>
 <link href="<c:url value="/resources/css/review/write.css" />" rel="stylesheet" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="resources/js/myPage/reviewUpdate.js"></script>
