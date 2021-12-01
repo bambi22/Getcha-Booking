@@ -15,8 +15,8 @@
 
 <center>
 <c:url var="root" value="/" />
-<c:if test="${!empty sessionScope.msg }">
-	<script>alert("${sessionScope.msg}");</script>
+<c:if test="${!empty msg }">
+	<script>alert("${msg}");</script>
 </c:if>
 <script>
 	//내비에 선택된 탭 색깔 변경
@@ -62,7 +62,9 @@
 function deleteManager(btn){
 	var t= confirm("삭제하시겠습니까?");
 	var num = $(btn).attr("id");
-	location.href="deleteManagerProc?restNum="+num;
+	if(t == true){
+		location.href="deleteManagerProc?restNum="+num;		
+	}
 }
 </script>
 

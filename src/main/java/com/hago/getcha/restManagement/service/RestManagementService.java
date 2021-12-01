@@ -91,8 +91,6 @@ public class RestManagementService implements IRestManagementService {
 	@Override
 	public void modifyBasicInfoProc(MultipartHttpServletRequest req) {
 		int restNum = (Integer)session.getAttribute("restNum");
-		String name = req.getParameter("restName");
-		System.out.println("이름" + name);
 		/*기본 정보 수정*/
 		RestaurantDTO restDto = new RestaurantDTO();
 		restDto.setRestNum(restNum);
@@ -109,7 +107,6 @@ public class RestManagementService implements IRestManagementService {
 		
 		/*식당 사진 수정 : 전체 삭제 후 다시 추가하는 방식*/
 		List<MultipartFile> files = req.getFiles("restImage");
-		System.out.println("사진 개수 : " + files.size());
 		
 		if(files != null) {
 			ArrayList<RestImageDTO> restImgList = infoDao.selectRestImage(restNum);
@@ -123,7 +120,6 @@ public class RestManagementService implements IRestManagementService {
 			int i = 1;				
 			for(MultipartFile f : files) {
 				RestImageDTO imgDto = new RestImageDTO();
-				System.out.println("사진 추가");
 				imgDto.setRestNum(restNum);
 				if(f.getSize() != 0) {
 					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_RESTAURANT);
@@ -143,7 +139,6 @@ public class RestManagementService implements IRestManagementService {
 	public void modifyDetailProc(RestaurantDTO restDto, String[] address, String[] facilities, String[] openHour ) {
 		restDto.setRestNum((Integer)session.getAttribute("restNum"));
 		if(!address[0].equals("")) {
-			System.out.println(address[0]);
 			restDto.setAddress(address[0] +","+ address[1]);			
 		}
 		modifyDao.modifyDetail(restDto);
@@ -260,24 +255,26 @@ public class RestManagementService implements IRestManagementService {
 		modifyDao.deleteMenu(restNum);
 		
 		int i= 0;
-		for(String menuName : menuNameStr) {
-			MenuDTO menuDto = new MenuDTO();
-			menuDto.setRestNum((Integer)session.getAttribute("restNum"));
-			menuDto.setCategory(categoryStr[i]);	
-			menuDto.setMenuName(menuName);
-			menuDto.setMenuDescript(menuDescriptStr[i]);
-			menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
-		    if(!menuFiles.get(i).isEmpty()) { 
-				String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
-			    String fileName = saveFile(restNum, menuFiles.get(i), realPath);
-			    menuDto.setMenuImage(fileName); 
-		    }else { 
-			    menuDto.setMenuImage("파일 없음"); 
-	        }
-		    registerDao.addMenu(menuDto);
-			
-			i++;
-		}	
+		if(menuNameStr != null) {
+			for(String menuName : menuNameStr) {
+				MenuDTO menuDto = new MenuDTO();
+				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
+				menuDto.setCategory(categoryStr[i]);	
+				menuDto.setMenuName(menuName);
+				menuDto.setMenuDescript(menuDescriptStr[i]);
+				menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
+				if(!menuFiles.get(i).isEmpty()) { 
+					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
+					String fileName = saveFile(restNum, menuFiles.get(i), realPath);
+					menuDto.setMenuImage(fileName); 
+				}else { 
+					menuDto.setMenuImage("파일 없음"); 
+				}
+				registerDao.addMenu(menuDto);
+				
+				i++;
+			}				
+		}
 	}
 
 	public void deleteWholeMenuProc() {
