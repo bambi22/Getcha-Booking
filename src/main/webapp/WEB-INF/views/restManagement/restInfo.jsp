@@ -31,10 +31,9 @@ img {vertical-align: middle;}
 /* Slideshow container */
 .slideshow-container {
   max-width: 500px;
-  max-height: 400px;
   position: relative;
   margin: auto;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 /* Next & previous buttons */
@@ -95,7 +94,7 @@ img {vertical-align: middle;}
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
-}
+} 
 
 @-webkit-keyframes fade {
   from {opacity: .4} 
@@ -134,8 +133,8 @@ img {vertical-align: middle;}
 	<!-- 식당 사진 보여주기 -->
 	<div class="slideshow-container">
 		<c:forEach var="image" items="${restImgList}">
-		<div class="mySlides fade">
-		  <img src="${root }upload/restaurant/${image.restImage }" width="100%" height="70%">
+		<div class="mySlides fade" style="opacity:1; height:360; width:450; margin:auto;">
+		  <img src="${root }upload/restaurant/${image.restImage }" width="100%" height="100%">
 		</div>
 		</c:forEach>
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -480,7 +479,7 @@ img {vertical-align: middle;}
 				<tr><th>${menuList[i].category }</th></tr>
 			</c:if>	
 				<tr>
-					<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td>
+					<td>${menuList[i].menuName }</td>
 					<td>${menuList[i].priceStr }</td>
 					<td>
 						<c:if test="${menuList[i].menuImage != '파일 없음'}">
@@ -523,12 +522,6 @@ img {vertical-align: middle;}
 								<td><input type="text" name="category" style="width:80" value="${menuList[i].category }"></td>
 							</c:if>
 							<td><input type="text" name="menuName" style="width:135px" value="${menuList[i].menuName }"></td>
-							<c:if test="${menuList[i].menuDescript == null }">
-								<td><input type="text" name="menuDescript" style="width:190" placeholder="메뉴 소개"></td>
-							</c:if>	
-							<c:if test="${menuList[i].menuDescript != null }">
-								<td><input type="text" name="menuDescript" style="width:80" value="${menuList[i].menuDescript }"></td>
-							</c:if>
 							<td><input type="number" name="unitPrice" style="width:90px" value="${menuList[i].unitPrice }"></td>
 							<td>
 								<input type="file" id="menuImage${i }" name="menuImage" style="display:none;" onchange="previewImg(this)">

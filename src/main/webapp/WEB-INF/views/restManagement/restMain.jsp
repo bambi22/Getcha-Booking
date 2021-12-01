@@ -10,7 +10,7 @@
 <style>
 
 	#restMain{height:auto; background-color:#F2F2F2; margin:0px 100px 0px 100px; padding: 20px; box-shadow: 1px 1px 3px 1px #dadce0;}
-	#restTable{height:100%;}
+	#restTable{height:100%; width:100%;}
 	.restImg{box-shadow: 1px 1px 3px 1px #dadce0; border:none; border-radius:5px;}
 </style>
 </head>

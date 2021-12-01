@@ -20,6 +20,10 @@
 	
 	function changeDate(){
 		var date = $('#datepicker').val();
+		if(date==""){
+			alert('날짜를 선택하세요.');
+			return;
+		}
 		location.href="selectRestReservationProc?searchDate="+date;
 		
 	}

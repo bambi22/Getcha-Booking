@@ -241,8 +241,7 @@ public class RestManagementService implements IRestManagementService {
 		
 		
 		String[] categoryStr = req.getParameterValues("category"); 
-		String[] menuNameStr = req.getParameterValues("menuName"); 
-		String[] menuDescriptStr = req.getParameterValues("menuDescript"); 
+		String[] menuNameStr = req.getParameterValues("menuName");  
 		String[] unitPriceStr = req.getParameterValues("unitPrice"); 
 		List<MultipartFile> menuFiles = req.getFiles("menuImage");
 		ArrayList<MenuDTO>menuList = infoDao.selectMenu(restNum);
@@ -261,7 +260,6 @@ public class RestManagementService implements IRestManagementService {
 				menuDto.setRestNum((Integer)session.getAttribute("restNum"));
 				menuDto.setCategory(categoryStr[i]);	
 				menuDto.setMenuName(menuName);
-				menuDto.setMenuDescript(menuDescriptStr[i]);
 				menuDto.setUnitPrice(Integer.parseInt(unitPriceStr[i]));
 				if(!menuFiles.get(i).isEmpty()) { 
 					String realPath = req.getServletContext().getRealPath(FILE_LOCATION_MENU);
