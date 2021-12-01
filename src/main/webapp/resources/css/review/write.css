@@ -2,6 +2,7 @@
 	
 	#writing_Container {
 		width: 900px;
+		height: 850px;
 		margin: auto;
 	}
 	
@@ -87,4 +88,7 @@
 	
 	.pre_img { height: 110px; width: 110px; overflow: hidden; margin-right: 6px;}
 	.pre_img img {height: 100%; width: 100%;}
+	
+	.delBtn {color:white; background-color:#343a40; border-color:#343a40; font-size:13px; border-radius:5px; padding:5px 10px; height:35px; width:55px;}
+    .delBtn:hover {background-color:black; border-color:black;}
 	

@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<link href="<c:url value="/resources/css/common/restview.css" />" rel="stylesheet" />
+<link href="<c:url value="/resources/css/restaurant/restview.css" />" rel="stylesheet" />
 <head>
 <meta charset="UTF-8">
 <c:url var="root" value="/" />
-<title>식당 정보 보기</title>
+<title>Getcha Table</title>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="member/image/favicon.ico">
@@ -251,11 +251,12 @@ window.onload=function() {
 	<br><br>
 		
 		<h3 style="margin: 0px 50px">후기</h3>
-		<table id="reviewList" cellpadding="5">
+		<table id="reviewList"  style="cellpadding: 5;" >
 		<c:choose>
 			<c:when test="${fn:length(reviewList) != 0 }">
 			<caption class="cap">최신순</caption>
 			<c:forEach var="rew" items="${reviewList}" varStatus="vs" end="${fn:length(reviewList) }">
+			<tbody style="width: 450px;">
 			<tr>
 				<td rowspan="3" width="150px">
 					<div class="profile_wrap" style="text-align:center">
@@ -273,7 +274,7 @@ window.onload=function() {
 				<td colspan="2"><pre>${rew.content }</pre></td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="2">
 				<c:if test="${rew.fileNames != '파일없음' }">
 					<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
 						<div class="review_image">
@@ -290,11 +291,12 @@ window.onload=function() {
 				</c:choose>
 			</c:forEach>
 			<tr>
-				<td colspan="2" align="center"><nav class="pageNav">${page }</nav></td>
+				<td colspan="3" align="center"><nav class="pageNav">${page }</nav></td>
 			</tr>
 			</c:when>
 			<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
 		</c:choose>
+		</tbody>
 		</table>
 </section>
 </body>

@@ -19,7 +19,7 @@
 	facil_wrap div {text-align:center;}
 	.promotion_section {margin-left: 50px;}
 	.menuSection {margin-left: 50px;}
-	#reviewList {margin: 0px 50px 30px 50px; padding-right:10px; width: 450px; border-top: 2px solid; border-bottom: 2px solid;}
+	#reviewList {margin: 0px 50px 30px 50px; padding-right:10px; border-top: 2px solid; border-bottom: 2px solid;}
 	.cap {caption-side: top; text-align: right; font-size: 13px; color: #8C8C8C}
 	.review_image {height:100px; width:100px; overflow:hidden; border-radius : 20px; float:left; margin-right:5px;}
 	ul {list-style-type:none;}
