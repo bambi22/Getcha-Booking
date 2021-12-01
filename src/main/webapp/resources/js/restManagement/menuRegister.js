@@ -40,7 +40,7 @@ function previewImg(input){
 		var reader = new FileReader();
 		reader.onload = function (e){
 			$('img[name='+imgName+']').attr('src',e.target.result);
-			$('img[name='+imgName+']').attr('width',100);
+			$('img[name='+imgName+']').attr('height',40);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
@@ -58,7 +58,7 @@ $(function() {
                 var reader = new FileReader();
                 reader.onload = function(event) {
       				$($.parseHTML('<img>')).attr('src', event.target.result)
-      				.attr('width', 200)
+      				.attr('width', 210).attr('height', 280)
       				.appendTo(placeToInsertImagePreview);
                 }
                 reader.readAsDataURL(input.files[i]);
@@ -73,7 +73,7 @@ $(function() {
 });
 
 // 메뉴 입력했을 때
-function inputMenu() {
+/*function inputMenu() {
 	var menuNameArr = document.getElementsByName('menuName');
 	var unitPrice = document.getElementsByName('unitPrice');
 	
@@ -89,10 +89,10 @@ function inputMenu() {
 	}
     document.getElementById('inputOrNot').value = "yes";
     $('form[name="f"]').submit();
-}
+}*/
 
 // 메뉴 입력하지 않았을 때
-function noMenu() {
+/*function noMenu() {
 	document.getElementById('inputOrNot').value = "no";
     $('form[name="f"]').submit();
-}
+}*/

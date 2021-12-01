@@ -17,7 +17,7 @@
           <div class="row">
             <div class="col-lg-12">
        
-              <form   action="adminLoginProc" method="post" role="form" style="display: block;">
+              <form action="adminLoginProc" method="post" role="form" style="display: block;">
                 <h2>관리자 로그인</h2>
                   <div class="form-group">
                     
