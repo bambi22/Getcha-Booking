@@ -26,7 +26,7 @@ public class ReviewController {
 	@RequestMapping(value = "writeProc")
 	public String writeProc(MultipartHttpServletRequest req) {
 		service.writeProc(req);
-		return "forward:reviewProc";
+		return "redirect:reviewProc";
 	}
 	
 	@RequestMapping(value = "reviewProc")
@@ -46,7 +46,7 @@ public class ReviewController {
 	@RequestMapping(value = "modifyProc")
 	public String modifyProc(MultipartHttpServletRequest req) {
 		service.modifyProc(req);
-		return "forward:reviewProc";
+		return "redirect:reviewProc";
 	}
 	
 	@ResponseBody

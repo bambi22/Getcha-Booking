@@ -28,9 +28,6 @@
 	.image_wrap div{
 		float: left; margin-bottom: 10px;
 	}
-	.image_wrap::after{ content: '';
-	    display: block;
-	    clear: both;}
 	
 	.review_image{
 		height: 120px;
@@ -50,12 +47,7 @@
      	padding: 5px;
       	text-align: right;
     }
-    
-    .button_wrap::after{content: '';
-	    display: block;
-	    clear: both;}
-    
-    .button_wrap {text-align: right;}
+
     .modiBtn {color:white; background-color:#343a40; border-color:#343a40; font-size:15px; border-radius:5px; padding:6px 12px; height:38px; width:58px;}
     .modiBtn:hover {background-color:black; border-color:black;}
     .delBtn {color:white; background-color:#343a40; border-color:#343a40; font-size:15px; border-radius:5px; padding:6px 12px; height:38px; width:58px;}

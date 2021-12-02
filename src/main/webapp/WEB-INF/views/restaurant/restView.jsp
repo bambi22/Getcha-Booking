@@ -266,7 +266,7 @@ window.onload=function() {
 						<tr><th>${menuList[i].category }</th></tr>
 					</c:if>	
 					<tr>
-						<td>${menuList[i].menuName }<br>${menuList[i].menuDescript }</td>
+						<td>${menuList[i].menuName }</td>
 						<td>${menuList[i].unitPrice }</td>
 					</tr>
 				</c:forEach>
@@ -289,17 +289,17 @@ window.onload=function() {
 							<p>${rew.nickName}</p>
 						</div>
 					</td>
-					<td class="col">
+					<td>
 					<c:forEach begin="1" end="${rew.point }" step="1">
 						<img src="resources/img/icon/star.png" style="width:18px;">
 					</c:forEach>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="col"><pre>${rew.content }</pre></td>
+					<td colspan="2"><pre>${rew.content }</pre></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="col">
+					<td colspan="2">
 					<c:if test="${rew.fileNames != '파일없음' }">
 						<c:forTokens var="fileName" items="${rew.fileNames }" delims=",">
 							<div class="review_image">
@@ -309,7 +309,7 @@ window.onload=function() {
 					</c:if>
 					</td>
 				</tr>
-				<tr class="date_row"><td colspan="2" class="col"><p>${rew.writeDate }</p></td></tr>
+				<tr class="date_row"><td colspan="2"><p>${rew.writeDate }</p></td></tr>
 					<c:choose>
 						<c:when test="${vs.count != vs.end }"><tr><td class="line" colspan="2"><hr align="center" width="800px"></td></tr></c:when>
 						<c:otherwise><tr><td></td></tr></c:otherwise>
@@ -319,7 +319,7 @@ window.onload=function() {
 					<td colspan="3" align="center"><nav class="pageNav">${page }</nav></td>
 				</tr>
 				</c:when>
-				<c:otherwise><span class="cap">등록된 후기가 없습니다.</span></c:otherwise>
+				<c:otherwise><p class="emptyStr">등록된 후기가 없습니다.</p></c:otherwise>
 			</c:choose>
 			</table>
 		</div>
